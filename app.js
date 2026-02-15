@@ -1,4 +1,4 @@
-/* breezeway-calls — call flow renderer + inline editor */
+/* breezeway-calls — call flow renderer (always editable) */
 
 (function () {
   'use strict';
@@ -16,8 +16,7 @@
   var currentFlow = null;
   var currentSlug = null;
   var breadcrumb = [];
-  var editMode = false;
-  var dirty = false; // tracks unsaved changes
+  var dirty = false;
 
   // ── Helpers ──
 
@@ -40,20 +39,26 @@
     return Array.from(new Uint8Array(buf)).map(function (b) { return b.toString(16).padStart(2, '0'); }).join('');
   }
 
-  function setHash(h) {
-    history.pushState(null, '', '#' + h);
+  function setHash(h) { history.pushState(null, '', '#' + h); }
+  function getHash() { return location.hash.replace(/^#/, ''); }
+  function getGhToken() { return localStorage.getItem(GH_TOKEN_KEY) || ''; }
+  function setGhToken(token) { localStorage.setItem(GH_TOKEN_KEY, token); }
+
+  function markDirty() {
+    if (dirty) return;
+    dirty = true;
+    showSaveFab();
   }
 
-  function getHash() {
-    return location.hash.replace(/^#/, '');
+  function showSaveFab() {
+    if (document.getElementById('save-fab')) return;
+    var fab = el('button', { id: 'save-fab', className: 'save-fab', textContent: 'Save', onClick: handleSave });
+    app.appendChild(fab);
   }
 
-  function getGhToken() {
-    return localStorage.getItem(GH_TOKEN_KEY) || '';
-  }
-
-  function setGhToken(token) {
-    localStorage.setItem(GH_TOKEN_KEY, token);
+  function hideSaveFab() {
+    var fab = document.getElementById('save-fab');
+    if (fab) fab.remove();
   }
 
   // ── PIN Gate ──
@@ -83,9 +88,7 @@
     });
   }
 
-  function checkPin() {
-    return localStorage.getItem(LS_KEY) === '1';
-  }
+  function checkPin() { return localStorage.getItem(LS_KEY) === '1'; }
 
   // ── Data Loading ──
 
@@ -112,7 +115,6 @@
     var path = 'data/leads/' + slug + '.json';
     var apiUrl = 'https://api.github.com/repos/' + GH_OWNER + '/' + GH_REPO + '/contents/' + path;
 
-    // Get current file SHA (needed for update)
     var getResp = await fetch(apiUrl, {
       headers: { 'Authorization': 'token ' + token, 'Accept': 'application/vnd.github.v3+json' }
     });
@@ -123,10 +125,7 @@
     }
 
     var content = btoa(unescape(encodeURIComponent(JSON.stringify(leadData, null, 2))));
-    var body = {
-      message: 'Update call flow: ' + (leadData.name || slug),
-      content: content
-    };
+    var body = { message: 'Update call flow: ' + (leadData.name || slug), content: content };
     if (sha) body.sha = sha;
 
     var putResp = await fetch(apiUrl, {
@@ -143,7 +142,6 @@
       var err = await putResp.json();
       throw new Error(err.message || 'GitHub API error');
     }
-
     return putResp.json();
   }
 
@@ -152,12 +150,12 @@
   function showTokenSetup(onDone) {
     var overlay = el('div', { className: 'modal-overlay' });
     var modal = el('div', { className: 'modal' }, [
-      el('div', { className: 'modal-title', textContent: 'GitHub Token' }),
-      el('div', { className: 'modal-desc', textContent: 'Enter a GitHub personal access token with repo scope. This is stored locally in your browser.' }),
+      el('div', { className: 'modal-title', textContent: 'GitHub Token (one-time)' }),
+      el('div', { className: 'modal-desc', textContent: 'To save changes, paste a GitHub personal access token with repo Contents permission. This is stored in your browser and never leaves this device.' }),
       el('input', { id: 'token-input', type: 'password', className: 'modal-input', placeholder: 'ghp_...', value: getGhToken() }),
       el('div', { className: 'modal-buttons' }, [
         el('button', { className: 'modal-btn modal-btn-cancel', textContent: 'Cancel', onClick: function () { overlay.remove(); } }),
-        el('button', { className: 'modal-btn modal-btn-save', textContent: 'Save', onClick: function () {
+        el('button', { className: 'modal-btn modal-btn-save', textContent: 'Save Token', onClick: function () {
           var val = document.getElementById('token-input').value.trim();
           if (val) {
             setGhToken(val);
@@ -170,6 +168,38 @@
     overlay.appendChild(modal);
     app.appendChild(overlay);
     document.getElementById('token-input').focus();
+  }
+
+  // ── Save Handler ──
+
+  async function handleSave() {
+    if (!dirty) return;
+
+    // If no token yet, prompt then retry
+    if (!getGhToken()) {
+      showTokenSetup(function () { handleSave(); });
+      return;
+    }
+
+    var fab = document.getElementById('save-fab');
+    if (fab) { fab.textContent = 'Saving...'; fab.disabled = true; }
+
+    try {
+      var leadData = JSON.parse(JSON.stringify(currentLead));
+      leadData.flow = currentFlow;
+      delete leadData.slug;
+
+      await saveToGitHub(currentSlug, leadData);
+      dirty = false;
+      if (fab) { fab.textContent = 'Saved!'; fab.classList.add('save-fab-ok'); }
+      setTimeout(function () { hideSaveFab(); }, 2000);
+    } catch (e) {
+      if (fab) { fab.textContent = 'Error — tap to retry'; fab.disabled = false; fab.classList.add('save-fab-error'); }
+      // If auth error, clear token so next tap re-prompts
+      if (e.message && e.message.toLowerCase().includes('bad credentials')) {
+        setGhToken('');
+      }
+    }
   }
 
   // ── Search / Index View ──
@@ -241,7 +271,6 @@
     currentFlow = lead.flow;
     currentSlug = lead.slug;
     breadcrumb = [];
-    editMode = false;
     dirty = false;
 
     app.innerHTML = '';
@@ -254,30 +283,14 @@
     }
     var rawPhone = lead.phone || lead.company_phone || '';
 
-    var headerTopChildren = [
-      el('button', { className: 'back-btn', textContent: '\u2190', onClick: function () {
-        if (dirty && !confirm('You have unsaved changes. Leave anyway?')) return;
-        editMode = false; dirty = false; setHash(''); route();
-      }}),
-      el('span', { className: 'lead-name', textContent: lead.name })
-    ];
-
-    // Edit toggle button
-    var editBtn = el('button', { className: 'edit-toggle-btn', textContent: '\u270e', onClick: function () {
-      if (!editMode) {
-        if (!getGhToken()) {
-          showTokenSetup(function () { toggleEdit(); });
-        } else {
-          toggleEdit();
-        }
-      } else {
-        toggleEdit();
-      }
-    }});
-    headerTopChildren.push(editBtn);
-
     var headerChildren = [
-      el('div', { className: 'lead-header-top' }, headerTopChildren),
+      el('div', { className: 'lead-header-top' }, [
+        el('button', { className: 'back-btn', textContent: '\u2190', onClick: function () {
+          if (dirty && !confirm('You have unsaved changes. Leave anyway?')) return;
+          dirty = false; setHash(''); route();
+        }}),
+        el('span', { className: 'lead-name', textContent: lead.name })
+      ]),
       el('div', { className: 'lead-title', textContent: [lead.title, lead.company].filter(Boolean).join(' \u2014 ') })
     ];
 
@@ -287,25 +300,27 @@
 
     view.appendChild(el('div', { className: 'lead-header' }, headerChildren));
 
-    // Context panel
+    // Context panel (always editable)
     if (currentFlow && currentFlow.context) {
+      var ctxBody = el('div', {
+        className: 'context-body',
+        id: 'context-body',
+        textContent: currentFlow.context,
+        contenteditable: 'true'
+      });
+      ctxBody.addEventListener('input', function () {
+        currentFlow.context = ctxBody.textContent;
+        markDirty();
+      });
+
       var panel = el('div', { className: 'context-panel open' }, [
         el('button', { className: 'context-toggle', innerHTML: '<span class="arrow">\u25b6</span> CONTEXT', onClick: function () { panel.classList.toggle('open'); } }),
-        el('div', { className: 'context-body', id: 'context-body', textContent: currentFlow.context })
+        ctxBody
       ]);
       view.appendChild(panel);
     }
 
-    // Edit toolbar (hidden by default)
-    var toolbar = el('div', { className: 'edit-toolbar hidden', id: 'edit-toolbar' }, [
-      el('span', { className: 'edit-toolbar-label', textContent: 'EDITING' }),
-      el('button', { className: 'edit-save-btn', id: 'save-btn', textContent: 'Save', onClick: handleSave }),
-      el('button', { className: 'edit-cancel-btn', textContent: 'Cancel', onClick: function () { toggleEdit(); } }),
-      el('button', { className: 'edit-token-btn', textContent: '\u2699', onClick: function () { showTokenSetup(); } })
-    ]);
-    view.appendChild(toolbar);
-
-    // Save status
+    // Save status area
     view.appendChild(el('div', { className: 'save-status hidden', id: 'save-status' }));
 
     // Breadcrumb container
@@ -326,82 +341,6 @@
       document.getElementById('node-container').appendChild(
         el('div', { className: 'error-msg', textContent: 'No call flow data available for this lead.' })
       );
-    }
-  }
-
-  function toggleEdit() {
-    editMode = !editMode;
-    var toolbar = document.getElementById('edit-toolbar');
-    var editBtn = document.querySelector('.edit-toggle-btn');
-    if (toolbar) toolbar.classList.toggle('hidden', !editMode);
-    if (editBtn) editBtn.classList.toggle('active', editMode);
-
-    if (!editMode && dirty) {
-      if (!confirm('Discard unsaved changes?')) {
-        editMode = true;
-        if (toolbar) toolbar.classList.remove('hidden');
-        if (editBtn) editBtn.classList.add('active');
-        return;
-      }
-      // Reload to discard
-      dirty = false;
-      route();
-      return;
-    }
-
-    // Re-render current node in edit/view mode
-    var hash = getHash();
-    var parts = hash.split('/');
-    var nodeId = parts.length >= 3 ? parts.slice(2).join('/') : (currentFlow ? currentFlow.start : null);
-    if (nodeId && currentFlow && currentFlow.nodes[nodeId]) {
-      renderNode(nodeId, currentFlow.nodes[nodeId]);
-    }
-
-    // Make context editable
-    var ctxBody = document.getElementById('context-body');
-    if (ctxBody) {
-      if (editMode) {
-        ctxBody.setAttribute('contenteditable', 'true');
-        ctxBody.classList.add('editable');
-        ctxBody.addEventListener('input', function () {
-          currentFlow.context = ctxBody.textContent;
-          dirty = true;
-          updateSaveBtn();
-        });
-      } else {
-        ctxBody.removeAttribute('contenteditable');
-        ctxBody.classList.remove('editable');
-      }
-    }
-  }
-
-  function updateSaveBtn() {
-    var btn = document.getElementById('save-btn');
-    if (btn) btn.textContent = dirty ? 'Save *' : 'Save';
-  }
-
-  async function handleSave() {
-    if (!dirty) return;
-    var btn = document.getElementById('save-btn');
-    var status = document.getElementById('save-status');
-    if (btn) { btn.textContent = 'Saving...'; btn.disabled = true; }
-    if (status) { status.textContent = ''; status.classList.remove('hidden', 'save-error', 'save-ok'); }
-
-    try {
-      // Rebuild lead data with updated flow
-      var leadData = JSON.parse(JSON.stringify(currentLead));
-      leadData.flow = currentFlow;
-      delete leadData.slug;
-
-      await saveToGitHub(currentSlug, leadData);
-
-      dirty = false;
-      if (btn) { btn.textContent = 'Save'; btn.disabled = false; }
-      if (status) { status.textContent = 'Saved! Site will update in ~30s.'; status.classList.remove('hidden', 'save-error'); status.classList.add('save-ok'); }
-      setTimeout(function () { if (status) status.classList.add('hidden'); }, 4000);
-    } catch (e) {
-      if (btn) { btn.textContent = 'Save *'; btn.disabled = false; }
-      if (status) { status.textContent = 'Error: ' + e.message; status.classList.remove('hidden', 'save-ok'); status.classList.add('save-error'); }
     }
   }
 
@@ -456,151 +395,148 @@
     });
   }
 
-  // ── Node Rendering ──
+  // ── Node Rendering (always editable) ──
 
   function renderNode(nodeId, node) {
     var container = document.getElementById('node-container');
     if (!container) return;
     container.innerHTML = '';
 
-    if (editMode) {
-      renderNodeEdit(container, nodeId, node);
-    } else {
-      renderNodeView(container, nodeId, node);
-    }
-  }
+    // Label — editable inline
+    var labelEl = el('div', {
+      className: 'node-label',
+      contenteditable: 'true',
+      textContent: node.label
+    });
+    labelEl.addEventListener('input', function () {
+      node.label = labelEl.textContent;
+      // Update breadcrumb text too
+      for (var i = 0; i < breadcrumb.length; i++) {
+        if (breadcrumb[i].id === nodeId) { breadcrumb[i].label = node.label; break; }
+      }
+      markDirty();
+    });
+    container.appendChild(labelEl);
 
-  function renderNodeView(container, nodeId, node) {
-    container.appendChild(el('div', { className: 'node-label', textContent: node.label }));
-    container.appendChild(el('div', { className: 'node-say', textContent: node.say }));
+    // Say — editable inline
+    var sayEl = el('div', {
+      className: 'node-say',
+      contenteditable: 'true',
+      textContent: node.say
+    });
+    sayEl.addEventListener('input', function () {
+      node.say = sayEl.textContent;
+      markDirty();
+    });
+    container.appendChild(sayEl);
 
-    if (node.note) {
-      container.appendChild(el('div', { className: 'node-note', textContent: node.note }));
-    }
+    // Note — editable inline
+    var noteEl = el('div', {
+      className: 'node-note',
+      contenteditable: 'true',
+      textContent: node.note || ''
+    });
+    noteEl.setAttribute('data-placeholder', 'Add coaching note...');
+    noteEl.addEventListener('input', function () {
+      node.note = noteEl.textContent;
+      markDirty();
+    });
+    container.appendChild(noteEl);
 
+    // Branches
     if (node.branches && node.branches.length > 0) {
       var branchContainer = el('div', { className: 'branches' });
       node.branches.forEach(function (b) {
-        branchContainer.appendChild(el('button', {
-          className: 'branch-btn',
-          onClick: function () { navigateToNode(b.to, false); }
-        }, [
-          el('span', { textContent: b.label }),
-          el('span', { className: 'branch-arrow', textContent: '\u203a' })
-        ]));
+        var branchRow = el('div', { className: 'branch-row' });
+
+        // Editable label
+        var branchLabel = el('span', {
+          className: 'branch-label-edit',
+          contenteditable: 'true',
+          textContent: b.label
+        });
+        branchLabel.addEventListener('input', function () {
+          b.label = branchLabel.textContent;
+          markDirty();
+        });
+        // Stop click from navigating when editing the label
+        branchLabel.addEventListener('click', function (e) { e.stopPropagation(); });
+        branchLabel.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); } });
+
+        // Target selector (small, at the right)
+        var targetBtn = el('span', {
+          className: 'branch-target',
+          textContent: '\u2192 ' + b.to
+        });
+        targetBtn.addEventListener('click', function (e) {
+          e.stopPropagation();
+          showTargetPicker(b, targetBtn);
+        });
+
+        // Navigate button wrapping everything
+        var btn = el('button', { className: 'branch-btn', onClick: function () {
+          navigateToNode(b.to, false);
+        }}, [branchLabel, targetBtn]);
+
+        // Delete branch (tiny x)
+        var delBtn = el('span', { className: 'branch-del', textContent: '\u00d7' });
+        delBtn.addEventListener('click', function (e) {
+          e.stopPropagation();
+          node.branches.splice(node.branches.indexOf(b), 1);
+          markDirty();
+          renderNode(nodeId, node);
+        });
+
+        branchRow.appendChild(btn);
+        branchRow.appendChild(delBtn);
+        branchContainer.appendChild(branchRow);
       });
+
+      // Add branch button
+      var addBranchBtn = el('button', {
+        className: 'add-branch-btn',
+        textContent: '+ Add response',
+        onClick: function () {
+          if (!node.branches) node.branches = [];
+          node.branches.push({ label: 'New response', to: nodeId });
+          markDirty();
+          renderNode(nodeId, node);
+        }
+      });
+      branchContainer.appendChild(addBranchBtn);
+
       container.appendChild(branchContainer);
     } else {
+      // Terminal node
       container.appendChild(el('div', { className: 'terminal-msg', textContent: 'End of flow' }));
-    }
-
-    container.appendChild(el('button', {
-      className: 'start-over-btn',
-      textContent: 'Start Over',
-      onClick: function () { navigateToNode(currentFlow.start, true); }
-    }));
-
-    container.scrollIntoView({ behavior: 'instant', block: 'start' });
-  }
-
-  function renderNodeEdit(container, nodeId, node) {
-    // Label (editable)
-    var labelInput = el('input', { className: 'edit-input edit-label-input', value: node.label, placeholder: 'STAGE LABEL' });
-    labelInput.addEventListener('input', function () { node.label = labelInput.value; dirty = true; updateSaveBtn(); });
-    container.appendChild(labelInput);
-
-    // Say (editable textarea)
-    var sayArea = el('textarea', { className: 'edit-textarea edit-say-area', placeholder: 'What to say...' });
-    sayArea.value = node.say || '';
-    sayArea.addEventListener('input', function () { node.say = sayArea.value; dirty = true; updateSaveBtn(); autoResize(sayArea); });
-    container.appendChild(sayArea);
-    setTimeout(function () { autoResize(sayArea); }, 0);
-
-    // Note (editable textarea)
-    var noteArea = el('textarea', { className: 'edit-textarea edit-note-area', placeholder: 'Coaching note (not spoken)...' });
-    noteArea.value = node.note || '';
-    noteArea.addEventListener('input', function () { node.note = noteArea.value; dirty = true; updateSaveBtn(); autoResize(noteArea); });
-    container.appendChild(noteArea);
-    setTimeout(function () { autoResize(noteArea); }, 0);
-
-    // Branches
-    var branchSection = el('div', { className: 'edit-branches' });
-    var branchHeader = el('div', { className: 'edit-section-header' }, [
-      el('span', { textContent: 'Branches' }),
-      el('button', { className: 'edit-add-btn', textContent: '+ Add', onClick: function () {
-        // Add a new branch
-        if (!node.branches) node.branches = [];
-        var newBranch = { label: 'New response', to: nodeId }; // points to self by default
-        node.branches.push(newBranch);
-        dirty = true; updateSaveBtn();
-        renderNode(nodeId, node);
-      }})
-    ]);
-    branchSection.appendChild(branchHeader);
-
-    if (node.branches && node.branches.length > 0) {
-      node.branches.forEach(function (b, idx) {
-        var row = el('div', { className: 'edit-branch-row' });
-
-        var labelIn = el('input', { className: 'edit-input edit-branch-label', value: b.label, placeholder: 'Response label' });
-        labelIn.addEventListener('input', function () { b.label = labelIn.value; dirty = true; updateSaveBtn(); });
-        row.appendChild(labelIn);
-
-        // Target node selector
-        var selectEl = el('select', { className: 'edit-select' });
-        Object.keys(currentFlow.nodes).forEach(function (nid) {
-          var opt = el('option', { value: nid, textContent: nid });
-          if (nid === b.to) opt.selected = true;
-          selectEl.appendChild(opt);
-        });
-        selectEl.addEventListener('change', function () { b.to = selectEl.value; dirty = true; updateSaveBtn(); });
-        row.appendChild(selectEl);
-
-        // Delete branch button
-        var delBtn = el('button', { className: 'edit-del-btn', textContent: '\u00d7', onClick: function () {
-          node.branches.splice(idx, 1);
-          dirty = true; updateSaveBtn();
+      container.appendChild(el('button', {
+        className: 'add-branch-btn',
+        textContent: '+ Add response',
+        onClick: function () {
+          node.branches = [{ label: 'New response', to: nodeId }];
+          markDirty();
           renderNode(nodeId, node);
-        }});
-        row.appendChild(delBtn);
-
-        branchSection.appendChild(row);
-      });
+        }
+      }));
     }
-    container.appendChild(branchSection);
 
-    // Node management
-    var mgmt = el('div', { className: 'edit-node-mgmt' }, [
-      el('span', { className: 'edit-node-id', textContent: 'Node: ' + nodeId }),
-      el('button', { className: 'edit-add-node-btn', textContent: '+ New Node', onClick: function () {
+    // Node footer: node ID + add new node
+    var footer = el('div', { className: 'node-footer' }, [
+      el('span', { className: 'node-id-label', textContent: nodeId }),
+      el('button', { className: 'add-node-btn', textContent: '+ New node', onClick: function () {
         var newId = prompt('New node ID (snake_case):');
         if (!newId || currentFlow.nodes[newId]) {
-          if (currentFlow.nodes[newId]) alert('Node "' + newId + '" already exists');
+          if (newId && currentFlow.nodes[newId]) alert('Node "' + newId + '" already exists');
           return;
         }
         currentFlow.nodes[newId] = { label: 'NEW NODE', say: '', note: '', branches: [] };
-        dirty = true; updateSaveBtn();
+        markDirty();
         navigateToNode(newId, false);
       }})
     ]);
-    container.appendChild(mgmt);
+    container.appendChild(footer);
 
-    // Navigate buttons
-    container.appendChild(el('div', { className: 'branches' }));
-    if (node.branches && node.branches.length > 0) {
-      var navBranches = el('div', { className: 'branches edit-nav-branches' });
-      node.branches.forEach(function (b) {
-        navBranches.appendChild(el('button', {
-          className: 'branch-btn',
-          onClick: function () { navigateToNode(b.to, false); }
-        }, [
-          el('span', { textContent: b.label }),
-          el('span', { className: 'branch-arrow', textContent: '\u203a' })
-        ]));
-      });
-      container.appendChild(navBranches);
-    }
-
+    // Start over
     container.appendChild(el('button', {
       className: 'start-over-btn',
       textContent: 'Start Over',
@@ -610,9 +546,41 @@
     container.scrollIntoView({ behavior: 'instant', block: 'start' });
   }
 
-  function autoResize(textarea) {
-    textarea.style.height = 'auto';
-    textarea.style.height = textarea.scrollHeight + 'px';
+  // Target picker — shows a dropdown of all node IDs
+  function showTargetPicker(branch, anchorEl) {
+    // Remove any existing picker
+    var old = document.querySelector('.target-picker');
+    if (old) old.remove();
+
+    var picker = el('div', { className: 'target-picker' });
+    var nodeIds = Object.keys(currentFlow.nodes).sort();
+    nodeIds.forEach(function (nid) {
+      var opt = el('div', {
+        className: 'target-option' + (nid === branch.to ? ' selected' : ''),
+        textContent: nid,
+        onClick: function () {
+          branch.to = nid;
+          anchorEl.textContent = '\u2192 ' + nid;
+          markDirty();
+          picker.remove();
+        }
+      });
+      picker.appendChild(opt);
+    });
+
+    // Position near the anchor
+    var rect = anchorEl.getBoundingClientRect();
+    picker.style.top = rect.bottom + 'px';
+    picker.style.right = (window.innerWidth - rect.right) + 'px';
+    document.body.appendChild(picker);
+
+    // Close on outside click
+    setTimeout(function () {
+      document.addEventListener('click', function handler() {
+        picker.remove();
+        document.removeEventListener('click', handler);
+      }, { once: true });
+    }, 0);
   }
 
   // ── Router ──
@@ -620,6 +588,7 @@
   async function route() {
     if (!checkPin()) { showPinGate(); return; }
 
+    hideSaveFab();
     var hash = getHash();
 
     if (hash.startsWith('lead/')) {
