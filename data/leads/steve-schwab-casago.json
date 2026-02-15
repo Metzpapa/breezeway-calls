@@ -1,0 +1,660 @@
+{
+  "name": "Steve Schwab",
+  "title": "Founder / CEO",
+  "company": "Casago",
+  "location": "Sedona, AZ",
+  "phone": "",
+  "company_phone": "",
+  "alt_phones": [],
+  "flow": {
+    "context": "Steve Schwab is the Founder and CEO of Casago, a vacation rental PM company headquartered in Sedona, AZ — he's the top-level buyer and publicly champions operational excellence and world-class systems. Casago completed a merger with Vacasa in May 2025, acquired Naya Homes in June 2025, and announced a strategic partnership with Breezeway for property operations in August 2025, meaning they are actively scaling and building out their ops tech stack right now. Key ops leaders below Steve: Jose Romero (Director of Ops), Wes Melton (CTO), Judi Crane (AZ General Manager). The strongest hook is the Breezeway partnership — RapidEye plugs directly into Breezeway, and Casago's rapid post-merger growth creates the exact quality-control gap RapidEye solves. No direct personal connection to Sam — lead with the Breezeway announcement as the bridge.",
+    "start": "gatekeeper_slide",
+    "nodes": {
+      "gatekeeper_slide": {
+        "label": "GATEKEEPER — SLIDE BY",
+        "say": "Hey, could you get me through to Steve? It's Sam.",
+        "note": "Casual, assume the transfer. Don't explain anything. If Steve picks up directly, jump straight to OPENER.",
+        "branches": [
+          {
+            "label": "\"Who's calling?\" / wants more info",
+            "to": "gatekeeper_context"
+          },
+          {
+            "label": "Transferring / Steve picks up directly",
+            "to": "opener"
+          },
+          {
+            "label": "\"He's not available right now\"",
+            "to": "gatekeeper_social_proof"
+          },
+          {
+            "label": "Sent to voicemail",
+            "to": "gatekeeper_voicemail"
+          }
+        ]
+      },
+      "gatekeeper_context": {
+        "label": "GATEKEEPER — ADD CONTEXT",
+        "say": "Yeah — I work with a few other property management companies in Arizona on their inspection workflows. Would you mind letting Steve know it's Sam Parks?",
+        "note": "Don't pitch. Just enough info to sound relevant. Stay casual. If they ask what company, say RapidEye and nothing more.",
+        "branches": [
+          {
+            "label": "Puts you through",
+            "to": "opener"
+          },
+          {
+            "label": "Pushes back or asks more questions",
+            "to": "gatekeeper_social_proof"
+          },
+          {
+            "label": "\"He's not available\"",
+            "to": "gatekeeper_social_proof"
+          },
+          {
+            "label": "Sent to voicemail",
+            "to": "gatekeeper_voicemail"
+          }
+        ]
+      },
+      "gatekeeper_social_proof": {
+        "label": "GATEKEEPER — SOCIAL PROOF",
+        "say": "Totally understand. We help a couple other property management companies with their turnover inspection process — I noticed the Breezeway partnership and wanted to connect with Steve since we integrate with Breezeway. I sent him a note already — would you mind giving him a heads up that Sam Parks called? Or is there a better time to try him back?",
+        "note": "Name-drop Breezeway — it's a known quantity at Casago now. If they mention Jose Romero, Wes Melton, or Judi Crane as a better contact, take it immediately.",
+        "branches": [
+          {
+            "label": "Gives a callback time",
+            "to": "bad_timing_lock"
+          },
+          {
+            "label": "Puts you through after all",
+            "to": "opener"
+          },
+          {
+            "label": "Suggests someone else on the team",
+            "to": "referral_get_name"
+          },
+          {
+            "label": "Shuts it down completely",
+            "to": "gatekeeper_voicemail"
+          }
+        ]
+      },
+      "gatekeeper_voicemail": {
+        "label": "VOICEMAIL",
+        "say": "Hey Steve, it's Sam Parks with RapidEye. I saw the Breezeway partnership announcement and wanted to connect — we work with a few PM companies on the AI side of that same inspection workflow. I'll try you again in a couple days, but if you want to reach me first it's Sam Parks, RapidEye. Talk soon.",
+        "note": "Under 20 seconds. Sound like someone he should already know. Don't pitch. Call back in 2 days at a different time of day.",
+        "branches": []
+      },
+      "opener": {
+        "label": "OPENER",
+        "say": "Hey Steve — I saw the Breezeway partnership y'all announced back in August, and it caught my eye because we work with a few PM companies on the inspection side of that same workflow. It's Sam Parks with RapidEye — have you heard the name tossed around at all?",
+        "note": "Feet-up energy. The Breezeway reference shows you did your homework and creates an instant bridge to what RapidEye does. Pause after the question and let him answer.",
+        "branches": [
+          {
+            "label": "\"Yeah I've heard of you\" / curious",
+            "to": "heard_name_yes"
+          },
+          {
+            "label": "\"No\" / \"Doesn't ring a bell\"",
+            "to": "heard_name_no"
+          },
+          {
+            "label": "\"I'm in the middle of something\" / bad timing",
+            "to": "bad_timing"
+          },
+          {
+            "label": "Cold / guarded / \"What is this?\"",
+            "to": "permission_fallback"
+          }
+        ]
+      },
+      "heard_name_yes": {
+        "label": "THEY'VE HEARD OF YOU",
+        "say": "Oh nice — well normally we'd be working with someone on your ops team. What'd you hear?",
+        "note": "Rare but great. Let him talk. Whatever he says, transition into discovery. If he mentions Breezeway or inspections specifically, jump to the Breezeway hook.",
+        "branches": [
+          {
+            "label": "Mentions Breezeway or ops tools",
+            "to": "breezeway_hook"
+          },
+          {
+            "label": "Vague or asks what you do",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "Refers you to someone on his team",
+            "to": "referral_entry"
+          }
+        ]
+      },
+      "heard_name_no": {
+        "label": "HAVEN'T HEARD — TRANSITION",
+        "say": "Ha — guess I'm not as popular as I thought. Well the reason for my call is pretty specific to what y'all are doing right now —",
+        "note": "Self-deprecating beat breaks tension. Go straight into pain trigger without a long pause here. Keep momentum.",
+        "branches": [
+          {
+            "label": "He's listening / gives you space",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "Cuts in — \"I'm really busy\"",
+            "to": "bad_timing"
+          },
+          {
+            "label": "Cuts in — \"Not interested\"",
+            "to": "objection_not_interested"
+          }
+        ]
+      },
+      "bad_timing": {
+        "label": "BAD TIMING",
+        "say": "Totally hear you — would it be a terrible idea if I tried you again later this week? I'll keep it short.",
+        "note": "Don't push. Respect the moment. Try to lock a specific callback window.",
+        "branches": [
+          {
+            "label": "\"Yeah try me on [day/time]\"",
+            "to": "bad_timing_lock"
+          },
+          {
+            "label": "\"Just send me an email\"",
+            "to": "send_email_handle"
+          },
+          {
+            "label": "\"What's this about?\" / actually gives you a minute",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "Hard no",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "bad_timing_lock": {
+        "label": "LOCK CALLBACK",
+        "say": "Perfect — I'll try you then. Appreciate it, Steve. Talk soon.",
+        "note": "Write down the day and time immediately. Set a reminder. Don't keep talking — hang up clean.",
+        "branches": []
+      },
+      "permission_fallback": {
+        "label": "PERMISSION — 30 SECOND ASK",
+        "say": "Yeah totally — I mean it is a cold call, I'll own that. Can I get 30 seconds to tell you why I reached out? You can totally hang up on me if it's not relevant.",
+        "note": "Disarming honesty. Most people give 30 seconds after this. If he does, go straight to pain trigger — you're on the clock now.",
+        "branches": [
+          {
+            "label": "\"Alright go ahead\" / gives permission",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "\"No I'm good\" / rejects",
+            "to": "permission_rejected"
+          },
+          {
+            "label": "\"Just send an email\"",
+            "to": "send_email_handle"
+          }
+        ]
+      },
+      "permission_rejected": {
+        "label": "PERMISSION REJECTED",
+        "say": "Shoot — totally my bad. Just so nobody from my team bugs you again — is it that I caught you at a horrible time, or is it that you already know what we do and this just isn't a fit?",
+        "note": "This splits the rejection. 'Horrible time' gives you a callback path. 'Already know what we do' is almost never true and reopens the conversation.",
+        "branches": [
+          {
+            "label": "\"Bad time\" / timing issue",
+            "to": "bad_timing"
+          },
+          {
+            "label": "\"I don't even know what you do\"",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "\"We're not interested\" / firm",
+            "to": "split_rejection"
+          },
+          {
+            "label": "\"Talk to someone else on my team\"",
+            "to": "referral_entry"
+          }
+        ]
+      },
+      "split_rejection": {
+        "label": "LAST CHANCE SPLIT",
+        "say": "Totally fair. Is it that inspections just aren't a priority for you guys right now, or is it more that you're set with how Breezeway's handling everything already?",
+        "note": "Casago-specific split. If it's priority — ask who it would be a priority for and get a referral. If it's Breezeway — there's a gap Breezeway doesn't cover and you can explain it.",
+        "branches": [
+          {
+            "label": "\"Breezeway handles it\" / mentions their process",
+            "to": "breezeway_hook"
+          },
+          {
+            "label": "\"Not a priority\" / firm no",
+            "to": "graceful_exit"
+          },
+          {
+            "label": "\"Talk to my ops team about that\"",
+            "to": "referral_entry"
+          }
+        ]
+      },
+      "pain_trigger": {
+        "label": "PAIN TRIGGER — CEO FRAME",
+        "say": "I work with a couple other PM companies that went through big acquisitions recently — similar spot to where you guys are post-Vacasa. And the thing I keep hearing is that the hardest part isn't getting cleaners to take photos — especially now with Breezeway handling that workflow. The hard part is nobody actually has time to look at all those photos. So stuff slips through — cracked countertop, a stain on the couch, staging that's completely off — and the first person who notices is either the guest who leaves a three-star review or the owner who starts asking questions. At the scale Casago's operating at now, that's not a one-off, that's a daily thing across hundreds of properties.",
+        "note": "PAUSE HERE. This is the most important moment in the call. Do not rush past it. Let Steve react. The Vacasa reference and Breezeway reference show you know their situation. Watch for him to confirm the pain, ask questions, or push back.",
+        "branches": [
+          {
+            "label": "Engages — confirms the pain or asks questions",
+            "to": "warm_engaged"
+          },
+          {
+            "label": "Mentions Breezeway specifically",
+            "to": "breezeway_hook"
+          },
+          {
+            "label": "\"We've got that handled\"",
+            "to": "objection_have_process"
+          },
+          {
+            "label": "\"What do you do about it?\" / wants the solution",
+            "to": "solution_drop"
+          },
+          {
+            "label": "\"Not interested\" / shuts down",
+            "to": "objection_not_interested"
+          },
+          {
+            "label": "\"Send me something on that\"",
+            "to": "send_email_handle"
+          }
+        ]
+      },
+      "warm_engaged": {
+        "label": "THEY'RE WARM — DISCOVER",
+        "say": "Yeah — and I imagine with the franchise model it gets even harder to keep standards consistent across different markets. Can I ask — what does your inspection process actually look like right now across the portfolio? Are your local teams reviewing every set of turnover photos, or is it more spot-checking?",
+        "note": "STOP PITCHING. He's engaged — ask questions and listen. You want to hear: who reviews photos, how many properties, what falls through, what tools they use. The franchise angle is specific to how Casago operates.",
+        "branches": [
+          {
+            "label": "Describes their process or opens up",
+            "to": "discovery_process"
+          },
+          {
+            "label": "Mentions Breezeway or specific tools",
+            "to": "breezeway_hook"
+          },
+          {
+            "label": "\"That's really more of an ops question\"",
+            "to": "referral_entry"
+          },
+          {
+            "label": "Stays high-level / steers toward solution",
+            "to": "solution_drop"
+          }
+        ]
+      },
+      "breezeway_hook": {
+        "label": "BREEZEWAY DEEP DIVE",
+        "say": "Oh perfect — so you're already collecting photos through Breezeway, which is exactly what we plug into. The gap we keep seeing is that Breezeway is great at getting the photos taken and the checklists done, but nobody's actually analyzing what's in those photos at scale. That's literally what we built — our AI reviews every photo coming through Breezeway and flags damage, missing items, staging issues. Your team just gets an exception report instead of scrolling through hundreds of photos a day. Does that match what you're seeing on your end — the photos are there but reviewing them is the bottleneck?",
+        "note": "This is your strongest angle. They already use Breezeway — you're not asking them to change anything. You're adding a layer on top. Let him confirm or push back. If he's engaged, go straight to CTA.",
+        "branches": [
+          {
+            "label": "\"Yeah that's exactly the problem\" / confirms",
+            "to": "cta_meeting"
+          },
+          {
+            "label": "Asks how it works or wants more detail",
+            "to": "discovery_process"
+          },
+          {
+            "label": "\"We just started rolling out Breezeway\" / early stages",
+            "to": "discovery_priorities"
+          },
+          {
+            "label": "\"You'd need to talk to Wes about integrations\"",
+            "to": "referral_entry"
+          },
+          {
+            "label": "Skeptical / wants proof",
+            "to": "solution_drop"
+          }
+        ]
+      },
+      "discovery_priorities": {
+        "label": "DISCOVER PRIORITIES",
+        "say": "Makes total sense — you've had a lot going on this year between the Vacasa integration and Naya. What's the biggest operational priority for you guys heading into this next stretch? Is it more about standardizing across the new portfolio, or keeping quality consistent as you keep growing?",
+        "note": "CEO-level discovery. Either answer maps to RapidEye. Standardization equals we help enforce it automatically. Quality at scale equals we catch what humans miss. Listen carefully and mirror back what he says.",
+        "branches": [
+          {
+            "label": "Talks about standardization or integration",
+            "to": "solution_drop"
+          },
+          {
+            "label": "Talks about quality or guest experience",
+            "to": "solution_drop"
+          },
+          {
+            "label": "Talks about something else entirely",
+            "to": "cta_meeting"
+          },
+          {
+            "label": "\"That's more Jose's world\" / delegates",
+            "to": "referral_entry"
+          }
+        ]
+      },
+      "discovery_process": {
+        "label": "DISCOVER CURRENT PROCESS",
+        "say": "Got it. And when something does get missed — like damage that should've been caught at turnover — how does that usually surface? Is it guest complaints, owner calls, or does your team catch it on a later walkthrough?",
+        "note": "This question makes the pain concrete and personal. Whatever he answers, mirror it back. You're looking for him to say something like 'the guest finds it' or 'the owner calls us' — that's your opening.",
+        "branches": [
+          {
+            "label": "Describes the problem or gives real examples",
+            "to": "solution_drop"
+          },
+          {
+            "label": "\"We catch most of it\" / somewhat defensive",
+            "to": "solution_drop"
+          },
+          {
+            "label": "\"I'm honestly not sure at that level of detail\"",
+            "to": "referral_entry"
+          }
+        ]
+      },
+      "solution_drop": {
+        "label": "ONE-SENTENCE SOLUTION",
+        "say": "That's exactly why we built RapidEye. We plug into Breezeway — or whatever PMS you're running — and our AI automatically reviews every turnover photo and flags damage, missing items, and staging issues before the next guest checks in. No workflow change for your cleaners, your ops team just gets an exception report.",
+        "note": "One or two sentences max. Don't oversell. Don't try to demo over the phone. The Breezeway plug-in angle is key since they already have it. Pause briefly and then move to the CTA.",
+        "branches": [
+          {
+            "label": "Interested / asks more questions",
+            "to": "cta_meeting"
+          },
+          {
+            "label": "\"How much does it cost?\"",
+            "to": "cta_meeting"
+          },
+          {
+            "label": "\"We're good\" / pushes back",
+            "to": "objection_have_process"
+          },
+          {
+            "label": "\"Send me something\"",
+            "to": "send_email_handle"
+          },
+          {
+            "label": "\"Talk to my ops team about this\"",
+            "to": "referral_entry"
+          }
+        ]
+      },
+      "cta_meeting": {
+        "label": "ASK FOR THE MEETING",
+        "say": "Would you be open to taking a look — maybe 20 minutes — when I'm not cold calling you out of the blue? I could show you exactly what it looks like plugged into Breezeway photos. Even if it's not the right time to buy anything, worst case you see what other PM companies are doing with their turnover data and steal some ideas.",
+        "note": "Low friction. The 'not cold calling you' line acknowledges the awkwardness. The 'steal some ideas' angle gives him value even if he never buys. If he says yes, go to BOOK MEETING immediately — don't keep talking.",
+        "branches": [
+          {
+            "label": "\"Yeah sure\" / agrees to meet",
+            "to": "book_meeting"
+          },
+          {
+            "label": "\"Send me an email first\"",
+            "to": "send_email_handle"
+          },
+          {
+            "label": "\"No budget right now\"",
+            "to": "objection_no_budget"
+          },
+          {
+            "label": "\"I'm not the right person for this\"",
+            "to": "referral_entry"
+          },
+          {
+            "label": "\"Not interested\"",
+            "to": "objection_not_interested"
+          }
+        ]
+      },
+      "objection_no_budget": {
+        "label": "OBJECTION — NO BUDGET",
+        "say": "Totally get it. Especially post-acquisition — I'm sure every dollar's being scrutinized right now. I'd be shocked if you were buying anything new this week.",
+        "note": "Agree first. The post-acquisition budget reference shows you understand their specific situation. Pause briefly and then split the objection.",
+        "branches": [
+          {
+            "label": "He agrees / softens up",
+            "to": "budget_split"
+          },
+          {
+            "label": "Hard no / wants to end the call",
+            "to": "sell_test_drive"
+          }
+        ]
+      },
+      "budget_split": {
+        "label": "SPLIT — BUDGET",
+        "say": "Just so I'm not wasting your time — is it that budget for this cycle is totally locked, or is it more that anything new you try to buy has to go through a pretty heavy approval process now?",
+        "note": "Locked budget means sell the test drive for later. Heavy approval process means offer to help build the internal case or propose a free pilot. Either answer gives you a path forward.",
+        "branches": [
+          {
+            "label": "\"Budget is locked\" / timing issue",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "\"Everything goes through a process now\"",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "\"We just don't have the need\"",
+            "to": "interest_split"
+          }
+        ]
+      },
+      "objection_not_interested": {
+        "label": "OBJECTION — NOT INTERESTED",
+        "say": "I totally get it — I should've assumed you'd already be all set. Otherwise you probably would've reached out yourself.",
+        "note": "Agree and lower his guard. The assumption that he'd 'already be all set' is subtly flattering. Pause and then transition to the split.",
+        "branches": [
+          {
+            "label": "Softens a bit",
+            "to": "interest_split"
+          },
+          {
+            "label": "Still firm / wants to end",
+            "to": "interest_split"
+          }
+        ]
+      },
+      "interest_split": {
+        "label": "SPLIT — INTEREST",
+        "say": "Just so nobody from my team cold calls you again — is it that inspection quality just isn't something you're focused on right now, or is it more that you just hate getting cold called?",
+        "note": "Almost everyone admits they just hate cold calls. That reopens the door with a laugh. If it's genuinely not his priority, pivot to asking who it would be a priority for — that's your referral.",
+        "branches": [
+          {
+            "label": "\"I just hate cold calls\" / lightens up",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "\"Not a priority for me\" / delegates",
+            "to": "referral_entry"
+          },
+          {
+            "label": "\"We're genuinely covered on this\"",
+            "to": "objection_have_process"
+          },
+          {
+            "label": "Hard no — done talking",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "objection_have_process": {
+        "label": "OBJECTION — HAVE A PROCESS",
+        "say": "That makes total sense — at your scale you'd have to have something dialed in. Especially with Breezeway handling the workflow side now.",
+        "note": "Validate first. Don't fight. The Breezeway acknowledgment positions you as someone who understands their stack. Pause and then split.",
+        "branches": [
+          {
+            "label": "Opens up about their current process",
+            "to": "process_split"
+          },
+          {
+            "label": "\"Yeah we're good\" / stays firm",
+            "to": "process_split"
+          }
+        ]
+      },
+      "process_split": {
+        "label": "SPLIT — PROCESS",
+        "say": "Totally fair. Is it that your team is actually reviewing every set of turnover photos and you're happy with the catch rate, or is it more that switching or adding anything right now — especially mid-integration — would just be a headache?",
+        "note": "Almost nobody is reviewing every photo and they know it. If he admits the gap, you're back in the conversation. If it's switching fatigue, position RapidEye as zero workflow change — it layers on top of Breezeway, nothing to switch.",
+        "branches": [
+          {
+            "label": "\"Nobody's reviewing every photo\" / admits the gap",
+            "to": "cta_meeting"
+          },
+          {
+            "label": "\"Adding anything right now is a headache\"",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "\"We're genuinely happy with our process\"",
+            "to": "sell_test_drive"
+          }
+        ]
+      },
+      "sell_test_drive": {
+        "label": "SELL THE TEST DRIVE",
+        "say": "Look — you're probably not buying anything right now and I totally respect that. But when budget does open up or you're ready to look at this, the people who move fastest are the ones who already know what's on their list. Would you be open to just taking a look — no commitment, no pressure — so you can see what we do with Breezeway photos and decide if it's worth putting on the roadmap? If nothing else, I'll walk you through what other PM companies your size are doing with their turnover data. Worst case you steal some ideas and we part as friends.",
+        "note": "You're not asking him to buy. You're asking him to be informed. The 'steal some ideas' line works because it gives him value regardless of whether he ever becomes a customer.",
+        "branches": [
+          {
+            "label": "\"Alright set something up\"",
+            "to": "book_meeting"
+          },
+          {
+            "label": "\"Send me an email with that\"",
+            "to": "send_email_handle"
+          },
+          {
+            "label": "\"Not right now\" but warmer than before",
+            "to": "referral_entry"
+          },
+          {
+            "label": "Hard no",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "referral_entry": {
+        "label": "REFERRAL — FIND THE RIGHT PERSON",
+        "say": "Totally makes sense — you've got bigger fish to fry. Who on your team typically owns the inspection and turnover quality side of things? Is that more of an ops person or does that sit with your tech team?",
+        "note": "You already know the likely answers: Jose Romero (Director of Ops), Wes Melton (CTO), or Judi Crane (AZ GM). But let Steve tell you. If he names someone, get their direct line or email before you hang up.",
+        "branches": [
+          {
+            "label": "Names someone specific",
+            "to": "referral_get_name"
+          },
+          {
+            "label": "Vague / \"I'm not sure who handles that\"",
+            "to": "referral_get_name"
+          },
+          {
+            "label": "\"Just email me and I'll forward it\"",
+            "to": "send_email_handle"
+          },
+          {
+            "label": "Won't help / shuts it down",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "referral_get_name": {
+        "label": "LOCK THE REFERRAL",
+        "say": "Perfect. Would that be Jose Romero on the ops side, or is there someone else closer to it? If I can get a direct line or email I'll put something tailored together so it actually lands — not just a generic pitch.",
+        "note": "Name-dropping Jose shows you did your homework without being creepy about it. If he confirms Jose, get the best way to reach him. If he gives a different name, write it down carefully. Always ask to use Steve's name when you reach out.",
+        "branches": [
+          {
+            "label": "Confirms Jose or gives their contact info",
+            "to": "referral_close"
+          },
+          {
+            "label": "Names someone else and gives contact",
+            "to": "referral_close"
+          },
+          {
+            "label": "\"Just email me at my address\"",
+            "to": "send_email_handle"
+          },
+          {
+            "label": "Won't give a name",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "referral_close": {
+        "label": "CLOSE REFERRAL",
+        "say": "Really appreciate that. Would it be cool if I mention your name when I reach out to them? Just so it doesn't feel like another random cold call on their end.",
+        "note": "Getting permission to use Steve's name turns the next call from cold to warm. If he says yes, you have a warm intro to the real operator. Thank him and wrap up clean.",
+        "branches": [
+          {
+            "label": "\"Yeah go ahead\" / gives permission",
+            "to": "graceful_exit"
+          },
+          {
+            "label": "\"Sure\" or \"Just reach out directly\"",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "send_email_handle": {
+        "label": "SEND ME AN EMAIL",
+        "say": "Totally fair — I'll send something over today. One quick question so it's actually useful and not just another generic pitch — would it be more relevant to see how we work with Breezeway specifically, or would a quick case study from another PM company at your scale be more helpful?",
+        "note": "The question gets you intel on what matters to him and keeps the conversation going 10 more seconds. Whatever he answers, include that plus a specific meeting time suggestion in the email.",
+        "branches": [
+          {
+            "label": "Answers the question or gives a preference",
+            "to": "send_email_close"
+          },
+          {
+            "label": "\"Whatever just send it\"",
+            "to": "send_email_close"
+          }
+        ]
+      },
+      "send_email_close": {
+        "label": "CLOSE — EMAIL",
+        "say": "Got it — I'll keep it short. Is the best email for you at Casago? And I'll throw a time option in there in case you want to hop on for 15 minutes after you look it over. Appreciate your time, Steve.",
+        "note": "Confirm his email address. If he confirms casago.com domain, you know the pattern. Send the email within one hour. Include the specific content he asked for, a link, and one specific meeting time. Follow up in 3 days if no reply.",
+        "branches": []
+      },
+      "book_meeting": {
+        "label": "BOOK IT NOW",
+        "say": "Awesome. I've got next week pulled up — how does Tuesday or Thursday look for you? I just need 20 minutes.",
+        "note": "Give two specific options, not open-ended. Lock the day first, then nail down the time. Send the calendar invite while still on the phone if you can.",
+        "branches": [
+          {
+            "label": "Picks a day and time",
+            "to": "meeting_booked"
+          },
+          {
+            "label": "\"Have my assistant set it up\"",
+            "to": "meeting_booked"
+          },
+          {
+            "label": "\"Let me check my calendar and get back to you\"",
+            "to": "send_email_handle"
+          }
+        ]
+      },
+      "meeting_booked": {
+        "label": "MEETING CONFIRMED",
+        "say": "Perfect — I'll send the invite right now so it's locked in. Really appreciate you taking my call, Steve. Talk to you then.",
+        "note": "STOP SELLING. Send the calendar invite immediately. Don't add anything else. Don't keep pitching. Clean exit. Send a short confirmation email within 5 minutes with one relevant link or teaser.",
+        "branches": []
+      },
+      "graceful_exit": {
+        "label": "GRACEFUL EXIT",
+        "say": "Totally understand, Steve. If anything changes I'm easy to find — Sam Parks, RapidEye. Appreciate your time.",
+        "note": "No guilt. No passive aggression. He may circle back later or you may call Jose or Wes next. Log everything he said — every detail matters for the next touch.",
+        "branches": []
+      }
+    }
+  }
+}
