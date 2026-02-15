@@ -1,0 +1,335 @@
+{
+  "name": "Default Framework",
+  "title": "Master Call Flow Template",
+  "company": "",
+  "location": "",
+  "phone": "",
+  "company_phone": "",
+  "alt_phones": [],
+  "flow": {
+    "context": "This is the master call flow framework. Use this as a reference when a lead-specific flow isn't available. Fill in [bracketed placeholders] with real details from your research before dialing.",
+    "start": "opener",
+    "nodes": {
+      "opener": {
+        "label": "OPENER",
+        "say": "[Context line about connection/how you know them]. It's Sam Parks with RapidEye. Have you heard my name tossed around?",
+        "note": "Sound like you're calling a referral. Feet up on the desk. Not chipper. The context line is the ONLY part that changes per lead.",
+        "branches": [
+          { "label": "They engage / \"No, what's this about?\"", "to": "opener_no" },
+          { "label": "\"Yeah actually\" / they recognize something", "to": "opener_yes" },
+          { "label": "Bad timing / can't talk", "to": "bad_timing" },
+          { "label": "Gatekeeper picks up", "to": "gatekeeper_1" }
+        ]
+      },
+      "opener_no": {
+        "label": "THEY HAVEN'T HEARD OF YOU",
+        "say": "Ha, I guess I'm not as popular as I thought. Well the reason for my call is\u2014",
+        "note": "This is the most common response. It's fine. Say this lightly, almost laughing at yourself, then go right into the pain trigger.",
+        "branches": [
+          { "label": "Continue", "to": "pain" }
+        ]
+      },
+      "opener_yes": {
+        "label": "THEY'VE HEARD OF YOU",
+        "say": "Oh nice \u2014 well normally we'd be working with someone like you. What did you hear?",
+        "note": "Rare but great. Let THEM talk. Whatever they say will tell you if they have an objection or if they're open. You'll probably still need to drop into the pain trigger after.",
+        "branches": [
+          { "label": "They're vague / still need the pitch", "to": "pain" },
+          { "label": "They're already interested", "to": "discovery" },
+          { "label": "They have an objection already", "to": "miyagi_not_interested" }
+        ]
+      },
+      "bad_timing": {
+        "label": "BAD TIMING",
+        "say": "Totally hear you \u2014 I'll let you go. Would it be a terrible idea if I tried you again [tomorrow / later this week]?",
+        "note": "Don't push. Thank them. Lock in a callback so the next dial is warm.",
+        "branches": [
+          { "label": "They give you a time", "to": "end_callback" },
+          { "label": "\"Just email me\"", "to": "tailor_email" },
+          { "label": "Hard no", "to": "end_graceful" }
+        ]
+      },
+      "permission": {
+        "label": "PERMISSION FALLBACK",
+        "say": "Yeah totally \u2014 I mean it is a cold call. Can I get 30 seconds to tell you why I reached out, and you can totally hang up on me if it's not a fit?",
+        "note": "Use this if the opener didn't land cleanly \u2014 they're confused or guarded. Owning the cold call with brutal honesty actually builds trust.",
+        "branches": [
+          { "label": "They give you 30 seconds", "to": "pain" },
+          { "label": "\"No\" / reject permission", "to": "permission_rejected" },
+          { "label": "Bad timing", "to": "bad_timing" }
+        ]
+      },
+      "permission_rejected": {
+        "label": "PERMISSION REJECTED",
+        "say": "Shoot, totally my bad. Just so nobody from my team bugs you again \u2014 is it that I caught you at a horrible time, or is it that you already know what we do and this just isn't interesting?",
+        "note": "They're not saying no to your product. They're saying no to your interruption. This gives you one last shot at information while respecting their boundary.",
+        "branches": [
+          { "label": "\"It's a bad time\"", "to": "bad_timing" },
+          { "label": "They share something / soften", "to": "pain" },
+          { "label": "Hard no", "to": "end_graceful" }
+        ]
+      },
+      "pain": {
+        "label": "PAIN TRIGGER",
+        "say": "Yeah so I actually work with another property manager in a pretty similar situation to you \u2014 managing [similar setup]. Their big thing was stuff was constantly slipping through their inspection process no matter what they did. Didn't matter if they sent in-person inspectors or had their cleaners take photos \u2014 things were still getting missed.",
+        "note": "PAUSE after this. Let them react. Do NOT rush into the solution. The silence is where the real call starts. Be dangerously specific \u2014 mention real details like property type, unit count, the kind of things that slip through.",
+        "branches": [
+          { "label": "They relate / \"Yeah we deal with that\"", "to": "discovery" },
+          { "label": "Silent / neutral", "to": "solution" },
+          { "label": "\"We're pretty good actually\"", "to": "soft_probe" },
+          { "label": "Objection / not interested", "to": "miyagi_not_interested" }
+        ]
+      },
+      "soft_probe": {
+        "label": "SOFT PROBE",
+        "say": "Totally fair. Just curious \u2014 when stuff does slip through, how does it usually surface? Guest complaint? Deposit dispute? Or do you just eat the cost?",
+        "note": "Don't argue. Ask a question that makes them think about the pain they're ignoring. Be genuinely curious, not leading.",
+        "branches": [
+          { "label": "They admit something", "to": "discovery" },
+          { "label": "\"Honestly we're covered\"", "to": "offer_value" },
+          { "label": "Brush off", "to": "offer_value" }
+        ]
+      },
+      "discovery": {
+        "label": "DISCOVERY",
+        "say": "What does your inspection process look like right now? Like how are you handling turnovers across [X] properties?",
+        "note": "They're warm. STOP PITCHING. Ask questions. The more they talk, the more invested they are. Listen for what tools they use, what breaks, what annoys them.",
+        "branches": [
+          { "label": "They open up about their process", "to": "solution" },
+          { "label": "They're not the right person", "to": "referral" },
+          { "label": "They start losing interest", "to": "solution" }
+        ]
+      },
+      "solution": {
+        "label": "SOLUTION",
+        "say": "So what we built plugs directly into [their PMS or \"whatever your team is already using\"] and automatically analyzes every photo your team is already taking. You get an inspection report on every single turnover without changing anything about how your team works.",
+        "note": "ONE sentence. Don't oversell. Don't list features. You're earning the meeting, not closing the deal.",
+        "branches": [
+          { "label": "\"That's interesting\" / curious", "to": "cta" },
+          { "label": "They ask detailed questions", "to": "cta" },
+          { "label": "Skeptical / hesitant", "to": "offer_value" }
+        ]
+      },
+      "cta": {
+        "label": "ASK FOR THE MEETING",
+        "say": "Would you be open to taking a look at what this looks like when I'm not cold calling you out of the blue?",
+        "note": "Low friction. Not \"can I book 30 minutes\" \u2014 just \"would you be open.\" You're validating interest before asking for anything heavier.",
+        "branches": [
+          { "label": "Yes / open to it", "to": "book_meeting" },
+          { "label": "\"Send me an email\"", "to": "tailor_email" },
+          { "label": "\"Not right now\" / hesitant", "to": "offer_value" },
+          { "label": "Objection surfaces", "to": "miyagi_not_interested" }
+        ]
+      },
+      "offer_value": {
+        "label": "OFFER OF VALUE",
+        "say": "Totally get it. If nothing else \u2014 I could walk you through what other PM companies in [their market] are doing with their turnover photos right now. Worst case you get a few ideas you can steal, and we part ways as friends.",
+        "note": "Most prospects have had terrible sales meetings. Explain why THIS meeting is worth their time even if they never buy. If the research revealed something time-sensitive (regulation, seasonal rush), use it here.",
+        "branches": [
+          { "label": "That lands / they agree", "to": "book_meeting" },
+          { "label": "Still no", "to": "end_graceful" },
+          { "label": "\"Just email me\"", "to": "tailor_email" }
+        ]
+      },
+      "miyagi_not_interested": {
+        "label": "MIYAGI \u2014 NOT INTERESTED",
+        "say": "I totally get it. Look, I should have assumed you'd be all set \u2014 otherwise you probably would have reached out to me.",
+        "note": "AGREE first. Pull the chair out. They expected a fight \u2014 you agreed instead. Now they're off balance in a good way.",
+        "branches": [
+          { "label": "Continue", "to": "miyagi_not_interested_split" }
+        ]
+      },
+      "miyagi_not_interested_split": {
+        "label": "SPLIT THE OBJECTION",
+        "say": "Just so no one from my team bugs you again \u2014 is it that this just isn't a problem you're focused on right now, or is it more that you just hate getting cold calls?",
+        "note": "Multiple choice makes it easy for them to respond. You're splitting the objection so they share the real reason. Don't ask open-ended \"why not?\"",
+        "branches": [
+          { "label": "\"It's not a priority\"", "to": "test_drive_not_interested" },
+          { "label": "\"I hate cold calls\"", "to": "test_drive_not_interested" },
+          { "label": "They share something real", "to": "test_drive_not_interested" },
+          { "label": "Hard no / won't engage", "to": "end_graceful" }
+        ]
+      },
+      "test_drive_not_interested": {
+        "label": "SELL THE TEST DRIVE",
+        "say": "Totally fair. Look, you're probably not going to buy this thing \u2014 and I respect that. But if nothing else I could show you what other property managers your size are doing right now. Worst case you steal a couple ideas. Would that be the worst thing in the world?",
+        "note": "Remove ALL purchase pressure. The meeting is the product right now. Frame it as free intel, not a sales pitch.",
+        "branches": [
+          { "label": "They agree", "to": "book_meeting" },
+          { "label": "Still no", "to": "end_graceful" },
+          { "label": "\"Email me\"", "to": "tailor_email" }
+        ]
+      },
+      "miyagi_no_budget": {
+        "label": "MIYAGI \u2014 NO BUDGET",
+        "say": "Totally get it. Honestly, nowadays it's harder to keep a tool, let alone buy something new.",
+        "note": "Agree first. If research shows acquisition or corporate parent, reference it: \"Especially post-acquisition, I'm sure budgets are tight.\"",
+        "branches": [
+          { "label": "Continue", "to": "miyagi_no_budget_split" }
+        ]
+      },
+      "miyagi_no_budget_split": {
+        "label": "SPLIT THE OBJECTION",
+        "say": "Just so no one from my team calls you again \u2014 is it that budget for this cycle is completely out, or is it that anything you try to buy puts you through the ringer to get approved?",
+        "note": "If you know their corporate structure from research, tailor the split: \"does this have to go through [parent company] corporate?\"",
+        "branches": [
+          { "label": "\"Budget is out\"", "to": "test_drive_no_budget" },
+          { "label": "\"Everything needs approval\"", "to": "test_drive_no_budget" },
+          { "label": "They share more detail", "to": "test_drive_no_budget" },
+          { "label": "Hard no", "to": "end_graceful" }
+        ]
+      },
+      "test_drive_no_budget": {
+        "label": "SELL THE TEST DRIVE",
+        "say": "Yeah I totally get that. Look, you're probably not buying this right now and I respect that. But in my experience, when budget does free up, the people who get it are the ones who already know what's one, two, and three on their list. Would you be open to taking a look \u2014 not for now, but just so you know it's out there?",
+        "note": "Classic test drive. Not for now, but for when the window opens.",
+        "branches": [
+          { "label": "They agree", "to": "book_meeting" },
+          { "label": "Still no", "to": "end_graceful" },
+          { "label": "\"Email me\"", "to": "tailor_email" }
+        ]
+      },
+      "miyagi_have_vendor": {
+        "label": "MIYAGI \u2014 HAVE A VENDOR",
+        "say": "That makes total sense \u2014 with [X] properties you'd have to have something in place.",
+        "note": "If you know their current tool from research, you can be more specific: \"Yeah, Track is great for scheduling turnovers.\" Agree with what they have BEFORE redirecting.",
+        "branches": [
+          { "label": "Continue", "to": "miyagi_have_vendor_split" }
+        ]
+      },
+      "miyagi_have_vendor_split": {
+        "label": "SPLIT THE OBJECTION",
+        "say": "Just curious \u2014 is it that you're fully covered and happy with what you've got, or is it more that switching anything right now would just be a headache?",
+        "note": "If you know their tool, reframe: \"[Tool] is great for [what it does], but most teams I talk to are still missing the photo analysis piece even with it in place.\" That shifts from replacement to addition.",
+        "branches": [
+          { "label": "\"Happy with what we have\"", "to": "test_drive_have_vendor" },
+          { "label": "\"Switching is a headache\"", "to": "test_drive_have_vendor" },
+          { "label": "They share what they use", "to": "test_drive_have_vendor" },
+          { "label": "Hard no", "to": "end_graceful" }
+        ]
+      },
+      "test_drive_have_vendor": {
+        "label": "SELL THE TEST DRIVE",
+        "say": "Totally fair. Most of the managers we work with weren't looking to replace anything either \u2014 they just wanted to see what AI can actually catch now versus what they were doing manually. If nothing else, could be worth a 15 minute look just to see what's out there. Would that be a terrible idea?",
+        "note": "Frame as additive, not replacement. They don't have to rip anything out. Just see what's possible.",
+        "branches": [
+          { "label": "They agree", "to": "book_meeting" },
+          { "label": "Still no", "to": "end_graceful" },
+          { "label": "\"Email me\"", "to": "tailor_email" }
+        ]
+      },
+      "miyagi_call_later": {
+        "label": "MIYAGI \u2014 CALL ME LATER",
+        "say": "Totally fair \u2014 I should have guessed. If you were totally ready you probably would have reached out to us. This one's on me.",
+        "note": "Agree. Don't ask \"when should I call back?\" yet \u2014 try to get one more exchange first.",
+        "branches": [
+          { "label": "Continue", "to": "miyagi_call_later_split" }
+        ]
+      },
+      "miyagi_call_later_split": {
+        "label": "SPLIT THE OBJECTION",
+        "say": "Just so I don't waste your time if I do follow up \u2014 is it that the timing is genuinely off right now, or is it more that you're just not sure this is relevant to you?",
+        "note": "If it's timing, lock in a callback. If it's relevance, you have a chance to reframe.",
+        "branches": [
+          { "label": "\"Timing is off\"", "to": "bad_timing" },
+          { "label": "\"Not sure it's relevant\"", "to": "offer_value" },
+          { "label": "They share more", "to": "offer_value" },
+          { "label": "Hard no", "to": "end_graceful" }
+        ]
+      },
+      "gatekeeper_1": {
+        "label": "GATEKEEPER \u2014 SLIDE BY",
+        "say": "Could you get me through to [Name]? It's Sam.",
+        "note": "Say NOTHING else. No detail. No company name. Just ask to be put through. Short and direct.",
+        "branches": [
+          { "label": "They put you through", "to": "opener" },
+          { "label": "\"What's this regarding?\"", "to": "gatekeeper_2" },
+          { "label": "\"They're not available\"", "to": "gatekeeper_voicemail" }
+        ]
+      },
+      "gatekeeper_2": {
+        "label": "GATEKEEPER \u2014 CONTEXT",
+        "say": "Yeah, I work with a few other property managers in [area]. Would you mind letting them know it's Sam Parks?",
+        "note": "Context, not pitch. End with a question \u2014 the person asking questions controls the conversation. Don't get pulled into explaining what you sell.",
+        "branches": [
+          { "label": "They put you through", "to": "opener" },
+          { "label": "They push for more", "to": "gatekeeper_3" },
+          { "label": "\"They're not available\"", "to": "gatekeeper_voicemail" }
+        ]
+      },
+      "gatekeeper_3": {
+        "label": "GATEKEEPER \u2014 SOCIAL PROOF",
+        "say": "We help a couple other property management companies with their inspection workflows. I actually sent them a note the other day \u2014 would you mind giving them a heads up? It's Sam Parks.",
+        "note": "Last attempt. Add social proof and mention you sent a note. If this doesn't work, ask for a good time to call back or leave a voicemail. Don't pitch the gatekeeper.",
+        "branches": [
+          { "label": "They put you through", "to": "opener" },
+          { "label": "Still blocked", "to": "gatekeeper_voicemail" }
+        ]
+      },
+      "gatekeeper_voicemail": {
+        "label": "GATEKEEPER \u2014 LEAVE MESSAGE",
+        "say": "No worries. Would you mind letting them know Sam Parks called? I'll shoot them an email too. Thanks.",
+        "note": "Don't fight it. Get your name in front of them. The voicemail + email combo doubles your reply rate.",
+        "branches": []
+      },
+      "referral": {
+        "label": "GET A REFERRAL",
+        "say": "Got it \u2014 sounds like you know the space though. What type of person on your team would typically own the inspection workflow? If I can get a name I'll put something tailored together so it actually lands.",
+        "note": "Don't ask for a referral directly. Ask \"what altitude\" to learn the title, then ask for a name. If they give you a name, that's your warmest next call.",
+        "branches": [
+          { "label": "They give you a name", "to": "end_referral" },
+          { "label": "They give you a title but no name", "to": "end_referral" },
+          { "label": "They won't share", "to": "end_graceful" }
+        ]
+      },
+      "book_meeting": {
+        "label": "BOOK THE MEETING",
+        "say": "Awesome. I've got next [day] pulled up \u2014 how does [time] look for you? I'll send the invite over right now.",
+        "note": "Lock it in NOW. Don't say \"I'll send some times.\" Pick a specific day and time. Send the invite while they're on the phone.",
+        "branches": [
+          { "label": "Time works", "to": "end_booked" },
+          { "label": "They suggest a different time", "to": "end_booked" }
+        ]
+      },
+      "tailor_email": {
+        "label": "TAILOR THE EMAIL",
+        "say": "Totally fair. One question before I do \u2014 what would be the most relevant thing to include so it's not just another generic pitch in your inbox?",
+        "note": "Don't just roll over. Accept the email, but get ONE piece of intel to tailor it. Now your follow-up isn't ignored.",
+        "branches": [
+          { "label": "They tell you what they care about", "to": "end_email" },
+          { "label": "\"Just send whatever\"", "to": "end_email" }
+        ]
+      },
+      "end_booked": {
+        "label": "MEETING BOOKED \u2014 CLOSE",
+        "say": "Really appreciate you taking my call, [Name]. Looking forward to showing you what we've built. Have a great rest of your day.",
+        "note": "STOP SELLING. You won. Keep it warm, keep it short. Don't keep pitching after the meeting is booked.",
+        "branches": []
+      },
+      "end_email": {
+        "label": "EMAIL FOLLOW-UP \u2014 CLOSE",
+        "say": "I'll get that over to you tailored to [what they said]. It'll come from Sam at RapidEye. I'll throw out a time to chat too \u2014 if it's relevant we can sync for 15 minutes. Really appreciate your time.",
+        "note": "Include a specific time suggestion in the email. This isn't a loss \u2014 it's a warm lead now. Follow up.",
+        "branches": []
+      },
+      "end_callback": {
+        "label": "CALLBACK SCHEDULED \u2014 CLOSE",
+        "say": "Perfect, I'll try you [day/time]. Appreciate it, [Name].",
+        "note": "Log the callback IMMEDIATELY. Next time you call, open with: \"Hey, we spoke briefly last [day] \u2014 you told me to give you a ring.\"",
+        "branches": []
+      },
+      "end_referral": {
+        "label": "REFERRAL \u2014 CLOSE",
+        "say": "Really appreciate that. I'll put something together for them and mention you pointed me their way. Thanks for your time, [Name].",
+        "note": "Name-drop this person when you reach out to the referral. \"[Name] on your team suggested I reach out\" is the warmest opener possible.",
+        "branches": []
+      },
+      "end_graceful": {
+        "label": "PART AS FRIENDS",
+        "say": "Totally understand. If anything ever changes or you want to see what's out there, I'm easy to find. Appreciate your time, [Name].",
+        "note": "Don't burn the bridge. Don't grovel. Part as friends. You might call them again in 3 months.",
+        "branches": []
+      }
+    }
+  }
+}
