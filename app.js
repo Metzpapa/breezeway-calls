@@ -4,7 +4,7 @@
   'use strict';
 
   // ── Config ──
-  var PIN_HASH = '15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225'; // default: "123456789"
+  var PIN_HASH = '736e537f0f664a3d8208e88c114f2c5a16fff5800e5c146b0b83b1c43213d003';
   var LS_KEY = 'bwc_pin_ok';
   var GH_TOKEN_KEY = 'bwc_gh_token';
   var GH_OWNER = 'Metzpapa';
