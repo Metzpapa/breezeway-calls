@@ -18,6 +18,8 @@
   var breadcrumb = [];
   var editMode = false;
   var dirty = false;
+  var selectedSlugs = new Set();
+  var lastSelectedSlug = null;
 
   // ── Helpers ──
 
@@ -199,6 +201,124 @@
     }
   }
 
+  // ── Flow → Markdown ──
+
+  function flowToMarkdown(lead) {
+    var lines = [];
+    lines.push('# ' + (lead.name || 'Unknown') + (lead.company ? ' — ' + lead.company : ''));
+    if (lead.title) lines.push('**Title:** ' + lead.title);
+    if (lead.location) lines.push('**Location:** ' + lead.location);
+    if (lead.phone) lines.push('**Phone:** ' + lead.phone);
+    if (lead.company_phone) lines.push('**Company Phone:** ' + lead.company_phone);
+    if (lead.alt_phones && lead.alt_phones.length > 0) lines.push('**Alt Phones:** ' + lead.alt_phones.join(', '));
+    lines.push('');
+
+    if (!lead.flow) {
+      lines.push('*No call flow data.*');
+      return lines.join('\n');
+    }
+
+    if (lead.flow.context) {
+      lines.push('## Context');
+      lines.push(lead.flow.context);
+      lines.push('');
+    }
+
+    lines.push('## Call Flow');
+    lines.push('');
+
+    // BFS from start to get nodes in traversal order
+    var visited = [];
+    var seen = {};
+    var queue = lead.flow.start ? [lead.flow.start] : [];
+    while (queue.length > 0) {
+      var nid = queue.shift();
+      if (seen[nid]) continue;
+      seen[nid] = true;
+      var node = lead.flow.nodes[nid];
+      if (!node) continue;
+      visited.push({ id: nid, node: node });
+      if (node.branches) {
+        node.branches.forEach(function (b) {
+          if (b.to && !seen[b.to]) queue.push(b.to);
+        });
+      }
+    }
+    // Include orphaned nodes not reachable from start
+    Object.keys(lead.flow.nodes).forEach(function (nid) {
+      if (!seen[nid]) visited.push({ id: nid, node: lead.flow.nodes[nid] });
+    });
+
+    visited.forEach(function (item) {
+      var node = item.node;
+      lines.push('### ' + (node.label || item.id));
+      if (node.say) lines.push('**Say:** "' + node.say + '"');
+      if (node.note) {
+        lines.push('');
+        lines.push('**Note:** ' + node.note);
+      }
+      if (node.branches && node.branches.length > 0) {
+        lines.push('');
+        lines.push('**Branches:**');
+        node.branches.forEach(function (b) {
+          var targetNode = lead.flow.nodes[b.to];
+          var targetLabel = targetNode ? targetNode.label : b.to;
+          lines.push('- "' + b.label + '" \u2192 ' + targetLabel);
+        });
+      } else {
+        lines.push('');
+        lines.push('*[End of flow]*');
+      }
+      lines.push('');
+    });
+
+    return lines.join('\n');
+  }
+
+  // ── Multi-Select Copy ──
+
+  function updateCopyFab() {
+    var existing = document.getElementById('copy-fab');
+    if (selectedSlugs.size === 0) {
+      if (existing) existing.remove();
+      return;
+    }
+    if (!existing) {
+      existing = el('button', { id: 'copy-fab', className: 'copy-fab', onClick: handleCopy });
+      app.appendChild(existing);
+    }
+    existing.textContent = 'Copy ' + selectedSlugs.size + ' flow' + (selectedSlugs.size > 1 ? 's' : '');
+    existing.disabled = false;
+    existing.className = 'copy-fab';
+  }
+
+  async function handleCopy() {
+    var fab = document.getElementById('copy-fab');
+    if (fab) { fab.textContent = 'Loading\u2026'; fab.disabled = true; }
+
+    try {
+      var slugs = Array.from(selectedSlugs);
+      var leads = await Promise.all(slugs.map(function (s) { return loadLead(s); }));
+      var md = leads.map(flowToMarkdown).join('\n\n---\n\n');
+      await navigator.clipboard.writeText(md);
+
+      selectedSlugs.clear();
+      lastSelectedSlug = null;
+      if (fab) { fab.textContent = 'Copied!'; fab.className = 'copy-fab copy-fab-ok'; }
+
+      setTimeout(function () {
+        var f = document.getElementById('copy-fab');
+        if (f) f.remove();
+        document.querySelectorAll('.lead-card.selected').forEach(function (c) {
+          c.classList.remove('selected');
+        });
+      }, 1500);
+    } catch (e) {
+      if (fab) { fab.textContent = 'Copy failed'; fab.className = 'copy-fab copy-fab-error'; fab.disabled = false; }
+      setTimeout(function () { updateCopyFab(); }, 2000);
+    }
+  }
+
   // ── Search / Index View ──
 
   function renderSearchView(data) {
@@ -221,6 +341,7 @@
       list.innerHTML = '';
       if (filtered.length === 0) {
         list.appendChild(el('div', { className: 'no-results', textContent: 'No leads found' }));
+        updateCopyFab();
         return;
       }
 
@@ -237,14 +358,45 @@
           el('div', { className: 'company-group-name', textContent: company })
         ]);
         groups[company].forEach(function (l) {
-          var card = el('div', { className: 'lead-card', onClick: function () { setHash('lead/' + l.slug); route(); } }, [
+          var isSelected = selectedSlugs.has(l.slug);
+          var card = el('div', { className: 'lead-card' + (isSelected ? ' selected' : '') }, [
             el('div', { className: 'lead-card-name', textContent: l.name }),
             el('div', { className: 'lead-card-meta', textContent: [l.title, l.location].filter(Boolean).join(' \u00b7 ') })
           ]);
+          card.addEventListener('click', function (e) {
+            if (e.shiftKey || e.metaKey || e.ctrlKey) {
+              e.preventDefault();
+              var idx = filtered.indexOf(l);
+              if (e.shiftKey && lastSelectedSlug) {
+                var lastIdx = -1;
+                for (var i = 0; i < filtered.length; i++) {
+                  if (filtered[i].slug === lastSelectedSlug) { lastIdx = i; break; }
+                }
+                if (lastIdx >= 0 && lastIdx !== idx) {
+                  var start = Math.min(lastIdx, idx);
+                  var end = Math.max(lastIdx, idx);
+                  for (var j = start; j <= end; j++) {
+                    selectedSlugs.add(filtered[j].slug);
+                  }
+                } else {
+                  if (selectedSlugs.has(l.slug)) selectedSlugs.delete(l.slug);
+                  else selectedSlugs.add(l.slug);
+                }
+              } else {
+                if (selectedSlugs.has(l.slug)) selectedSlugs.delete(l.slug);
+                else selectedSlugs.add(l.slug);
+              }
+              lastSelectedSlug = l.slug;
+              renderList(filtered);
+              return;
+            }
+            setHash('lead/' + l.slug); route();
+          });
           g.appendChild(card);
         });
         list.appendChild(g);
       });
+      updateCopyFab();
     }
 
     renderList(leads);
@@ -646,6 +798,8 @@
     editMode = false;
     dirty = false;
     hideSaveFab();
+    var cf = document.getElementById('copy-fab');
+    if (cf) cf.remove();
     var hash = getHash();
 
     if (hash.startsWith('lead/')) {
