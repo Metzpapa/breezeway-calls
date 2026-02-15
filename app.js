@@ -1,4 +1,4 @@
-/* breezeway-calls — call flow renderer (always editable) */
+/* breezeway-calls — call flow renderer with edit mode */
 
 (function () {
   'use strict';
@@ -16,6 +16,7 @@
   var currentFlow = null;
   var currentSlug = null;
   var breadcrumb = [];
+  var editMode = false;
   var dirty = false;
 
   // ── Helpers ──
@@ -151,11 +152,11 @@
     var overlay = el('div', { className: 'modal-overlay' });
     var modal = el('div', { className: 'modal' }, [
       el('div', { className: 'modal-title', textContent: 'GitHub Token (one-time)' }),
-      el('div', { className: 'modal-desc', textContent: 'To save changes, paste a GitHub personal access token with repo Contents permission. This is stored in your browser and never leaves this device.' }),
-      el('input', { id: 'token-input', type: 'password', className: 'modal-input', placeholder: 'ghp_...', value: getGhToken() }),
+      el('div', { className: 'modal-desc', textContent: 'Paste a GitHub token to enable saving. This is stored in your browser only.' }),
+      el('input', { id: 'token-input', type: 'password', className: 'modal-input', placeholder: 'ghp_... or gho_...', value: getGhToken() }),
       el('div', { className: 'modal-buttons' }, [
         el('button', { className: 'modal-btn modal-btn-cancel', textContent: 'Cancel', onClick: function () { overlay.remove(); } }),
-        el('button', { className: 'modal-btn modal-btn-save', textContent: 'Save Token', onClick: function () {
+        el('button', { className: 'modal-btn modal-btn-save', textContent: 'Save', onClick: function () {
           var val = document.getElementById('token-input').value.trim();
           if (val) {
             setGhToken(val);
@@ -174,8 +175,6 @@
 
   async function handleSave() {
     if (!dirty) return;
-
-    // If no token yet, prompt then retry
     if (!getGhToken()) {
       showTokenSetup(function () { handleSave(); });
       return;
@@ -188,14 +187,12 @@
       var leadData = JSON.parse(JSON.stringify(currentLead));
       leadData.flow = currentFlow;
       delete leadData.slug;
-
       await saveToGitHub(currentSlug, leadData);
       dirty = false;
       if (fab) { fab.textContent = 'Saved!'; fab.classList.add('save-fab-ok'); }
       setTimeout(function () { hideSaveFab(); }, 2000);
     } catch (e) {
-      if (fab) { fab.textContent = 'Error — tap to retry'; fab.disabled = false; fab.classList.add('save-fab-error'); }
-      // If auth error, clear token so next tap re-prompts
+      if (fab) { fab.textContent = 'Error \u2014 tap to retry'; fab.disabled = false; fab.classList.add('save-fab-error'); }
       if (e.message && e.message.toLowerCase().includes('bad credentials')) {
         setGhToken('');
       }
@@ -271,6 +268,7 @@
     currentFlow = lead.flow;
     currentSlug = lead.slug;
     breadcrumb = [];
+    editMode = false;
     dirty = false;
 
     app.innerHTML = '';
@@ -283,13 +281,18 @@
     }
     var rawPhone = lead.phone || lead.company_phone || '';
 
+    var editBtn = el('button', { className: 'edit-btn', id: 'edit-btn', textContent: 'Edit', onClick: function () {
+      toggleEdit();
+    }});
+
     var headerChildren = [
       el('div', { className: 'lead-header-top' }, [
         el('button', { className: 'back-btn', textContent: '\u2190', onClick: function () {
           if (dirty && !confirm('You have unsaved changes. Leave anyway?')) return;
-          dirty = false; setHash(''); route();
+          editMode = false; dirty = false; setHash(''); route();
         }}),
-        el('span', { className: 'lead-name', textContent: lead.name })
+        el('span', { className: 'lead-name', textContent: lead.name }),
+        editBtn
       ]),
       el('div', { className: 'lead-title', textContent: [lead.title, lead.company].filter(Boolean).join(' \u2014 ') })
     ];
@@ -300,19 +303,9 @@
 
     view.appendChild(el('div', { className: 'lead-header' }, headerChildren));
 
-    // Context panel (always editable)
+    // Context panel
     if (currentFlow && currentFlow.context) {
-      var ctxBody = el('div', {
-        className: 'context-body',
-        id: 'context-body',
-        textContent: currentFlow.context,
-        contenteditable: 'true'
-      });
-      ctxBody.addEventListener('input', function () {
-        currentFlow.context = ctxBody.textContent;
-        markDirty();
-      });
-
+      var ctxBody = el('div', { className: 'context-body', id: 'context-body', textContent: currentFlow.context });
       var panel = el('div', { className: 'context-panel open' }, [
         el('button', { className: 'context-toggle', innerHTML: '<span class="arrow">\u25b6</span> CONTEXT', onClick: function () { panel.classList.toggle('open'); } }),
         ctxBody
@@ -320,10 +313,7 @@
       view.appendChild(panel);
     }
 
-    // Save status area
-    view.appendChild(el('div', { className: 'save-status hidden', id: 'save-status' }));
-
-    // Breadcrumb container
+    // Breadcrumb
     view.appendChild(el('div', { className: 'breadcrumb', id: 'breadcrumb' }));
 
     // Node container
@@ -341,6 +331,47 @@
       document.getElementById('node-container').appendChild(
         el('div', { className: 'error-msg', textContent: 'No call flow data available for this lead.' })
       );
+    }
+  }
+
+  function toggleEdit() {
+    if (editMode && dirty) {
+      if (!confirm('Discard unsaved changes?')) return;
+      dirty = false;
+      hideSaveFab();
+      route();
+      return;
+    }
+
+    editMode = !editMode;
+    var btn = document.getElementById('edit-btn');
+    if (btn) {
+      btn.textContent = editMode ? 'Cancel' : 'Edit';
+      btn.classList.toggle('active', editMode);
+    }
+
+    // Toggle context editable
+    var ctxBody = document.getElementById('context-body');
+    if (ctxBody) {
+      if (editMode) {
+        ctxBody.setAttribute('contenteditable', 'true');
+        ctxBody.classList.add('editable');
+        ctxBody.addEventListener('input', function handler() {
+          currentFlow.context = ctxBody.textContent;
+          markDirty();
+        });
+      } else {
+        ctxBody.removeAttribute('contenteditable');
+        ctxBody.classList.remove('editable');
+      }
+    }
+
+    // Re-render current node
+    var hash = getHash();
+    var parts = hash.split('/');
+    var nodeId = parts.length >= 3 ? parts.slice(2).join('/') : (currentFlow ? currentFlow.start : null);
+    if (nodeId && currentFlow && currentFlow.nodes[nodeId]) {
+      renderNode(nodeId, currentFlow.nodes[nodeId]);
     }
   }
 
@@ -395,14 +426,55 @@
     });
   }
 
-  // ── Node Rendering (always editable) ──
+  // ── Node Rendering ──
 
   function renderNode(nodeId, node) {
     var container = document.getElementById('node-container');
     if (!container) return;
     container.innerHTML = '';
 
-    // Label — editable inline
+    if (editMode) {
+      renderNodeEdit(container, nodeId, node);
+    } else {
+      renderNodeView(container, nodeId, node);
+    }
+  }
+
+  function renderNodeView(container, nodeId, node) {
+    container.appendChild(el('div', { className: 'node-label', textContent: node.label }));
+    container.appendChild(el('div', { className: 'node-say', textContent: node.say }));
+
+    if (node.note) {
+      container.appendChild(el('div', { className: 'node-note', textContent: node.note }));
+    }
+
+    if (node.branches && node.branches.length > 0) {
+      var branchContainer = el('div', { className: 'branches' });
+      node.branches.forEach(function (b) {
+        branchContainer.appendChild(el('button', {
+          className: 'branch-btn',
+          onClick: function () { navigateToNode(b.to, false); }
+        }, [
+          el('span', { textContent: b.label }),
+          el('span', { className: 'branch-arrow', textContent: '\u203a' })
+        ]));
+      });
+      container.appendChild(branchContainer);
+    } else {
+      container.appendChild(el('div', { className: 'terminal-msg', textContent: 'End of flow' }));
+    }
+
+    container.appendChild(el('button', {
+      className: 'start-over-btn',
+      textContent: 'Start Over',
+      onClick: function () { navigateToNode(currentFlow.start, true); }
+    }));
+
+    container.scrollIntoView({ behavior: 'instant', block: 'start' });
+  }
+
+  function renderNodeEdit(container, nodeId, node) {
+    // Label
     var labelEl = el('div', {
       className: 'node-label',
       contenteditable: 'true',
@@ -410,7 +482,6 @@
     });
     labelEl.addEventListener('input', function () {
       node.label = labelEl.textContent;
-      // Update breadcrumb text too
       for (var i = 0; i < breadcrumb.length; i++) {
         if (breadcrumb[i].id === nodeId) { breadcrumb[i].label = node.label; break; }
       }
@@ -418,7 +489,7 @@
     });
     container.appendChild(labelEl);
 
-    // Say — editable inline
+    // Say
     var sayEl = el('div', {
       className: 'node-say',
       contenteditable: 'true',
@@ -430,7 +501,7 @@
     });
     container.appendChild(sayEl);
 
-    // Note — editable inline
+    // Note
     var noteEl = el('div', {
       className: 'node-note',
       contenteditable: 'true',
@@ -449,36 +520,28 @@
       node.branches.forEach(function (b) {
         var branchRow = el('div', { className: 'branch-row' });
 
-        // Editable label
         var branchLabel = el('span', {
           className: 'branch-label-edit',
           contenteditable: 'true',
           textContent: b.label
         });
-        branchLabel.addEventListener('input', function () {
-          b.label = branchLabel.textContent;
-          markDirty();
-        });
-        // Stop click from navigating when editing the label
+        branchLabel.addEventListener('input', function () { b.label = branchLabel.textContent; markDirty(); });
         branchLabel.addEventListener('click', function (e) { e.stopPropagation(); });
-        branchLabel.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); } });
+        branchLabel.addEventListener('keydown', function (e) { if (e.key === 'Enter') e.preventDefault(); });
 
-        // Target selector (small, at the right)
         var targetBtn = el('span', {
           className: 'branch-target',
           textContent: '\u2192 ' + b.to
         });
         targetBtn.addEventListener('click', function (e) {
           e.stopPropagation();
-          showTargetPicker(b, targetBtn);
+          showTargetPicker(b, targetBtn, nodeId, node);
         });
 
-        // Navigate button wrapping everything
         var btn = el('button', { className: 'branch-btn', onClick: function () {
           navigateToNode(b.to, false);
         }}, [branchLabel, targetBtn]);
 
-        // Delete branch (tiny x)
         var delBtn = el('span', { className: 'branch-del', textContent: '\u00d7' });
         delBtn.addEventListener('click', function (e) {
           e.stopPropagation();
@@ -492,8 +555,7 @@
         branchContainer.appendChild(branchRow);
       });
 
-      // Add branch button
-      var addBranchBtn = el('button', {
+      branchContainer.appendChild(el('button', {
         className: 'add-branch-btn',
         textContent: '+ Add response',
         onClick: function () {
@@ -502,12 +564,10 @@
           markDirty();
           renderNode(nodeId, node);
         }
-      });
-      branchContainer.appendChild(addBranchBtn);
+      }));
 
       container.appendChild(branchContainer);
     } else {
-      // Terminal node
       container.appendChild(el('div', { className: 'terminal-msg', textContent: 'End of flow' }));
       container.appendChild(el('button', {
         className: 'add-branch-btn',
@@ -520,7 +580,7 @@
       }));
     }
 
-    // Node footer: node ID + add new node
+    // Footer
     var footer = el('div', { className: 'node-footer' }, [
       el('span', { className: 'node-id-label', textContent: nodeId }),
       el('button', { className: 'add-node-btn', textContent: '+ New node', onClick: function () {
@@ -536,7 +596,6 @@
     ]);
     container.appendChild(footer);
 
-    // Start over
     container.appendChild(el('button', {
       className: 'start-over-btn',
       textContent: 'Start Over',
@@ -546,16 +605,15 @@
     container.scrollIntoView({ behavior: 'instant', block: 'start' });
   }
 
-  // Target picker — shows a dropdown of all node IDs
-  function showTargetPicker(branch, anchorEl) {
-    // Remove any existing picker
+  // ── Target Picker ──
+
+  function showTargetPicker(branch, anchorEl, nodeId, node) {
     var old = document.querySelector('.target-picker');
     if (old) old.remove();
 
     var picker = el('div', { className: 'target-picker' });
-    var nodeIds = Object.keys(currentFlow.nodes).sort();
-    nodeIds.forEach(function (nid) {
-      var opt = el('div', {
+    Object.keys(currentFlow.nodes).sort().forEach(function (nid) {
+      picker.appendChild(el('div', {
         className: 'target-option' + (nid === branch.to ? ' selected' : ''),
         textContent: nid,
         onClick: function () {
@@ -564,17 +622,14 @@
           markDirty();
           picker.remove();
         }
-      });
-      picker.appendChild(opt);
+      }));
     });
 
-    // Position near the anchor
     var rect = anchorEl.getBoundingClientRect();
     picker.style.top = rect.bottom + 'px';
     picker.style.right = (window.innerWidth - rect.right) + 'px';
     document.body.appendChild(picker);
 
-    // Close on outside click
     setTimeout(function () {
       document.addEventListener('click', function handler() {
         picker.remove();
@@ -588,6 +643,8 @@
   async function route() {
     if (!checkPin()) { showPinGate(); return; }
 
+    editMode = false;
+    dirty = false;
     hideSaveFab();
     var hash = getHash();
 
@@ -618,12 +675,11 @@
       renderSearchView(data);
     } catch (e) {
       app.innerHTML = '';
-      app.appendChild(el('div', { className: 'error-msg', textContent: 'Could not load lead index. Make sure data/index.json exists.' }));
+      app.appendChild(el('div', { className: 'error-msg', textContent: 'Could not load lead index.' }));
     }
   }
 
   // ── Init ──
-
   window.addEventListener('hashchange', route);
   window.addEventListener('popstate', route);
   route();
