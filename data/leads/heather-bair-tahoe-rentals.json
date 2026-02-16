@@ -1,0 +1,612 @@
+{
+  "name": "Heather Bair",
+  "title": "Realtor / Co-Manager",
+  "company": "Tahoe Rentals",
+  "location": "Lake Tahoe, CA",
+  "phone": "+1-530-583-2301",
+  "company_phone": "+1-800-858-2463",
+  "alt_phones": [],
+  "flow": {
+    "context": "Heather Bair is Realtor and Co-Manager at the Tahoe Office for Wells & Bennett / Tahoe Rentals — a family-owned company (since 1924) managing 200+ vacation rental homes on Tahoe's North and West shores. As co-manager she's in the weeds on housekeeping coordination, owner relationships, and quality standards daily. Their team already uses mobile apps for housekeepers to snap photos and flag issues during turnovers, but there's no known AI or inspection analysis platform — photos are being collected but almost certainly not reviewed at scale across 200+ homes. Sam's strongest hook: he was just skiing in Jackson Hole weeks ago and works with other vacation rental managers in mountain markets, making this feel like an industry peer call, not a cold one.",
+    "start": "opener",
+    "nodes": {
+      "opener": {
+        "label": "OPENER",
+        "say": "Hey Heather — I work with a few vacation rental managers up in the Tahoe area, actually just got back from skiing in Jackson Hole a couple weeks ago so I've been deep in the mountain rental world lately. It's Sam Parks with RapidEye. Have you heard my name tossed around?",
+        "note": "Relaxed tone. Feet up on the desk. Smile. If someone other than Heather answers, jump to gatekeeper.",
+        "branches": [
+          {
+            "label": "She says no — hasn't heard of you",
+            "to": "heard_no_pain_trigger"
+          },
+          {
+            "label": "She says yes or plays along",
+            "to": "heard_yes"
+          },
+          {
+            "label": "She says it's a bad time or she's busy",
+            "to": "bad_timing"
+          },
+          {
+            "label": "Someone else answered the phone",
+            "to": "gatekeeper"
+          }
+        ]
+      },
+      "gatekeeper": {
+        "label": "GATEKEEPER — SLIDE BY",
+        "say": "Oh hey — could you get me through to Heather? It's Sam.",
+        "note": "Don't explain anything yet. First name only. Casual, like you're expected.",
+        "branches": [
+          {
+            "label": "They ask what it's regarding",
+            "to": "gatekeeper_pushback"
+          },
+          {
+            "label": "They transfer you",
+            "to": "connected_to_heather"
+          }
+        ]
+      },
+      "gatekeeper_pushback": {
+        "label": "GATEKEEPER — ADD CONTEXT",
+        "say": "Yeah totally — I work with a few other vacation rental managers up in Tahoe on their inspection process. Would you mind letting Heather know it's Sam Parks?",
+        "note": "Still not pitching. Just enough to sound legitimate. Redirect with a question.",
+        "branches": [
+          {
+            "label": "They push back again or say she's unavailable",
+            "to": "gatekeeper_social_proof"
+          },
+          {
+            "label": "They transfer you",
+            "to": "connected_to_heather"
+          }
+        ]
+      },
+      "gatekeeper_social_proof": {
+        "label": "GATEKEEPER — SOCIAL PROOF",
+        "say": "No worries. We help a couple other property management companies in the area with their turnover inspection workflows — I actually sent Heather a note about it. Would you mind giving her a heads up that Sam Parks from RapidEye called?",
+        "note": "Leave your name cleanly and move on. Don't burn the gatekeeper. Try Heather's cell next time: 916-532-7225.",
+        "branches": [
+          {
+            "label": "They take a message or say they'll pass it along",
+            "to": "gatekeeper_hard_block"
+          },
+          {
+            "label": "They transfer you after all",
+            "to": "connected_to_heather"
+          }
+        ]
+      },
+      "gatekeeper_hard_block": {
+        "label": "GATEKEEPER BLOCK — END",
+        "say": "Appreciate it — thanks so much. Have a good one.",
+        "note": "Try Heather's cell (916-532-7225) or direct line (530-583-2301) next attempt. Consider reaching Jim Plumbridge (Broker/Manager) or Barry Bennett (CEO) as alternate paths.",
+        "branches": []
+      },
+      "connected_to_heather": {
+        "label": "TRANSFERRED TO HEATHER",
+        "say": "Hey Heather — thanks for taking the call. I work with a few vacation rental managers up in Tahoe, and I just got back from skiing out in Jackson Hole so I've been talking to a lot of folks in the mountain rental space lately. It's Sam Parks with RapidEye. Have you heard my name tossed around?",
+        "note": "Same energy as the main opener. She just got transferred so give her a beat to orient before you roll.",
+        "branches": [
+          {
+            "label": "She says no — hasn't heard of you",
+            "to": "heard_no_pain_trigger"
+          },
+          {
+            "label": "She says yes or plays along",
+            "to": "heard_yes"
+          },
+          {
+            "label": "She says it's a bad time",
+            "to": "bad_timing"
+          }
+        ]
+      },
+      "heard_no_pain_trigger": {
+        "label": "PAIN TRIGGER",
+        "say": "Ha — I guess I'm not as popular as I thought. Well the reason for my call — I work with another vacation rental manager in a pretty similar spot to you guys. They run about 200 homes in a mountain market. And the thing that was killing them is their housekeeping crew was already taking photos on every turnover — uploading them through their app, checking boxes, the whole thing — but nobody actually had the time to sit there and review all of those photos. So stuff would slip through. A stain on a couch cushion, a hairline crack in a sliding door, a set of towels that just vanished. And it'd be fine until a homeowner noticed before they did, or a guest walked in and it became a review problem. With 200-plus homes turning over, especially during ski season — that's a lot of photos nobody's really looking at. Does any of that ring a bell?",
+        "note": "PAUSE after 'ring a bell.' Do not fill the silence. You just described their exact operation — 200+ homes, mobile app photo uploads, mountain market, ski season. Let her react.",
+        "branches": [
+          {
+            "label": "She agrees or resonates — shares her own version of the pain",
+            "to": "warm_reaction"
+          },
+          {
+            "label": "She's quiet or gives a flat noncommittal response",
+            "to": "permission_fallback"
+          },
+          {
+            "label": "She says they already have a process or vendor for that",
+            "to": "have_vendor"
+          },
+          {
+            "label": "She says she's not the right person for this",
+            "to": "referral"
+          },
+          {
+            "label": "She says not interested",
+            "to": "not_interested"
+          }
+        ]
+      },
+      "heard_yes": {
+        "label": "HEARD YES — EXPLORE",
+        "say": "Oh nice — well normally we'd be working with someone in your shoes. What'd you hear?",
+        "note": "Let her talk. Whatever she says, bridge into discovery. Even if she's vague, treat it as warm.",
+        "branches": [
+          {
+            "label": "She shares something specific or is curious",
+            "to": "warm_from_heard"
+          },
+          {
+            "label": "She's vague — 'not sure, maybe saw an email'",
+            "to": "warm_from_heard"
+          }
+        ]
+      },
+      "bad_timing": {
+        "label": "BAD TIMING — RESCHEDULE",
+        "say": "Totally hear you — would it be a terrible idea if I tried you again tomorrow, maybe mid-morning?",
+        "note": "Offer a specific time. If she gives an alternate, take it. Lock in something concrete.",
+        "branches": [
+          {
+            "label": "She suggests a time or agrees to tomorrow",
+            "to": "reschedule_set"
+          },
+          {
+            "label": "She says don't call back",
+            "to": "graceful_end"
+          },
+          {
+            "label": "She says go ahead, you've got a minute",
+            "to": "heard_no_pain_trigger"
+          }
+        ]
+      },
+      "reschedule_set": {
+        "label": "CALLBACK LOCKED",
+        "say": "Perfect — I'll try you then. Appreciate it, Heather. Talk soon.",
+        "note": "Write down the exact time. Set a reminder. When you call back open with: 'Hey Heather, it's Sam Parks — you told me to call you back today.'",
+        "branches": []
+      },
+      "warm_from_heard": {
+        "label": "WARM FROM HEARD — BRIDGE TO DISCOVERY",
+        "say": "Yeah so the short version — we built a tool that looks at the photos your housekeeping team is already taking on turnovers and flags damage, missing items, staging issues automatically. We work with a few other vacation rental managers in the Tahoe area. But I'm curious — what does your guys' inspection process actually look like right now? I know you've got the mobile app your housekeepers use to upload photos — is someone on your team reviewing all of those?",
+        "note": "You know from their website they use mobile apps for housekeeping photo uploads. Reference it naturally — shows homework without being creepy.",
+        "branches": [
+          {
+            "label": "She describes their process or engages with the question",
+            "to": "discovery_photos"
+          },
+          {
+            "label": "She asks how you know about their app",
+            "to": "discovery_process"
+          },
+          {
+            "label": "She deflects or goes cold",
+            "to": "solution_cta"
+          }
+        ]
+      },
+      "warm_reaction": {
+        "label": "WARM — STOP PITCHING, START ASKING",
+        "say": "Yeah I figured that might hit close to home. So I'm curious — with 200-plus homes, what does your guys' turnover inspection process actually look like? I know you've got your housekeeping crew using a mobile app to upload photos and flag stuff — is someone on your team going through all of those after each turnover, or is it more of a spot-check thing?",
+        "note": "She resonated with the pain. Do NOT pitch. Ask questions. Let her tell you how bad it is.",
+        "branches": [
+          {
+            "label": "She opens up about the process and its challenges",
+            "to": "discovery_photos"
+          },
+          {
+            "label": "She gives a short answer and asks what you do",
+            "to": "solution_cta"
+          },
+          {
+            "label": "She says they mostly spot-check",
+            "to": "discovery_photos"
+          }
+        ]
+      },
+      "discovery_process": {
+        "label": "DISCOVERY — HOW YOU KNOW",
+        "say": "Oh it's on your website — you guys talk about your housekeeping team using mobile apps to report issues and send photos to maintenance. That's actually one of the reasons I reached out, because you're already collecting the data, you're just not running it through anything that catches everything automatically. So walk me through it — when a housekeeper finishes a turnover, what happens to those photos?",
+        "note": "Be transparent about where you found it. Tahoe Rentals property management page describes the mobile app workflow. Then pivot back to a genuine question.",
+        "branches": [
+          {
+            "label": "She explains the workflow",
+            "to": "discovery_photos"
+          },
+          {
+            "label": "She seems impressed and opens up",
+            "to": "discovery_photos"
+          }
+        ]
+      },
+      "discovery_photos": {
+        "label": "DISCOVERY — PHOTO REVIEW DEEP DIVE",
+        "say": "Got it. And when something does slip through — like damage gets missed and a homeowner notices first — what does that look like for you? Is that a phone call you're getting directly, or does it go through Jim or Barry first?",
+        "note": "You're mapping her pain AND the org chart simultaneously. Jim Plumbridge is Broker/Manager, Barry Bennett is CEO/Owner. Listen for how escalations flow.",
+        "branches": [
+          {
+            "label": "She describes the fallout and owner complaints",
+            "to": "discovery_owner_impact"
+          },
+          {
+            "label": "She says it's not a huge problem for them",
+            "to": "solution_cta"
+          },
+          {
+            "label": "She mentions another person who handles that side",
+            "to": "referral"
+          }
+        ]
+      },
+      "discovery_owner_impact": {
+        "label": "DISCOVERY — OWNER RELATIONSHIP IMPACT",
+        "say": "Yeah — and with a family-owned operation like yours where the relationships are everything, I imagine those calls hit different than they would at some big corporate PM company. How many homeowners would you say you've had that kind of friction with over the past year?",
+        "note": "Wells & Bennett is family-owned since 1924. The personal relationship angle is deeply real for them. You're quantifying the pain now — number of incidents becomes the business case.",
+        "branches": [
+          {
+            "label": "She gives a number or acknowledges it's a real issue",
+            "to": "solution_cta"
+          },
+          {
+            "label": "She downplays it but stays engaged",
+            "to": "solution_cta"
+          },
+          {
+            "label": "She opens up significantly — this is clearly a sore spot",
+            "to": "solution_cta"
+          }
+        ]
+      },
+      "solution_cta": {
+        "label": "SOLUTION + CTA",
+        "say": "So here's the short version — we built an AI layer that plugs into the photo workflow you already have. Your housekeepers keep doing exactly what they're doing, taking photos on turnovers. Our system analyzes every photo automatically and flags damage, missing items, staging issues — stuff a human would catch if they had time to review every single image, which nobody does across 200 homes. We're working with a few other PM companies in similar mountain markets right now. Would you be open to taking a look sometime this week when I'm not cold calling you out of the blue?",
+        "note": "One breath. Don't oversell. The CTA is a meeting, not a purchase. Pause after the question.",
+        "branches": [
+          {
+            "label": "She agrees to a meeting",
+            "to": "book_meeting"
+          },
+          {
+            "label": "She says not interested",
+            "to": "not_interested"
+          },
+          {
+            "label": "She says no budget for new tools right now",
+            "to": "no_budget"
+          },
+          {
+            "label": "She says they already have something or a solid process",
+            "to": "have_vendor"
+          },
+          {
+            "label": "She says just send me an email",
+            "to": "send_email"
+          },
+          {
+            "label": "She says she's not the decision-maker for this",
+            "to": "referral"
+          }
+        ]
+      },
+      "permission_fallback": {
+        "label": "PERMISSION FALLBACK",
+        "say": "Yeah totally — I mean it is a cold call. Can I get 30 seconds to tell you why I reached out, and you can totally hang up on me if it's not a fit?",
+        "note": "She's guarded, not hostile. The 30-second ask plus permission to hang up lowers the stakes dramatically.",
+        "branches": [
+          {
+            "label": "She gives you 30 seconds",
+            "to": "permission_granted_pain"
+          },
+          {
+            "label": "She says no or not interested",
+            "to": "permission_rejected"
+          }
+        ]
+      },
+      "permission_granted_pain": {
+        "label": "PERMISSION GRANTED — SHORT PAIN + CTA",
+        "say": "Appreciate it. Quick version — we work with vacation rental managers who are already collecting photos on turnovers but nobody has time to actually review them all. Your team's taking pictures, uploading them through your app — but across 200-plus homes, stuff slips through and homeowners end up catching damage before you do. We built an AI that analyzes every photo automatically and flags what's wrong — no workflow change for your team. Would you be open to taking a quick look?",
+        "note": "Compressed version. Hit pain, solution, CTA in 30 seconds. Don't waste the permission she gave you.",
+        "branches": [
+          {
+            "label": "She agrees to take a look",
+            "to": "book_meeting"
+          },
+          {
+            "label": "She's curious — asks a question",
+            "to": "warm_reaction"
+          },
+          {
+            "label": "She says not interested",
+            "to": "not_interested"
+          },
+          {
+            "label": "She says send me something",
+            "to": "send_email"
+          }
+        ]
+      },
+      "permission_rejected": {
+        "label": "PERMISSION REJECTED — SPLIT",
+        "say": "Shoot, totally my bad. Just so nobody from my team bugs you again — is it that I caught you at a horrible time, or is it that you already know what we do and this just isn't interesting?",
+        "note": "Split the rejection into timing vs. fit. Most people pick timing, which reopens the door.",
+        "branches": [
+          {
+            "label": "Bad timing — she might be open later",
+            "to": "bad_timing"
+          },
+          {
+            "label": "Not interesting or not a fit",
+            "to": "graceful_end"
+          },
+          {
+            "label": "She softens and re-engages",
+            "to": "permission_granted_pain"
+          }
+        ]
+      },
+      "not_interested": {
+        "label": "OBJECTION — NOT INTERESTED",
+        "say": "Totally get it. I honestly should've assumed you'd be all set — otherwise you probably would've reached out to us, right?",
+        "note": "Agree first. Disarm. Surprise her by not pushing back. Then split.",
+        "branches": [
+          {
+            "label": "She agrees or pauses",
+            "to": "not_interested_split"
+          },
+          {
+            "label": "She firmly wants off the call",
+            "to": "graceful_end"
+          }
+        ]
+      },
+      "not_interested_split": {
+        "label": "NOT INTERESTED — SPLIT",
+        "say": "Just so no one from my team cold calls you again — is it that inspection quality honestly isn't a headache for you right now, or is it more that you just hate getting cold called?",
+        "note": "Most people admit they hate cold calls, which means the problem might still be real. That's your opening.",
+        "branches": [
+          {
+            "label": "She admits she hates cold calls or softens a bit",
+            "to": "test_drive"
+          },
+          {
+            "label": "She says inspections genuinely aren't a problem",
+            "to": "referral_or_end"
+          },
+          {
+            "label": "She stays firm — done with the call",
+            "to": "graceful_end"
+          }
+        ]
+      },
+      "have_vendor": {
+        "label": "OBJECTION — HAVE A PROCESS",
+        "say": "That makes total sense — with 200-plus homes you'd have to have something in place, especially with your housekeeping team already using the mobile app. Honestly it'd be weird if you didn't.",
+        "note": "Validate completely. At their scale, of course they have a process. Then split.",
+        "branches": [
+          {
+            "label": "She agrees or relaxes a little",
+            "to": "have_vendor_split"
+          },
+          {
+            "label": "She names a specific tool or platform",
+            "to": "have_vendor_split"
+          }
+        ]
+      },
+      "have_vendor_split": {
+        "label": "HAVE PROCESS — SPLIT",
+        "say": "Just out of curiosity — is it that you're fully covered and everything's getting caught, or is it more that switching anything right now in the middle of ski season would just be a headache?",
+        "note": "If switching is the headache — emphasize no workflow change, RapidEye layers on top of what they already have. If fully covered, respect it and pivot to referral or test drive.",
+        "branches": [
+          {
+            "label": "Switching is the headache or timing is bad",
+            "to": "test_drive"
+          },
+          {
+            "label": "They're fully covered and happy with their process",
+            "to": "referral_or_end"
+          },
+          {
+            "label": "She admits stuff still slips through despite the process",
+            "to": "test_drive"
+          }
+        ]
+      },
+      "no_budget": {
+        "label": "OBJECTION — NO BUDGET",
+        "say": "Totally get it. Nowadays it's harder to keep a tool than it is to buy something new, let alone add one to the stack.",
+        "note": "Agree completely. Don't fight the budget objection. Then split.",
+        "branches": [
+          {
+            "label": "She agrees or pauses",
+            "to": "no_budget_split"
+          }
+        ]
+      },
+      "no_budget_split": {
+        "label": "NO BUDGET — SPLIT",
+        "say": "Just so I know — is it that budget for this kind of thing is completely locked right now, or is it more that anything new has to go through Barry and the whole approval process is a nightmare?",
+        "note": "Referencing Barry Bennett (CEO) naturally. If it's approval friction, offer to loop him in. If budget is truly locked, sell the test drive for future planning.",
+        "branches": [
+          {
+            "label": "Budget is genuinely locked",
+            "to": "test_drive"
+          },
+          {
+            "label": "It's more about getting approval from Barry or leadership",
+            "to": "test_drive_with_barry"
+          },
+          {
+            "label": "She re-engages — budget isn't actually the real issue",
+            "to": "solution_cta"
+          }
+        ]
+      },
+      "test_drive": {
+        "label": "TEST DRIVE PITCH",
+        "say": "Totally fair. You're probably not buying anything right now and I respect that. But when budget does open up — or when you hit that next homeowner complaint and you're thinking about it — the people who move fastest are the ones who already know what's on the table. Would you be open to a quick 15-minute look? If nothing else I can walk you through what other PM companies in the Tahoe area are doing with their turnover photos. Worst case you steal some ideas and we part as friends.",
+        "note": "The offer of value: even if she never buys, the meeting is worth her time. 'Other PM companies in Tahoe' is real social proof without naming names.",
+        "branches": [
+          {
+            "label": "She agrees to a meeting",
+            "to": "book_meeting"
+          },
+          {
+            "label": "She says send me something instead",
+            "to": "send_email"
+          },
+          {
+            "label": "She still declines",
+            "to": "graceful_end"
+          }
+        ]
+      },
+      "test_drive_with_barry": {
+        "label": "TEST DRIVE — OFFER TO INCLUDE BARRY",
+        "say": "Got it. What if I put something together so it's easy for you to bring to Barry? Or honestly — would it make more sense to just loop him in on a quick call so you're not playing telephone and he can see it firsthand?",
+        "note": "Offering to remove the internal friction. If she likes including Barry, book a joint call. If she wants to handle it herself, respect that and send materials.",
+        "branches": [
+          {
+            "label": "She likes including Barry — book a joint call",
+            "to": "book_meeting"
+          },
+          {
+            "label": "She wants to handle it internally first",
+            "to": "send_email"
+          },
+          {
+            "label": "She gives you Barry's direct line or says call him",
+            "to": "referral_received"
+          }
+        ]
+      },
+      "send_email": {
+        "label": "SEND ME AN EMAIL",
+        "say": "Totally fair. One quick question so I don't just send you something generic that ends up in spam — what would actually be most relevant for you? Is it more about how it works with your current photo workflow, or is it the ROI side — like what other managers are saving on missed damage claims?",
+        "note": "Accept the email request gracefully. The question keeps her engaged for one more exchange and tells you what matters to her.",
+        "branches": [
+          {
+            "label": "She tells you what to include",
+            "to": "send_email_close"
+          },
+          {
+            "label": "She says just send whatever",
+            "to": "send_email_close"
+          }
+        ]
+      },
+      "send_email_close": {
+        "label": "EMAIL CLOSE",
+        "say": "Perfect — I'll send that over to your Wells and Bennett email this afternoon. I'll throw a time option in there for later this week in case you want to take a look live. Appreciate you taking my call, Heather.",
+        "note": "Send to heather@wellsandbennett.com. Keep the email short and specific to what she asked for. Include one specific day/time suggestion. Follow up in 2-3 days if no reply.",
+        "branches": []
+      },
+      "book_meeting": {
+        "label": "BOOK THE MEETING",
+        "say": "Awesome. I've got next week pulled up — how does Tuesday or Wednesday look for you? I can do morning or afternoon, whatever's easier.",
+        "note": "Pick specific days. Lock it in NOW. Don't leave it open-ended. Send the invite while you're still on the phone.",
+        "branches": [
+          {
+            "label": "She picks a time",
+            "to": "meeting_booked"
+          },
+          {
+            "label": "She wants to check her calendar and get back to you",
+            "to": "meeting_pin_down"
+          }
+        ]
+      },
+      "meeting_pin_down": {
+        "label": "PIN DOWN THE MEETING",
+        "say": "Totally — how about I send over a couple time options and you just pick whichever works? That way it's sitting in your inbox and you can just click accept. Is your Wells and Bennett email the best one?",
+        "note": "Don't let it float. Send calendar options immediately. Confirm heather@wellsandbennett.com.",
+        "branches": [
+          {
+            "label": "She confirms email and agrees to pick a time",
+            "to": "meeting_booked"
+          },
+          {
+            "label": "She backs off — not ready to commit to a meeting",
+            "to": "send_email"
+          }
+        ]
+      },
+      "meeting_booked": {
+        "label": "MEETING CONFIRMED",
+        "say": "Perfect — sending that over right now. Really appreciate you taking my call, Heather. Talk to you then.",
+        "note": "STOP SELLING. Send the calendar invite immediately. Add all discovery notes to CRM. Do not pitch anything else.",
+        "branches": []
+      },
+      "referral": {
+        "label": "NOT THE RIGHT PERSON — REFERRAL",
+        "say": "Totally hear you — who on your team would typically own something like the inspection or turnover process? Would that be more Jim's world, or does it roll up to Barry?",
+        "note": "Jim Plumbridge is Broker/Manager, Barry Bennett is CEO. Drop their first names naturally — shows you know the org. Aimee Carlson is also a key operator per BBB records if either name comes up.",
+        "branches": [
+          {
+            "label": "She points you to Jim Plumbridge",
+            "to": "referral_get_name"
+          },
+          {
+            "label": "She points you to Barry Bennett",
+            "to": "referral_get_name"
+          },
+          {
+            "label": "She names someone else like Aimee Carlson",
+            "to": "referral_get_name"
+          },
+          {
+            "label": "She doesn't want to refer anyone",
+            "to": "graceful_end"
+          }
+        ]
+      },
+      "referral_get_name": {
+        "label": "REFERRAL — GET CONTACT DETAILS",
+        "say": "Perfect — and what's the best way to reach them? If I can put something tailored together it'll actually land instead of being another random cold email. Would it be cool if I mentioned you pointed me their way?",
+        "note": "Get name, email, phone, and permission to name-drop Heather. This turns your next call from cold to warm.",
+        "branches": [
+          {
+            "label": "She gives contact info and permission to name-drop",
+            "to": "referral_received"
+          },
+          {
+            "label": "She says just call the main office line",
+            "to": "referral_received"
+          }
+        ]
+      },
+      "referral_received": {
+        "label": "REFERRAL RECEIVED — CLOSE",
+        "say": "Really appreciate that, Heather. I'll reach out to them and mention you sent me their way. Thanks for your time — enjoy the rest of ski season.",
+        "note": "Log the referral immediately. When you call the referred person, open with 'Heather Bair pointed me your way.' This is now a warm call.",
+        "branches": []
+      },
+      "referral_or_end": {
+        "label": "LAST SHOT — REFERRAL OR END",
+        "say": "That's fair. Out of curiosity — if this were on someone's radar at Tahoe Rentals, who would that person be? Just want to make sure if I follow up it goes to the right desk.",
+        "note": "Last attempt to extract value from the call. Even if she's not a buyer, she might point you to the right person.",
+        "branches": [
+          {
+            "label": "She gives you a name",
+            "to": "referral_get_name"
+          },
+          {
+            "label": "She says nobody or declines",
+            "to": "graceful_end"
+          }
+        ]
+      },
+      "graceful_end": {
+        "label": "GRACEFUL END",
+        "say": "Totally understand. If anything changes I'm easy to find — Sam Parks, RapidEye. Appreciate your time, Heather. Enjoy the snow.",
+        "note": "Don't burn the bridge. She may google you later. Log the call, note the outcome, set a follow-up reminder for 60-90 days.",
+        "branches": []
+      }
+    }
+  }
+}

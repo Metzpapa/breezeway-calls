@@ -1,0 +1,765 @@
+{
+  "name": "Ersula Fabian",
+  "title": "Guest Operations Manager",
+  "company": "Grand Welcome Palm Springs",
+  "location": "Palm Springs, CA",
+  "phone": "(760) 656-6122",
+  "company_phone": "+1-760-656-6122",
+  "alt_phones": [],
+  "flow": {
+    "context": "Ersula Fabian is Guest Operations Manager at Grand Welcome Palm Springs — she's the person fielding guest complaints when something gets missed during turnovers. 20+ years in hospitality, 5+ in vacation rentals, emphasis on relationships and communication. Grand Welcome PS is a locally owned franchise with in-house cleaning and maintenance teams that do spot-checks before guest arrivals; no publicly known ops/photo platform; they use a proprietary reservation system at the brand level. Sam's connection: both SoCal-based (Sam grew up in La Cañada near LA, Ersula works Palm Springs), shared love of the outdoors (she mentions being 'out in nature,' Sam surfs and fishes). If Ersula isn't the buyer, referral targets are Justin Marché (GM), Denise Turner (Owner), or Stacy Bottroff (Operations — owned a housekeeping company).",
+    "start": "someone_answers",
+    "nodes": {
+      "someone_answers": {
+        "label": "SOMEONE PICKS UP",
+        "say": "Hey, is Ersula in today?",
+        "note": "Keep it casual — first name only, sound like you know her. Don't say your name yet.",
+        "branches": [
+          {
+            "label": "This is Ersula / speaking",
+            "to": "reached_ersula"
+          },
+          {
+            "label": "Who's calling? / What's this about?",
+            "to": "gatekeeper_context"
+          },
+          {
+            "label": "She's not available / not in",
+            "to": "gatekeeper_not_available"
+          },
+          {
+            "label": "Let me transfer you",
+            "to": "reached_ersula"
+          }
+        ]
+      },
+      "gatekeeper_context": {
+        "label": "GATEKEEPER ASKS WHO'S CALLING",
+        "say": "Yeah — it's Sam Parks. I work with a few other property managers in the Palm Springs area. Would you mind letting her know I'm on the line?",
+        "note": "Don't pitch the gatekeeper. Give just enough to sound legitimate. Stay relaxed.",
+        "branches": [
+          {
+            "label": "Sure, one moment / transferring",
+            "to": "reached_ersula"
+          },
+          {
+            "label": "What's this regarding?",
+            "to": "gatekeeper_social_proof"
+          },
+          {
+            "label": "She's busy / not available",
+            "to": "gatekeeper_not_available"
+          }
+        ]
+      },
+      "gatekeeper_social_proof": {
+        "label": "GATEKEEPER WANTS MORE DETAIL",
+        "say": "Totally — we help a couple property management companies with their inspection and turnover workflows. I sent her a note and just wanted to follow up. Would you mind giving her a heads up that Sam Parks called?",
+        "note": "Don't oversell. If they won't put you through, get a callback window and move on.",
+        "branches": [
+          {
+            "label": "OK let me connect you",
+            "to": "reached_ersula"
+          },
+          {
+            "label": "I'll pass along the message",
+            "to": "gatekeeper_leave_message"
+          },
+          {
+            "label": "She's not the right person for that",
+            "to": "gatekeeper_redirect"
+          }
+        ]
+      },
+      "gatekeeper_leave_message": {
+        "label": "LEAVE A MESSAGE",
+        "say": "Appreciate that. It's Sam Parks — S-A-M, Parks like the park — with RapidEye. My number is [your number]. And hey, when's she usually easiest to catch?",
+        "note": "Always ask for the best callback window. Note the exact time and call back then.",
+        "branches": []
+      },
+      "gatekeeper_redirect": {
+        "label": "GATEKEEPER REDIRECTS",
+        "say": "Oh good to know — who on the team would handle anything related to turnover inspections or property readiness? Would that be someone like Justin or Stacy?",
+        "note": "Drop real names from the org to show legitimacy. Justin Marché is GM, Stacy Bottroff runs operations. The gatekeeper may confirm or correct.",
+        "branches": [
+          {
+            "label": "They give a name or transfer",
+            "to": "reached_referral_contact"
+          },
+          {
+            "label": "They don't know / won't say",
+            "to": "gatekeeper_leave_message"
+          }
+        ]
+      },
+      "gatekeeper_not_available": {
+        "label": "ERSULA NOT AVAILABLE",
+        "say": "No worries at all. When's she usually easiest to reach? I'll try her back then.",
+        "note": "Get the specific time or day. Don't leave a long message — just name and number.",
+        "branches": [
+          {
+            "label": "They give a time / suggest callback",
+            "to": "gatekeeper_leave_message"
+          },
+          {
+            "label": "They offer to take a message",
+            "to": "gatekeeper_leave_message"
+          }
+        ]
+      },
+      "reached_ersula": {
+        "label": "OPENER — ERSULA ON THE LINE",
+        "say": "Hey Ersula — I work with a few property managers in the Palm Springs area on their inspection workflows. I'm actually from the LA area myself, so I'm in and out of the desert pretty often. It's Sam Parks with RapidEye — have you heard my name tossed around at all?",
+        "note": "SoCal proximity is the connection. Relaxed tone — feet up on the desk, not chipper. Pause and let her answer.",
+        "branches": [
+          {
+            "label": "No, I haven't / Who?",
+            "to": "heard_name_no"
+          },
+          {
+            "label": "Yeah / Maybe / Sounds familiar",
+            "to": "heard_name_yes"
+          },
+          {
+            "label": "I'm really busy / bad time",
+            "to": "bad_timing"
+          },
+          {
+            "label": "Is this a sales call?",
+            "to": "permission_fallback"
+          }
+        ]
+      },
+      "heard_name_no": {
+        "label": "HASN'T HEARD THE NAME",
+        "say": "Ha — I guess I'm not as popular as I thought. Well, the reason I'm calling — I was talking to another guest ops manager at a company pretty similar to yours. Resort market, in-house cleaning team, they do spot-checks before arrivals — the whole thing. And she was telling me about this recurring issue where the cleaning crew marks a unit as ready, the spot-check looks good, and then the guest walks in and finds something. A stain on the sofa, a cracked tile, a missing set of towels. And she's the one getting the call at eight PM trying to make it right and save the review. The turnover photos were there — the cleaners took them — but nobody had time to actually go through every single one before the guest showed up. Does any of that sound familiar, or is that a world away from what you're dealing with?",
+        "note": "This is the pain trigger. Hairy lollipop specificity. Ersula is Guest Ops — she feels the downstream pain of missed issues. PAUSE after 'sound familiar' and let her react. Do NOT jump into the solution yet.",
+        "branches": [
+          {
+            "label": "Yeah, that happens / tells her own version",
+            "to": "pain_resonates"
+          },
+          {
+            "label": "We actually have a pretty good process",
+            "to": "have_process_objection"
+          },
+          {
+            "label": "I'm not really the right person for this",
+            "to": "referral_ask"
+          },
+          {
+            "label": "Not interested / we're good",
+            "to": "not_interested_objection"
+          }
+        ]
+      },
+      "heard_name_yes": {
+        "label": "HAS HEARD THE NAME",
+        "say": "Oh nice — well normally we'd be working with someone like you on the guest ops side. What'd you hear?",
+        "note": "Let her talk. She may have seen an email, heard from a colleague, or is just being polite. Let her frame it.",
+        "branches": [
+          {
+            "label": "She shares what she heard",
+            "to": "pain_resonates"
+          },
+          {
+            "label": "Not much / can't remember",
+            "to": "heard_name_no"
+          }
+        ]
+      },
+      "bad_timing": {
+        "label": "BAD TIMING",
+        "say": "Totally hear you — would it be a terrible idea if I tried you again tomorrow, maybe around this same time?",
+        "note": "Don't push. Lock in a specific callback time. If she gives a day, get a time too.",
+        "branches": [
+          {
+            "label": "Sure, call me back then",
+            "to": "confirm_callback"
+          },
+          {
+            "label": "Just tell me what this is about real quick",
+            "to": "heard_name_no"
+          },
+          {
+            "label": "Not interested / don't call back",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "confirm_callback": {
+        "label": "LOCK IN CALLBACK",
+        "say": "Perfect — I'll try you [repeat the time she said]. Appreciate it, Ersula. Talk soon.",
+        "note": "Write down the exact day and time. Call at that exact time — this is now a warm callback.",
+        "branches": []
+      },
+      "permission_fallback": {
+        "label": "PERMISSION FALLBACK",
+        "say": "Yeah, totally — I mean it is a cold call. Can I get 30 seconds to tell you why I reached out? And you can totally hang up on me if it's not a fit.",
+        "note": "Disarming honesty. Most people respect this and give you the 30 seconds. If she says yes, go straight to the pain trigger.",
+        "branches": [
+          {
+            "label": "Sure, go ahead",
+            "to": "heard_name_no"
+          },
+          {
+            "label": "No, I'm not interested",
+            "to": "permission_rejected"
+          }
+        ]
+      },
+      "permission_rejected": {
+        "label": "PERMISSION REJECTED",
+        "say": "Shoot — totally my bad. Just so nobody from my team bugs you again — is it that I caught you at a horrible time, or is it that you already know what we do and this just isn't interesting?",
+        "note": "Split the rejection. You're giving her an easy out while opening a door. If it's timing, you get a callback. If it's disinterest, you get intel or a referral.",
+        "branches": [
+          {
+            "label": "It's just bad timing",
+            "to": "bad_timing"
+          },
+          {
+            "label": "I'm just not interested",
+            "to": "last_chance_referral"
+          },
+          {
+            "label": "What do you do exactly?",
+            "to": "heard_name_no"
+          }
+        ]
+      },
+      "pain_resonates": {
+        "label": "PAIN LANDS — SHE'S ENGAGED",
+        "say": "Yeah, that's exactly what I keep hearing. So — what does your inspection process look like right now after a turnover? Are your cleaners taking photos, or is someone else doing a walkthrough before the guest arrives?",
+        "note": "STOP PITCHING. She's warm — ask questions. The website says they do spot-checks before arrival. See if she confirms and how it actually works day to day.",
+        "branches": [
+          {
+            "label": "Describes their process / cleaners take photos",
+            "to": "discovery_deeper"
+          },
+          {
+            "label": "We do spot-checks / someone walks the property",
+            "to": "discovery_spot_checks"
+          },
+          {
+            "label": "Honestly it's kind of a mess",
+            "to": "discovery_pain_point"
+          },
+          {
+            "label": "Why do you ask? / Where is this going?",
+            "to": "solution_bridge"
+          }
+        ]
+      },
+      "discovery_deeper": {
+        "label": "DISCOVERY — PHOTO WORKFLOW",
+        "say": "Got it. And when those photos come in — is someone actually reviewing every single one before the guest checks in? Or is it more of a 'they're there if we need them later' kind of thing?",
+        "note": "You're diagnosing whether photos are proactive (pre-arrival QA) or reactive (only reviewed after a complaint). This is the exact gap RapidEye fills.",
+        "branches": [
+          {
+            "label": "Nobody reviews them all / they're reactive",
+            "to": "solution_bridge"
+          },
+          {
+            "label": "We try but it's hard to keep up",
+            "to": "solution_bridge"
+          },
+          {
+            "label": "We have a solid review process",
+            "to": "have_process_objection"
+          }
+        ]
+      },
+      "discovery_spot_checks": {
+        "label": "DISCOVERY — SPOT-CHECK PROCESS",
+        "say": "Makes sense — I saw you guys do spot-checks before arrivals, which is honestly more than most companies do. How many properties does your team have to get through on a busy turnover day? And is one person doing all those checks, or is it spread across a few people?",
+        "note": "Acknowledge what they do well. Then surface the scale problem — spot-checks don't scale, and things slip when volume spikes. Reference their in-house team.",
+        "branches": [
+          {
+            "label": "It's a lot / hard to hit every property",
+            "to": "solution_bridge"
+          },
+          {
+            "label": "We manage it pretty well",
+            "to": "solution_bridge_soft"
+          },
+          {
+            "label": "Shares details about team size / process",
+            "to": "solution_bridge"
+          }
+        ]
+      },
+      "discovery_pain_point": {
+        "label": "DISCOVERY — SHE OPENS UP",
+        "say": "That's real. What usually ends up being the thing that slips through? Is it damage stuff — like something the previous guest broke — or is it more staging and readiness issues like missing towels, wrong setup?",
+        "note": "She's being candid — go deeper. Understanding the type of issue tells you which RapidEye use case to lead with.",
+        "branches": [
+          {
+            "label": "Damage / breakage",
+            "to": "solution_bridge"
+          },
+          {
+            "label": "Staging / cleanliness / missing items",
+            "to": "solution_bridge"
+          },
+          {
+            "label": "Both / all of the above",
+            "to": "solution_bridge"
+          }
+        ]
+      },
+      "solution_bridge": {
+        "label": "ONE-SENTENCE SOLUTION + CTA",
+        "say": "That's exactly why we built this. RapidEye is an AI that looks at every turnover photo your team's already taking and flags damage, missing items, staging issues — automatically. So instead of someone manually reviewing hundreds of photos or hoping the spot-check catches everything, you've got a second set of eyes on every single unit before the guest walks in. Would you be open to seeing what it actually catches? Not a sales pitch — I'd literally run it on a handful of your properties and show you what it flags.",
+        "note": "One-sentence solution, then low-friction CTA. You're selling a test drive, not a contract. Pause and let her respond.",
+        "branches": [
+          {
+            "label": "Yeah, that sounds interesting / sure",
+            "to": "book_meeting"
+          },
+          {
+            "label": "How does it work exactly?",
+            "to": "explain_briefly"
+          },
+          {
+            "label": "I'd need to run this by Denise / Justin",
+            "to": "referral_up"
+          },
+          {
+            "label": "Send me an email",
+            "to": "send_email"
+          },
+          {
+            "label": "We don't have budget for that",
+            "to": "no_budget_objection"
+          },
+          {
+            "label": "We're not looking to add anything right now",
+            "to": "not_interested_objection"
+          }
+        ]
+      },
+      "solution_bridge_soft": {
+        "label": "SOFT SOLUTION BRIDGE",
+        "say": "That's great — honestly most companies I talk to don't have any spot-check process at all. The thing we keep hearing though, even from teams that do it well, is that on a heavy turnover day — Friday, Sunday, holiday weekends — the spot-checks are the first thing that gets rushed or skipped. We built an AI that reviews every turnover photo automatically and flags anything off. Would it be worth twenty minutes to see what it catches? Even if just to compare it against what your team's already doing.",
+        "note": "She thinks the process works. Don't argue — validate, then introduce RapidEye as a safety net rather than a replacement. CTA is framed as a comparison, not a fix.",
+        "branches": [
+          {
+            "label": "Sure, I'd look at it",
+            "to": "book_meeting"
+          },
+          {
+            "label": "I'd need to loop in my manager",
+            "to": "referral_up"
+          },
+          {
+            "label": "Not interested right now",
+            "to": "not_interested_objection"
+          },
+          {
+            "label": "Send me some info",
+            "to": "send_email"
+          }
+        ]
+      },
+      "explain_briefly": {
+        "label": "BRIEF EXPLANATION",
+        "say": "Yeah — so your cleaners or inspectors are already taking photos during turnovers, right? RapidEye plugs into whatever system you're using for that and the AI reviews every photo automatically. It compares against what the property's supposed to look like and flags anything that's off — damage, missing items, furniture moved, staging wrong. You get a report before the guest checks in. No workflow change for your team. They just keep doing what they're already doing.",
+        "note": "Keep it simple. Grand Welcome uses a proprietary system — don't assume their PMS. Mention the concept generically so she can map it to whatever they use.",
+        "branches": [
+          {
+            "label": "That's cool / I can see how that'd help",
+            "to": "book_meeting"
+          },
+          {
+            "label": "What does it cost?",
+            "to": "defer_pricing"
+          },
+          {
+            "label": "I'd need to talk to my team about this",
+            "to": "referral_up"
+          },
+          {
+            "label": "Send me an email with details",
+            "to": "send_email"
+          }
+        ]
+      },
+      "defer_pricing": {
+        "label": "PRICING QUESTION",
+        "say": "Good question — it depends on the number of properties and how you're set up. Honestly it'd take me five minutes to see your workflow and give you an actual number that means something. That's part of why I'd rather show you than pitch you over the phone. Would you be open to a quick look next week?",
+        "note": "Don't quote pricing on a cold call. Redirect to the meeting. The goal is to get off the phone and into a demo.",
+        "branches": [
+          {
+            "label": "Sure, let's set something up",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Ballpark me",
+            "to": "defer_pricing_again"
+          },
+          {
+            "label": "I need to check with Denise / Justin first",
+            "to": "referral_up"
+          }
+        ]
+      },
+      "defer_pricing_again": {
+        "label": "PUSHES FOR PRICING",
+        "say": "Totally fair — for a company your size we're usually talking a few hundred bucks a month depending on units. But the real answer is it depends on what you're spending on the problem today — missed damage deposits, comped nights, the time your team spends manually reviewing. Most companies we work with see it pay for itself in the first month. But let me show you what it actually flags on real photos — that'll tell you more than any number I throw out. How's your Thursday look?",
+        "note": "Give a loose range to satisfy her, then pivot right back to the meeting. Anchor on ROI, not cost.",
+        "branches": [
+          {
+            "label": "OK let's do it",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Let me talk to my team first",
+            "to": "referral_up"
+          },
+          {
+            "label": "Send me something",
+            "to": "send_email"
+          }
+        ]
+      },
+      "not_interested_objection": {
+        "label": "OBJECTION — NOT INTERESTED",
+        "say": "Totally get it. I should've assumed you'd be all set — otherwise you probably would've reached out to us. Just so nobody from my team cold calls you again — is it that you're not really focused on the inspection side of things, or is it more that you just hate cold calls? Because I get it either way.",
+        "note": "Agree first, then split. Two low-pressure options. If it's the cold call, you can reframe. If it's the topic, pivot to referral.",
+        "branches": [
+          {
+            "label": "I just hate cold calls / bad timing",
+            "to": "reframe_cold_call"
+          },
+          {
+            "label": "We're just not looking at that right now",
+            "to": "not_interested_split"
+          },
+          {
+            "label": "That's not my area / someone else handles that",
+            "to": "referral_ask"
+          }
+        ]
+      },
+      "reframe_cold_call": {
+        "label": "REFRAME — HATES COLD CALLS",
+        "say": "Ha — believe me, I'm not a huge fan of making them either. Tell you what — would it be less painful if I just shot you a two-line email with what we do and you can look at it whenever? If it's interesting, great. If not, no hard feelings.",
+        "note": "She doesn't hate YOU, she hates the format. Give her control. An email lets her engage on her own terms.",
+        "branches": [
+          {
+            "label": "Sure, send it over",
+            "to": "send_email"
+          },
+          {
+            "label": "Fine / gives email or confirms",
+            "to": "send_email"
+          },
+          {
+            "label": "No, I'm really not interested",
+            "to": "last_chance_referral"
+          }
+        ]
+      },
+      "not_interested_split": {
+        "label": "NOT FOCUSED ON INSPECTIONS NOW",
+        "say": "Makes sense. You're probably not buying anything right now, and I totally respect that. But when this does come up — and it usually does heading into peak season — the people who already know what's out there are the ones who move fast. Would you be open to taking a look now just so it's on your radar? Worst case you steal some ideas from what other Palm Springs managers are doing and we part as friends.",
+        "note": "Sell the test drive. Reframe the meeting as low-stakes intel, not a purchase decision. Reference Palm Springs specifically — local relevance matters.",
+        "branches": [
+          {
+            "label": "OK fine, I'll take a look",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Maybe after the season / later",
+            "to": "plant_seed_future"
+          },
+          {
+            "label": "No thanks",
+            "to": "last_chance_referral"
+          }
+        ]
+      },
+      "have_process_objection": {
+        "label": "OBJECTION — ALREADY HAVE A PROCESS",
+        "say": "That makes total sense — with your team doing spot-checks and in-house cleaning, you'd have to have something in place. Is it that you're fully covered and totally happy with how it's working, or is it more that switching or adding anything right now would just be a headache?",
+        "note": "Validate, then split. You know from the website they do spot-checks — referencing it shows homework. The split separates satisfaction from inertia.",
+        "branches": [
+          {
+            "label": "We're happy with what we have",
+            "to": "happy_with_process"
+          },
+          {
+            "label": "It's more about not wanting to add complexity",
+            "to": "no_workflow_change"
+          },
+          {
+            "label": "Honestly it could be better",
+            "to": "pain_resonates"
+          }
+        ]
+      },
+      "happy_with_process": {
+        "label": "HAPPY WITH CURRENT PROCESS",
+        "say": "Love that — honestly that's rare. Most companies I talk to don't even have a real spot-check system. Out of curiosity — what happens on your heaviest turnover days? Like a holiday weekend when you've got ten, fifteen units flipping in a day? Does the process hold up, or does stuff start to slip?",
+        "note": "Don't argue with satisfaction. Ask about the edge case — peak volume. That's where every manual process breaks. If she admits cracks, you have an opening.",
+        "branches": [
+          {
+            "label": "It gets tough / things slip on busy days",
+            "to": "solution_bridge"
+          },
+          {
+            "label": "We handle it fine",
+            "to": "plant_seed_future"
+          },
+          {
+            "label": "That's a good question actually",
+            "to": "solution_bridge"
+          }
+        ]
+      },
+      "no_workflow_change": {
+        "label": "DOESN'T WANT COMPLEXITY",
+        "say": "One hundred percent — that's actually why most companies we work with picked us. There's literally no workflow change. Your cleaners keep taking photos the way they already do. RapidEye just runs in the background and flags anything that's off. Nobody has to learn a new tool or change a single step. Would it be worth seeing how it works — just so you know it's not another thing to manage?",
+        "note": "Her objection is about change management, not about RapidEye specifically. Address it directly — zero behavior change for her team.",
+        "branches": [
+          {
+            "label": "OK, I'd take a look",
+            "to": "book_meeting"
+          },
+          {
+            "label": "I'd still need to run it by someone",
+            "to": "referral_up"
+          },
+          {
+            "label": "Not right now",
+            "to": "plant_seed_future"
+          }
+        ]
+      },
+      "no_budget_objection": {
+        "label": "OBJECTION — NO BUDGET",
+        "say": "Totally get it. Nowadays it's harder to keep a tool, let alone buy something new. Just so I know — is it that budget for this year is completely locked up, or is it more that anything you try to bring in has to go through a whole approval process with Denise and the team?",
+        "note": "Split budget into timing vs. process. If it's approval, you need a referral up. If it's timing, plant a seed. Mentioning Denise (the owner) by name shows you know the org.",
+        "branches": [
+          {
+            "label": "Budget is locked / nothing this year",
+            "to": "plant_seed_future"
+          },
+          {
+            "label": "It would need to go through approval",
+            "to": "referral_up"
+          },
+          {
+            "label": "Both honestly",
+            "to": "plant_seed_future"
+          }
+        ]
+      },
+      "referral_ask": {
+        "label": "NOT THE RIGHT PERSON",
+        "say": "Totally hear you. Who on your team would be the right person for anything related to turnover inspections or property readiness? Would that be someone like Justin or Stacy?",
+        "note": "Drop real names to show you've done homework. Justin Marché is GM, Stacy Bottroff runs operations with housekeeping/maintenance background — both strong referral targets.",
+        "branches": [
+          {
+            "label": "Gives a name / confirms Justin or Stacy",
+            "to": "referral_get_name"
+          },
+          {
+            "label": "That would probably be Denise (the owner)",
+            "to": "referral_get_name"
+          },
+          {
+            "label": "I'm not sure / doesn't want to say",
+            "to": "referral_nudge"
+          }
+        ]
+      },
+      "referral_up": {
+        "label": "NEEDS TO RUN IT UP",
+        "say": "Totally makes sense. Would it make it easier if I put something together specifically for them — so it's not you having to explain it? Who would I be sending that to — Denise or Justin?",
+        "note": "Make it easy for her. Offer to do the work. Drop Denise (owner) and Justin (GM) as options so she picks one. If she confirms, you have a warm intro path.",
+        "branches": [
+          {
+            "label": "Gives a name or says she'll forward it",
+            "to": "referral_get_name"
+          },
+          {
+            "label": "Just send it to our main email",
+            "to": "send_email"
+          },
+          {
+            "label": "Let me talk to them first and get back to you",
+            "to": "plant_seed_future"
+          }
+        ]
+      },
+      "referral_get_name": {
+        "label": "GET THE REFERRAL NAME",
+        "say": "Perfect — and what's the best way to reach them? Do they have a direct line, or should I go through the main number and ask for them? And would it help if I mentioned you pointed me their way?",
+        "note": "Get the name, contact info, and permission to name-drop Ersula. This turns the next call from cold to warm.",
+        "branches": [
+          {
+            "label": "Gives contact info / says use main line",
+            "to": "book_meeting_or_close"
+          },
+          {
+            "label": "Just email the main address",
+            "to": "send_email"
+          }
+        ]
+      },
+      "referral_nudge": {
+        "label": "NUDGE FOR REFERRAL",
+        "say": "No worries — just trying to make sure I'm talking to the right person so I'm not wasting your time. If I can get a name, I'll put something tailored together so it actually lands with the right person. Is there someone on the ops or management side who'd own that?",
+        "note": "Be persistent but not pushy. If she really won't give a name, thank her and try reaching Justin or Denise directly on the next call.",
+        "branches": [
+          {
+            "label": "Gives a name",
+            "to": "referral_get_name"
+          },
+          {
+            "label": "Won't say / not sure",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "send_email": {
+        "label": "SEND ME AN EMAIL",
+        "say": "Totally fair. One quick question before I do — what would be most relevant to include so it's not just another generic pitch in your inbox? Is it more about how it actually works, or would you rather see what it's caught at other properties?",
+        "note": "Accept the email ask, but qualify it. Her answer tells you what she cares about and keeps her engaged for five more seconds.",
+        "branches": [
+          {
+            "label": "She tells you what to include",
+            "to": "confirm_email_and_follow_up"
+          },
+          {
+            "label": "Just send whatever / doesn't care",
+            "to": "confirm_email_and_follow_up"
+          }
+        ]
+      },
+      "confirm_email_and_follow_up": {
+        "label": "CONFIRM EMAIL + FOLLOW-UP",
+        "say": "Got it — I'll send that over to hello@palmspringsmanagement.com today. I'll flag it for you so it doesn't get buried. Would it be terrible if I followed up Thursday or Friday just to make sure it landed?",
+        "note": "Use the known email. Lock in a follow-up day. This turns 'send me an email' into a scheduled touchpoint.",
+        "branches": [
+          {
+            "label": "Sure, that's fine",
+            "to": "end_positive"
+          },
+          {
+            "label": "I'll reach out if I'm interested",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "book_meeting": {
+        "label": "BOOK THE MEETING",
+        "say": "Awesome — let me lock something in while I've got you. I'm looking at next week — how does Tuesday or Wednesday look? I only need about twenty minutes.",
+        "note": "Pick specific days. Don't say 'when works for you' — give options. Send the calendar invite WHILE on the phone.",
+        "branches": [
+          {
+            "label": "Gives a day/time",
+            "to": "confirm_meeting"
+          },
+          {
+            "label": "Let me check my calendar and get back to you",
+            "to": "pin_down_meeting"
+          },
+          {
+            "label": "Can you send me a link to book?",
+            "to": "confirm_meeting"
+          }
+        ]
+      },
+      "pin_down_meeting": {
+        "label": "PIN DOWN THE MEETING",
+        "say": "Totally — how about I throw a tentative hold on Wednesday at ten AM your time and send you the invite? If it doesn't work just let me know and we'll move it. That way it's on the books and neither of us has to remember to follow up.",
+        "note": "Don't let it go to 'I'll get back to you' — that's where meetings die. Put a tentative hold so there's something concrete.",
+        "branches": [
+          {
+            "label": "Sure, that works",
+            "to": "confirm_meeting"
+          },
+          {
+            "label": "A different time would be better",
+            "to": "confirm_meeting"
+          }
+        ]
+      },
+      "confirm_meeting": {
+        "label": "CONFIRM + CLOSE",
+        "say": "Perfect — I'll send that invite right now. Really appreciate you taking my call, Ersula. I think you'll actually find this useful. Talk to you then.",
+        "note": "Send the invite immediately. Stop selling. Don't add anything. End on a high note.",
+        "branches": []
+      },
+      "book_meeting_or_close": {
+        "label": "WRAP WITH REFERRAL INFO",
+        "say": "Great — I really appreciate the help, Ersula. I'll reach out to them and mention you pointed me their way. If it ever becomes relevant on your end too, I'm easy to find. Thanks for your time.",
+        "note": "She gave you a referral. Be grateful, end cleanly. Follow up with the referral within 24 hours and name-drop Ersula.",
+        "branches": []
+      },
+      "plant_seed_future": {
+        "label": "PLANT THE SEED",
+        "say": "Totally fair. Tell you what — I won't bug you about it now. But when peak season starts ramping up and those turnover days get heavier, would it be a terrible idea if I checked back in? Just so you know it's there when the timing makes more sense.",
+        "note": "She's not ready now. Don't force it. Get permission to follow up and note the timing. Palm Springs peak is winter through spring — time your callback accordingly.",
+        "branches": [
+          {
+            "label": "Sure, circle back later",
+            "to": "end_positive"
+          },
+          {
+            "label": "I don't think so / probably not",
+            "to": "last_chance_referral"
+          }
+        ]
+      },
+      "last_chance_referral": {
+        "label": "LAST SHOT — REFERRAL",
+        "say": "Totally understand. Last thing — is there anyone else on the team who might be more plugged into the turnover or inspection side of things? Even just a name would help so I'm reaching out to the right person.",
+        "note": "You're done pitching. One last ask for a referral before you go. If she gives one, great. If not, end gracefully.",
+        "branches": [
+          {
+            "label": "Gives a name",
+            "to": "referral_get_name"
+          },
+          {
+            "label": "No / I don't think so",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "reached_referral_contact": {
+        "label": "REDIRECTED TO ANOTHER CONTACT",
+        "say": "Hey — it's Sam Parks. I was just chatting with someone on the team and they pointed me your way. I work with a few property managers in the Palm Springs area on their inspection workflows. Have you heard my name tossed around at all?",
+        "note": "You've been redirected from the gatekeeper. Use the soft warm intro — 'someone on the team pointed me your way.' Then follow the same flow from here.",
+        "branches": [
+          {
+            "label": "No / Who?",
+            "to": "heard_name_no"
+          },
+          {
+            "label": "Maybe / Yeah",
+            "to": "heard_name_yes"
+          },
+          {
+            "label": "Bad time",
+            "to": "bad_timing"
+          }
+        ]
+      },
+      "end_positive": {
+        "label": "END — POSITIVE",
+        "say": "Sounds good, Ersula. I appreciate your time — enjoy the desert. Talk soon.",
+        "note": "She's open to future contact. Log this as a follow-up. Note the timing she gave you and set a reminder.",
+        "branches": []
+      },
+      "end_graceful": {
+        "label": "END — GRACEFUL",
+        "say": "Totally understand. If anything changes, I'm easy to find. Appreciate your time, Ersula.",
+        "note": "Don't burn the bridge. She may come back later, or you may reach someone else at Grand Welcome who mentions her. Stay positive.",
+        "branches": []
+      }
+    }
+  }
+}

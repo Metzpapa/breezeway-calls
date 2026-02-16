@@ -1,0 +1,646 @@
+{
+  "name": "Ken Appel",
+  "title": "Director of Guest Experience",
+  "company": "Cannon Beach Vacation Rentals (CBVR)",
+  "location": "Cannon Beach, OR",
+  "phone": "",
+  "company_phone": "503-436-0940",
+  "alt_phones": [],
+  "flow": {
+    "context": "Ken Appel is Director of Guest Experience at Meredith Lodging, the parent company behind Cannon Beach Vacation Rentals (CBVR). He owns the guest-facing quality outcome — every missed stain, broken item, or staging issue that reaches a guest becomes his problem as a complaint, a comp, or a bad review. CBVR manages 80+ vacation rental homes on the Oregon coast, runs on Track/TravelNet (Atlas website + TrackHS portals), and has no detected Breezeway or Matterport usage, meaning turnover photo review is likely manual or minimal. Strongest Sam hook: Sam works with coastal PM companies and is a surfer and fisherman who knows the Oregon coast well. Key referral targets in Ken's org: Amy Taylor (VP Ops Oregon), Rachel Beardslee (Director of Ops), Ashley Kingman (GM), Aaron Linfoot (President).",
+    "start": "opener",
+    "nodes": {
+      "opener": {
+        "label": "OPENER",
+        "say": "Hey Ken — I work with a few other vacation rental companies up and down the Oregon coast on their turnover workflows. It's Sam Parks with RapidEye. Have you heard my name tossed around at all?",
+        "note": "Feet-up energy. Sound like a peer who already knows people in his world, not a salesperson. Pause after the question and let him answer.",
+        "branches": [
+          {
+            "label": "Ken answers — says no or 'what's this about?'",
+            "to": "heard_name_no"
+          },
+          {
+            "label": "Ken answers — says yes or maybe",
+            "to": "heard_name_yes"
+          },
+          {
+            "label": "Ken says he's busy / bad timing",
+            "to": "bad_timing"
+          },
+          {
+            "label": "Someone else answers (gatekeeper)",
+            "to": "gatekeeper_initial"
+          }
+        ]
+      },
+      "gatekeeper_initial": {
+        "label": "GATEKEEPER — SLIDE BY",
+        "say": "Hey — could you get me through to Ken? It's Sam.",
+        "note": "Don't explain anything. First name only. Casual. If they ask who you are or what it's about, move to next node.",
+        "branches": [
+          {
+            "label": "They put you through",
+            "to": "opener"
+          },
+          {
+            "label": "They ask who's calling or what it's about",
+            "to": "gatekeeper_context"
+          },
+          {
+            "label": "They say Ken's not available",
+            "to": "gatekeeper_unavailable"
+          }
+        ]
+      },
+      "gatekeeper_context": {
+        "label": "GATEKEEPER — ADD CONTEXT",
+        "say": "Yeah — I work with a few other property managers on the Oregon coast. Would you mind letting Ken know it's Sam Parks?",
+        "note": "Still casual. Don't pitch. If they push further, move to social proof.",
+        "branches": [
+          {
+            "label": "They put you through",
+            "to": "opener"
+          },
+          {
+            "label": "They push back or ask more",
+            "to": "gatekeeper_social_proof"
+          },
+          {
+            "label": "Ken's not available",
+            "to": "gatekeeper_unavailable"
+          }
+        ]
+      },
+      "gatekeeper_social_proof": {
+        "label": "GATEKEEPER — SOCIAL PROOF",
+        "say": "Totally fair — we help a couple vacation rental companies with their turnover inspection workflows. I sent Ken a note and just wanted to give him a heads up. Would you mind passing that along?",
+        "note": "This is your last attempt. If they block you, ask for best time to reach Ken directly.",
+        "branches": [
+          {
+            "label": "They put you through",
+            "to": "opener"
+          },
+          {
+            "label": "They take a message or block",
+            "to": "gatekeeper_unavailable"
+          }
+        ]
+      },
+      "gatekeeper_unavailable": {
+        "label": "GATEKEEPER — KEN NOT AVAILABLE",
+        "say": "No worries at all. When would be the best time to catch Ken directly? And is this number the best one to reach him on?",
+        "note": "Get a specific day and time. Write it down. If they offer email, take it but still push for a callback window.",
+        "branches": [
+          {
+            "label": "They give a time or info",
+            "to": "graceful_exit"
+          },
+          {
+            "label": "They won't share anything",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "heard_name_no": {
+        "label": "THEY HAVEN'T HEARD OF YOU",
+        "say": "Oh, guess I'm not as popular as I thought. Well the reason for my call — I work with a few guest experience and ops leaders at vacation rental companies on the coast, and something keeps coming up that I think would hit close to home for you. Mind if I take 30 seconds?",
+        "note": "Light self-deprecating humor, then pivot to asking for time. If he says sure, go to pain trigger. If he's cold or dismissive, go to permission fallback.",
+        "branches": [
+          {
+            "label": "Sure / go ahead",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "Cold or dismissive / 'what are you selling?'",
+            "to": "permission_fallback"
+          },
+          {
+            "label": "I'm busy right now",
+            "to": "bad_timing"
+          }
+        ]
+      },
+      "heard_name_yes": {
+        "label": "THEY'VE HEARD OF YOU",
+        "say": "Oh no kidding — well normally we'd be working with someone in your kind of role. What did you hear?",
+        "note": "Let him talk. Whatever he says, agree and bridge to discovery. Don't correct — build on whatever he knows.",
+        "branches": [
+          {
+            "label": "He shares what he heard",
+            "to": "warm_discovery"
+          },
+          {
+            "label": "He's vague or says 'not much'",
+            "to": "pain_trigger"
+          }
+        ]
+      },
+      "bad_timing": {
+        "label": "BAD TIMING",
+        "say": "Totally hear you — would it be a terrible idea if I tried you again tomorrow? Or is there a better day this week?",
+        "note": "Get a specific day and time. Don't accept vague. Lock it in like a meeting.",
+        "branches": [
+          {
+            "label": "He gives a time",
+            "to": "reschedule_set"
+          },
+          {
+            "label": "He says don't call back",
+            "to": "last_chance_split"
+          },
+          {
+            "label": "Send me an email instead",
+            "to": "send_email_request"
+          }
+        ]
+      },
+      "reschedule_set": {
+        "label": "CALLBACK LOCKED",
+        "say": "Perfect — I'll call you [day] at [time]. Appreciate it, Ken. Talk soon.",
+        "note": "Write down the exact time. Set a reminder. When you call back, open with 'Hey Ken, it's Sam — we talked briefly [day], you told me to give you a ring.'",
+        "branches": []
+      },
+      "permission_fallback": {
+        "label": "PERMISSION ASK",
+        "say": "Yeah totally — I mean it is a cold call. Can I get 30 seconds to tell you why I reached out? And you can totally hang up on me if it's not a fit.",
+        "note": "Disarm with honesty. Admitting it's a cold call builds trust. If he gives you 30 seconds, make them count — go straight to pain.",
+        "branches": [
+          {
+            "label": "Fine, go ahead",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "No / not interested",
+            "to": "permission_rejected"
+          }
+        ]
+      },
+      "permission_rejected": {
+        "label": "PERMISSION REJECTED",
+        "say": "Shoot, totally my bad. Just so nobody from my team bugs you again — is it that I caught you at a horrible time, or is it that you already know what we do and it's just not interesting?",
+        "note": "This splits the objection. Most people will tell you which one, which reopens the door. If it's timing, pivot to reschedule. If it's disinterest, go to last chance.",
+        "branches": [
+          {
+            "label": "Bad timing",
+            "to": "bad_timing"
+          },
+          {
+            "label": "Not interested / don't care",
+            "to": "last_chance_split"
+          },
+          {
+            "label": "He softens — 'fine, what is it'",
+            "to": "pain_trigger"
+          }
+        ]
+      },
+      "last_chance_split": {
+        "label": "LAST CHANCE — VALUE OFFER",
+        "say": "Totally get it. Look — if nothing else, I've been talking to a bunch of property managers on the Oregon coast about how they're handling turnover quality and keeping stuff from hitting guest reviews. Happy to share what I'm hearing if it's ever useful. Can I shoot you a quick email with some of that?",
+        "note": "You're offering value, not a pitch. If he says yes, you have an email thread. If no, exit gracefully.",
+        "branches": [
+          {
+            "label": "Sure, send it",
+            "to": "send_email_request"
+          },
+          {
+            "label": "No thanks",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "pain_trigger": {
+        "label": "PAIN TRIGGER",
+        "say": "So here's what keeps coming up — I was talking to a guest experience director at another coastal vacation rental company, pretty similar to you guys, around 80 homes, heavy summer turns. She told me that no matter how solid her housekeeping team was, stuff kept slipping through — a stain on a sofa, a missing coffee maker, a cracked window blind. And by the time she found out about it, it was because a guest was already on the phone or worse, leaving a review. She was spending hours every week doing damage control — comps, apology calls, trying to save those five-star ratings. The problem wasn't her team — it was that nobody had time to actually look at every photo from every single turn.",
+        "note": "PAUSE here. Let it land. Do not rush to the solution. Wait for Ken to react. If he says 'yeah' or 'that sounds familiar' he's warm. If silence, continue to solution bridge.",
+        "branches": [
+          {
+            "label": "He resonates — 'yeah that's real' / 'we deal with that'",
+            "to": "warm_response"
+          },
+          {
+            "label": "Silence or neutral — waiting for more",
+            "to": "solution_bridge"
+          },
+          {
+            "label": "We already handle that / have a process",
+            "to": "objection_have_process"
+          },
+          {
+            "label": "That's not really my area",
+            "to": "not_my_area"
+          }
+        ]
+      },
+      "warm_response": {
+        "label": "THEY'RE WARM — STOP PITCHING",
+        "say": "Yeah, that's exactly what I keep hearing. So what does that look like on your end? When a turnover issue does slip through and a guest catches it — what's that process like for you?",
+        "note": "He's engaged. Ask questions now. Let him talk about HIS pain. The more he talks, the more invested he is. Listen for specifics you can reference later.",
+        "branches": [
+          {
+            "label": "He describes his process or pain",
+            "to": "discovery_dig_deeper"
+          },
+          {
+            "label": "He asks what you do first",
+            "to": "solution_bridge"
+          }
+        ]
+      },
+      "solution_bridge": {
+        "label": "ONE-SENTENCE SOLUTION",
+        "say": "So what we built — we plug into the turnover photos your team's already taking, and our AI analyzes every single image automatically. Flags damage, missing items, staging issues — before the guest ever walks in. It works with Track, so it fits right into what you guys are already using.",
+        "note": "Mentioning Track shows you did homework. One sentence on the solution, then go straight to the CTA. Don't oversell.",
+        "branches": [
+          {
+            "label": "Interested — wants to know more",
+            "to": "pitch_cta"
+          },
+          {
+            "label": "Skeptical — 'how does that work?'",
+            "to": "handle_curiosity"
+          },
+          {
+            "label": "We already have something for that",
+            "to": "objection_have_process"
+          },
+          {
+            "label": "That's not my decision",
+            "to": "not_my_area"
+          }
+        ]
+      },
+      "discovery_dig_deeper": {
+        "label": "DISCOVERY — DIG INTO PAIN",
+        "say": "That makes sense. And when those issues do come in — are you seeing it mostly as guest complaints hitting you directly, or is it more that it shows up in reviews after the fact?",
+        "note": "Understand where the pain bites hardest for Ken personally. Guest complaints = reactive firefighting. Reviews = reputation damage. Both are great positioning for RapidEye.",
+        "branches": [
+          {
+            "label": "Mostly complaints and calls",
+            "to": "discovery_volume"
+          },
+          {
+            "label": "Reviews are the bigger issue",
+            "to": "discovery_volume"
+          },
+          {
+            "label": "Both",
+            "to": "discovery_volume"
+          }
+        ]
+      },
+      "discovery_volume": {
+        "label": "DISCOVERY — SCALE THE PAIN",
+        "say": "Got it. And roughly how many turns are you guys doing in a peak week? Like during summer — is it dozens, hundreds?",
+        "note": "This quantifies the problem. More turns = more photos nobody can review = more stuff slipping through. Use whatever number he gives to reinforce why AI makes sense at his scale.",
+        "branches": [
+          {
+            "label": "He gives a number or range",
+            "to": "pitch_cta"
+          },
+          {
+            "label": "He's not sure or deflects",
+            "to": "pitch_cta"
+          }
+        ]
+      },
+      "handle_curiosity": {
+        "label": "HANDLE TECHNICAL CURIOSITY",
+        "say": "Yeah — so your housekeeping team's already snapping photos during turnovers, right? We pull those photos in through Track, run them through our AI, and it flags anything that looks off — stains, damage, missing items, furniture that's been moved. Your team gets a report before the next guest checks in. No new process, no extra steps for your cleaners.",
+        "note": "Keep it simple. Emphasize zero workflow change. If he keeps asking technical questions, that's buying behavior — bridge to the meeting.",
+        "branches": [
+          {
+            "label": "That's interesting — tell me more",
+            "to": "pitch_cta"
+          },
+          {
+            "label": "We're not really taking photos consistently",
+            "to": "no_photos_pivot"
+          },
+          {
+            "label": "Still skeptical it actually works",
+            "to": "pitch_cta"
+          }
+        ]
+      },
+      "no_photos_pivot": {
+        "label": "NO CONSISTENT PHOTOS — PIVOT",
+        "say": "That's actually super common — and honestly that's part of the problem, right? When photos aren't consistent, stuff slips through. We also have a video walkthrough option — someone walks through the unit with their phone and our AI picks up everything. Takes like two minutes. But honestly, this might be a better conversation to have with whoever owns the ops or housekeeping workflow day to day — is that Amy Taylor's world, or someone else on your side?",
+        "note": "If they're not taking photos, the ops person is the right buyer for process change. Pivot to referral. Drop Amy Taylor's name from research.",
+        "branches": [
+          {
+            "label": "Mentions Amy or another ops person",
+            "to": "referral_get_name"
+          },
+          {
+            "label": "Says he'd handle it or stays interested",
+            "to": "pitch_cta"
+          },
+          {
+            "label": "Not sure who handles that",
+            "to": "referral_explore"
+          }
+        ]
+      },
+      "pitch_cta": {
+        "label": "LOW-FRICTION CTA",
+        "say": "Look — I know I'm cold calling you out of the blue here. Would you be open to taking a quick look at this when you've actually got 20 minutes? I can walk you through exactly what we're doing with a couple other coastal PM companies. Worst case you steal some ideas and we part as friends.",
+        "note": "This is the ask. Don't add more pitch. Pause and let him answer.",
+        "branches": [
+          {
+            "label": "Sure / let's do it",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Send me an email first",
+            "to": "send_email_request"
+          },
+          {
+            "label": "I'm not the right person for this",
+            "to": "not_my_area"
+          },
+          {
+            "label": "Not interested / no budget",
+            "to": "objection_not_interested"
+          }
+        ]
+      },
+      "warm_discovery": {
+        "label": "WARM — THEY KNOW YOU",
+        "say": "Nice — yeah so we've been working with a few property management companies on the coast, helping them catch stuff in turnover photos before it hits guests. I'd love to hear how you guys are thinking about guest experience heading into this season — what's been the biggest headache?",
+        "note": "They already have some awareness. Skip the pitch and go straight to discovery. Let him talk.",
+        "branches": [
+          {
+            "label": "He shares a pain point",
+            "to": "discovery_dig_deeper"
+          },
+          {
+            "label": "He asks what specifically you do",
+            "to": "solution_bridge"
+          },
+          {
+            "label": "Things are pretty good actually",
+            "to": "objection_have_process"
+          }
+        ]
+      },
+      "objection_not_interested": {
+        "label": "OBJECTION — NOT INTERESTED",
+        "say": "I totally get it. I should've assumed you'd be all set — otherwise you probably would've reached out yourself. Just so no one from my team cold calls you again — is it that this just isn't a problem you're focused on right now, or is it more that you just hate cold calls? Because I'd totally understand that too.",
+        "note": "Agree first. Then split the objection. Most people will soften and tell you which one it is, which reopens the conversation.",
+        "branches": [
+          {
+            "label": "It's the cold call / bad timing",
+            "to": "bad_timing"
+          },
+          {
+            "label": "Not a priority right now",
+            "to": "objection_budget_or_timing"
+          },
+          {
+            "label": "He softens — 'what exactly do you do?'",
+            "to": "solution_bridge"
+          },
+          {
+            "label": "Firm no",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "objection_have_process": {
+        "label": "OBJECTION — ALREADY HAVE A PROCESS",
+        "say": "That makes total sense — with 80-plus homes you'd have to have something in place. I'd actually expect that. Is it that you're fully covered and happy with how it's working, or is it more that switching anything right now would just be a headache?",
+        "note": "Validate them. Then split. 'Fully covered and happy' is rare — most will admit gaps. If they mention Track's housekeeping module, that's your opening: Track doesn't do AI photo analysis.",
+        "branches": [
+          {
+            "label": "It's working fine / we're happy",
+            "to": "test_drive_offer"
+          },
+          {
+            "label": "Switching would be a pain",
+            "to": "test_drive_offer"
+          },
+          {
+            "label": "Admits there are gaps",
+            "to": "warm_response"
+          },
+          {
+            "label": "Mentions Track or their current tool",
+            "to": "track_integration_hook"
+          }
+        ]
+      },
+      "track_integration_hook": {
+        "label": "TRACK INTEGRATION ANGLE",
+        "say": "Oh nice, you guys are on Track — yeah we actually integrate directly with Track. So it's not a replacement for anything you're doing, it's more like a layer on top. Your team keeps doing exactly what they're doing, and we just analyze the photos that are already flowing through. Nothing changes for your cleaners or your ops team.",
+        "note": "This removes the switching-cost objection entirely. Emphasize: additive, not replacement. Then move to the CTA.",
+        "branches": [
+          {
+            "label": "Interested — wants to see it",
+            "to": "pitch_cta"
+          },
+          {
+            "label": "Still hesitant",
+            "to": "test_drive_offer"
+          },
+          {
+            "label": "Not my decision",
+            "to": "not_my_area"
+          }
+        ]
+      },
+      "objection_budget_or_timing": {
+        "label": "OBJECTION — BUDGET OR TIMING",
+        "say": "Totally get it. You're probably not buying anything right now and I respect that. But the people who end up pulling the trigger when budget does free up are usually the ones who already know what's on their list. Would you be open to taking a quick look — not for now, but so it's on your radar when the time's right?",
+        "note": "You're selling the meeting, not the product. Frame it as future-proofing, not a commitment.",
+        "branches": [
+          {
+            "label": "Sure, that's fair",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Send me something first",
+            "to": "send_email_request"
+          },
+          {
+            "label": "Still no",
+            "to": "last_chance_split"
+          }
+        ]
+      },
+      "test_drive_offer": {
+        "label": "SELL THE TEST DRIVE",
+        "say": "Totally fair. Look — if nothing else, I could walk you through what a couple other PM companies on the coast are doing with their turnover photos and how they're catching stuff before guests ever see it. Even if you never use us, it might give you some ideas. Would you be open to 20 minutes?",
+        "note": "The meeting IS the value, not a sales pitch. Frame it as intel-sharing, not a demo.",
+        "branches": [
+          {
+            "label": "Sure / let's do it",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Send me an email",
+            "to": "send_email_request"
+          },
+          {
+            "label": "No thanks",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "not_my_area": {
+        "label": "NOT MY DECISION — REFERRAL PATH",
+        "say": "Totally makes sense — I appreciate you telling me that. Who on your team would typically own the inspection or turnover quality workflow? Would that be more on the ops side — someone like Amy Taylor or Rachel Beardslee?",
+        "note": "Drop names from research. If he confirms one, get details. If he gives a different name, write it down. Either way, ask to use Ken's name when you reach out.",
+        "branches": [
+          {
+            "label": "Confirms Amy Taylor or Rachel Beardslee",
+            "to": "referral_get_name"
+          },
+          {
+            "label": "Gives a different name",
+            "to": "referral_get_name"
+          },
+          {
+            "label": "Not sure or won't refer",
+            "to": "referral_explore"
+          }
+        ]
+      },
+      "referral_explore": {
+        "label": "EXPLORE THE ORG",
+        "say": "No worries — I know these things can sit in weird places. Who would you say is most involved in making sure homes are guest-ready after a turn? Like whoever the cleaners or inspectors ultimately report up to?",
+        "note": "You're trying to find the ops owner. Don't push too hard — if he doesn't know, ask if you can reach out to the Meredith Lodging team generally and mention his name.",
+        "branches": [
+          {
+            "label": "Gives a name or title",
+            "to": "referral_get_name"
+          },
+          {
+            "label": "Doesn't know or won't say",
+            "to": "referral_soft_close"
+          }
+        ]
+      },
+      "referral_get_name": {
+        "label": "GET THE REFERRAL DETAILS",
+        "say": "That's super helpful. Would you mind if I mentioned your name when I reach out to them? Just so it doesn't land like a totally random cold call.",
+        "note": "Getting permission to use Ken's name transforms the next call from cold to warm. If he says yes, confirm the person's full name and best way to reach them.",
+        "branches": [
+          {
+            "label": "Sure, go ahead",
+            "to": "referral_confirm"
+          },
+          {
+            "label": "Rather you didn't",
+            "to": "referral_soft_close"
+          }
+        ]
+      },
+      "referral_confirm": {
+        "label": "CONFIRM REFERRAL DETAILS",
+        "say": "Perfect — and what's the best way to reach them? Do they have a direct line or should I go through the main Meredith office?",
+        "note": "Get as much contact info as possible — direct dial, email, best time to call. Then thank Ken and close warmly.",
+        "branches": [
+          {
+            "label": "Gives contact info",
+            "to": "referral_close"
+          },
+          {
+            "label": "Says try the main office",
+            "to": "referral_close"
+          }
+        ]
+      },
+      "referral_close": {
+        "label": "CLOSE WITH REFERRAL",
+        "say": "Really appreciate that, Ken. I'll put something tailored together so it actually lands with them. And hey — if you ever want to see what we're doing on the guest experience side, I'm easy to find. Thanks for your time.",
+        "note": "Leave the door open with Ken. He may circle back once the ops person is interested and loops him in.",
+        "branches": []
+      },
+      "referral_soft_close": {
+        "label": "SOFT CLOSE — NO REFERRAL",
+        "say": "Totally understand. I'll reach out to the ops team on my own. Hey — really appreciate you taking my call, Ken. If anything comes up on the guest experience side where this feels relevant, I'm easy to find.",
+        "note": "Don't push. You know the org from research — reach Amy Taylor, Rachel Beardslee, Ashley Kingman, or Aaron Linfoot directly.",
+        "branches": []
+      },
+      "send_email_request": {
+        "label": "SEND ME AN EMAIL",
+        "say": "Totally fair. One quick question before I do — what would be most useful to include so it's not just another generic pitch sitting in your inbox? Like is it more the technical side — how it works with Track — or more what other PM companies are actually seeing in terms of catching stuff before guests do?",
+        "note": "This question does two things: makes your email actually relevant, and keeps him talking which means he's more invested. Include specific meeting time suggestions in the email.",
+        "branches": [
+          {
+            "label": "He tells you what to include",
+            "to": "send_email_confirm"
+          },
+          {
+            "label": "Just send me whatever",
+            "to": "send_email_confirm"
+          }
+        ]
+      },
+      "send_email_confirm": {
+        "label": "CONFIRM EMAIL + PLANT MEETING SEED",
+        "say": "Got it — I'll send that over today. And I'll throw a couple times on there in case you want to hop on a quick call after you've had a chance to look at it. What's the best email — is it kappel at meredithlodging dot com?",
+        "note": "Confirm the email using the known pattern (first initial + last name @meredithlodging.com). If he corrects you, write down the real address. The 'throw a couple times on there' plants the seed for a meeting without pressure.",
+        "branches": [
+          {
+            "label": "Confirms or gives email",
+            "to": "email_close"
+          },
+          {
+            "label": "Uses a different email",
+            "to": "email_close"
+          }
+        ]
+      },
+      "email_close": {
+        "label": "CLOSE — EMAIL COMING",
+        "say": "Perfect — I'll get that over to you today. Appreciate your time, Ken. Talk soon.",
+        "note": "Send the email within 30 minutes. Reference the call specifically. Include 2-3 time slots for a follow-up. Keep it to three short paragraphs max.",
+        "branches": []
+      },
+      "book_meeting": {
+        "label": "BOOK THE MEETING",
+        "say": "Awesome. I've got next week pulled up — how does Tuesday or Wednesday look? I only need about 20 minutes.",
+        "note": "Give two day options, not open-ended. Once he picks a day, narrow to a time. Lock it in NOW.",
+        "branches": [
+          {
+            "label": "Picks a day and time",
+            "to": "confirm_meeting"
+          },
+          {
+            "label": "Needs to check his calendar",
+            "to": "confirm_meeting_flexible"
+          }
+        ]
+      },
+      "confirm_meeting": {
+        "label": "CONFIRM AND CLOSE",
+        "say": "Perfect — I'll send you a calendar invite right now so it's locked in. It'll come from sam at rapideye dot ai. Really appreciate you taking my call, Ken. Looking forward to it.",
+        "note": "Send the invite WHILE on the phone. Stop selling immediately. You got the meeting — do not give him a reason to reconsider.",
+        "branches": []
+      },
+      "confirm_meeting_flexible": {
+        "label": "FLEXIBLE CONFIRM",
+        "say": "No worries — I'll shoot you a couple time options over email. What's the best email to send that to — kappel at meredithlodging dot com?",
+        "note": "Still confirm the email using the known pattern. Get the invite out within the hour. Follow up same day if no response.",
+        "branches": [
+          {
+            "label": "Confirms email",
+            "to": "confirm_meeting"
+          },
+          {
+            "label": "Gives a different email",
+            "to": "confirm_meeting"
+          }
+        ]
+      },
+      "graceful_exit": {
+        "label": "EXIT GRACEFULLY",
+        "say": "Totally understand. Hey — if anything changes or this ever becomes relevant, I'm easy to find. Appreciate your time, Ken.",
+        "note": "Don't burn the bridge. Log this call with detailed notes. Ken may not be the buyer today but he's a path to the ops team later.",
+        "branches": []
+      }
+    }
+  }
+}

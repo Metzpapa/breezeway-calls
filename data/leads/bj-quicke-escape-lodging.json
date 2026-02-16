@@ -1,0 +1,691 @@
+{
+  "name": "BJ Quicke",
+  "title": "Facilities Asset Manager",
+  "company": "Escape Lodging",
+  "location": "Cannon Beach, OR",
+  "phone": "",
+  "company_phone": "503-436-2480",
+  "alt_phones": [],
+  "flow": {
+    "context": "BJ Quicke is the Facilities Asset Manager at Escape Lodging — he's the person closest to the physical condition of their properties every single day. Escape Lodging is a boutique hospitality owner/operator in Cannon Beach, OR running 8+ properties (inns, lodges, RV resort) across the Pacific Northwest; they just added Sunset Surf Motel in Manzanita and rolled out Stayntouch cloud PMS in April 2025, signaling active tech modernization. Shaun Wagner (President) and Patrick Nofield (Owner) sit above BJ as decision-makers. Sam's surfing background connects naturally to Cannon Beach — one of the most iconic surf towns on the Oregon coast — and BJ's facilities role means he lives the damage-detection pain across multiple coastal properties every day.",
+    "start": "gatekeeper_check",
+    "nodes": {
+      "gatekeeper_check": {
+        "label": "WHO PICKED UP?",
+        "say": "Hey, is BJ around? It's Sam.",
+        "note": "Keep it casual and short. Don't explain why you're calling. If BJ answers directly, jump to opener. If someone else answers and asks questions, move to gatekeeper path.",
+        "branches": [
+          {
+            "label": "BJ answers or gets transferred",
+            "to": "opener"
+          },
+          {
+            "label": "Someone else asks who's calling or what it's about",
+            "to": "gatekeeper_context"
+          },
+          {
+            "label": "BJ isn't available or not in today",
+            "to": "gatekeeper_voicemail_or_callback"
+          }
+        ]
+      },
+      "gatekeeper_context": {
+        "label": "GATEKEEPER ASKS MORE",
+        "say": "Yeah — I work with a few other property management companies up on the coast. Would you mind letting BJ know it's Sam Parks?",
+        "note": "Don't pitch. Don't over-explain. Just enough to sound like a known contact. Redirect with a question so you stay in control.",
+        "branches": [
+          {
+            "label": "They transfer you",
+            "to": "opener"
+          },
+          {
+            "label": "They push back or ask more",
+            "to": "gatekeeper_social_proof"
+          },
+          {
+            "label": "BJ isn't available",
+            "to": "gatekeeper_voicemail_or_callback"
+          }
+        ]
+      },
+      "gatekeeper_social_proof": {
+        "label": "GATEKEEPER STILL BLOCKING",
+        "say": "Totally fair — we help a couple other hospitality companies with their property inspection workflows. I sent BJ a note already — would you mind just giving him a heads up that Sam Parks called?",
+        "note": "Third and final gatekeeper attempt. If this doesn't work, get a callback time or leave a message. Don't push further.",
+        "branches": [
+          {
+            "label": "They transfer you",
+            "to": "opener"
+          },
+          {
+            "label": "They take a message or suggest a callback time",
+            "to": "gatekeeper_voicemail_or_callback"
+          },
+          {
+            "label": "Hard no",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "gatekeeper_voicemail_or_callback": {
+        "label": "BJ NOT AVAILABLE",
+        "say": "No worries at all. When's the best time to catch him? I'll try back then. And who am I speaking with, by the way?",
+        "note": "Get the gatekeeper's name for next time and a specific callback time. Don't leave a voicemail if you can avoid it — calling back is always better.",
+        "branches": [
+          {
+            "label": "They give you a time and name",
+            "to": "callback_scheduled"
+          },
+          {
+            "label": "They want you to leave a voicemail",
+            "to": "voicemail"
+          }
+        ]
+      },
+      "voicemail": {
+        "label": "VOICEMAIL",
+        "say": "Hey BJ — Sam Parks, quick message. I work with a few property management companies on their inspection workflows, and your name came up as the guy who owns the facilities side at Escape Lodging. Had a quick thought for you — I'll try you again tomorrow if I don't hear back. Talk soon.",
+        "note": "Keep it under 20 seconds. Sound like a peer, not a salesperson. Don't pitch RapidEye by name. Leave a reason for curiosity and a reason to expect your next call.",
+        "branches": []
+      },
+      "callback_scheduled": {
+        "label": "CALLBACK SCHEDULED",
+        "say": "Perfect — I'll try him then. Thanks so much, appreciate it.",
+        "note": "Write down the exact time and the gatekeeper's name. Use their name when you call back. When you redial, open with 'Hey it's Sam Parks again — BJ was expecting my call.'",
+        "branches": []
+      },
+      "opener": {
+        "label": "OPENER",
+        "say": "Hey BJ — I work with a few hospitality companies up and down the coast. I'm actually a surfer myself, so I've spent a fair amount of time out in Cannon Beach. It's Sam Parks with RapidEye. Have you heard my name tossed around at all?",
+        "note": "Feet up on the desk energy. Don't rush. The surf and Cannon Beach line should feel like a personal aside, not a pitch. Pause after the question and wait for his answer. Let silence work for you.",
+        "branches": [
+          {
+            "label": "No, haven't heard of you",
+            "to": "heard_name_no"
+          },
+          {
+            "label": "Yeah, maybe, sounds familiar",
+            "to": "heard_name_yes"
+          },
+          {
+            "label": "Now's not a good time",
+            "to": "bad_timing"
+          },
+          {
+            "label": "Hostile or skeptical — what are you selling?",
+            "to": "permission_fallback"
+          }
+        ]
+      },
+      "heard_name_no": {
+        "label": "HAVEN'T HEARD OF ME",
+        "say": "Ha — well I guess I'm not as popular as I thought. Well the reason for my call is — I've been working with a few other property managers who run multi-property portfolios like you guys, and the thing I keep hearing is...",
+        "note": "This transitions directly into the pain trigger. Keep it flowing naturally — don't pause awkwardly between the joke and the pain setup. The joke humanizes you.",
+        "branches": [
+          {
+            "label": "Continue to pain trigger",
+            "to": "pain_trigger"
+          }
+        ]
+      },
+      "heard_name_yes": {
+        "label": "HEARD OF ME",
+        "say": "Oh nice — well normally we'd be working with someone in your shoes. What did you hear?",
+        "note": "Let them talk. Whatever they say, agree and bridge to the pain trigger. If they're confused or making it up, pivot gracefully: 'Well the reason I'm reaching out...'",
+        "branches": [
+          {
+            "label": "They share what they heard",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "They're vague or don't actually remember",
+            "to": "pain_trigger"
+          }
+        ]
+      },
+      "bad_timing": {
+        "label": "BAD TIMING",
+        "say": "Totally hear you — would it be a terrible idea if I tried you again tomorrow, maybe same time?",
+        "note": "Don't push. Respect the timing. But get a specific callback window. If they agree to a time, that's almost as good as a conversation — they've opted in to hear from you.",
+        "branches": [
+          {
+            "label": "Sure, try me tomorrow or gives a time",
+            "to": "callback_scheduled_direct"
+          },
+          {
+            "label": "Just tell me what this is about quickly",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "Don't call back, not interested",
+            "to": "permission_rejected"
+          }
+        ]
+      },
+      "callback_scheduled_direct": {
+        "label": "CALLBACK LOCKED",
+        "say": "Perfect — I'll try you then. Appreciate it, BJ. Talk soon.",
+        "note": "Write down the exact time. When you call back, open with: 'Hey BJ, Sam Parks — you told me to try you back around now.' That turns a cold call into a warm call.",
+        "branches": []
+      },
+      "permission_fallback": {
+        "label": "PERMISSION FALLBACK",
+        "say": "Yeah, totally fair — I mean it is a cold call. Can I get 30 seconds to tell you why I reached out, and you can totally hang up on me if it's not a fit?",
+        "note": "Say this with a slight laugh. You're acknowledging reality. Most people will give you 30 seconds if you're honest and self-aware about what this is.",
+        "branches": [
+          {
+            "label": "Fine, go ahead, 30 seconds",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "No, not interested, don't call",
+            "to": "permission_rejected"
+          }
+        ]
+      },
+      "permission_rejected": {
+        "label": "PERMISSION REJECTED",
+        "say": "Shoot — totally my bad. Just so nobody from my team bugs you again — is it that I just caught you at a horrible time, or is it more that you already know what we do and this isn't on your radar?",
+        "note": "This is your last shot. The split question gives them two non-threatening options. 'Horrible time' reopens the door for a callback. 'Not on your radar' opens a curiosity gap.",
+        "branches": [
+          {
+            "label": "Bad time, just busy",
+            "to": "permission_rejected_reschedule"
+          },
+          {
+            "label": "Not on my radar, not interested",
+            "to": "permission_rejected_last_shot"
+          },
+          {
+            "label": "Hard no or hangs up",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "permission_rejected_reschedule": {
+        "label": "RESCUE — BAD TIME",
+        "say": "Totally get it. When's a better window to catch you — would later this week be less crazy?",
+        "note": "Get a specific day and time. Don't leave it vague. If they give you a window, you've earned a warm callback.",
+        "branches": [
+          {
+            "label": "Gives a time",
+            "to": "callback_scheduled_direct"
+          },
+          {
+            "label": "Still says no",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "permission_rejected_last_shot": {
+        "label": "RESCUE — NOT ON RADAR",
+        "say": "Makes total sense. Honestly — we just help property managers catch damage and quality issues that slip through during turnovers using the photos their teams are already taking. If that ever becomes a headache, I'm easy to find. Appreciate your time, BJ.",
+        "note": "Plant the seed and exit gracefully. Don't push. This person might call you back in 3 months when a damage incident blows up.",
+        "branches": [
+          {
+            "label": "Wait, what do you mean? Tell me more",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "Thanks, goodbye",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "pain_trigger": {
+        "label": "PAIN TRIGGER",
+        "say": "So I've been talking to another facilities manager who runs a similar setup — multiple properties, rooms flipping constantly, housekeeping's supposed to catch everything during turnovers. And the thing he kept telling me was, his team does their best, but when you're flipping dozens of rooms a day across eight-plus properties — a stain on a couch, a ding in the wall, a missing iron — stuff just slips through. And then it shows up in a guest review on TripAdvisor, or the next guest calls the front desk twenty minutes after check-in, and now it's his fire to put out.",
+        "note": "PAUSE after 'his fire to put out.' Do NOT keep talking. Let BJ react. If he starts talking about his own experience, STOP and listen. The pause is where the magic happens. Only continue to the solution if he doesn't jump in.",
+        "branches": [
+          {
+            "label": "That resonates — yeah we deal with that",
+            "to": "discovery_process"
+          },
+          {
+            "label": "Lukewarm — okay, interesting",
+            "to": "solution_cta"
+          },
+          {
+            "label": "We already have something for that",
+            "to": "objection_have_process"
+          },
+          {
+            "label": "Not really a priority right now",
+            "to": "objection_not_interested"
+          }
+        ]
+      },
+      "discovery_process": {
+        "label": "DISCOVERY — CURRENT PROCESS",
+        "say": "Yeah, I figured that'd hit close to home. So what does your inspection process actually look like right now — are your housekeepers taking photos after every turn, or is it more of a spot-check thing?",
+        "note": "You're warm. STOP pitching. Ask questions and let BJ talk. Listen for: what tools they use, who takes photos, how damage gets reported, what falls through the cracks. Every detail is ammunition for the meeting pitch.",
+        "branches": [
+          {
+            "label": "Describes their process or mentions housekeeping photos",
+            "to": "discovery_pain_dig"
+          },
+          {
+            "label": "We don't really do formal inspections",
+            "to": "discovery_no_inspections"
+          },
+          {
+            "label": "Mentions Stayntouch or their PMS",
+            "to": "discovery_stayntouch"
+          }
+        ]
+      },
+      "discovery_pain_dig": {
+        "label": "DISCOVERY — DIG DEEPER",
+        "say": "Got it. And when something does get missed — like a stain on the bedding or a cracked fixture after checkout — how does that usually surface? Is it the next guest flagging it, or does your team catch it on the next walkthrough?",
+        "note": "You're digging for the emotional cost of missed damage. If it surfaces from guest complaints, that's a massive pain point — tie it to reviews and reputation. If their team catches it later, the pain is wasted labor and rework.",
+        "branches": [
+          {
+            "label": "Guest complaints or reviews",
+            "to": "discovery_reviews_pain"
+          },
+          {
+            "label": "Team catches it eventually on next walkthrough",
+            "to": "discovery_scaling"
+          },
+          {
+            "label": "Mentions growing portfolio or new properties",
+            "to": "discovery_growth"
+          }
+        ]
+      },
+      "discovery_no_inspections": {
+        "label": "DISCOVERY — NO FORMAL INSPECTIONS",
+        "say": "Honestly, that's super common — especially in hotel-style operations where the volume is just relentless. A lot of the teams I talk to are relying on housekeeping to flag stuff verbally, and it works great until it doesn't. How are you guys handling it when something does slip through — does that come back as a guest complaint usually?",
+        "note": "Normalize their situation. Don't make them feel behind. Then dig for the pain of not having a documented process.",
+        "branches": [
+          {
+            "label": "Yeah, it's a problem sometimes",
+            "to": "discovery_reviews_pain"
+          },
+          {
+            "label": "It's not really an issue for us",
+            "to": "solution_cta"
+          }
+        ]
+      },
+      "discovery_stayntouch": {
+        "label": "DISCOVERY — STAYNTOUCH MENTION",
+        "say": "Oh nice — you guys just rolled out Stayntouch across the portfolio, right? How's that transition been? I ask because a lot of the teams I work with are in that same spot — upgrading their PMS and then realizing the inspection and quality side is still totally manual.",
+        "note": "Shows you've done your homework without being creepy. The Stayntouch rollout is a natural bridge — they're already in upgrade mode. Listen for pain around the transition or gaps the PMS doesn't cover on the operations side.",
+        "branches": [
+          {
+            "label": "Yeah it's been a big project, still rolling out",
+            "to": "discovery_scaling"
+          },
+          {
+            "label": "How'd you know about that?",
+            "to": "discovery_homework_explain"
+          }
+        ]
+      },
+      "discovery_homework_explain": {
+        "label": "EXPLAIN HOMEWORK",
+        "say": "Ha — I always do my research before I call somebody. I saw the announcement about Stayntouch back in April. Figured you guys are in growth mode and it'd make sense to connect. But seriously — with the portfolio expanding, how are you keeping quality consistent across all the properties?",
+        "note": "Be honest about your research. It builds trust and credibility. Then redirect to a discovery question about quality consistency — that's exactly where RapidEye fits.",
+        "branches": [
+          {
+            "label": "Talks about quality challenges or growth",
+            "to": "discovery_scaling"
+          },
+          {
+            "label": "We've got it under control",
+            "to": "solution_cta"
+          }
+        ]
+      },
+      "discovery_reviews_pain": {
+        "label": "DISCOVERY — REVIEWS PAIN",
+        "say": "Yeah — that's exactly what I hear. And the brutal part is, once it's in a review, you can't undo it. Especially for boutique properties where the whole brand is the experience. How many properties are you guys managing now — still around eight?",
+        "note": "Tie the pain to their business model. Boutique hospitality lives and dies on guest experience and reviews. The property count question transitions naturally to scale and gives you ammo for the CTA.",
+        "branches": [
+          {
+            "label": "Confirms count or mentions growth",
+            "to": "discovery_growth"
+          },
+          {
+            "label": "Gives a different number",
+            "to": "discovery_growth"
+          }
+        ]
+      },
+      "discovery_scaling": {
+        "label": "DISCOVERY — SCALING CHALLENGE",
+        "say": "That makes sense. And I imagine with the new property in Manzanita and the portfolio growing, the challenge just compounds — more rooms, more turnovers, more chances for something to slip through. What's been the biggest headache on the facilities side as you guys scale?",
+        "note": "Reference the Sunset Surf Motel addition naturally — shows you know their business. Let BJ tell you his biggest pain. Whatever he says, that becomes your bridge to the CTA.",
+        "branches": [
+          {
+            "label": "Talks about specific pain like staffing, consistency, or time",
+            "to": "solution_cta"
+          },
+          {
+            "label": "It's manageable, we're handling it",
+            "to": "solution_cta"
+          }
+        ]
+      },
+      "discovery_growth": {
+        "label": "DISCOVERY — PORTFOLIO STRUCTURE",
+        "say": "Nice. And with the portfolio at that size — are you the one doing walkthroughs at every property yourself, or do you have site-level people at each location handling the day-to-day?",
+        "note": "This tells you how BJ operates. If he's doing it all himself across 8+ properties, the pain is acute — he's stretched thin. If he has site-level people, the pain is about consistency and oversight across teams he can't always watch.",
+        "branches": [
+          {
+            "label": "I oversee it, do a lot myself, spread thin",
+            "to": "solution_cta"
+          },
+          {
+            "label": "Have site-level people, housekeeping handles it",
+            "to": "solution_cta"
+          }
+        ]
+      },
+      "solution_cta": {
+        "label": "SOLUTION + CTA",
+        "say": "Yeah — so that's exactly why I reached out. We built something that plugs into the photo workflow your team's already doing and uses AI to flag damage, missing items, staging issues — basically an extra set of eyes that never gets tired and never has an off day. Would you be open to taking a look sometime this week? Not a big production — just a quick 15 minutes when I'm not cold calling you out of the blue.",
+        "note": "One-sentence solution, then straight to the CTA. Keep it light. 'Not a big production' and '15 minutes' lower the barrier. If he says yes, book it NOW — don't keep pitching.",
+        "branches": [
+          {
+            "label": "Yeah sure, could be interesting",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Send me an email first",
+            "to": "send_email"
+          },
+          {
+            "label": "I'm not the right person for this",
+            "to": "not_right_person"
+          },
+          {
+            "label": "We don't have budget right now",
+            "to": "objection_no_budget"
+          },
+          {
+            "label": "Not a priority, we're fine",
+            "to": "objection_not_interested"
+          }
+        ]
+      },
+      "book_meeting": {
+        "label": "BOOK THE MEETING",
+        "say": "Awesome — I've got next Tuesday and Thursday pulled up. What looks better for you — morning or afternoon?",
+        "note": "Lock it in NOW. Give two specific options. Don't say 'sometime next week.' Once he picks one, confirm the exact time and send the invite while you're still on the phone.",
+        "branches": [
+          {
+            "label": "Picks a day and time",
+            "to": "confirm_meeting"
+          },
+          {
+            "label": "Hesitates or not sure about schedule",
+            "to": "book_meeting_nudge"
+          }
+        ]
+      },
+      "book_meeting_nudge": {
+        "label": "NUDGE TO BOOK",
+        "say": "No rush — how about I throw something on the calendar for late next week and if it doesn't work you can just move it? That way it's on your radar at least.",
+        "note": "Lower the commitment. 'You can always move it' makes it feel reversible and low-risk. The goal is getting the calendar invite sent before you hang up.",
+        "branches": [
+          {
+            "label": "Okay that works",
+            "to": "confirm_meeting"
+          },
+          {
+            "label": "Just send me an email",
+            "to": "send_email"
+          }
+        ]
+      },
+      "confirm_meeting": {
+        "label": "MEETING BOOKED",
+        "say": "Perfect — I'll send over a calendar invite right now so it's locked in. Really appreciate you taking my call, BJ. Talk to you then.",
+        "note": "Send the invite WHILE on the phone. Include a one-line agenda in the invite body. Stop selling immediately. Don't add anything else. End on a high note and get off the phone.",
+        "branches": []
+      },
+      "send_email": {
+        "label": "SEND ME AN EMAIL",
+        "say": "Totally fair. One quick question before I do — what would be most useful to include so it's not just another generic pitch sitting in your inbox?",
+        "note": "Accept it gracefully, then ask what to include. This gives you intel on what they care about AND keeps the conversation going for a few more seconds. Whatever he says, tailor the email to it exactly.",
+        "branches": [
+          {
+            "label": "Tells you what to include or gives direction",
+            "to": "send_email_confirm"
+          },
+          {
+            "label": "Just send whatever, general overview",
+            "to": "send_email_confirm"
+          }
+        ]
+      },
+      "send_email_confirm": {
+        "label": "CONFIRM EMAIL DETAILS",
+        "say": "Got it — I'll put something together and get it in your inbox by end of day. Is bj@escapelodging.com the best address? And I'll throw a couple times to connect in there too so we've got something to anchor to.",
+        "note": "Confirm the email — the company pattern is firstname@escapelodging.com. Suggesting meeting times in the email keeps forward momentum alive. If he corrects the email, write it down carefully.",
+        "branches": [
+          {
+            "label": "Confirms email or gives correct address",
+            "to": "graceful_exit_email"
+          },
+          {
+            "label": "Gives a different email",
+            "to": "graceful_exit_email"
+          }
+        ]
+      },
+      "graceful_exit_email": {
+        "label": "EXIT — EMAIL FOLLOW-UP",
+        "say": "Perfect — I'll get that over to you. Appreciate your time, BJ. Talk soon.",
+        "note": "Send the email within 2 hours. Reference something specific from this conversation. Include 2-3 time options for a 15-minute call. Follow up in 3 business days if no response.",
+        "branches": []
+      },
+      "not_right_person": {
+        "label": "NOT THE RIGHT PERSON",
+        "say": "Totally makes sense — I appreciate you telling me. Who on your team would typically own something like this? Would it be more of an ops decision, or does that go up to Shaun or Patrick?",
+        "note": "You know Shaun Wagner is President and runs ops. Patrick Nofield is Owner and economic buyer. Drop their names naturally — it shows you know the org. BJ will likely confirm one of them or redirect you. Don't push, just ask and listen.",
+        "branches": [
+          {
+            "label": "Points to Shaun Wagner",
+            "to": "referral_shaun"
+          },
+          {
+            "label": "Points to Patrick Nofield",
+            "to": "referral_patrick"
+          },
+          {
+            "label": "Gives another name",
+            "to": "referral_other"
+          },
+          {
+            "label": "Not sure or doesn't want to say",
+            "to": "referral_gentle_push"
+          }
+        ]
+      },
+      "referral_shaun": {
+        "label": "REFERRAL TO SHAUN",
+        "say": "Got it — Shaun makes sense, especially with the Stayntouch rollout and everything going on operationally. Would you mind if I mentioned you pointed me his way? And is there a best time to catch him?",
+        "note": "Getting BJ's name as a warm intro to Shaun is gold. Even a casual 'sure, mention my name' turns the next call from cold to warm. You already have Shaun's direct number and email — this is just about getting the endorsement.",
+        "branches": [
+          {
+            "label": "Sure, mention my name, gives info",
+            "to": "referral_confirmed"
+          },
+          {
+            "label": "Just call the main line",
+            "to": "referral_confirmed"
+          }
+        ]
+      },
+      "referral_patrick": {
+        "label": "REFERRAL TO PATRICK",
+        "say": "Okay — Patrick would make sense as the final call on something like this. Would you mind if I mentioned your name when I reach out? And is email or phone better for him?",
+        "note": "Patrick is the economic buyer. Getting BJ's endorsement — even a casual 'yeah go ahead' — significantly warms the outreach. You have Patrick's direct phone already; this is about permission to use BJ's name.",
+        "branches": [
+          {
+            "label": "Sure, gives info",
+            "to": "referral_confirmed"
+          },
+          {
+            "label": "Just try him",
+            "to": "referral_confirmed"
+          }
+        ]
+      },
+      "referral_other": {
+        "label": "REFERRAL TO SOMEONE ELSE",
+        "say": "Oh great — and what's their role? Just so I can put something relevant together that actually lands for what they deal with day to day. Would you mind if I mentioned you sent me their way?",
+        "note": "Get the name, title, and permission to use BJ's name. Write everything down carefully. This is your warm lead into the org.",
+        "branches": [
+          {
+            "label": "Gives name and details",
+            "to": "referral_confirmed"
+          },
+          {
+            "label": "Vague or doesn't want to give details",
+            "to": "referral_confirmed"
+          }
+        ]
+      },
+      "referral_gentle_push": {
+        "label": "GENTLE PUSH FOR REFERRAL",
+        "say": "No worries — I don't want to put you on the spot. If I were going to send one email to the right person over there, what kind of role should I be looking for? Like is this more of a VP Ops thing, or more ownership level?",
+        "note": "Ask for the altitude, not the name. People are more comfortable sharing a title than a specific person. Once you have the altitude, you already know the names from your research.",
+        "branches": [
+          {
+            "label": "Gives a title or direction",
+            "to": "referral_confirmed"
+          },
+          {
+            "label": "Still vague or won't say",
+            "to": "referral_confirmed"
+          }
+        ]
+      },
+      "referral_confirmed": {
+        "label": "REFERRAL CAPTURED",
+        "say": "Really appreciate that, BJ. I'll put something tailored together so it actually lands with them. And hey — if it ever makes sense for you on the facilities side, I'm always easy to find. Thanks for your time.",
+        "note": "Thank him genuinely. Leave the door open for BJ too — he might circle back. Follow up with the referral contact within 24 hours and mention BJ's name if you got permission.",
+        "branches": []
+      },
+      "objection_no_budget": {
+        "label": "OBJECTION — NO BUDGET",
+        "say": "Totally get it. Nowadays it's harder to keep a tool than to buy something new — especially in hospitality where margins are already razor thin.",
+        "note": "AGREE first. Do not push back. Pause briefly and let the agreement land before moving to the split. You're surprising them by not fighting.",
+        "branches": [
+          {
+            "label": "Continue to split",
+            "to": "objection_budget_split"
+          }
+        ]
+      },
+      "objection_budget_split": {
+        "label": "SPLIT — BUDGET",
+        "say": "Just so nobody from my team cold calls you again about this — is it that budget for this cycle is completely locked, or is it more that anything new has to go through Shaun or Patrick and that's just a whole process?",
+        "note": "You're splitting the objection into two paths. 'Budget locked' equals a timing issue — follow up next quarter. 'Has to go through leadership' equals you need a referral. Either answer gives you a concrete next step.",
+        "branches": [
+          {
+            "label": "Budget is locked, not this quarter",
+            "to": "test_drive_pitch"
+          },
+          {
+            "label": "Has to go through leadership, approval process",
+            "to": "not_right_person"
+          },
+          {
+            "label": "Just not a priority right now",
+            "to": "objection_not_interested"
+          }
+        ]
+      },
+      "objection_not_interested": {
+        "label": "OBJECTION — NOT INTERESTED",
+        "say": "I totally get it — I should've assumed you'd be all set. Otherwise you probably would've reached out to us.",
+        "note": "Agree and lower their defenses. This is counterintuitive but it works — agreeing with their objection disarms them and creates space for them to reconsider. Pause, then move to the split.",
+        "branches": [
+          {
+            "label": "Continue to split",
+            "to": "objection_interest_split"
+          }
+        ]
+      },
+      "objection_interest_split": {
+        "label": "SPLIT — NOT INTERESTED",
+        "say": "Honestly — just so I'm not bugging the wrong person — is it that damage and inspection stuff isn't really on your plate, or is it more that you guys have it handled and this just isn't a pain point right now?",
+        "note": "'Not on your plate' equals referral opportunity — ask who owns it. 'Have it handled' equals test drive pitch about what peers are doing differently. Both give you a move forward.",
+        "branches": [
+          {
+            "label": "Not really my area, someone else handles it",
+            "to": "not_right_person"
+          },
+          {
+            "label": "We handle it fine, not a pain point",
+            "to": "test_drive_pitch"
+          },
+          {
+            "label": "Hard no",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "objection_have_process": {
+        "label": "OBJECTION — HAVE A PROCESS",
+        "say": "That makes total sense — with eight-plus properties you'd have to have something in place. It'd be weird if you didn't.",
+        "note": "Validate their current process. Do not trash whatever they're doing. Pause and let the agreement land, then move to the split.",
+        "branches": [
+          {
+            "label": "Continue to split",
+            "to": "objection_process_split"
+          }
+        ]
+      },
+      "objection_process_split": {
+        "label": "SPLIT — HAVE A PROCESS",
+        "say": "Genuinely curious — is it that you're fully covered and nothing's slipping through the cracks, or is it more that switching anything right now while you're rolling out Stayntouch would just be one more thing to deal with?",
+        "note": "Reference the Stayntouch rollout to show you understand their operational reality. 'Fully covered' is unlikely at their scale — dig gently. 'One more thing' is a timing issue — pitch the test drive for later when things settle down.",
+        "branches": [
+          {
+            "label": "It's more the timing, too much going on right now",
+            "to": "test_drive_pitch"
+          },
+          {
+            "label": "We're pretty well covered honestly",
+            "to": "test_drive_pitch"
+          },
+          {
+            "label": "Tells you what they currently use or how they do it",
+            "to": "discovery_process"
+          }
+        ]
+      },
+      "test_drive_pitch": {
+        "label": "TEST DRIVE PITCH",
+        "say": "Totally respect that. And look — you're probably not buying anything today, and I'm not expecting you to. But here's what I've seen: when budget does open up or the timing's right, the people who move fastest are the ones who already know what's on their shortlist. Would you be open to just taking a look — not for today, but so it's on your radar? Worst case, I'll show you what a couple other multi-property operators are doing with their turnover photos and you steal some ideas. We part as friends.",
+        "note": "This is the test drive close. You're removing all buying pressure. 'Steal some ideas and part as friends' makes the meeting feel safe and valuable even if they never buy. If this doesn't land, you've done everything right — exit gracefully.",
+        "branches": [
+          {
+            "label": "Okay sure, why not",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Send me an email about it",
+            "to": "send_email"
+          },
+          {
+            "label": "Not right now, still no",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "graceful_exit": {
+        "label": "GRACEFUL EXIT",
+        "say": "Totally understand, BJ. If anything changes on your end, I'm easy to find — Sam Parks, RapidEye. Appreciate you taking my call.",
+        "note": "Don't burn the bridge. Say his name. Be warm and genuine. This person might come back to you in 6 months when a damage issue blows up. Log the call, tag the objection reason, and set a follow-up reminder for 60 to 90 days.",
+        "branches": []
+      }
+    }
+  }
+}

@@ -1,0 +1,686 @@
+{
+  "name": "Jenny McLean",
+  "title": "Broker / Owner (McLean Company)",
+  "company": "Poppy (Stay Poppy)",
+  "location": "Palm Springs, CA",
+  "phone": "",
+  "company_phone": "+1-760-307-4329",
+  "alt_phones": [],
+  "flow": {
+    "context": "Jenny McLean is co-owner and Broker at McLean Company, the family business behind Poppy (Stay Poppy) — 130+ boutique vacation rentals in Palm Springs, 500+ total managed properties. She owns the accounting and operations side and has specifically called out her interest in learning new software and technology. UCLA grad (1977), International Relations. The company uses Streamline as their PMS with no confirmed inspection or photo platform. Strongest Sam connection: Jenny went to UCLA and is deeply rooted in SoCal — Sam grew up in La Cañada Flintridge, 15 miles from UCLA campus, and is originally from Hollywood.",
+    "start": "opener",
+    "nodes": {
+      "opener": {
+        "label": "OPENER",
+        "say": "Hey Jenny — this is gonna sound a little random, but I actually grew up in La Cañada, right down the road from UCLA. I work with a few vacation rental companies out in the desert on their inspection workflows. It's Sam Parks with RapidEye — have you heard my name tossed around at all?",
+        "note": "Warm, casual tone. Feet up on the desk. The UCLA/La Cañada mention is real — don't oversell it, just plant it. Pause after the question and let her respond.",
+        "branches": [
+          {
+            "label": "No, I haven't heard of you",
+            "to": "no_heard"
+          },
+          {
+            "label": "Yes / maybe / sounds familiar",
+            "to": "yes_heard"
+          },
+          {
+            "label": "Now's not a good time",
+            "to": "bad_timing"
+          },
+          {
+            "label": "Who is this? / What's this about?",
+            "to": "permission_fallback"
+          }
+        ]
+      },
+      "no_heard": {
+        "label": "NOT HEARD — TRANSITION TO PAIN",
+        "say": "Ha — I guess I'm not as popular as I thought. Well the reason for my call — I work with a couple other property managers running portfolios similar to yours, 100-plus vacation rentals, and one thing that keeps coming up is this gap between what cleaners photograph during turnovers and what actually gets caught before the next guest checks in. Like, they're taking the photos, but nobody has time to sit there and review hundreds of images across 130-plus homes — stuff slips through, a stain here, a broken drawer there, and it turns into a damage dispute or a bad review three days later. We built an AI that plugs into the photos your teams are already taking — runs through Streamline — and flags issues automatically. No workflow change. Would you be open to taking a look sometime when I'm not cold calling you out of the blue?",
+        "note": "Full pain trigger plus solution plus CTA. Pause after 'three days later' to let the pain land. Then deliver the solution in one sentence. Mentioning Streamline shows you did homework. Keep it conversational.",
+        "branches": [
+          {
+            "label": "Sure / yeah that could be interesting",
+            "to": "warm_discovery"
+          },
+          {
+            "label": "We already have a process for that",
+            "to": "objection_have_process"
+          },
+          {
+            "label": "I'm not really the right person for this",
+            "to": "referral_ask"
+          },
+          {
+            "label": "Not interested",
+            "to": "objection_not_interested"
+          },
+          {
+            "label": "Send me an email",
+            "to": "send_email"
+          }
+        ]
+      },
+      "yes_heard": {
+        "label": "HEARD OF US — EXPLORE",
+        "say": "Oh nice — well normally we'd be working with someone in your shoes. What'd you hear?",
+        "note": "Let her talk. She may be confusing you with someone else — that's fine. Listen and adapt. If she actually knows RapidEye, go straight to discovery.",
+        "branches": [
+          {
+            "label": "Describes what she heard (positive or curious)",
+            "to": "warm_discovery"
+          },
+          {
+            "label": "Vague / doesn't really remember",
+            "to": "no_heard"
+          },
+          {
+            "label": "Confusing with something else",
+            "to": "no_heard"
+          }
+        ]
+      },
+      "bad_timing": {
+        "label": "BAD TIMING",
+        "say": "Totally hear you — would it be a terrible idea if I tried you again tomorrow, or would later this week work better?",
+        "note": "Give two choices, not an open-ended 'when works.' If she pushes back harder, go to graceful exit.",
+        "branches": [
+          {
+            "label": "Gives a specific time or day",
+            "to": "book_callback"
+          },
+          {
+            "label": "Just send me an email",
+            "to": "send_email"
+          },
+          {
+            "label": "Don't call back / not interested",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "permission_fallback": {
+        "label": "PERMISSION FALLBACK",
+        "say": "Yeah totally — I mean it is a cold call. Can I get 30 seconds to tell you why I reached out, and you can totally hang up on me if it's not a fit?",
+        "note": "Disarm with honesty. If she says no, go to permission_rejected. If she gives you the green light, transition to the pain trigger.",
+        "branches": [
+          {
+            "label": "Okay, go ahead / 30 seconds",
+            "to": "no_heard"
+          },
+          {
+            "label": "No / I'm busy / not interested",
+            "to": "permission_rejected"
+          }
+        ]
+      },
+      "permission_rejected": {
+        "label": "PERMISSION REJECTED — SPLIT",
+        "say": "Shoot, totally my bad. Just so nobody from my team bugs you again — is it that I caught you at a horrible time, or is it that you already know what we do and it's just not on your radar?",
+        "note": "This splits the objection. If it's timing, rescue the callback. If it's disinterest, try one more reframe or exit gracefully.",
+        "branches": [
+          {
+            "label": "Bad timing",
+            "to": "bad_timing"
+          },
+          {
+            "label": "Not interested / don't need it",
+            "to": "last_chance_value"
+          },
+          {
+            "label": "Hangs up / firm no",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "warm_discovery": {
+        "label": "WARM — STOP PITCHING, ASK QUESTIONS",
+        "say": "Awesome — I appreciate that. So I don't waste your time, can I ask a couple quick questions? With 130-plus vacation rentals under Poppy, what does your inspection process actually look like right now after a guest checks out?",
+        "note": "You are in discovery now. STOP SELLING. Listen. She is an owner focused on accounting and operations — she will think about this from a cost and efficiency angle. Let her talk about the current process before you pitch anything else.",
+        "branches": [
+          {
+            "label": "Describes their process (photos, checklists, manual review, etc.)",
+            "to": "discovery_dig_deeper"
+          },
+          {
+            "label": "We have property managers who handle that",
+            "to": "discovery_delegation"
+          },
+          {
+            "label": "Kelly handles all of that",
+            "to": "referral_to_kelly"
+          },
+          {
+            "label": "We're pretty happy with what we have",
+            "to": "objection_have_process"
+          }
+        ]
+      },
+      "discovery_dig_deeper": {
+        "label": "DIG DEEPER — COST ANGLE",
+        "say": "That makes sense. And when something does slip through — like a guest damages something and it doesn't get caught at turnover — what does that look like on the accounting side? Are you guys eating those costs, or do you have a way to charge back owners or guests?",
+        "note": "Jenny owns accounting. This question speaks directly to her world. The answer reveals whether damage cost recovery is a real pain point. Listen for security deposit disputes, owner complaints, insurance claims, write-offs.",
+        "branches": [
+          {
+            "label": "We eat some costs / it's a problem",
+            "to": "pain_confirmed_book"
+          },
+          {
+            "label": "We charge guests / have deposits but it's messy",
+            "to": "pain_confirmed_book"
+          },
+          {
+            "label": "It's not a huge issue for us honestly",
+            "to": "reframe_scale"
+          },
+          {
+            "label": "Asks about RapidEye / wants to know more",
+            "to": "brief_explanation"
+          }
+        ]
+      },
+      "discovery_delegation": {
+        "label": "DELEGATION — BRIDGE TO PM TEAM",
+        "say": "Totally — that makes sense at your scale. Do Angela or Kelly Lipscomb run that day to day, or is it someone else on the team?",
+        "note": "Name-dropping the property managers shows you did research. Jenny will likely confirm or correct. Either way you are getting a referral path AND showing her you are serious. If she is surprised you know names, lean in — 'I did a little homework before calling.'",
+        "branches": [
+          {
+            "label": "Yes, confirms a name or gives another name",
+            "to": "referral_with_name"
+          },
+          {
+            "label": "Kelly Lewin / my daughter runs ops",
+            "to": "referral_to_kelly"
+          },
+          {
+            "label": "She wants to stay involved and learn more herself",
+            "to": "brief_explanation"
+          }
+        ]
+      },
+      "referral_to_kelly": {
+        "label": "REFERRAL TO KELLY MCLEAN LEWIN",
+        "say": "Oh perfect — Kelly would be great to talk to. Would it make sense for me to reach out to her directly, or would it be better if you gave her a heads up first? I can put something tailored together so it actually lands with her.",
+        "note": "Kelly McLean Lewin is COO and publicly described as CEO of Poppy — she is the number one target. Getting an intro from Jenny, her mother, is the best possible outcome. Do not push — let Jenny decide the path. If she offers to intro, that is gold.",
+        "branches": [
+          {
+            "label": "I'll mention it to her / give her a heads up",
+            "to": "book_kelly_followup"
+          },
+          {
+            "label": "Just reach out to her directly",
+            "to": "get_kelly_contact"
+          },
+          {
+            "label": "Let me talk to her first and we'll get back to you",
+            "to": "send_email"
+          }
+        ]
+      },
+      "book_kelly_followup": {
+        "label": "LOCK IN KELLY FOLLOW-UP",
+        "say": "That'd be huge — really appreciate that. When do you think you'll chat with her? I want to make sure I time my follow-up so it doesn't land cold. Would it make sense for me to give her a call Thursday or Friday?",
+        "note": "Pin down a day. If Jenny is going to intro you, follow up within 24-48 hours of that conversation. Get a specific day if you can.",
+        "branches": [
+          {
+            "label": "Gives a timeframe or day",
+            "to": "confirm_and_close"
+          },
+          {
+            "label": "Just send an email and we'll figure it out",
+            "to": "send_email_kelly"
+          }
+        ]
+      },
+      "get_kelly_contact": {
+        "label": "GET KELLY'S CONTACT INFO",
+        "say": "Perfect. Do you have a direct number or email for her? I want to make sure I reach her and not just the general line.",
+        "note": "You do not have Kelly's direct contact. This is your chance to get it. If Jenny gives it, that is a major win. If not, you still have office numbers to try.",
+        "branches": [
+          {
+            "label": "Gives Kelly's direct email or phone",
+            "to": "confirm_and_close"
+          },
+          {
+            "label": "Use the office number or general email",
+            "to": "confirm_and_close"
+          }
+        ]
+      },
+      "objection_have_process": {
+        "label": "OBJECTION — HAVE A PROCESS",
+        "say": "That makes total sense — with 130-plus homes you'd have to have something dialed in. Just so nobody from my team cold calls you again — is it that your current process catches everything and you're fully covered, or is it more that switching or adding anything right now would just be a headache?",
+        "note": "Agree first. Do not argue. The split question separates 'we are fine' from 'we are too busy to change.' Most operators at 130-plus doors have gaps they know about but have not fixed.",
+        "branches": [
+          {
+            "label": "We're pretty covered and happy",
+            "to": "offer_of_value"
+          },
+          {
+            "label": "It's more of a timing or bandwidth thing",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "What would it actually involve?",
+            "to": "brief_explanation"
+          }
+        ]
+      },
+      "objection_not_interested": {
+        "label": "OBJECTION — NOT INTERESTED",
+        "say": "Totally get it — I should have assumed you'd be all set, otherwise you probably would've reached out. Just so no one from my team bugs you again — is it that inspection quality isn't a priority for you guys right now, or is it more that you just hate cold calls? Because I get both.",
+        "note": "Light humor at the end. The split gives her a way to say 'I hate cold calls' without rejecting the product. If she says inspections are not a priority, pivot to offer of value or exit.",
+        "branches": [
+          {
+            "label": "It's the cold call / bad timing",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "Not a priority / not focused on this",
+            "to": "offer_of_value"
+          },
+          {
+            "label": "Firm no",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "sell_test_drive": {
+        "label": "SELL THE TEST DRIVE",
+        "say": "Totally fair. You're probably not buying anything right now, and I respect that. But when this does come up again — and at 130-plus doors it always does — the people who already know what's on their list move way faster. Would you be open to a 15-minute look, not for today, but just so it's on your radar when the timing's right?",
+        "note": "No pressure. You are selling the meeting, not the product. If she says yes, book it now. If she hesitates, offer the email path.",
+        "branches": [
+          {
+            "label": "Sure / okay",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Send me something first",
+            "to": "send_email"
+          },
+          {
+            "label": "No thanks",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "offer_of_value": {
+        "label": "OFFER OF VALUE",
+        "say": "Totally hear you. If nothing else — I've been talking to a bunch of property managers in the Palm Springs market and I could share what some of them are doing differently with their turnover documentation. Worst case you steal some ideas and we part as friends.",
+        "note": "This reframes the meeting as valuable regardless of purchase. Jenny is interested in learning new technology — this plays directly to that. If she bites, book it.",
+        "branches": [
+          {
+            "label": "That could be useful / sure",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Send me an email",
+            "to": "send_email"
+          },
+          {
+            "label": "No thanks",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "reframe_scale": {
+        "label": "REFRAME — SCALE ANGLE",
+        "say": "Yeah, and honestly at smaller scale it usually isn't. But the managers I talk to who are running 100-plus doors — the math just starts to change. Even if it's one missed damage a month across 130 homes, that adds up fast on the P&L. Is that something you've seen creep up at all as you guys have grown?",
+        "note": "Jenny thinks in accounting terms. Frame it as a P&L issue, not an operational one. If she acknowledges any leakage, you are back in the conversation.",
+        "branches": [
+          {
+            "label": "Yeah, it does happen / acknowledges the issue",
+            "to": "pain_confirmed_book"
+          },
+          {
+            "label": "Not really / we handle it well",
+            "to": "offer_of_value"
+          },
+          {
+            "label": "Kelly or the ops team handles that side",
+            "to": "referral_to_kelly"
+          }
+        ]
+      },
+      "pain_confirmed_book": {
+        "label": "PAIN CONFIRMED — BOOK THE MEETING",
+        "say": "Yeah — and that's exactly where we come in. I don't want to take up your whole morning on a cold call, but I'd love to show you what it actually looks like. Would you be open to 15 minutes this week? I could walk you through how it works with Streamline and what the impact's been for some other operators at your scale.",
+        "note": "She is engaged. Go for the meeting. Mention Streamline again — it shows this is not generic. If she wants to loop in Kelly or someone else, that is even better.",
+        "branches": [
+          {
+            "label": "Sure / let's do it",
+            "to": "book_meeting"
+          },
+          {
+            "label": "I'd want Kelly or someone else on the call too",
+            "to": "book_with_kelly"
+          },
+          {
+            "label": "Send me something first",
+            "to": "send_email"
+          }
+        ]
+      },
+      "brief_explanation": {
+        "label": "BRIEF EXPLANATION",
+        "say": "Yeah — so in simple terms, your cleaners or inspectors are already taking photos during turnovers, right? We plug into those photos — works with Streamline — and our AI automatically flags anything that looks off. Damage, missing items, staging issues, anything out of place. Spits out a report your team can act on before the next guest shows up. No new workflow, no new hardware. Just catches the stuff that slips through when you're managing 130-plus homes and there aren't enough eyeballs.",
+        "note": "Keep it simple. Jenny is tech-curious but not a tech person. Focus on the outcome — catches stuff that slips through. Do not get into AI architecture details unless she asks.",
+        "branches": [
+          {
+            "label": "That's interesting / how does it work with Streamline?",
+            "to": "pain_confirmed_book"
+          },
+          {
+            "label": "We'd need Kelly or the ops team involved",
+            "to": "referral_to_kelly"
+          },
+          {
+            "label": "What does it cost?",
+            "to": "handle_cost_question"
+          },
+          {
+            "label": "Not sure we need that",
+            "to": "offer_of_value"
+          }
+        ]
+      },
+      "handle_cost_question": {
+        "label": "HANDLE COST QUESTION",
+        "say": "Good question — it depends on how many doors and what your workflow looks like, so I don't want to throw a number that doesn't apply. That's actually one reason a quick call would be worth it — I can show you the ROI math based on your actual portfolio. Most of the PMs we work with see it pay for itself in the first couple months just from catches they would've missed. Would you be up for a quick 15 minutes this week?",
+        "note": "Do not give pricing on a cold call. Redirect to the meeting where you can frame ROI properly. Jenny thinks in accounting — the 'pay for itself' framing matters to her specifically.",
+        "branches": [
+          {
+            "label": "Sure / let's set it up",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Send me something with pricing first",
+            "to": "send_email"
+          },
+          {
+            "label": "Kelly would need to be involved for that",
+            "to": "book_with_kelly"
+          }
+        ]
+      },
+      "book_meeting": {
+        "label": "BOOK THE MEETING",
+        "say": "Awesome — I've got my calendar up. How does Thursday look for you? I could do morning or afternoon — whatever's easier.",
+        "note": "Pick a specific day. Give two time slots. Lock it down NOW. Send the calendar invite while you are still on the phone if possible.",
+        "branches": [
+          {
+            "label": "Gives a day and time",
+            "to": "confirm_and_close"
+          },
+          {
+            "label": "Next week would be better",
+            "to": "confirm_and_close"
+          },
+          {
+            "label": "Let me check and get back to you",
+            "to": "send_email"
+          }
+        ]
+      },
+      "book_with_kelly": {
+        "label": "BOOK WITH KELLY INCLUDED",
+        "say": "Even better — having Kelly on would be great since she runs the ops side. Do you want to check with her and pick a time, or should I reach out to her directly and loop you in?",
+        "note": "This is a great outcome — a meeting with both Jenny the owner and accounting brain and Kelly the COO. Let Jenny choose the path. Either way you are getting access to the number one decision-maker.",
+        "branches": [
+          {
+            "label": "I'll check with her and we'll pick a time",
+            "to": "lock_in_followup"
+          },
+          {
+            "label": "Reach out to her directly",
+            "to": "get_kelly_contact"
+          },
+          {
+            "label": "Let me talk to her first",
+            "to": "lock_in_followup"
+          }
+        ]
+      },
+      "lock_in_followup": {
+        "label": "LOCK IN FOLLOW-UP TIMING",
+        "say": "Perfect. When do you think you'll know? I want to make sure I follow up at the right time and don't leave you hanging. Would it make sense for me to shoot you an email tomorrow with a couple time options you can forward to Kelly?",
+        "note": "Do not let this float. Pin down a follow-up action and timeline. The email gives you a reason to stay in their inbox.",
+        "branches": [
+          {
+            "label": "Yes / that works",
+            "to": "confirm_and_close"
+          },
+          {
+            "label": "We'll reach out when ready",
+            "to": "confirm_and_close"
+          }
+        ]
+      },
+      "referral_ask": {
+        "label": "REFERRAL — NOT THE RIGHT PERSON",
+        "say": "Totally get it — who on your team typically owns the inspection or turnover workflow? I want to make sure I'm talking to the right person so I'm not wasting anyone's time.",
+        "note": "Jenny may point to Kelly the COO, one of the property managers, or Michael. Get a specific name. If she just says a title, ask for the name.",
+        "branches": [
+          {
+            "label": "Kelly Lewin / my daughter",
+            "to": "referral_to_kelly"
+          },
+          {
+            "label": "Names a property manager (Angela, Kelly L., Pedro, etc.)",
+            "to": "referral_with_name"
+          },
+          {
+            "label": "Michael handles that",
+            "to": "referral_with_name"
+          },
+          {
+            "label": "Not sure / doesn't want to give a name",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "referral_with_name": {
+        "label": "GOT A REFERRAL NAME",
+        "say": "Perfect — that's super helpful. Would it be okay if I mentioned you pointed me their way? It'd help it not land as a totally random cold call. And what's the best way to reach them — do they have a direct line or email?",
+        "note": "Using Jenny's name as a warm intro is huge. Get contact details if possible. Even 'call the main office and ask for them' is useful.",
+        "branches": [
+          {
+            "label": "Gives contact info or says use office line",
+            "to": "confirm_and_close"
+          },
+          {
+            "label": "Sure, mention my name",
+            "to": "confirm_and_close"
+          },
+          {
+            "label": "Just try the main number",
+            "to": "confirm_and_close"
+          }
+        ]
+      },
+      "send_email": {
+        "label": "SEND ME AN EMAIL",
+        "say": "Totally fair — I'll get something over to you today. One quick question before I do — what would be most useful to include so it's not just another generic pitch sitting in your inbox? I could focus on the Streamline integration, the ROI math for a portfolio your size, or what other Palm Springs operators are doing differently — what would actually get you to open it?",
+        "note": "Do not just agree and hang up. The question makes the email real and tailored. Whatever she says, include it. Send the email within 2 hours. Include a specific time suggestion for a follow-up call.",
+        "branches": [
+          {
+            "label": "Tells you what to include",
+            "to": "confirm_email_close"
+          },
+          {
+            "label": "Just send me whatever / general info",
+            "to": "confirm_email_close"
+          }
+        ]
+      },
+      "send_email_kelly": {
+        "label": "SEND EMAIL FOR KELLY",
+        "say": "Will do. What's the best email to send it to — should I use the general hello@staypoppy address, or is there a direct one for Kelly?",
+        "note": "Try to get Kelly's direct email. You know the pattern is first-initial-last-name at staypoppy.com. Even if Jenny gives the general one, you now have permission to email on Jenny's behalf.",
+        "branches": [
+          {
+            "label": "Gives Kelly's email",
+            "to": "confirm_and_close"
+          },
+          {
+            "label": "Use the general email or office",
+            "to": "confirm_and_close"
+          }
+        ]
+      },
+      "confirm_email_close": {
+        "label": "CONFIRM EMAIL AND CLOSE",
+        "say": "Got it — I'll put that together and get it over to you today. What's the best email — should I use the staypoppy address, or do you have a direct one? And would it be crazy if I suggested a quick 15-minute call for later this week in the email, just so we have something on the books?",
+        "note": "Get her actual email address. Suggest a time in the email. Follow up by phone if she does not respond within 48 hours.",
+        "branches": [
+          {
+            "label": "Gives email / confirms",
+            "to": "confirm_and_close"
+          },
+          {
+            "label": "Just use the general email",
+            "to": "confirm_and_close"
+          }
+        ]
+      },
+      "book_callback": {
+        "label": "BOOK CALLBACK",
+        "say": "Perfect — I'll put it on my calendar. Is this the best number to reach you, or is there a direct line I should use?",
+        "note": "Lock in the callback. Get a direct number if possible. You are currently calling an office line, so a direct number is a big win.",
+        "branches": [
+          {
+            "label": "Gives direct number or confirms this number",
+            "to": "confirm_and_close"
+          },
+          {
+            "label": "Just try this number again",
+            "to": "confirm_and_close"
+          }
+        ]
+      },
+      "gatekeeper": {
+        "label": "GATEKEEPER — SLIDE BY",
+        "say": "Hey — could you get me through to Jenny? It's Sam.",
+        "note": "Say it like you know her. First name only. No company name, no pitch. If they ask who you are or what it is about, go to gatekeeper_context.",
+        "branches": [
+          {
+            "label": "Puts you through / transfers",
+            "to": "opener"
+          },
+          {
+            "label": "Who's calling? / What's this about?",
+            "to": "gatekeeper_context"
+          },
+          {
+            "label": "She's not available",
+            "to": "gatekeeper_not_available"
+          }
+        ]
+      },
+      "gatekeeper_context": {
+        "label": "GATEKEEPER — ADD CONTEXT",
+        "say": "Yeah — I work with a few other property managers in the Palm Springs area. Would you mind letting her know it's Sam Parks?",
+        "note": "Still no pitch. No company name yet. Just enough context to sound legitimate. If they push further, go to gatekeeper_social_proof.",
+        "branches": [
+          {
+            "label": "Puts you through",
+            "to": "opener"
+          },
+          {
+            "label": "Pushes for more info / what company",
+            "to": "gatekeeper_social_proof"
+          },
+          {
+            "label": "She's not available / take a message",
+            "to": "gatekeeper_not_available"
+          }
+        ]
+      },
+      "gatekeeper_social_proof": {
+        "label": "GATEKEEPER — SOCIAL PROOF",
+        "say": "Totally — it's Sam Parks with RapidEye. We help a couple other vacation rental companies with their turnover inspections. I sent her a note — would you mind giving her a heads up that I'm on the line?",
+        "note": "This is the last level. If they still will not put you through, ask for the best time to call back or ask for a voicemail. Do not pitch the gatekeeper.",
+        "branches": [
+          {
+            "label": "Puts you through",
+            "to": "opener"
+          },
+          {
+            "label": "She's busy / take a message",
+            "to": "gatekeeper_not_available"
+          },
+          {
+            "label": "Send an email instead",
+            "to": "gatekeeper_email_redirect"
+          }
+        ]
+      },
+      "gatekeeper_not_available": {
+        "label": "GATEKEEPER — NOT AVAILABLE",
+        "say": "No worries — when's the best time to catch her? I want to make sure I'm not calling at a bad time again.",
+        "note": "Get a specific time or day. If they will not give one, ask if there is a direct line or voicemail you can leave.",
+        "branches": [
+          {
+            "label": "Gives a time or day",
+            "to": "confirm_and_close"
+          },
+          {
+            "label": "I can take a message / transfer to voicemail",
+            "to": "gatekeeper_voicemail"
+          },
+          {
+            "label": "Try the main line again / no specific time",
+            "to": "confirm_and_close"
+          }
+        ]
+      },
+      "gatekeeper_voicemail": {
+        "label": "VOICEMAIL",
+        "say": "Hey Jenny — it's Sam Parks. I work with a few vacation rental operators in the Palm Springs area on their inspection workflows. Wanted to connect real quick — my number is [your number]. Again, Sam Parks. Have a good one.",
+        "note": "Keep voicemails under 15 seconds. Say your name and number twice — once at the start, once at the end. No pitch. Sound casual and unhurried. Call back in 2 days if no response.",
+        "branches": []
+      },
+      "gatekeeper_email_redirect": {
+        "label": "GATEKEEPER — EMAIL REDIRECT",
+        "say": "For sure — what's the best email to reach her directly? I want to make sure it doesn't get lost in the general inbox.",
+        "note": "Try to get Jenny's direct email. If they give hello@staypoppy.com, take it but try again next time you call.",
+        "branches": [
+          {
+            "label": "Gives Jenny's direct email",
+            "to": "confirm_and_close"
+          },
+          {
+            "label": "Use the general email",
+            "to": "confirm_and_close"
+          }
+        ]
+      },
+      "last_chance_value": {
+        "label": "LAST CHANCE — VALUE OFFER",
+        "say": "Totally fair. Last thing — I've been talking to a bunch of property managers in the Coachella Valley market and I put together some notes on how the bigger operators are handling turnover documentation differently. Happy to share that if it'd ever be useful. No strings attached.",
+        "note": "This is your last shot. If she bites, you have a reason to follow up. If not, exit gracefully. Do not push past this.",
+        "branches": [
+          {
+            "label": "Sure, send it over",
+            "to": "confirm_email_close"
+          },
+          {
+            "label": "No thanks",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "confirm_and_close": {
+        "label": "CONFIRM AND CLOSE",
+        "say": "Perfect — really appreciate you taking my call, Jenny. I'll get that squared away. Have a great rest of your day.",
+        "note": "Stop selling. Confirm whatever was agreed to — meeting time, email, callback, referral. Send the calendar invite or email within 1 hour. If she gave you a referral name, note it immediately after hanging up.",
+        "branches": []
+      },
+      "graceful_exit": {
+        "label": "GRACEFUL EXIT",
+        "say": "Totally understand. If anything changes, I'm easy to find — Sam Parks, RapidEye. Appreciate your time, Jenny.",
+        "note": "Do not burn the bridge. She is a co-owner of a 130-plus door operation — you may call back in 3 months or reach her through Kelly. Stay warm. Log the call and set a reminder to try again in 60-90 days.",
+        "branches": []
+      }
+    }
+  }
+}
