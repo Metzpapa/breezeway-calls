@@ -1,0 +1,494 @@
+{
+  "name": "Sarah Korpela",
+  "title": "President",
+  "company": "Luxury Estate Managers of Aspen (LEMA)",
+  "location": "Aspen, CO",
+  "phone": "+1-970-379-4705",
+  "company_phone": "+1-970-920-1776",
+  "alt_phones": [],
+  "flow": {
+    "context": "Sarah Korpela is President of Luxury Estate Managers of Aspen (LEMA), a boutique high-end estate management firm in Aspen, CO that emphasizes impeccable service, confidentiality, and meticulous care for complex luxury properties. She has 20-plus years in the Roaring Fork Valley, leads a team of about 10 including VP Britton Nieslanik and 7-8 property managers, and owns all decisions on operations process, service quality, and new tooling. No published unit count and no known tech stack or PMS. LEMA's team bios emphasize detail-orientation and high-level care — backgrounds include mechanical engineering, military aviation maintenance, luxury hospitality, and veterinary precision. Strongest connection to Sam: he was just skiing in Jackson Hole last month and works with luxury property managers in similar high-end ski markets — her direct cell is 970.379.4705.",
+    "start": "opener",
+    "nodes": {
+      "opener": {
+        "label": "OPENER",
+        "say": "Hey Sarah — I've been talking with a few luxury estate managers out in Colorado, and I actually just got back from skiing in Jackson Hole so I've been spending a bit of time in ski country. It's Sam Parks with RapidEye — have you heard my name tossed around at all?",
+        "note": "Feet up on the desk. Sound relaxed like you belong in her world. The Jackson Hole trip is real — January 2026. Don't rush it. Let the ski country line breathe so she registers you as someone in her orbit, not a telemarketer.",
+        "branches": [
+          {
+            "label": "Yes / Maybe / Sounds familiar",
+            "to": "heard_yes"
+          },
+          {
+            "label": "No / Who? / Don't think so",
+            "to": "heard_no"
+          },
+          {
+            "label": "I'm busy / Bad time / In the middle of something",
+            "to": "bad_timing"
+          },
+          {
+            "label": "What is this? / Are you selling something? / Hostile tone",
+            "to": "hostile_confused"
+          }
+        ]
+      },
+      "heard_yes": {
+        "label": "THEY'VE HEARD OF YOU",
+        "say": "Oh nice — well normally we'd be working with someone in your position. What'd you hear?",
+        "note": "This almost never happens. If it does, shut up and let her talk. Whatever she says, bridge into discovery. Don't correct anything she got wrong — just steer.",
+        "branches": [
+          {
+            "label": "Shares something specific or vague",
+            "to": "discovery_process"
+          },
+          {
+            "label": "Not sure actually / Might be thinking of something else",
+            "to": "pain_trigger"
+          }
+        ]
+      },
+      "heard_no": {
+        "label": "HAVEN'T HEARD — BRIDGE TO PAIN",
+        "say": "Ha — I guess I'm not as popular as I thought. Well, the reason I'm calling —",
+        "note": "The 'not as popular' line should land light. Don't pause too long here — roll right into the pain trigger by clicking through. This is just the bridge.",
+        "branches": [
+          {
+            "label": "Go ahead / They're listening",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "I'm really busy / Not a good time",
+            "to": "bad_timing"
+          },
+          {
+            "label": "What are you selling? / Skeptical",
+            "to": "permission_fallback"
+          }
+        ]
+      },
+      "bad_timing": {
+        "label": "BAD TIMING",
+        "say": "Totally hear you — would it be a terrible idea if I tried you again later this week? Maybe Thursday or Friday afternoon?",
+        "note": "She's the President of a luxury firm in Aspen. She's busy. Don't push. Get a specific day and time if you can. If she gives you nothing, suggest a window.",
+        "branches": [
+          {
+            "label": "Sure try me Thursday / Gives a time",
+            "to": "reschedule"
+          },
+          {
+            "label": "Just send me an email",
+            "to": "send_email_request"
+          },
+          {
+            "label": "Not interested / Don't call back",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "hostile_confused": {
+        "label": "HOSTILE OR CONFUSED — ASK PERMISSION",
+        "say": "Yeah, totally fair — it is a cold call, I'll own that. Can I get 30 seconds to tell you why I reached out? And you can totally hang up on me if it's not relevant.",
+        "note": "Don't match her energy. Stay calm, slightly amused. The honesty of admitting it's a cold call disarms most people. She'll likely give you 30 seconds out of curiosity.",
+        "branches": [
+          {
+            "label": "Fine / Go ahead / You've got 30 seconds",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "No / Not interested / Take me off your list",
+            "to": "permission_rejected"
+          }
+        ]
+      },
+      "permission_fallback": {
+        "label": "PERMISSION ASK",
+        "say": "Yeah totally — I mean it is a cold call, I'll own that. Can I get 30 seconds to tell you why I reached out, and you can totally hang up on me if it's not a fit?",
+        "note": "This is your reset button. Most people give you the 30 seconds. If she does, go straight to pain trigger and make every word count.",
+        "branches": [
+          {
+            "label": "Sure / Fine / Go ahead",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "No / I'm not interested",
+            "to": "permission_rejected"
+          }
+        ]
+      },
+      "permission_rejected": {
+        "label": "PERMISSION REJECTED — SPLIT THE OBJECTION",
+        "say": "Shoot, totally my bad. Just so nobody from my team bugs you again — is it that I caught you at a horrible time, or is it more that you already know what we do and it's just not interesting?",
+        "note": "Two doors. 'Bad time' keeps the door open for a callback. 'Not interesting' tells you to exit gracefully. Either way you're being respectful and getting information.",
+        "branches": [
+          {
+            "label": "Bad time / Caught me at a bad moment",
+            "to": "bad_timing"
+          },
+          {
+            "label": "Not interested / Just not for us",
+            "to": "graceful_exit"
+          },
+          {
+            "label": "Wait — what do you actually do?",
+            "to": "pain_trigger"
+          }
+        ]
+      },
+      "pain_trigger": {
+        "label": "PAIN TRIGGER — THE PROBLEM",
+        "say": "I work with another luxury property management company out in New York — about 200 high-end homes, similar vibe to you guys at LEMA. Impeccable properties, very demanding owners. Their team was doing walkthroughs after every turnover, taking photos, documenting everything — and stuff was still slipping through. A water ring on a marble countertop nobody caught for three turnovers. A piece of original art that somehow got swapped between two properties. Small things, but the kind that turn into really uncomfortable conversations with homeowners. And the thing is, they had great people — it's just that when you're eyeballing hundreds of photos across complex luxury homes, things get missed no matter what. We built an AI that plugs into the photos your team's already taking and flags the stuff the human eye skips — damage, missing items, staging issues, furniture that moved. Would you be open to taking a look when I'm not cold calling you out of the blue?",
+        "note": "PAUSE after 'out of the blue.' Let the silence work — she needs a second to process. The marble countertop and art swap should hit home for someone managing complex Aspen estates. Don't rush past the story. This is the whole call.",
+        "branches": [
+          {
+            "label": "That's actually interesting / Tell me more / We've had that happen",
+            "to": "warm_response"
+          },
+          {
+            "label": "We already have a pretty good process for that",
+            "to": "objection_have_process"
+          },
+          {
+            "label": "Not really a priority right now / We're fine",
+            "to": "objection_not_interested"
+          },
+          {
+            "label": "We don't have budget for something new",
+            "to": "objection_budget"
+          },
+          {
+            "label": "Just send me something / Send an email",
+            "to": "send_email_request"
+          }
+        ]
+      },
+      "warm_response": {
+        "label": "THEY'RE WARM — STOP PITCHING, START ASKING",
+        "say": "Awesome — honestly I'd love to learn a bit about how you guys are set up before I waste your time showing you something that doesn't fit. What does your turnover or inspection process look like right now? Are your property managers doing the walkthroughs themselves, or does it fall more on cleaning or vendor teams?",
+        "note": "She gave you a green light. STOP selling. Switch to questions. Let her talk about her operation. You're learning and building rapport, not pitching features.",
+        "branches": [
+          {
+            "label": "PMs do walkthroughs / Describes their process",
+            "to": "discovery_process"
+          },
+          {
+            "label": "Mix of PMs and cleaning teams / It depends",
+            "to": "discovery_process"
+          },
+          {
+            "label": "We're pretty buttoned up honestly",
+            "to": "discovery_deep"
+          }
+        ]
+      },
+      "discovery_process": {
+        "label": "DISCOVERY — PHOTOS AND SYSTEMS",
+        "say": "Got it. And when your team is doing those walkthroughs — are they taking photos every time and putting them somewhere, or is it more of a visual check? Like do those photos go into any kind of system, or is it a camera roll and text message kind of thing?",
+        "note": "You're mapping their workflow and tech stack. LEMA has no known PMS or ops platform. This question uncovers it. If she names a tool — Breezeway, Track, Properly, anything — make a mental note. That's gold for the demo.",
+        "branches": [
+          {
+            "label": "They take photos / Use a system or platform",
+            "to": "discovery_deep"
+          },
+          {
+            "label": "It's more visual / Not super formalized",
+            "to": "discovery_deep"
+          },
+          {
+            "label": "We use a specific platform (names it)",
+            "to": "discovery_deep"
+          }
+        ]
+      },
+      "discovery_deep": {
+        "label": "DISCOVERY — PAIN POINTS AND PRIORITIES",
+        "say": "Makes sense. With the caliber of homes you guys manage in Aspen — what's been the biggest headache on the property care side? Is it more about catching things before an owner notices, or is it more about documentation so you're covered when something does come up?",
+        "note": "This maps perfectly to her world. Luxury owners expect perfection. 'Catching things' means prevention — she's worried about reputation. 'Documentation' means liability — she's worried about disputes. Either answer gives you an angle for the CTA.",
+        "branches": [
+          {
+            "label": "Catching things before owners see them",
+            "to": "pitch_cta_prevention"
+          },
+          {
+            "label": "Documentation / Protecting ourselves in disputes",
+            "to": "pitch_cta_documentation"
+          },
+          {
+            "label": "Both / General quality control",
+            "to": "pitch_cta_general"
+          },
+          {
+            "label": "Honestly we're in pretty good shape across the board",
+            "to": "pitch_cta_general"
+          }
+        ]
+      },
+      "pitch_cta_prevention": {
+        "label": "CTA — PREVENTION ANGLE",
+        "say": "Yeah, that's exactly the use case. We basically give your team a second set of eyes that never gets tired — every photo gets analyzed, and if something changed or looks off, it gets flagged before anyone has to manually catch it. Honestly I think it'd be worth 15 minutes just to show you what the output looks like on a real property. I've got next Tuesday and Wednesday open — what works better on your end?",
+        "note": "She cares about preventing issues before owners notice. Lean into 'second set of eyes' and 'before anyone has to manually catch it.' Offer two specific days — don't say 'sometime next week.'",
+        "branches": [
+          {
+            "label": "One of those works / Picks a time",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Send me something first",
+            "to": "send_email_request"
+          },
+          {
+            "label": "I don't think we need it right now",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "You should really talk to my VP or one of my PMs about this",
+            "to": "not_right_person"
+          }
+        ]
+      },
+      "pitch_cta_documentation": {
+        "label": "CTA — DOCUMENTATION ANGLE",
+        "say": "That's huge — and that's actually the other big piece. Every photo gets analyzed and timestamped, so you've got a clear before-and-after trail. When an owner says something was damaged on someone's watch, you've got the data to show exactly when it showed up. I think it'd be worth 15 minutes to walk you through what that looks like. I've got next Tuesday and Wednesday — which one's better for you?",
+        "note": "She cares about liability and dispute resolution. Lean into the audit trail and before-and-after evidence. This is insurance against owner conflicts — frame it that way.",
+        "branches": [
+          {
+            "label": "One of those works / Let's do it",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Send me something first",
+            "to": "send_email_request"
+          },
+          {
+            "label": "We're okay for now",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "Talk to Britton / my team about this",
+            "to": "not_right_person"
+          }
+        ]
+      },
+      "pitch_cta_general": {
+        "label": "CTA — GENERAL VALUE",
+        "say": "Yeah that makes sense. Honestly I think it'd be worth 15 minutes just to show you what other luxury managers are doing with their turnover photos — worst case you steal some ideas and we part as friends. I've got next Tuesday and Wednesday pretty open. What works better on your end?",
+        "note": "She didn't reveal a strong pain point. That's fine — sell the meeting on peer insight value. 'What other luxury managers are doing' is the hook. Low pressure.",
+        "branches": [
+          {
+            "label": "Sure / Picks a time",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Send me something first",
+            "to": "send_email_request"
+          },
+          {
+            "label": "I don't think we need this",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "Not the right person / Talk to my team",
+            "to": "not_right_person"
+          }
+        ]
+      },
+      "objection_not_interested": {
+        "label": "OBJECTION — NOT INTERESTED",
+        "say": "Totally get it. I should've assumed you'd be all set — otherwise you probably would've reached out to us. Just so nobody from my team cold calls you again — is it that this isn't a problem you're focused on right now, or is it more that you just hate cold calls? Because honestly I get both.",
+        "note": "Agree first — surprise her. Then split. The humor at the end lowers her guard. Most Presidents will pick 'not focused on it right now' which opens the door for the test drive.",
+        "branches": [
+          {
+            "label": "Not a priority / Not focused on this",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "I just hate cold calls / Bad timing",
+            "to": "bad_timing"
+          },
+          {
+            "label": "Actually — tell me a bit more",
+            "to": "warm_response"
+          }
+        ]
+      },
+      "objection_budget": {
+        "label": "OBJECTION — NO BUDGET",
+        "say": "Totally get it. Nowadays it's harder to keep a tool, let alone buy something new. Just so I understand — is it that budget for this kind of thing is completely locked up, or is it more that anything new you buy has to go through a whole process to justify?",
+        "note": "Agree. Don't fight budget. Split it. 'Locked up' is a real no. 'Has to go through a process' means there IS a path — you just need to help her see the ROI for the conversation internally.",
+        "branches": [
+          {
+            "label": "Budget is locked / Not spending on new tools",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "It's more the justification process / Would need to evaluate",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "It's really just not something we'd invest in",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "objection_have_process": {
+        "label": "OBJECTION — ALREADY HAVE A PROCESS",
+        "say": "That makes total sense — with the level of properties you guys manage, you'd have to have something solid in place. Is it that you're totally happy with how it's working and nothing's slipping through, or is it more that switching or adding anything right now would just be a headache?",
+        "note": "Validate that of course LEMA has a process. The split exposes whether the process is actually airtight or just 'good enough.' If she admits gaps, you're back in business.",
+        "branches": [
+          {
+            "label": "It's working well / We're happy with it",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "Switching would be a pain / Timing is bad",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "I mean it's not perfect / There are definitely gaps",
+            "to": "warm_response"
+          }
+        ]
+      },
+      "sell_test_drive": {
+        "label": "SELL THE TEST DRIVE",
+        "say": "Totally hear you — and you're probably not buying anything right now, I respect that. But here's what I've seen with other luxury managers. When the right time does come — whether it's a homeowner complaint, or heading into peak season and wanting to tighten things up — the ones who've already seen what's out there are the ones who move fast. Would you be open to just taking a look? Fifteen minutes, no pitch. I can show you what a couple other luxury operators are doing with their turnover photos. Worst case you get some ideas for your own process.",
+        "note": "This is the future-value frame. You're not asking her to buy. You're positioning the meeting as being prepared. The 'steal some ideas' line works great with senior operators who see themselves as best-in-class. Peak season in Aspen is winter ski and summer — use whichever is closer.",
+        "branches": [
+          {
+            "label": "Okay fine / Sure let's find a time",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Just send me an email with details",
+            "to": "send_email_request"
+          },
+          {
+            "label": "Talk to Britton or one of my PMs",
+            "to": "referral_ask"
+          },
+          {
+            "label": "No I'm really all set",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "book_meeting": {
+        "label": "BOOK THE MEETING — LOCK IT IN",
+        "say": "Perfect — I've got next Tuesday pulled up. How does 10 AM your time look? I know you're Mountain Time out there.",
+        "note": "Lock the time NOW. Don't offer a vague window. Aspen is Mountain Time. Send the calendar invite while still on the phone if possible. If Tuesday doesn't work, offer Wednesday same time.",
+        "branches": [
+          {
+            "label": "That works / Confirmed",
+            "to": "meeting_booked"
+          },
+          {
+            "label": "Different time / Let me check my calendar",
+            "to": "meeting_adjust"
+          }
+        ]
+      },
+      "meeting_adjust": {
+        "label": "ADJUST MEETING TIME",
+        "say": "No worries — what's better? I'm pretty flexible later that week too. Wednesday or Thursday?",
+        "note": "Stay flexible but keep offering specific options. Don't let it turn into 'I'll get back to you' — get the time confirmed on this call.",
+        "branches": [
+          {
+            "label": "Picks a new time",
+            "to": "meeting_booked"
+          },
+          {
+            "label": "I'll have to check and get back to you",
+            "to": "send_email_request"
+          }
+        ]
+      },
+      "meeting_booked": {
+        "label": "MEETING BOOKED — WRAP UP",
+        "say": "Awesome — I'll shoot you a calendar invite right now at sarah@luxuryema.com. Really appreciate you taking my call, Sarah. Talk to you Tuesday.",
+        "note": "STOP SELLING. Confirm the email, send the invite immediately, and get off the phone. Don't add features, don't pitch more. You won. Say the day back to her so it sticks.",
+        "branches": []
+      },
+      "send_email_request": {
+        "label": "SEND ME AN EMAIL — ACCEPT AND ASK",
+        "say": "Totally fair. Quick question before I do — what would actually be useful to include so it doesn't end up in the pile? Would you rather see how it works with the photos your team's already taking, or would it be more useful to see a sample inspection report from a luxury property — like what the AI actually catches?",
+        "note": "Don't just say 'sure.' The question keeps the conversation going and tells you what she cares about. It also makes your email 10x more likely to get opened because it'll have what she asked for.",
+        "branches": [
+          {
+            "label": "Show me how it integrates / how it works",
+            "to": "send_email_tailored"
+          },
+          {
+            "label": "Sample report / show me the output",
+            "to": "send_email_tailored"
+          },
+          {
+            "label": "Just send whatever / general info",
+            "to": "send_email_tailored"
+          }
+        ]
+      },
+      "send_email_tailored": {
+        "label": "CONFIRM EMAIL AND SOFT BOOK",
+        "say": "Got it — I'll put something together and send it over to sarah@luxuryema.com today. I'll drop a couple time options in there too in case you want to hop on a quick call after you've had a look. Appreciate the time, Sarah.",
+        "note": "Send the email within 2 hours. Reference the Jackson Hole and ski country connection in the email so she remembers you. Include two specific meeting time options. Follow up by phone in 3 business days if no reply.",
+        "branches": []
+      },
+      "not_right_person": {
+        "label": "NOT THE RIGHT PERSON — PIVOT TO REFERRAL",
+        "say": "Totally get it — who on your team would typically own something like this? Would it be more on Britton's plate as your VP, or is it one of your property managers who handles the day-to-day inspection side?",
+        "note": "You know the org. Britton Nieslanik is VP — likely owns process standardization. Nathan Mohrman is a PM with an engineering background who'd get systematic tooling. Chris Woodring has luxury hospitality experience. Drop Britton's name naturally to show you've done homework but don't rattle off the whole roster.",
+        "branches": [
+          {
+            "label": "Britton / the VP handles that",
+            "to": "referral_ask"
+          },
+          {
+            "label": "One of our property managers / Names someone",
+            "to": "referral_ask"
+          },
+          {
+            "label": "Not sure / We're really not set up for this",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "referral_ask": {
+        "label": "GET THE REFERRAL — LOCK IT IN",
+        "say": "Perfect — would you mind if I reached out to them directly? And honestly it'd go a lot further if you could give them a quick heads up that I'll be calling. That way it's not totally cold for them either.",
+        "note": "A warm intro from the President is gold. If she says Britton: 970.948.9896, britton@luxuryema.com. If she names Nathan: 970.948.4455, nathan@luxuryema.com. If Chris: 970.456.6319, chris@luxuryema.com. Ask her to text or email them a heads-up — that makes your next call dramatically easier.",
+        "branches": [
+          {
+            "label": "Sure I'll give them a heads up / Go ahead and call them",
+            "to": "referral_received"
+          },
+          {
+            "label": "Just email me and I'll forward it to them",
+            "to": "send_email_tailored"
+          },
+          {
+            "label": "I don't think we're interested as a company",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "referral_received": {
+        "label": "REFERRAL LOCKED — WRAP UP",
+        "say": "Really appreciate that, Sarah. I'll keep it short with them — same way I should've kept it short with you. Thanks for taking my call. Enjoy the rest of ski season out there.",
+        "note": "You got a referral from the President. This is a great outcome even if she's not the one taking the meeting. Send a thank-you email to Sarah within the hour. Call the referral within 24 hours and open with: 'Hey, Sarah Korpela mentioned I should give you a call.'",
+        "branches": []
+      },
+      "reschedule": {
+        "label": "CALLBACK SCHEDULED — WRAP UP",
+        "say": "Perfect — I'll try you then. Appreciate it, Sarah. Talk soon.",
+        "note": "Set a hard calendar reminder for the exact callback time. When you call back, open with: 'Hey Sarah, it's Sam Parks — you told me to try you back today.' That instantly puts you in a different category than every other cold caller.",
+        "branches": []
+      },
+      "graceful_exit": {
+        "label": "GRACEFUL EXIT",
+        "say": "Totally understand. If anything ever changes, I'm easy to find — Sam Parks, RapidEye. Appreciate your time, Sarah. Enjoy the rest of winter out there.",
+        "note": "Don't burn this bridge. Aspen is a tiny market and she's a President who knows every other luxury estate manager in town. Send a one-paragraph follow-up email anyway — no pitch, just 'nice talking to you.' She may mention you to Britton or one of the PMs even if she said no.",
+        "branches": []
+      }
+    }
+  }
+}

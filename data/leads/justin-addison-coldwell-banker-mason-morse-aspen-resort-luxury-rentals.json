@@ -1,0 +1,435 @@
+{
+  "name": "Justin Addison",
+  "title": "Broker Associate",
+  "company": "Coldwell Banker Mason Morse — Aspen Resort Luxury Rentals",
+  "location": "Aspen, CO",
+  "phone": "+1-970-306-3856",
+  "company_phone": "+1-970-920-7393",
+  "alt_phones": [],
+  "flow": {
+    "context": "Justin Addison is a Broker Associate at Coldwell Banker Mason Morse, active in their Aspen Resort Luxury Rentals division — he's listed as a selectable agent on the rental contact page, so he's in the rental workflow day to day. CBMM manages roughly 300 properties across the Roaring Fork Valley and explicitly markets pre-arrival and post-departure inspections to property owners. No known inspection tech platform. Justin is not the top decision-maker — Will Herndon (President) oversees all company operations — but Justin is close enough to the rental process to either engage or refer internally. Sam's angle: he was just skiing Jackson Hole a few weeks ago and Justin lives and works in Aspen ski country.",
+    "start": "opener",
+    "nodes": {
+      "opener": {
+        "label": "OPENER",
+        "say": "Hey Justin — I was actually just out skiing in Jackson Hole a couple weeks ago, and I've been talking with a few rental managers in ski markets. It's Sam Parks with RapidEye — have you heard my name tossed around at all?",
+        "note": "Casual, warm tone. Like you're calling someone a friend mentioned. Don't rush. Let the Jackson Hole line breathe — it shows you're in his world.",
+        "branches": [
+          {
+            "label": "No, I haven't",
+            "to": "heard_no"
+          },
+          {
+            "label": "Yeah / maybe / sounds familiar",
+            "to": "heard_yes"
+          },
+          {
+            "label": "Now's not a good time",
+            "to": "bad_timing"
+          },
+          {
+            "label": "Who is this? / confused",
+            "to": "permission_fallback"
+          }
+        ]
+      },
+      "gatekeeper": {
+        "label": "GATEKEEPER",
+        "say": "Hey — could you get me through to Justin? It's Sam.",
+        "note": "Short, confident, like you're expected. Don't explain unless asked. First name only.",
+        "branches": [
+          {
+            "label": "Puts you through",
+            "to": "opener"
+          },
+          {
+            "label": "What's this regarding?",
+            "to": "gatekeeper_context"
+          },
+          {
+            "label": "He's not available",
+            "to": "send_email"
+          }
+        ]
+      },
+      "gatekeeper_context": {
+        "label": "GATEKEEPER — CONTEXT",
+        "say": "Yeah, I work with a few other rental managers in the Aspen area on their inspection workflows. Would you mind letting him know it's Sam Parks?",
+        "note": "Still don't pitch. Just enough to sound legitimate. Redirect with a question — you ask, you control.",
+        "branches": [
+          {
+            "label": "Puts you through",
+            "to": "opener"
+          },
+          {
+            "label": "Take a message / email instead",
+            "to": "send_email"
+          }
+        ]
+      },
+      "heard_no": {
+        "label": "HAVEN'T HEARD OF ME",
+        "say": "Ha — guess I'm not as popular as I thought. Well the reason for my call — I've been working with a few luxury rental teams in ski markets, and your name came up when I was looking into Aspen Resort Rentals. Figured it was worth a quick conversation.",
+        "note": "Keep it light. The 'not as popular' line is a pattern interrupt — it makes them smile. Then transition naturally into the pain trigger.",
+        "branches": [
+          {
+            "label": "OK, what's this about?",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "I'm busy / not interested",
+            "to": "permission_fallback"
+          }
+        ]
+      },
+      "heard_yes": {
+        "label": "HEARD OF ME",
+        "say": "Oh nice — well normally we'd be working with someone in your position. What'd you hear?",
+        "note": "Let them talk. If they actually know something, ride the momentum into discovery. If they're bluffing or vague, transition to pain trigger naturally.",
+        "branches": [
+          {
+            "label": "They share what they know",
+            "to": "warm_discovery"
+          },
+          {
+            "label": "Vague / can't recall",
+            "to": "pain_trigger"
+          }
+        ]
+      },
+      "bad_timing": {
+        "label": "BAD TIMING",
+        "say": "Totally hear you — would it be a terrible idea if I tried you again later this week? Maybe Thursday or Friday?",
+        "note": "Respect their time but anchor a specific callback. Don't leave it open-ended. Give them two options.",
+        "branches": [
+          {
+            "label": "Gives a time / agrees",
+            "to": "reschedule_confirm"
+          },
+          {
+            "label": "Don't call back",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "reschedule_confirm": {
+        "label": "CALLBACK LOCKED",
+        "say": "Perfect — I'll give you a ring then. Appreciate it, Justin. Talk soon.",
+        "note": "Write down the day and time immediately. Set a reminder. This is a warm callback now — lead with 'Hey Justin, it's Sam — you told me to call you back today' when you redial.",
+        "branches": []
+      },
+      "permission_fallback": {
+        "label": "PERMISSION ASK",
+        "say": "Yeah totally — I mean it is a cold call, I'll be straight with you. Can I get 30 seconds to tell you why I reached out? And you can totally hang up on me if it doesn't make sense.",
+        "note": "Disarming honesty. Admitting it's a cold call builds trust. The 'hang up on me' line gives them control, which paradoxically makes them more likely to listen.",
+        "branches": [
+          {
+            "label": "Sure, go ahead",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "No / not interested",
+            "to": "permission_rejected"
+          }
+        ]
+      },
+      "permission_rejected": {
+        "label": "PERMISSION REJECTED",
+        "say": "Shoot, totally my bad. Just so nobody from my team bugs you again — is it that I caught you at a horrible time, or is it that you already know what we do and it's just not interesting?",
+        "note": "This isn't giving up — it's splitting the objection. 'Bad time' reopens the door for a callback. 'Not interesting' might reveal they don't know enough to judge yet.",
+        "branches": [
+          {
+            "label": "Bad time",
+            "to": "bad_timing"
+          },
+          {
+            "label": "Not interested / not relevant",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "pain_trigger": {
+        "label": "PAIN TRIGGER",
+        "say": "Yeah so — I was working with another luxury rental team, pretty similar setup to you guys. Couple hundred high-end properties, big turnovers between guests. The thing they kept running into was their team would take all these photos during turnovers — hundreds per property — but nobody actually had time to compare them against what the place looked like before the guest checked in. So a scratch on a custom dining table, a stain on a ten-thousand-dollar sofa — it wouldn't get caught until the owner noticed. And by then you can't charge the guest, and now you've got an owner questioning whether you're actually protecting their property. We built an AI that plugs into whatever system your team's already using and automatically flags damage, missing items, staging issues from the photos they're already taking. No workflow change, no extra steps. Would you be open to taking a look when I'm not cold calling you out of the blue?",
+        "note": "PAUSE for two full seconds after 'protecting their property.' Let the pain land. Then deliver the solution in one breath, then the CTA. Don't rush the CTA — ask it like a genuine question and wait for a response.",
+        "branches": [
+          {
+            "label": "Yeah that's interesting / tell me more",
+            "to": "warm_discovery"
+          },
+          {
+            "label": "Not really our problem / not interested",
+            "to": "not_interested_objection"
+          },
+          {
+            "label": "We already have something for that",
+            "to": "have_process_objection"
+          },
+          {
+            "label": "I'm not the right person for this",
+            "to": "referral_ask"
+          }
+        ]
+      },
+      "warm_discovery": {
+        "label": "DISCOVERY — THEY'RE WARM",
+        "say": "Awesome — yeah so I'm curious. What does your inspection process actually look like right now between guests? Like when someone checks out of one of your higher-end Aspen properties, how does your team document what's going on?",
+        "note": "STOP PITCHING. They're warm — now you learn. Ask open-ended questions and let them talk. Take notes on anything you can reference later. Listen for specific tools, frustrations, or owner complaints.",
+        "branches": [
+          {
+            "label": "Describes their process / shares details",
+            "to": "deeper_discovery"
+          },
+          {
+            "label": "Someone else handles that",
+            "to": "referral_ask"
+          },
+          {
+            "label": "Wants to hear more about RapidEye first",
+            "to": "solution_brief"
+          }
+        ]
+      },
+      "deeper_discovery": {
+        "label": "DEEPER DISCOVERY",
+        "say": "That makes sense. And when something does get missed — a damage that slips through — what does that look like? Does that come back to you, or does it go straight to whoever's managing the owner relationship?",
+        "note": "You're mapping the pain chain — who feels it, who gets blamed, who pays for it. This also reveals the decision-making structure and who you'd ultimately need buy-in from.",
+        "branches": [
+          {
+            "label": "It's a real problem / shares the pain",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Refers to someone else who handles it",
+            "to": "referral_ask"
+          },
+          {
+            "label": "It's not that big a deal for us",
+            "to": "cta_soft"
+          }
+        ]
+      },
+      "solution_brief": {
+        "label": "QUICK SOLUTION OVERVIEW",
+        "say": "Yeah totally — so in a nutshell, your team's already taking photos during turnovers, right? We plug into whatever system you're using for that — Breezeway, Track, even just a shared drive — and our AI compares the photos from before and after each guest. It flags damage, missing items, anything that's off. You get a report automatically. No extra work for your cleaners or inspectors, and nothing slips through. The property managers we work with are catching stuff now that was getting missed for months.",
+        "note": "Keep it conversational. Don't list features. Paint the picture of how it fits into their day. Then move to booking.",
+        "branches": [
+          {
+            "label": "That sounds useful / I'd look at that",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Send me something",
+            "to": "send_email"
+          },
+          {
+            "label": "Not sure I'm the right person",
+            "to": "referral_ask"
+          },
+          {
+            "label": "We're good / not interested",
+            "to": "not_interested_objection"
+          }
+        ]
+      },
+      "cta_soft": {
+        "label": "SOFT CTA",
+        "say": "Totally fair. What if I just showed you what we're doing with a couple other ski market rental teams? Worst case you steal some ideas for your own process and we part as friends. No pitch, just a quick look — 15 minutes.",
+        "note": "Low pressure. Frame the meeting as insight-sharing, not a demo. The value prop is: even if you never buy, the meeting itself is worth their time.",
+        "branches": [
+          {
+            "label": "Sure, let's do it",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Just send me an email",
+            "to": "send_email"
+          },
+          {
+            "label": "No thanks",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "not_interested_objection": {
+        "label": "OBJECTION — NOT INTERESTED",
+        "say": "Totally get it — honestly I should've assumed you'd be all set. Otherwise you probably would've reached out yourself. Just so nobody from my team cold calls you again — is it that this isn't really a problem you're focused on, or is it more that you just hate cold calls? Because honestly I get it either way.",
+        "note": "Agree first — surprise them by not pushing back. Then split the objection. 'Hate cold calls' means the product might still be relevant. 'Not focused on this' might mean they're not the right person, which is a referral opening.",
+        "branches": [
+          {
+            "label": "I just hate cold calls",
+            "to": "pivot_to_value"
+          },
+          {
+            "label": "Not my area / not focused on this",
+            "to": "referral_ask"
+          },
+          {
+            "label": "We already handle this",
+            "to": "have_process_objection"
+          }
+        ]
+      },
+      "have_process_objection": {
+        "label": "OBJECTION — HAVE A PROCESS",
+        "say": "That makes total sense — with 300 properties across the valley you'd have to have something in place. Totally fair. Is it that you're fully covered and happy with how it works, or is it more that switching anything right now would just be a headache?",
+        "note": "Reference their scale to validate. The split reveals whether they're genuinely satisfied or just stuck. 'Happy' means push gently toward the value offer. 'Headache' means they might be open but overwhelmed — that's your in.",
+        "branches": [
+          {
+            "label": "We're happy with what we have",
+            "to": "value_offer"
+          },
+          {
+            "label": "Switching would be a pain / not the time",
+            "to": "solution_brief"
+          },
+          {
+            "label": "Someone else manages that side",
+            "to": "referral_ask"
+          }
+        ]
+      },
+      "budget_objection": {
+        "label": "OBJECTION — BUDGET",
+        "say": "Totally get it. Nowadays it's hard enough to keep the tools you already have, let alone bring in something new. Is it that budget for this kind of thing is completely locked, or more that anything new has to go through the ringer to get approved?",
+        "note": "Budget objections early on a cold call are reflexive, not real. Split it. If it's an approval issue, you need the person who approves — transition to referral.",
+        "branches": [
+          {
+            "label": "Budget is locked / no room",
+            "to": "value_offer"
+          },
+          {
+            "label": "Has to get approved / not my call",
+            "to": "referral_ask"
+          }
+        ]
+      },
+      "referral_ask": {
+        "label": "REFERRAL — WHO OWNS THIS?",
+        "say": "Totally makes sense — you might not be the one living in the inspection workflow every day. Who on your team typically owns that turnover quality piece? Would that be someone like Will Herndon, or is there an ops manager who handles the inspection side?",
+        "note": "Name-drop Will Herndon naturally — you know he's President and oversees all operations. Justin will either confirm Will or redirect you to someone else. Get a specific NAME. If you get one, ask to use Justin's name when you reach out.",
+        "branches": [
+          {
+            "label": "Gives a name / confirms Will",
+            "to": "referral_obtained"
+          },
+          {
+            "label": "Won't share / not sure",
+            "to": "send_email"
+          },
+          {
+            "label": "Actually, I do handle some of this",
+            "to": "warm_discovery"
+          }
+        ]
+      },
+      "referral_obtained": {
+        "label": "REFERRAL OBTAINED",
+        "say": "That's super helpful — really appreciate that. Would you mind if I mentioned your name when I reach out to them? Just so it doesn't land like another random cold call.",
+        "note": "Always ask to use their name. Even a loose warm intro triples your odds of getting through. If they give you Will Herndon, ask for the best number to reach him — you already have his cell from research but confirming it feels more natural.",
+        "branches": [
+          {
+            "label": "Sure, use my name",
+            "to": "call_end_referral"
+          },
+          {
+            "label": "Just call them directly",
+            "to": "call_end_referral"
+          },
+          {
+            "label": "I'd rather not / won't help",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "book_meeting": {
+        "label": "BOOK THE MEETING",
+        "say": "Awesome — let's get something on the calendar real quick so I'm not chasing you around. I've got next Tuesday and Wednesday pretty open. Does one of those work for you? Just 15 or 20 minutes.",
+        "note": "Pick specific days. Don't say 'when works for you' — give two options. Lock the time while on the phone and send the invite before you hang up.",
+        "branches": [
+          {
+            "label": "Picks a time",
+            "to": "meeting_booked"
+          },
+          {
+            "label": "Just send me an email first",
+            "to": "send_email"
+          }
+        ]
+      },
+      "meeting_booked": {
+        "label": "MEETING BOOKED",
+        "say": "Perfect — I'll shoot you a calendar invite right now at justin@masonmorse.com. Really appreciate you taking my call, Justin. Talk to you then.",
+        "note": "Send the invite IMMEDIATELY after hanging up. Include a one-line agenda so they remember the context. Do not keep selling — you got the meeting, stop here.",
+        "branches": []
+      },
+      "send_email": {
+        "label": "SEND ME AN EMAIL",
+        "say": "Totally fair — I'll send something over. One quick question before I do though — what would be most relevant to include so it's not just another generic thing sitting in your inbox?",
+        "note": "Don't just accept 'send me an email' and hang up. The question makes the email real and personalized. Whatever they say, use it as the subject line and opening of the email.",
+        "branches": [
+          {
+            "label": "Tells you what they care about",
+            "to": "send_email_close"
+          },
+          {
+            "label": "Just send whatever / doesn't engage",
+            "to": "send_email_close"
+          }
+        ]
+      },
+      "send_email_close": {
+        "label": "EMAIL CONFIRMED",
+        "say": "Got it — I'll put something together and send it to justin@masonmorse.com. I'll throw a couple time options in there too in case you want to hop on a quick call after you read it. Appreciate your time, Justin.",
+        "note": "Send the email within 30 minutes. Reference this phone call in the opening line. Include a specific meeting time suggestion. Follow up in 3 business days if no reply.",
+        "branches": []
+      },
+      "value_offer": {
+        "label": "OFFER OF VALUE",
+        "say": "Totally respect that. Here's what I'd say though — you're probably not buying anything from a guy who just cold called you, and I wouldn't expect you to. But I've been working with a bunch of PM companies in high-end ski markets, and I could walk you through what they're doing on the inspection side — what's working, what's not. Worst case you pick up a couple ideas for your own process and we part as friends. Would that be worth 15 minutes?",
+        "note": "This is the test drive frame. You're not selling the product — you're selling the insight. Even if they never buy, the meeting should be genuinely valuable to them.",
+        "branches": [
+          {
+            "label": "Sure, that'd be useful",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Not right now",
+            "to": "graceful_exit"
+          },
+          {
+            "label": "Talk to someone else on our team",
+            "to": "referral_ask"
+          }
+        ]
+      },
+      "pivot_to_value": {
+        "label": "PIVOT — THEY HATE COLD CALLS",
+        "say": "Ha — honestly, same. If I were on your end I'd probably feel the same way. Tell you what — I won't keep you. But if I send over a quick two-minute read on what other ski market rental teams are doing with their turnover photos, would you at least take a look? No follow-up call required.",
+        "note": "Meet them where they are. If they hate the format, offer a different one. You're still getting permission to follow up via email, which keeps the door open.",
+        "branches": [
+          {
+            "label": "Sure, send it over",
+            "to": "send_email"
+          },
+          {
+            "label": "No thanks",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "graceful_exit": {
+        "label": "GRACEFUL EXIT",
+        "say": "Totally understand. If anything ever changes on your end, I'm easy to find — Sam Parks, RapidEye. Appreciate your time, Justin. Enjoy the rest of ski season out there.",
+        "note": "Don't burn the bridge. The ski season line keeps it warm and human. Log this call with detailed notes for future outreach. Justin could be a referral source later even if he's not the buyer today.",
+        "branches": []
+      },
+      "call_end_referral": {
+        "label": "REFERRAL — CLOSE",
+        "say": "Really appreciate that, Justin. I'll reach out to them this week and keep it super relevant. And hey — if you ever make it out to Jackson Hole, let me know. Appreciate the help, man.",
+        "note": "End warm. You got a name — that's a win. Call the referral within 24 hours and open with Justin's name. Log the referral name, title, and best contact method immediately.",
+        "branches": []
+      }
+    }
+  }
+}

@@ -1,0 +1,562 @@
+{
+  "name": "Weston Parker",
+  "title": "New Business Team",
+  "company": "Elliott Beach Rentals",
+  "location": "Myrtle Beach, SC",
+  "phone": "+1-843-249-1406 ext. 702",
+  "company_phone": "+1-843-273-1223",
+  "alt_phones": [],
+  "flow": {
+    "context": "Weston Parker is on the New Business team at Elliott Beach Rentals — his job is convincing property owners to join their rental program. He's listed on their Join EBR page with Ext. 702 at 843-249-1406. Elliott Beach Rentals is a legacy vacation rental operation in North Myrtle Beach (since 1959), likely hundreds of units, with Rick Elliott as President/Owner and Brandon Cox as COO — Brandon is the real ops decision-maker for inspection and turnover quality. They emphasize in-house maintenance and housekeeping but have no known inspection tech platform. No strong personal connection to Sam — lead with industry proximity in the coastal beach rental space and angle the pain toward how RapidEye helps his owner-acquisition pitch.",
+    "start": "opener",
+    "nodes": {
+      "opener": {
+        "label": "OPENER",
+        "say": "Hey Weston, I've been working with a few vacation rental companies in the beach market — it's Sam Parks with RapidEye. Have you heard my name tossed around over there?",
+        "note": "Feet up energy. Sound like a peer, not a pitch. Pause and let him answer. He's New Business — he talks to people all day. Match his energy.",
+        "branches": [
+          {
+            "label": "No / Who? / Don't think so",
+            "to": "they_say_no"
+          },
+          {
+            "label": "Yeah / Maybe / Sounds familiar",
+            "to": "they_say_yes"
+          },
+          {
+            "label": "Bad timing / I'm busy / In the middle of something",
+            "to": "bad_timing"
+          },
+          {
+            "label": "Hostile / How'd you get this number / Who is this",
+            "to": "permission_fallback"
+          }
+        ]
+      },
+      "they_say_no": {
+        "label": "THEY HAVEN'T HEARD OF YOU",
+        "say": "Ha — guess I'm not as popular as I thought. Well the reason I'm calling — I work with a couple other PM companies that do beach rentals at your kind of scale, and something that keeps coming up is their new business teams are out there pitching owners, telling them 'we take care of your property,' but when an owner asks how exactly you catch damage between guests, the answer is usually… a clipboard and a prayer. We built something that actually gives you that answer — AI that analyzes your turnover photos and catches damage, missing items, staging issues automatically. Would you be open to taking a look when I'm not cold calling you out of the blue?",
+        "note": "Pause after 'clipboard and a prayer' — let it land. The pain is framed for HIS world: owner acquisition. He needs proof points to win owners. Then pause again after the CTA.",
+        "branches": [
+          {
+            "label": "Curious / Tell me more / How does that work",
+            "to": "discovery_owner_pitch"
+          },
+          {
+            "label": "That's not really my area / I do new business not ops",
+            "to": "not_my_area"
+          },
+          {
+            "label": "Not interested / We're good",
+            "to": "objection_not_interested"
+          },
+          {
+            "label": "Send me something / Email me",
+            "to": "send_email"
+          }
+        ]
+      },
+      "they_say_yes": {
+        "label": "THEY'VE HEARD OF YOU",
+        "say": "Oh nice — well normally we'd be working with someone on your team. What'd you hear?",
+        "note": "Shut up and listen. Whatever they say tells you where they are. Don't correct them, just flow with it.",
+        "branches": [
+          {
+            "label": "Vague / Not sure / Just the name",
+            "to": "pain_trigger_short"
+          },
+          {
+            "label": "Describes what RapidEye does / Someone mentioned it",
+            "to": "warm_discovery"
+          },
+          {
+            "label": "I think someone on our team talked to you",
+            "to": "warm_discovery"
+          }
+        ]
+      },
+      "bad_timing": {
+        "label": "BAD TIMING",
+        "say": "Totally hear you — would it be a terrible idea if I tried you again tomorrow or later this week?",
+        "note": "Don't push. Get a callback window. If they give a time, lock it in and get off the phone.",
+        "branches": [
+          {
+            "label": "Gives a time / Sure try me later",
+            "to": "reschedule_confirmed"
+          },
+          {
+            "label": "What's this about?",
+            "to": "pain_trigger_short"
+          },
+          {
+            "label": "Don't call back / Not interested",
+            "to": "permission_fallback"
+          }
+        ]
+      },
+      "permission_fallback": {
+        "label": "PERMISSION ASK",
+        "say": "Yeah totally — I mean it is a cold call. Can I get 30 seconds to tell you why I reached out, and you can totally hang up on me if it's not a fit?",
+        "note": "Disarm with honesty. Acknowledging it's a cold call builds trust. Most people give you 30 seconds. If they say no, go to rejection split.",
+        "branches": [
+          {
+            "label": "Fine / Go ahead / 30 seconds",
+            "to": "pain_trigger_short"
+          },
+          {
+            "label": "No / Not interested / Stop calling",
+            "to": "rejection_split"
+          }
+        ]
+      },
+      "rejection_split": {
+        "label": "SPLIT THE REJECTION",
+        "say": "Shoot, totally my bad. Just so nobody from my team bugs you again — is it that I caught you at a horrible time, or is it that you already know what we do and this just isn't interesting?",
+        "note": "This isn't a trick — you genuinely want to know. If it's timing, get a callback. If it's disinterest, exit gracefully. Either way you learn something.",
+        "branches": [
+          {
+            "label": "Bad timing / Call back later",
+            "to": "reschedule_confirmed"
+          },
+          {
+            "label": "Not interested / Don't call again",
+            "to": "graceful_exit"
+          },
+          {
+            "label": "What do you actually do?",
+            "to": "pain_trigger_short"
+          }
+        ]
+      },
+      "pain_trigger_short": {
+        "label": "PAIN TRIGGER — SHORT VERSION",
+        "say": "So real quick — I work with a few vacation rental companies, one about your size along the coast. Their new business team kept running into the same thing: they're pitching owners on 'we'll protect your property,' but they didn't really have proof. Owners are asking about damage, about what happens between guests, and the team's stuck saying 'we do inspections' without being able to show anything concrete. We built an AI that analyzes turnover photos automatically — catches damage, missing items, staging problems — and turns it into a report the owner can actually see. Would you be open to taking a look?",
+        "note": "Condensed version for limited time. Frame it for his world — winning owners. Pause after the CTA and let him respond.",
+        "branches": [
+          {
+            "label": "Curious / That's interesting / Tell me more",
+            "to": "discovery_owner_pitch"
+          },
+          {
+            "label": "That's not really my department / I'm new business",
+            "to": "not_my_area"
+          },
+          {
+            "label": "We already have something for that",
+            "to": "objection_have_process"
+          },
+          {
+            "label": "Not interested",
+            "to": "objection_not_interested"
+          },
+          {
+            "label": "Send me an email",
+            "to": "send_email"
+          }
+        ]
+      },
+      "discovery_owner_pitch": {
+        "label": "DISCOVERY — OWNER ACQUISITION ANGLE",
+        "say": "Yeah so — when you're out there talking to owners about joining Elliott Beach, what's the typical pushback you get? Like are owners asking about property protection, damage accountability, that kind of stuff?",
+        "note": "STOP PITCHING. He's warm. Ask questions. Learn what his owner conversations sound like. You're looking for: do owners care about damage? Do they ask about inspections? What does the competition offer?",
+        "branches": [
+          {
+            "label": "Yes, owners ask about that / It comes up",
+            "to": "dig_deeper_owner_concerns"
+          },
+          {
+            "label": "Not really / Owners care more about revenue",
+            "to": "pivot_to_ops_value"
+          },
+          {
+            "label": "I'd need to connect you with someone on our ops team",
+            "to": "referral_ask"
+          }
+        ]
+      },
+      "dig_deeper_owner_concerns": {
+        "label": "DIG DEEPER — OWNER CONCERNS",
+        "say": "That makes sense. So when that comes up, what's your answer right now? Like do you guys have inspection reports you can show them, or is it more of a verbal 'trust us, we've been doing this since '59' kind of thing?",
+        "note": "You're looking for the gap. If they can't show owners concrete proof, that's your opening. Elliott's been around since 1959 — their reputation is their brand. Lean into that.",
+        "branches": [
+          {
+            "label": "We talk about our housekeeping and maintenance team",
+            "to": "bridge_to_cta"
+          },
+          {
+            "label": "We do have some process / We take photos",
+            "to": "explore_current_process"
+          },
+          {
+            "label": "Honestly I'm not sure what ops does on that side",
+            "to": "referral_ask"
+          }
+        ]
+      },
+      "pivot_to_ops_value": {
+        "label": "PIVOT — OPS VALUE",
+        "say": "Totally get that — revenue's king. The flip side we keep hearing is that the companies winning the most listings right now are the ones who can say 'and by the way, after every single turnover, here's an AI-generated report showing your property is in perfect shape.' It becomes a retention tool too — owners don't leave when they feel like their place is actually being watched. But honestly, this might be more of a conversation for whoever runs your ops or inspections side. Who on your team would typically own that?",
+        "note": "Pivot naturally to a referral. Don't force the owner-acquisition angle if it's not landing. You're looking for Brandon Cox, COO.",
+        "branches": [
+          {
+            "label": "Gives a name / That'd be Brandon or our COO",
+            "to": "referral_got_name"
+          },
+          {
+            "label": "I'm not sure / Let me think",
+            "to": "referral_push"
+          },
+          {
+            "label": "Actually that retention angle is interesting",
+            "to": "bridge_to_cta"
+          }
+        ]
+      },
+      "explore_current_process": {
+        "label": "EXPLORE CURRENT PROCESS",
+        "say": "Got it. So you're taking photos during turnovers already — are those going into any kind of system, or is it more like they live on someone's phone? And is anybody actually reviewing all of them, or is it kind of a 'take them just in case' situation?",
+        "note": "You're diagnosing their workflow. Most PM companies take photos but nobody reviews them systematically. That's the gap RapidEye fills. No known tech stack for Elliott — this is your chance to learn it.",
+        "branches": [
+          {
+            "label": "They go into a system / We use Breezeway or Track",
+            "to": "bridge_to_cta"
+          },
+          {
+            "label": "Honestly not sure about the details",
+            "to": "referral_ask"
+          },
+          {
+            "label": "Yeah it's pretty ad hoc / Phones and email",
+            "to": "bridge_to_cta"
+          }
+        ]
+      },
+      "bridge_to_cta": {
+        "label": "BRIDGE TO CTA",
+        "say": "Yeah that's exactly what we keep hearing. The photos exist, the process is there, but nobody's actually catching stuff until a guest complains — and by then you're dealing with refunds and bad reviews. What we do is plug into whatever you're already using and just run AI on those photos automatically. No workflow change for your team. Would it make sense to loop in whoever runs your ops side and I can walk you both through it? Even if it's just fifteen minutes — worst case you steal some ideas for how other beach rental companies are handling turnovers.",
+        "note": "Two-for-one: get the meeting AND get a referral to the ops buyer. 'Whoever runs your ops side' naturally pulls in Brandon Cox. 'Worst case you steal some ideas' lowers the stakes.",
+        "branches": [
+          {
+            "label": "Yeah let me check with our ops team / Brandon",
+            "to": "referral_got_name"
+          },
+          {
+            "label": "Sure, I'd take a look myself",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Send me something first",
+            "to": "send_email"
+          },
+          {
+            "label": "I don't think we need that right now",
+            "to": "objection_not_interested"
+          }
+        ]
+      },
+      "not_my_area": {
+        "label": "NOT THEIR AREA",
+        "say": "Totally makes sense — you're on the new business side, right? Acquiring owners? This would probably sit with whoever runs your operations or inspections. Who on your team would own that kind of thing?",
+        "note": "Don't waste time pitching the wrong person. Get the referral quickly. You're looking for Brandon Cox (COO) or Kyle Thomas (Guest Services Manager).",
+        "branches": [
+          {
+            "label": "Gives a name / That'd be Brandon or our COO",
+            "to": "referral_got_name"
+          },
+          {
+            "label": "Maybe Kyle in guest services / Someone else",
+            "to": "referral_got_name"
+          },
+          {
+            "label": "Not sure / Try the main office",
+            "to": "referral_push"
+          }
+        ]
+      },
+      "referral_ask": {
+        "label": "REFERRAL ASK",
+        "say": "Totally hear you. Who on your team would typically own the inspection or turnover quality side of things? I know you guys have a big operation — is there an ops lead or someone who manages that?",
+        "note": "You know Brandon Cox is COO. If Weston says 'Brandon' unprompted, great. If not, you can mention you've seen his name. Let Weston volunteer it first.",
+        "branches": [
+          {
+            "label": "That'd be Brandon Cox / Our COO",
+            "to": "referral_got_name"
+          },
+          {
+            "label": "Gives another name",
+            "to": "referral_got_name"
+          },
+          {
+            "label": "I'm not sure / Try calling the main office",
+            "to": "referral_push"
+          }
+        ]
+      },
+      "referral_push": {
+        "label": "REFERRAL — GENTLE PUSH",
+        "say": "No worries. I've actually seen Brandon Cox's name come up as your COO — would he be the right person for something like this? If I can get a warm intro from you, I can put something tailored together so it actually lands instead of being another cold email he deletes.",
+        "note": "Name-drop Brandon Cox. You know he's the COO from public sources. Make it easy for Weston — you're not asking him to do much, just a warm handoff or permission to use his name.",
+        "branches": [
+          {
+            "label": "Yeah Brandon would be good / I can connect you",
+            "to": "referral_got_name"
+          },
+          {
+            "label": "Just email him directly / I can't really do that",
+            "to": "referral_email_fallback"
+          },
+          {
+            "label": "I don't know if he'd be interested",
+            "to": "sell_value_for_referral"
+          }
+        ]
+      },
+      "referral_got_name": {
+        "label": "GOT THE REFERRAL",
+        "say": "Perfect — Brandon, got it. Would it make more sense for you to shoot him a quick note saying I'll reach out, or should I just mention I talked to you when I call him? Either way works for me.",
+        "note": "Give him two options — both result in you getting to Brandon with Weston's name attached. Try to get Brandon's best contact info while you're here. Lock it down.",
+        "branches": [
+          {
+            "label": "I'll let him know / I'll send him a note",
+            "to": "book_followup"
+          },
+          {
+            "label": "Just mention my name when you call",
+            "to": "book_followup"
+          },
+          {
+            "label": "Here's his number or email",
+            "to": "book_followup"
+          }
+        ]
+      },
+      "referral_email_fallback": {
+        "label": "REFERRAL — EMAIL FALLBACK",
+        "say": "Totally fair. Do you happen to have his email handy? I'll send him something short and reference that we talked so it doesn't look like spam.",
+        "note": "You think Brandon's email might be bc@elliottbeachrentals.com based on lead databases. If Weston confirms or gives another one, great. Either way, you'll try that address.",
+        "branches": [
+          {
+            "label": "Gives email or confirms",
+            "to": "book_followup"
+          },
+          {
+            "label": "Try the main office / I don't have it",
+            "to": "book_followup"
+          }
+        ]
+      },
+      "sell_value_for_referral": {
+        "label": "SELL THE REFERRAL VALUE",
+        "say": "Totally get it. Here's what I'd say — even if it's not a fit right now, we've been working with some similar-sized beach rental companies and I can at least show him what they're doing with their turnover workflows. Worst case he steals some ideas. Would it be worth just connecting us so he can decide for himself?",
+        "note": "Lower the stakes. You're not asking Weston to sell it internally — just to make an intro. Make it feel low-risk for him.",
+        "branches": [
+          {
+            "label": "Sure, I'll pass it along",
+            "to": "referral_got_name"
+          },
+          {
+            "label": "Just try reaching out directly",
+            "to": "book_followup"
+          },
+          {
+            "label": "I don't think so / Not right now",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "book_followup": {
+        "label": "LOCK IN NEXT STEP",
+        "say": "Awesome, really appreciate that. I'll reach out to Brandon this week. And hey — if it'd be useful, I'm happy to loop you in too. The owner-facing inspection reports could be a solid thing to reference during your pitches to new owners. I'll send you a quick note. What's the best email for you — is it your elliottbeachrentals.com address?",
+        "note": "Get Weston's direct email. Stay connected to him even as you pursue Brandon. He could be an internal champion if the owner-acquisition angle resonates. Try to grab his direct email while you have him.",
+        "branches": [
+          {
+            "label": "Gives email or confirms address",
+            "to": "confirm_and_close"
+          },
+          {
+            "label": "Just use the newbusiness@ email",
+            "to": "confirm_and_close"
+          }
+        ]
+      },
+      "confirm_and_close": {
+        "label": "CONFIRM AND CLOSE",
+        "say": "Got it. Really appreciate you taking my call, Weston. I'll keep it short and relevant when I reach out to Brandon. Thanks again — enjoy the rest of your day.",
+        "note": "Stop selling. You got what you needed — a name, context, and a warm path to the ops buyer. Send the follow-up email within 30 minutes. Log everything.",
+        "branches": []
+      },
+      "objection_not_interested": {
+        "label": "OBJECTION — NOT INTERESTED",
+        "say": "Totally get it. I should've assumed you'd be all set — otherwise you probably would've reached out yourself. Just so no one from my team cold calls you again — is it that this isn't a problem you guys are focused on right now, or is it more that you just hate cold calls?",
+        "note": "Agree first — surprise them. Then split the objection. You're genuinely trying to understand, not tricking them into talking.",
+        "branches": [
+          {
+            "label": "We're not focused on this / Not a priority",
+            "to": "reframe_priority"
+          },
+          {
+            "label": "I just hate cold calls / Yeah the cold call thing",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "Both / Just not interested at all",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "objection_have_process": {
+        "label": "OBJECTION — HAVE A PROCESS",
+        "say": "That makes total sense — with a company that's been running since '59, you'd have to have something in place. Just so I know — is it that you're fully covered and happy with how inspections and turnovers work, or is it more that switching anything right now would just be a headache?",
+        "note": "Acknowledge their legacy — it matters to them. Split the objection. 'Happy' vs. 'switching is hard' are very different situations — the second one is an opening.",
+        "branches": [
+          {
+            "label": "We're happy with what we have",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "Switching would be hard / Too much going on",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "I honestly don't know the details on the ops side",
+            "to": "referral_ask"
+          }
+        ]
+      },
+      "reframe_priority": {
+        "label": "REFRAME PRIORITY",
+        "say": "Totally fair. The only reason I bring it up — heading into summer season, the companies I work with are trying to get this stuff locked in before things get crazy. It's a lot easier to set up when you're not in the middle of peak turnovers. But I hear you. Would it make sense for me to just send over a quick two-minute overview so it's on your radar for when it does become a priority?",
+        "note": "Use Myrtle Beach seasonal urgency — summer is their peak. Plant the seed. If they bite on email, you have a follow-up path. If they redirect to ops, even better.",
+        "branches": [
+          {
+            "label": "Sure, send it over",
+            "to": "send_email"
+          },
+          {
+            "label": "Not right now / No thanks",
+            "to": "graceful_exit"
+          },
+          {
+            "label": "You'd want to talk to our ops team about that",
+            "to": "referral_ask"
+          }
+        ]
+      },
+      "sell_test_drive": {
+        "label": "SELL THE TEST DRIVE",
+        "say": "You're probably not buying anything from a cold call, and I totally respect that. But when this does come up — and with the volume you guys do in Myrtle Beach, it will — the people who get it right are the ones who already know what's out there. Would you be open to just a fifteen-minute look? Not a pitch — I can show you what other beach rental companies are actually doing with their turnover photos. Worst case you steal some ideas and we part as friends.",
+        "note": "Low pressure. 'Worst case you steal some ideas' is the key line. Make the meeting worth their time even if they never buy. This is the offer of value.",
+        "branches": [
+          {
+            "label": "Sure / Okay / I'd be open to that",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Send me something first",
+            "to": "send_email"
+          },
+          {
+            "label": "You'd really want to talk to Brandon / our ops person",
+            "to": "referral_ask"
+          },
+          {
+            "label": "No thanks / Not right now",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "book_meeting": {
+        "label": "BOOK THE MEETING",
+        "say": "Awesome. I've got next Tuesday and Thursday pulled up — does morning or afternoon work better for you?",
+        "note": "Give two days, let them pick the time. Send the calendar invite WHILE ON THE PHONE. Once they confirm, stop selling immediately.",
+        "branches": [
+          {
+            "label": "Picks a time",
+            "to": "meeting_booked"
+          },
+          {
+            "label": "Let me check my calendar / I'll get back to you",
+            "to": "send_email"
+          }
+        ]
+      },
+      "meeting_booked": {
+        "label": "MEETING BOOKED",
+        "say": "Perfect, I'll send the invite right now so it's locked in. Really appreciate you taking my call, Weston. Talk to you then.",
+        "note": "STOP SELLING. Send the invite immediately. Keep it warm and brief. You won. Log it and move on.",
+        "branches": []
+      },
+      "send_email": {
+        "label": "SEND ME AN EMAIL",
+        "say": "Totally fair. One quick question before I do — what would be most relevant to include so it's not just another generic pitch? Is it more about the owner-facing reporting side, or the ops efficiency side?",
+        "note": "Accept the email request but ask what matters to THEM. This tells you how to position the follow-up AND whether to CC someone on the ops side like Brandon.",
+        "branches": [
+          {
+            "label": "Owner-facing / How it helps with owners",
+            "to": "email_confirm"
+          },
+          {
+            "label": "Ops / How it actually works technically",
+            "to": "email_confirm"
+          },
+          {
+            "label": "Just send whatever / General info is fine",
+            "to": "email_confirm"
+          }
+        ]
+      },
+      "email_confirm": {
+        "label": "CONFIRM EMAIL",
+        "say": "Got it. What's the best email — is it weston at elliottbeachrentals.com, or do you use a different one?",
+        "note": "Try their company domain. If they correct you, you've learned the email pattern for the whole org. Also consider asking if you should CC anyone on the ops side.",
+        "branches": [
+          {
+            "label": "Confirms or gives email",
+            "to": "email_close"
+          },
+          {
+            "label": "Use the newbusiness@ address",
+            "to": "email_close"
+          }
+        ]
+      },
+      "email_close": {
+        "label": "CLOSE — EMAIL",
+        "say": "Perfect. I'll send that over today and suggest a time to connect next week in case it's worth a deeper look. Really appreciate you taking my call, Weston.",
+        "note": "Include a specific meeting time suggestion in the email. Follow up in 2-3 days if no response. Also send a separate note to Brandon Cox referencing this conversation. This is not a dead end — it's a next step.",
+        "branches": []
+      },
+      "warm_discovery": {
+        "label": "WARM DISCOVERY",
+        "say": "Oh nice. Well yeah — so we've been working with a few beach rental companies on exactly this. Quick question for you — in your role on the new business side, when you're pitching owners on joining Elliott Beach, does the property protection or inspection piece ever come up? Like owners asking how you handle damage between guests?",
+        "note": "He's already warm. Don't over-pitch. Ask questions about HIS world. You want to understand how RapidEye helps him win more owners, or quickly identify if he should route you to ops.",
+        "branches": [
+          {
+            "label": "Yeah, owners ask about that all the time",
+            "to": "dig_deeper_owner_concerns"
+          },
+          {
+            "label": "Not really my thing / That's more of an ops question",
+            "to": "referral_ask"
+          },
+          {
+            "label": "Tell me more about what you guys do first",
+            "to": "pain_trigger_short"
+          }
+        ]
+      },
+      "graceful_exit": {
+        "label": "GRACEFUL EXIT",
+        "say": "Totally understand. If anything changes, I'm easy to find — Sam Parks, RapidEye. Appreciate your time, Weston.",
+        "note": "Don't burn the bridge. Leave the door open. Log the call, note the outcome, and move on. Consider reaching out to Brandon Cox directly as your next dial.",
+        "branches": []
+      },
+      "reschedule_confirmed": {
+        "label": "RESCHEDULE CONFIRMED",
+        "say": "Perfect, I'll try you then. Appreciate it, Weston.",
+        "note": "Log the callback time immediately. Set a reminder. Keep it short — they told you they're busy. Honor that.",
+        "branches": []
+      }
+    }
+  }
+}

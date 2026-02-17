@@ -1,0 +1,892 @@
+{
+  "name": "Justin Simpson",
+  "title": "Operations Manager",
+  "company": "Coldwell Banker Island Vacations",
+  "location": "Scottsdale, AZ is already on the list. Let me provide the next best option:\\n\\nMaui, HI",
+  "phone": "+1-808-909-3103",
+  "company_phone": "+1-808-891-2900",
+  "alt_phones": [],
+  "flow": {
+    "context": "Justin Simpson is the Operations Manager at Coldwell Banker Island Vacations, a 300+ property vacation rental company across Maui, Kauai, and Big Island, in the role since Nov 2021. Before CBIV he was Director of Housekeeping and Director of Rooms at hotels — he's lived the inspection and quality-control problem his entire career and now runs it at scale across three islands. His GM is Amanda Franta (founder/principal broker, amanda@cbislandvacations.com). Celina Cabo manages housekeeping, Dan Hutchins manages maintenance, Jeremia is his assistant ops manager. No public ops platform or PMS detected — their portal runs on trackhs.com. Maui County Bill 9 (passed Dec 2025) is phasing out ~6,200 vacation rentals, creating massive pressure on remaining operators to tighten ops. Sam's strongest hooks: surfing connection to Hawaii, working with other island PM ops managers, and Justin's hotel-housekeeping background mapping perfectly to RapidEye's value.",
+    "start": "opener",
+    "nodes": {
+      "opener": {
+        "label": "OPENER",
+        "say": "Hey Justin — I work with a few other vacation rental ops managers out in Hawaii. It's Sam Parks with RapidEye. Have you heard my name tossed around?",
+        "note": "Relaxed tone. Feet-up energy. Don't rush. Pause after 'tossed around' and let him respond. This is his direct line so he should answer.",
+        "branches": [
+          {
+            "label": "No / Who? / Don't think so",
+            "to": "heard_no"
+          },
+          {
+            "label": "Yeah / Maybe / Sounds familiar",
+            "to": "heard_yes"
+          },
+          {
+            "label": "Bad timing / I'm busy / In the middle of something",
+            "to": "bad_timing"
+          },
+          {
+            "label": "Who is this? / Is this a sales call?",
+            "to": "permission_fallback"
+          }
+        ]
+      },
+      "heard_no": {
+        "label": "HAVEN'T HEARD — TRANSITION TO PAIN",
+        "say": "Ha — I guess I'm not as popular as I thought. Well the reason for my call is — I was actually talking to another ops manager in a pretty similar spot to you. Managing a few hundred vacation rentals across multiple islands, came up through housekeeping on the hotel side. And what he kept telling me was that the hardest part of going from hotels to VRs was losing that direct line of sight. In a hotel you walk the floors. In vacation rentals spread across Maui, Kauai, and Big Island, you're relying on photos from cleaners — and nobody has time to actually look at all of them. Stuff slips through, guest checks in, finds a stain on the couch or a missing coffee maker, and now you've got a one-star review and an owner calling asking what happened.",
+        "note": "PAUSE here. Let him react. The hotel-to-VR transition and multi-island angle are specific to Justin's exact background. Don't rush past the silence — that's where the sale happens.",
+        "branches": [
+          {
+            "label": "Yeah that resonates / That's real / We deal with that",
+            "to": "pain_warm"
+          },
+          {
+            "label": "We've got a process for that / We're covered",
+            "to": "objection_have_process"
+          },
+          {
+            "label": "What are you selling? / What is this?",
+            "to": "one_sentence_solution"
+          },
+          {
+            "label": "Not interested / Not for us",
+            "to": "objection_not_interested"
+          }
+        ]
+      },
+      "heard_yes": {
+        "label": "THEY'VE HEARD OF SAM OR RAPIDEYE",
+        "say": "Oh nice — well normally we'd be working with someone like you. What'd you hear?",
+        "note": "Let him talk. Whatever he says, use it to transition into discovery. Don't correct him if he gets it slightly wrong — just build on whatever he gives you.",
+        "branches": [
+          {
+            "label": "Heard about it from someone / Saw something online",
+            "to": "pain_warm"
+          },
+          {
+            "label": "Not sure / Can't remember exactly",
+            "to": "heard_no"
+          }
+        ]
+      },
+      "bad_timing": {
+        "label": "BAD TIMING",
+        "say": "Totally hear you — would it be a terrible idea if I tried you again tomorrow or later this week?",
+        "note": "Don't push. Get a specific callback time. If he's managing ops across three islands, mornings before turnover chaos are probably best.",
+        "branches": [
+          {
+            "label": "Sure, try me at a specific time",
+            "to": "bad_timing_locked"
+          },
+          {
+            "label": "Just send me an email",
+            "to": "objection_send_email"
+          },
+          {
+            "label": "What's this about though? (curiosity)",
+            "to": "permission_fallback"
+          },
+          {
+            "label": "Don't call back / Not interested",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "bad_timing_locked": {
+        "label": "CALLBACK TIME LOCKED",
+        "say": "Perfect — I'll try you then. It's Sam Parks, RapidEye. Appreciate you, Justin.",
+        "note": "Write down the exact time and set a reminder. Call back exactly when promised. Don't leave a voicemail — just call.",
+        "branches": []
+      },
+      "permission_fallback": {
+        "label": "PERMISSION FALLBACK — ASK FOR 30 SECONDS",
+        "say": "Yeah totally — I mean it is a cold call. Can I get 30 seconds to tell you why I reached out? And you can totally hang up on me if it's not a fit.",
+        "note": "Disarming honesty. Most people will give 30 seconds if you own the awkwardness. Smile through it.",
+        "branches": [
+          {
+            "label": "Sure / Go ahead / Fine",
+            "to": "pain_trigger_short"
+          },
+          {
+            "label": "No / I'm not interested / Don't have time",
+            "to": "permission_rejected"
+          }
+        ]
+      },
+      "permission_rejected": {
+        "label": "PERMISSION REJECTED — SPLIT THE OBJECTION",
+        "say": "Shoot, totally my bad. Just so nobody from my team bugs you again — is it that I caught you at a horrible time, or is it more that you already know what we do and it's just not interesting?",
+        "note": "Give him two options. Either way you learn something. If it's timing, you get a callback. If it's disinterest, you can do a final value drop or exit gracefully.",
+        "branches": [
+          {
+            "label": "Bad timing / Horrible time",
+            "to": "bad_timing"
+          },
+          {
+            "label": "Not interested / Don't need it",
+            "to": "last_chance_value"
+          },
+          {
+            "label": "What do you even do?",
+            "to": "one_sentence_solution"
+          }
+        ]
+      },
+      "pain_trigger_short": {
+        "label": "PAIN TRIGGER — 30 SECOND VERSION",
+        "say": "So I work with a handful of vacation rental ops teams — companies running a couple hundred units across multiple locations, similar to you guys. The thing I keep hearing is that cleaners are taking photos every turnover, but nobody actually has time to review them all. And when something gets missed — a broken cabinet, a stain, a missing set of towels — it turns into a guest complaint, and sometimes a damage charge you can't prove because no one caught it on the way in. We built something that automatically reviews those turnover photos and flags the issues before the next guest checks in. Would you be open to taking a look sometime when I'm not cold calling you out of the blue?",
+        "note": "This is the compressed version. Still PAUSE after describing the pain — before you get to the solution. Watch for his reaction. The 'can't prove damage' angle hits hard for ops managers who deal with owner calls.",
+        "branches": [
+          {
+            "label": "That's interesting / Tell me more",
+            "to": "pain_warm"
+          },
+          {
+            "label": "Yeah sure, let's set something up",
+            "to": "booking"
+          },
+          {
+            "label": "We already have a process / We're good",
+            "to": "objection_have_process"
+          },
+          {
+            "label": "Not really our problem / Not interested",
+            "to": "objection_not_interested"
+          }
+        ]
+      },
+      "pain_warm": {
+        "label": "THEY'RE WARM — STOP PITCHING, START ASKING",
+        "say": "Yeah, it's a pretty common problem at your scale. So I'm curious — what does your inspection process actually look like right now? Are your cleaners taking photos every turn, or is it more of a spot-check thing?",
+        "note": "STOP SELLING. You're in discovery mode. Justin came from hotel housekeeping — he'll have strong opinions about process and quality. Let him talk. Listen for pain you can echo back later.",
+        "branches": [
+          {
+            "label": "Describes their process — photos every turn",
+            "to": "discovery_photo_review"
+          },
+          {
+            "label": "Describes their process — spot checks or inconsistent",
+            "to": "discovery_inconsistent"
+          },
+          {
+            "label": "We use a specific tool",
+            "to": "discovery_tool"
+          },
+          {
+            "label": "Asks about RapidEye instead of answering",
+            "to": "one_sentence_solution"
+          }
+        ]
+      },
+      "discovery_photo_review": {
+        "label": "DISCOVERY — PHOTO REVIEW BURDEN",
+        "say": "Got it. So if your cleaners are shooting photos every turn across 300-plus properties on three islands — who's actually reviewing those? Is that you, or does that fall on Celina's team on the housekeeping side?",
+        "note": "Naming Celina (Housekeeping Manager) shows homework without being creepy. If he corrects you, that's fine — you learn the real org structure. The goal: surface who owns the review burden and whether photos are actually being looked at.",
+        "branches": [
+          {
+            "label": "It's me / My team reviews them",
+            "to": "discovery_pain_depth"
+          },
+          {
+            "label": "Housekeeping handles it / Celina's team",
+            "to": "discovery_pain_depth"
+          },
+          {
+            "label": "Honestly nobody's reviewing all of them",
+            "to": "discovery_nobody_reviewing"
+          },
+          {
+            "label": "How do you know about our team?",
+            "to": "research_explain"
+          }
+        ]
+      },
+      "discovery_inconsistent": {
+        "label": "DISCOVERY — INCONSISTENT PROCESS",
+        "say": "That makes sense. With three islands, it's really tough to standardize everything. So when something does get missed — say a guest finds damage or a unit's not staged right — how does that usually surface? Is it guest complaints, or does your team catch it after the fact?",
+        "note": "Help him articulate the cost of inconsistency. Guest complaints = review risk. After-the-fact = lost damage recovery. Both are strong pain for an ops manager.",
+        "branches": [
+          {
+            "label": "Guest complaints / Bad reviews",
+            "to": "discovery_pain_depth"
+          },
+          {
+            "label": "We catch most stuff / It's not a huge issue",
+            "to": "objection_have_process"
+          },
+          {
+            "label": "Both — depends on the situation",
+            "to": "discovery_pain_depth"
+          }
+        ]
+      },
+      "discovery_tool": {
+        "label": "DISCOVERY — THEY USE A TOOL",
+        "say": "Oh nice — how's that working for you? Are you guys pretty happy with it, or is there stuff it doesn't catch?",
+        "note": "Don't trash their tool. Let them tell you what's missing. If they name Breezeway or Track, note it — RapidEye plugs into those. If it's a manual checklist or spreadsheet, that's a bigger gap and a bigger opportunity.",
+        "branches": [
+          {
+            "label": "It's fine but has gaps / Doesn't catch everything",
+            "to": "solution_integration"
+          },
+          {
+            "label": "We love it / Fully covered",
+            "to": "objection_have_process"
+          },
+          {
+            "label": "It's just checklists / Manual / Spreadsheets",
+            "to": "discovery_pain_depth"
+          }
+        ]
+      },
+      "discovery_nobody_reviewing": {
+        "label": "NOBODY'S REVIEWING ALL THE PHOTOS",
+        "say": "That's honestly what I hear from most ops managers at your scale. The photos exist, the intent is there, but there's just no way for a human to look at a thousand photos a day across three islands and actually catch everything. That's exactly the gap we built RapidEye for. We plug into whatever system your cleaners are already uploading to and automatically flag damage, missing items, staging issues — so your team only has to look at the stuff that actually needs attention. Would you be open to seeing how it works — maybe 15, 20 minutes this week or next?",
+        "note": "This is the money moment. He just admitted the gap exists. Don't oversell — one sentence on what it does, then the CTA. Pause and let him decide.",
+        "branches": [
+          {
+            "label": "Yeah let's do it / Sure",
+            "to": "booking"
+          },
+          {
+            "label": "What does that actually look like? / Tell me more",
+            "to": "solution_detail"
+          },
+          {
+            "label": "I'd need to loop in Amanda / my GM first",
+            "to": "referral_to_amanda"
+          },
+          {
+            "label": "Send me something first",
+            "to": "objection_send_email"
+          }
+        ]
+      },
+      "discovery_pain_depth": {
+        "label": "DISCOVERY — DIG DEEPER ON PAIN",
+        "say": "What's been the biggest headache for you on the ops side? Is it more the photo review volume — just the sheer number of images coming in — or is it more the damage documentation piece, like being able to prove when something happened for owner chargebacks?",
+        "note": "Let him pick his pain. Both are RapidEye use cases. Whichever he picks becomes your pitch angle. If he mentions Bill 9 or regulatory pressure, go to the bill_9_angle node.",
+        "branches": [
+          {
+            "label": "Photo volume / Review burden",
+            "to": "solution_photo_volume"
+          },
+          {
+            "label": "Damage documentation / Chargebacks / Owner accountability",
+            "to": "solution_damage_docs"
+          },
+          {
+            "label": "Both / It's all connected",
+            "to": "solution_both"
+          },
+          {
+            "label": "Mentions Bill 9 / Regulations / Market uncertainty",
+            "to": "bill_9_angle"
+          }
+        ]
+      },
+      "solution_photo_volume": {
+        "label": "SOLUTION — PHOTO VOLUME ANGLE",
+        "say": "Yeah, that's the exact problem we solve. We plug into whatever your cleaners are already uploading photos through and our AI reviews every single image automatically. It flags damage, staging issues, missing items — anything that looks off compared to how the unit's supposed to look. Your team just gets a report of the stuff that needs attention instead of scrolling through hundreds of photos. Would you be open to seeing it in action? I can walk you through it in about 15 minutes.",
+        "note": "Keep it tight. One solution statement, one CTA. Don't list features. Don't explain the AI. Just outcome and ask.",
+        "branches": [
+          {
+            "label": "Yeah let's set it up",
+            "to": "booking"
+          },
+          {
+            "label": "I'd need to run it by Amanda / my boss first",
+            "to": "referral_to_amanda"
+          },
+          {
+            "label": "What's it cost?",
+            "to": "objection_cost"
+          },
+          {
+            "label": "Send me info first",
+            "to": "objection_send_email"
+          }
+        ]
+      },
+      "solution_damage_docs": {
+        "label": "SOLUTION — DAMAGE DOCUMENTATION ANGLE",
+        "say": "That's huge — especially across three islands where you can't physically be at every property. What we do is analyze the turnover photos your team's already taking and create a timestamped record of exactly what the unit looked like before and after each guest. So when an owner calls and says their dining table got scratched, you've got the documentation to show exactly which stay it happened during. No more he-said-she-said. Would you be open to a quick look — like 15 minutes?",
+        "note": "The owner accountability angle is strong for ops managers. They're the ones fielding the angry owner calls. Let him feel the relief of having proof.",
+        "branches": [
+          {
+            "label": "Yeah let's do it",
+            "to": "booking"
+          },
+          {
+            "label": "Need to loop someone else in",
+            "to": "referral_to_amanda"
+          },
+          {
+            "label": "What's the cost?",
+            "to": "objection_cost"
+          },
+          {
+            "label": "Send me something first",
+            "to": "objection_send_email"
+          }
+        ]
+      },
+      "solution_both": {
+        "label": "SOLUTION — BOTH ANGLES COMBINED",
+        "say": "Yeah — they're really two sides of the same coin. We built RapidEye to handle both. It plugs into whatever your cleaners are already using for photos, reviews every image automatically, flags anything that's off — damage, missing items, staging problems — and creates a timestamped record you can use for owner chargebacks or dispute resolution. Your team just sees what needs attention. Would you be open to a quick look? I can walk you through it in 15 minutes, and worst case you steal some ideas from what other operators in Hawaii are doing.",
+        "note": "The 'steal some ideas' line gives him a low-risk reason to say yes even if he's not ready to buy. It reframes the meeting as valuable regardless of outcome.",
+        "branches": [
+          {
+            "label": "Sure / Let's set it up",
+            "to": "booking"
+          },
+          {
+            "label": "Need to loop in Amanda / my GM",
+            "to": "referral_to_amanda"
+          },
+          {
+            "label": "What's it cost?",
+            "to": "objection_cost"
+          },
+          {
+            "label": "Send me info first",
+            "to": "objection_send_email"
+          }
+        ]
+      },
+      "bill_9_angle": {
+        "label": "BILL 9 — REGULATORY PRESSURE",
+        "say": "Yeah, Bill 9 is a big deal — especially for you guys managing across Maui and the other islands. A couple of the operators I've been talking to are saying the same thing — with units potentially coming off the market over the next few years, every remaining property needs to be running at its absolute best. Guest reviews, owner satisfaction, cost control — there's just less room for error. That's actually a big part of why they're looking at automating inspections now rather than later. Is that something you guys have been thinking about?",
+        "note": "Bill 9 passed Dec 2025, phases out ~6,200 Maui vacation rentals by 2029 (West Maui) and 2031 (South Maui). This creates real urgency: fewer units means higher stakes per unit. Don't be preachy — just acknowledge it and connect it to operational efficiency.",
+        "branches": [
+          {
+            "label": "Yeah we've been thinking about it / It's on our radar",
+            "to": "solution_both"
+          },
+          {
+            "label": "That's more of an Amanda / leadership-level conversation",
+            "to": "referral_to_amanda"
+          },
+          {
+            "label": "We're not sure how it'll shake out yet",
+            "to": "solution_both"
+          }
+        ]
+      },
+      "one_sentence_solution": {
+        "label": "ONE-SENTENCE SOLUTION — WHAT RAPIDEYE DOES",
+        "say": "Yeah so — real quick — we built an AI tool that automatically reviews the turnover photos your cleaners are already taking and flags damage, missing items, and staging issues before the next guest checks in. Basically catches the stuff that slips through when you've got 300-plus units across three islands and nobody has time to look at every photo. I work with a few other PM companies your size. Would you be open to a quick look?",
+        "note": "This is the compact pitch for when he asks 'what do you do?' One sentence on what it does, one on why it matters for CBIV specifically, one CTA. Don't go deeper unless he asks.",
+        "branches": [
+          {
+            "label": "Yeah that's interesting / Tell me more",
+            "to": "pain_warm"
+          },
+          {
+            "label": "Let's set something up",
+            "to": "booking"
+          },
+          {
+            "label": "We've got something for that already",
+            "to": "objection_have_process"
+          },
+          {
+            "label": "Not interested",
+            "to": "objection_not_interested"
+          }
+        ]
+      },
+      "solution_detail": {
+        "label": "THEY WANT MORE DETAIL",
+        "say": "Sure — so your cleaners are already taking photos during turnovers, right? We plug directly into whatever system they upload those to. Our AI compares each photo against the baseline of how the unit's supposed to look — furniture placement, wall condition, amenity count, all of it. If something's damaged, missing, or out of place, your team gets flagged immediately with the specific photo and the issue. No workflow change for your cleaners at all. And on the back end you get timestamped documentation for every single turn — which is huge for damage deposits and owner accountability.",
+        "note": "He asked for more — give it but stay tangible. Keep it about outcomes, not technology. Then pivot to booking.",
+        "branches": [
+          {
+            "label": "That's cool / Makes sense",
+            "to": "cta_after_detail"
+          },
+          {
+            "label": "What system does it connect to? / What's the integration?",
+            "to": "integration_question"
+          },
+          {
+            "label": "What's it cost?",
+            "to": "objection_cost"
+          }
+        ]
+      },
+      "integration_question": {
+        "label": "INTEGRATION QUESTION",
+        "say": "We integrate with Breezeway, Track, and a few others — and we can also work with direct photo uploads if you're using something more custom. What are you guys using on the ops side right now?",
+        "note": "CBIV's ops platform isn't publicly known — their site shows a trackhs.com portal. This is your chance to learn their stack. Whatever he says, confirm you can work with it or explain how.",
+        "branches": [
+          {
+            "label": "Names a tool — Breezeway, Track, etc.",
+            "to": "cta_after_detail"
+          },
+          {
+            "label": "We're pretty manual / Spreadsheets / Email",
+            "to": "cta_after_detail"
+          },
+          {
+            "label": "I'm not sure / Would need to check",
+            "to": "cta_after_detail"
+          }
+        ]
+      },
+      "cta_after_detail": {
+        "label": "CTA AFTER DETAIL",
+        "say": "I think the easiest thing would be for me to just show you. Takes about 15 minutes, and I can actually run it against some sample photos so you can see what the output looks like for a property like yours. Would you be open to that this week or next?",
+        "note": "Offering to use sample photos relevant to their property type makes it tangible and low-friction. Hawaiian vacation rentals have specific issues — salt air damage, lanai furniture, tropical wear and tear.",
+        "branches": [
+          {
+            "label": "Yeah let's do it",
+            "to": "booking"
+          },
+          {
+            "label": "Need to loop someone else in first",
+            "to": "referral_to_amanda"
+          },
+          {
+            "label": "Send me info first and then we'll talk",
+            "to": "objection_send_email"
+          },
+          {
+            "label": "Not right now / Maybe later",
+            "to": "sell_test_drive"
+          }
+        ]
+      },
+      "solution_integration": {
+        "label": "SOLUTION — LAYERS ON TOP OF EXISTING TOOL",
+        "say": "That's actually perfect — we're built to layer on top of what you're already using, not replace it. We plug in and add the AI photo analysis piece so you get automatic flagging on top of whatever workflow you've already got. No change for your cleaners, no new app for anyone to learn. Would you be open to seeing how the two work together? Quick 15-minute call.",
+        "note": "Position as additive, not replacement. Nobody wants to rip and replace, especially an ops manager who already fought to get a process in place.",
+        "branches": [
+          {
+            "label": "Yeah sure",
+            "to": "booking"
+          },
+          {
+            "label": "Need to check with my team / Amanda",
+            "to": "referral_to_amanda"
+          },
+          {
+            "label": "Send me info",
+            "to": "objection_send_email"
+          }
+        ]
+      },
+      "objection_have_process": {
+        "label": "OBJECTION — WE ALREADY HAVE A PROCESS",
+        "say": "That totally makes sense — with 300-plus properties across three islands, you'd have to have something solid in place. I wouldn't expect anything less. Just out of curiosity — is it that you're fully covered and happy with how it's working, or is it more that switching or adding anything right now would just be a headache?",
+        "note": "Split the objection. 'Fully covered and happy' is rare — most people will admit gaps when given a graceful way to. 'Switching is a headache' opens the door for 'we don't replace anything, we layer on top.'",
+        "branches": [
+          {
+            "label": "We're happy / It works fine",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "Switching would be a pain / Too much going on right now",
+            "to": "sell_test_drive_timing"
+          },
+          {
+            "label": "There are some gaps / It's not perfect",
+            "to": "pain_warm"
+          }
+        ]
+      },
+      "objection_not_interested": {
+        "label": "OBJECTION — NOT INTERESTED",
+        "say": "I totally get it — I should've assumed you'd be all set. Otherwise you probably would've reached out yourself. Just so nobody from my team cold calls you again — is it that this isn't really a problem you're focused on right now, or is it more that you just hate cold calls? Because honestly I get it either way.",
+        "note": "Agree first, then split. The 'hate cold calls' option gives him a face-saving way to keep talking. Most people won't actually say 'I hate cold calls' — they'll pivot to the substance.",
+        "branches": [
+          {
+            "label": "Not a problem we're focused on right now",
+            "to": "last_chance_value"
+          },
+          {
+            "label": "I just hate cold calls / Bad timing honestly",
+            "to": "bad_timing"
+          },
+          {
+            "label": "Actually — what is it exactly?",
+            "to": "one_sentence_solution"
+          },
+          {
+            "label": "Hard no / Please don't call again",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "objection_cost": {
+        "label": "OBJECTION — WHAT DOES IT COST",
+        "say": "Depends on portfolio size and what you're plugging into — but ballpark, it's a fraction of what a missed damage charge or a bad review costs you on even a single unit. I'd rather walk you through it first so the pricing actually makes sense in context. Would you be open to a quick 15 minutes?",
+        "note": "Don't quote pricing on a cold call. Redirect to the meeting. The goal is always to sell the meeting, not the product.",
+        "branches": [
+          {
+            "label": "Yeah that's fair / Sure",
+            "to": "booking"
+          },
+          {
+            "label": "Just give me a ballpark / a range",
+            "to": "objection_cost_insist"
+          },
+          {
+            "label": "Send me pricing info",
+            "to": "objection_send_email"
+          }
+        ]
+      },
+      "objection_cost_insist": {
+        "label": "COST — THEY INSIST ON A NUMBER",
+        "say": "Totally fair — I don't want to waste your time either. For a company your size we're typically talking a few hundred bucks a month, not thousands. But honestly the math only makes sense once you see what it actually catches versus what's slipping through now. Can I show you in 15 minutes and then we can talk numbers with real context?",
+        "note": "Give a directional range to show you're not dodging. Then redirect to the meeting. Adjust the range based on actual current pricing.",
+        "branches": [
+          {
+            "label": "Okay let's set it up",
+            "to": "booking"
+          },
+          {
+            "label": "Send me info",
+            "to": "objection_send_email"
+          },
+          {
+            "label": "Not right now",
+            "to": "sell_test_drive"
+          }
+        ]
+      },
+      "sell_test_drive": {
+        "label": "SELL THE TEST DRIVE — FUTURE VALUE",
+        "say": "Totally respect that. You're probably not buying anything right now, and I wouldn't expect you to off a cold call. But the ops managers who end up loving this are the ones who saw it early and already knew what was on their list when budget or timing opened up. Would you be open to just taking a look — no commitment, no follow-up pressure if it's not a fit — just so you know it exists?",
+        "note": "Lowest-pressure ask. Frame the meeting as intelligence-gathering, not a sales pitch. 'So you know it exists' is the lightest possible CTA.",
+        "branches": [
+          {
+            "label": "Okay sure / Fine",
+            "to": "booking"
+          },
+          {
+            "label": "Send me something first",
+            "to": "objection_send_email"
+          },
+          {
+            "label": "No thanks / Not right now",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "sell_test_drive_timing": {
+        "label": "TEST DRIVE — TIMING ANGLE",
+        "say": "That's totally fair. And just so you know — we don't replace anything you're using. We just layer on top. Zero workflow change for your cleaners. But I hear you on timing. If nothing else, I could walk you through what a couple other operators in Hawaii are doing with their turnover photos right now. Worst case you steal some ideas and we part as friends. Would that be worth 15 minutes?",
+        "note": "The 'steal some ideas' frame makes the meeting valuable even if they never buy. Positions Sam as someone who knows the Hawaii market and can offer peer insights.",
+        "branches": [
+          {
+            "label": "Yeah I'd be open to that",
+            "to": "booking"
+          },
+          {
+            "label": "Send me something first",
+            "to": "objection_send_email"
+          },
+          {
+            "label": "Not right now",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "last_chance_value": {
+        "label": "LAST CHANCE — VALUE DROP WITH BILL 9 SEED",
+        "say": "Totally fair. If nothing changes on your end, you'll never hear from me again. But just so you know — we're working with a few other operators in Hawaii right now, and one thing I keep hearing is that with Bill 9 shaking things up, the companies that are tightening their inspection ops now are the ones best positioned regardless of how the regulation plays out. If that ever becomes relevant for you guys, I'm easy to find. Appreciate your time, Justin.",
+        "note": "Plant the Bill 9 seed without being pushy. This is a graceful exit that leaves the door open. If he bites on the Bill 9 reference, transition to that conversation. If not, you've ended professionally.",
+        "branches": [
+          {
+            "label": "Actually — what do you mean about Bill 9 and inspections?",
+            "to": "bill_9_angle"
+          },
+          {
+            "label": "Thanks / Appreciate it / Goodbye",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "referral_to_amanda": {
+        "label": "REFERRAL — LOOP IN AMANDA OR DECISION MAKER",
+        "say": "That makes total sense. Would Amanda be the right person to loop in on something like this, or is there someone else who'd need to sign off? Happy to put something tailored together so it actually lands when you bring it up.",
+        "note": "Naming Amanda Franta (GM/Principal Broker/Founder) shows you know the org. If Justin confirms she's the decision maker, get the logistics. If he names someone else, take the name and adjust. Don't argue about who the right person is.",
+        "branches": [
+          {
+            "label": "Yeah Amanda would need to be involved",
+            "to": "referral_amanda_logistics"
+          },
+          {
+            "label": "It's someone else / Different person decides",
+            "to": "referral_other"
+          },
+          {
+            "label": "Actually I can make this call myself / Let me evaluate first",
+            "to": "booking"
+          }
+        ]
+      },
+      "referral_amanda_logistics": {
+        "label": "REFERRAL — HOW TO REACH AMANDA",
+        "say": "Perfect. What would be the best way to get in front of her — would you want to do a three-way thing where you're both on, or should I reach out to her directly and mention you pointed me her way? Either works for me.",
+        "note": "Let Justin choose the method. If direct outreach: Amanda's email is amanda@cbislandvacations.com, her direct number is (808) 357-8243 (from Kauai Board roster), and office is (808) 891-2900. Reference Justin by name in any outreach.",
+        "branches": [
+          {
+            "label": "I'll intro you / Send me something to forward",
+            "to": "referral_send_blurb"
+          },
+          {
+            "label": "Reach out to her directly",
+            "to": "referral_direct_amanda"
+          },
+          {
+            "label": "Let me talk to her first and get back to you",
+            "to": "referral_followup"
+          }
+        ]
+      },
+      "referral_send_blurb": {
+        "label": "REFERRAL — SEND BLURB FOR JUSTIN TO FORWARD",
+        "say": "Love it. I'll shoot you a quick email with a two-liner you can forward to her — nothing salesy, just enough context so she knows what it is. What's the best email for you — is it justin at cbislandvacations dot com?",
+        "note": "Email pattern confirmed as firstname@cbislandvacations.com from Amanda's verified email. This is a safe guess and shows research.",
+        "branches": [
+          {
+            "label": "Yes that's right / Confirms email",
+            "to": "referral_confirmed"
+          },
+          {
+            "label": "Gives a different email",
+            "to": "referral_confirmed"
+          }
+        ]
+      },
+      "referral_direct_amanda": {
+        "label": "REFERRAL — REACH OUT TO AMANDA DIRECTLY",
+        "say": "Perfect — I'll reach out to Amanda and mention you and I connected. Really appreciate you pointing me in the right direction, Justin. And honestly if you want to jump on the demo too when we set it up, you're welcome to — might be useful from the ops side to have your perspective.",
+        "note": "Amanda's email: amanda@cbislandvacations.com. Direct: (808) 357-8243. Office: (808) 891-2900. In your outreach, name-drop Justin and reference the multi-island inspection challenge. Invite Justin to the meeting too — he's the operational champion.",
+        "branches": []
+      },
+      "referral_other": {
+        "label": "REFERRAL — DIFFERENT PERSON",
+        "say": "Got it — who would that be? Just so I can put something together that's actually relevant to them instead of sending a generic pitch.",
+        "note": "Get the name, title, and contact info. Once he gives it, ask 'would you mind if I mentioned you pointed me their way?' Having Justin's name attached warms the next call significantly.",
+        "branches": [
+          {
+            "label": "Gives a name and/or title",
+            "to": "referral_confirmed"
+          },
+          {
+            "label": "Not sure / Let me figure it out",
+            "to": "referral_followup"
+          }
+        ]
+      },
+      "referral_confirmed": {
+        "label": "REFERRAL — CONFIRMED AND CLOSE",
+        "say": "That's super helpful. I'll put something tailored together and get it over to you today. Really appreciate you taking my call, Justin — I know cold calls are never fun. Talk soon.",
+        "note": "Send the email within the hour. Reference Justin by name, reference their setup (300+ units, multi-island, hotel background), and suggest a specific meeting day and time. Keep the email to 5 sentences max.",
+        "branches": []
+      },
+      "referral_followup": {
+        "label": "REFERRAL — THEY'LL GET BACK TO YOU",
+        "say": "Totally fair. Would it be cool if I followed up with you in a couple days just to see where things landed? I don't want to be a pest, but I also don't want it to fall off your radar.",
+        "note": "Try to pin down a specific follow-up day. 'Couple days' is vague. If he says 'end of the week,' set a reminder for Friday morning.",
+        "branches": [
+          {
+            "label": "Yeah follow up on a specific day",
+            "to": "referral_confirmed"
+          },
+          {
+            "label": "I'll reach out if there's interest",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "objection_send_email": {
+        "label": "OBJECTION — SEND ME AN EMAIL",
+        "say": "Totally fair — I'll send something over. One quick question so it's actually useful and not just another generic pitch sitting in your inbox — what would be most relevant for you to see? Is it more the photo analysis and how it works operationally, or is it the damage documentation and owner accountability side?",
+        "note": "Accept the email request immediately, then ask ONE question to tailor it. Whatever he picks becomes the email's lead angle. Then suggest a specific meeting time in the email.",
+        "branches": [
+          {
+            "label": "Photo analysis / Operations side",
+            "to": "email_confirmed"
+          },
+          {
+            "label": "Damage docs / Owner accountability",
+            "to": "email_confirmed"
+          },
+          {
+            "label": "Just send whatever you've got / Both",
+            "to": "email_confirmed"
+          },
+          {
+            "label": "Gives his email address proactively",
+            "to": "email_confirmed"
+          }
+        ]
+      },
+      "email_confirmed": {
+        "label": "EMAIL CONFIRMED — GET ADDRESS AND CLOSE",
+        "say": "Got it — I'll make it specific to that. Is justin at cbislandvacations the best email? I'll throw a couple time options in there too in case you want to jump on a quick call after you've had a chance to look.",
+        "note": "Confirm the email address. Send within the hour. Email should include: (1) what he asked for, tailored to CBIV, (2) a reference to this conversation, (3) two specific time slots for a follow-up call. Keep it short. Set a follow-up reminder for 2 business days if no response.",
+        "branches": [
+          {
+            "label": "Confirms email / Gives email",
+            "to": "end_email"
+          },
+          {
+            "label": "Actually let's just set up a call now instead",
+            "to": "booking"
+          }
+        ]
+      },
+      "end_email": {
+        "label": "END — EMAIL FOLLOW-UP",
+        "say": "Perfect — you'll have it in the next hour. Appreciate your time, Justin. Talk soon.",
+        "note": "Send the email IMMEDIATELY. Subject line should reference the specific thing he asked about, not RapidEye. Example: 'Turnover photo analysis for multi-island ops.' Set a 2-day follow-up reminder.",
+        "branches": []
+      },
+      "booking": {
+        "label": "BOOK THE MEETING NOW",
+        "say": "Awesome — I've got next week pulled up. Would Tuesday or Thursday work better for you? And are mornings or afternoons easier with the Hawaii time?",
+        "note": "Hawaii is HST (UTC-10), 2-3 hours behind Pacific, 5-6 behind Eastern. Offer specific days and let him pick the slot. Lock a specific day AND time. Send the calendar invite while still on the phone.",
+        "branches": [
+          {
+            "label": "Picks a day and time",
+            "to": "meeting_locked"
+          },
+          {
+            "label": "Let me check my calendar and get back to you",
+            "to": "booking_followup"
+          }
+        ]
+      },
+      "meeting_locked": {
+        "label": "MEETING LOCKED — STOP SELLING",
+        "say": "Perfect — I'll send over a calendar invite right now so we're locked in. It'll be a quick 15 minutes — I'll show you the platform, run through what it'd look like for a multi-island operation like yours, and if it's not a fit we'll part as friends. Really appreciate you taking my call, Justin.",
+        "note": "Send the invite IMMEDIATELY while on the phone. Include a Zoom or Google Meet link. One-line agenda: 'Quick look at RapidEye AI photo analysis — tailored to CBIV's multi-island operations.' Then STOP. You got the meeting. Don't add features, don't re-pitch, don't linger.",
+        "branches": []
+      },
+      "booking_followup": {
+        "label": "BOOKING — FOLLOW UP ON TIMING",
+        "say": "No problem — I'll shoot you an email with a couple time options so you can just pick one. What's the best email — justin at cbislandvacations?",
+        "note": "Send the email within 30 minutes with 2-3 specific time slots. Reference this call. Set a follow-up reminder for next day if no response.",
+        "branches": [
+          {
+            "label": "Confirms email",
+            "to": "end_email"
+          },
+          {
+            "label": "Gives a different email",
+            "to": "end_email"
+          }
+        ]
+      },
+      "research_explain": {
+        "label": "THEY ASK HOW YOU KNOW THEIR TEAM",
+        "say": "Ha — yeah, I did a little homework before calling. Just wanted to make sure I was reaching the right person. You guys have a solid team over there. But yeah — is the inspection workflow something that falls under your world directly, or is that more on the housekeeping side with Celina?",
+        "note": "Don't be weird about it. 'Did a little homework' is honest and subtly flattering. Then redirect immediately to discovery so the focus is back on them, not on how you know things.",
+        "branches": [
+          {
+            "label": "It's my world / I own it",
+            "to": "discovery_pain_depth"
+          },
+          {
+            "label": "It's more housekeeping / Celina's team",
+            "to": "discovery_photo_review"
+          },
+          {
+            "label": "It's shared between us",
+            "to": "discovery_pain_depth"
+          }
+        ]
+      },
+      "end_graceful": {
+        "label": "END — GRACEFUL EXIT",
+        "say": "Totally understand. If anything changes on your end, I'm easy to find — Sam Parks, RapidEye. Appreciate your time, Justin.",
+        "note": "Don't burn the bridge. Leave a positive impression. Note the outcome in your CRM. Set a follow-up reminder for 60-90 days out. Justin's a strong future contact given his hotel ops background — he'll eventually feel the inspection pain at scale if he doesn't already.",
+        "branches": []
+      },
+      "voicemail": {
+        "label": "VOICEMAIL",
+        "say": "Hey Justin — it's Sam Parks. I work with a few vacation rental ops managers out in Hawaii on their inspection workflows. Had something specific for you guys at CB Island Vacations — give me a ring back when you get a sec. It's Sam, and my number is [your number]. Talk soon.",
+        "note": "Keep it under 20 seconds. Sound casual, not scripted. Don't explain what RapidEye does — the mystery drives callbacks. Call again in 2 days at a different time. Don't leave a second voicemail unless a week has passed.",
+        "branches": []
+      },
+      "someone_else_answers": {
+        "label": "SOMEONE ELSE PICKS UP",
+        "say": "Hey — could you get me through to Justin? It's Sam.",
+        "note": "First name only for Justin. First name only for you. Don't explain who you are or what you want unless asked. If they push, go to gatekeeper_context.",
+        "branches": [
+          {
+            "label": "Transfers to Justin / Hold on",
+            "to": "opener"
+          },
+          {
+            "label": "He's not available / Who's calling?",
+            "to": "gatekeeper_context"
+          },
+          {
+            "label": "Goes to voicemail",
+            "to": "voicemail"
+          }
+        ]
+      },
+      "gatekeeper_context": {
+        "label": "GATEKEEPER — GIVE CONTEXT",
+        "say": "Yeah — I work with a few other property managers in Hawaii. Would you mind letting him know Sam Parks called? He can reach me at [your number].",
+        "note": "Don't pitch to the gatekeeper. Leave your name and number. Then try Justin's direct line (808) 909-3103 again at a different time tomorrow.",
+        "branches": [
+          {
+            "label": "I'll let him know / Sure",
+            "to": "gatekeeper_end"
+          },
+          {
+            "label": "What's this regarding exactly?",
+            "to": "gatekeeper_social_proof"
+          }
+        ]
+      },
+      "gatekeeper_social_proof": {
+        "label": "GATEKEEPER — SOCIAL PROOF",
+        "say": "We help a couple other vacation rental companies with their inspection workflows — I sent Justin a note and just wanted to follow up. Would you mind giving him a heads up that I called?",
+        "note": "Dose info slowly. Don't over-explain. End with a redirect question. If they say he's not the right person, ask who is — that's valuable intel.",
+        "branches": [
+          {
+            "label": "Sure / I'll pass it along",
+            "to": "gatekeeper_end"
+          },
+          {
+            "label": "He's not the right person for that",
+            "to": "gatekeeper_redirect"
+          }
+        ]
+      },
+      "gatekeeper_redirect": {
+        "label": "GATEKEEPER — WHO IS THE RIGHT PERSON",
+        "say": "Oh really? Who would be the best person to talk to about that?",
+        "note": "If they give you a name, write it down and call that person next. Other targets at CBIV: Amanda Franta (GM), Celina Cabo (Housekeeping Mgr), Dan Hutchins (Maintenance Mgr), Jeremia (Asst Ops Mgr).",
+        "branches": [
+          {
+            "label": "Gives a name or title",
+            "to": "gatekeeper_end"
+          },
+          {
+            "label": "Not sure / You'd have to email in",
+            "to": "gatekeeper_end"
+          }
+        ]
+      },
+      "gatekeeper_end": {
+        "label": "GATEKEEPER — THANK AND END",
+        "say": "Appreciate it — thanks for your help.",
+        "note": "Note who you spoke with and what they said. Try Justin's direct line (808) 909-3103 again tomorrow at a different time of day. If gatekeeper gave you a different contact name, add them to your call list.",
+        "branches": []
+      }
+    }
+  }
+}

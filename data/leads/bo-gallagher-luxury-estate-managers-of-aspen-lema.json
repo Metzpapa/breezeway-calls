@@ -1,0 +1,591 @@
+{
+  "name": "Bo Gallagher",
+  "title": "Assistant Property Manager",
+  "company": "Luxury Estate Managers of Aspen (LEMA)",
+  "location": "Aspen, CO",
+  "phone": "+1-970-309-4918",
+  "company_phone": "+1-970-920-1776",
+  "alt_phones": [],
+  "flow": {
+    "context": "Bo Gallagher is the Assistant Property Manager at LEMA, a luxury, confidentiality-focused estate management firm in Aspen, CO. He's the most junior ops person on the team — likely handles day-to-day turnover coordination and property readiness under multiple Property Managers. His bio isn't published yet, so there's almost zero personal intel. LEMA has ~10 staff: President Sarah Korpela, VP Britton Nieslanik, 7 Property Managers, and Bo. No known tech stack or PMS. Sam's strongest angle: he was just skiing in Jackson Hole in January 2026 and works with PMs in similar high-end mountain markets — natural peer energy. If Bo isn't the buyer, the referral targets are the PMs above him (Nathan, Chris, Dane, Joseph, Tara, Cameron) or leadership (Sarah, Britton). Calling Bo's direct cell: 970-309-4918.",
+    "start": "opener",
+    "nodes": {
+      "opener": {
+        "label": "OPENER",
+        "say": "Hey Bo — I was actually just out in Jackson Hole a couple weeks ago skiing, and I work with a few property managers in mountain markets like Aspen. It's Sam Parks with RapidEye. Have you heard my name tossed around?",
+        "note": "Casual, feet-up energy. The Jackson Hole trip is real (Jan 2026). Don't oversell the ski connection — just drop it naturally and move to the question. You're calling his cell, so he'll likely answer himself.",
+        "branches": [
+          {
+            "label": "No, haven't heard of you",
+            "to": "heard_name_no"
+          },
+          {
+            "label": "Yeah / maybe / sounds familiar",
+            "to": "heard_name_yes"
+          },
+          {
+            "label": "Skeptical / guarded / what are you selling?",
+            "to": "permission_fallback"
+          },
+          {
+            "label": "Bad timing / I'm busy",
+            "to": "bad_timing"
+          }
+        ]
+      },
+      "heard_name_no": {
+        "label": "THEY HAVEN'T HEARD OF YOU",
+        "say": "Ha — I guess I'm not as popular as I thought. Well the reason for my call is — I work with another property manager who runs a pretty similar luxury portfolio, high-end homes, and they were telling me about the nightmare of reviewing turnover photos. Like their team's taking hundreds of pictures every time a guest checks out, and stuff still slips through — a scratched countertop here, a missing throw pillow there — and it doesn't surface until the owner notices or the next guest complains. Sound familiar at all?",
+        "note": "This is the pain trigger. PAUSE after 'sound familiar at all?' and let Bo react. He's an assistant PM at a luxury firm — he's probably the one actually eyeballing those photos. Make it about HIS daily grind, not abstract company problems.",
+        "branches": [
+          {
+            "label": "Yeah, that's definitely a thing / we deal with that",
+            "to": "warm_response"
+          },
+          {
+            "label": "I mean, what do you guys do?",
+            "to": "one_sentence_solution"
+          },
+          {
+            "label": "I'm not really the person for this",
+            "to": "not_right_person"
+          },
+          {
+            "label": "Not interested / we're good",
+            "to": "objection_not_interested"
+          }
+        ]
+      },
+      "heard_name_yes": {
+        "label": "THEY'VE HEARD OF YOU",
+        "say": "Oh nice — well normally we'd be working with someone like you on the property management side. What'd you hear?",
+        "note": "Let them talk. Whatever they say, bridge to discovery. Don't correct or re-pitch — just listen and follow their lead.",
+        "branches": [
+          {
+            "label": "Shares what they heard / asks a question",
+            "to": "warm_response"
+          },
+          {
+            "label": "Not sure / vague / confused",
+            "to": "one_sentence_solution"
+          }
+        ]
+      },
+      "permission_fallback": {
+        "label": "PERMISSION FALLBACK",
+        "say": "Yeah totally — I mean it is a cold call, I'll be honest. Can I get 30 seconds to tell you why I reached out? And you can totally hang up on me if it's not a fit.",
+        "note": "Use this when the opener doesn't land — they're skeptical or guarded. The honesty usually disarms. If they give you the 30 seconds, go straight to the pain trigger.",
+        "branches": [
+          {
+            "label": "Okay, go ahead / fine",
+            "to": "heard_name_no"
+          },
+          {
+            "label": "No / I'm not interested",
+            "to": "permission_rejected"
+          }
+        ]
+      },
+      "permission_rejected": {
+        "label": "PERMISSION REJECTED",
+        "say": "Shoot — totally my bad. Just so nobody from my team bugs you again — is it that I caught you at a horrible time, or is it that you already know what we do and this just isn't interesting?",
+        "note": "Last chance before you lose them. Split the rejection. If it's timing, you can reschedule. If it's disinterest, try to pivot to a referral before hanging up.",
+        "branches": [
+          {
+            "label": "It's a bad time",
+            "to": "bad_timing"
+          },
+          {
+            "label": "Not interested at all",
+            "to": "pivot_to_referral"
+          },
+          {
+            "label": "Hangs up",
+            "to": "graceful_end"
+          }
+        ]
+      },
+      "bad_timing": {
+        "label": "BAD TIMING",
+        "say": "Totally hear you — would it be a terrible idea if I tried you again tomorrow or later this week?",
+        "note": "Respectful, zero pushback. Try to get a specific day and time. If they say 'send me an email,' take it.",
+        "branches": [
+          {
+            "label": "Sure, try me at a specific time",
+            "to": "bad_timing_reschedule"
+          },
+          {
+            "label": "Just send me an email",
+            "to": "send_email"
+          },
+          {
+            "label": "No, don't call back",
+            "to": "graceful_end"
+          }
+        ]
+      },
+      "bad_timing_reschedule": {
+        "label": "RESCHEDULE CALLBACK",
+        "say": "Perfect — I'll try you then. Appreciate it, Bo.",
+        "note": "Lock the day and time. Put it in your calendar immediately. Don't pitch anything — just confirm and hang up cleanly.",
+        "branches": []
+      },
+      "one_sentence_solution": {
+        "label": "ONE-SENTENCE SOLUTION",
+        "say": "So we built a tool that plugs into the photos your team's already taking during turnovers and automatically flags damage, missing items, staging issues — the stuff that's easy to miss when you're eyeballing hundreds of pictures. Would you be open to taking a look sometime when I'm not cold calling you out of the blue?",
+        "note": "One sentence on what RapidEye does, straight to a low-friction CTA. Don't over-explain. Pause after the question and let Bo decide.",
+        "branches": [
+          {
+            "label": "Yeah, I'd be open to that",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Tells you more about their situation / asks questions",
+            "to": "warm_response"
+          },
+          {
+            "label": "I'm not the right person for this",
+            "to": "not_right_person"
+          },
+          {
+            "label": "Not interested / we're fine",
+            "to": "objection_not_interested"
+          },
+          {
+            "label": "Send me an email",
+            "to": "send_email"
+          }
+        ]
+      },
+      "warm_response": {
+        "label": "THEY'RE WARM — STOP PITCHING",
+        "say": "Yeah, it's wild how universal that is. So I'm curious — what does your turnover process actually look like right now at LEMA? Like when a guest checks out, who's doing the walkthrough and how are the photos getting reviewed?",
+        "note": "They're engaged — DO NOT keep pitching. Switch to discovery. Bo is an assistant PM so ask about his actual daily workflow. Listen for: who takes photos, who reviews them, what tools they use, what falls through the cracks, and whether he has any say in tooling decisions.",
+        "branches": [
+          {
+            "label": "Describes their process or shares details",
+            "to": "discovery_deeper"
+          },
+          {
+            "label": "We have a process but stuff still slips through",
+            "to": "discovery_deeper"
+          },
+          {
+            "label": "I'm not sure I'm the best person to talk about this",
+            "to": "not_right_person"
+          },
+          {
+            "label": "We're pretty locked in on our process",
+            "to": "objection_have_process"
+          }
+        ]
+      },
+      "discovery_deeper": {
+        "label": "DIG DEEPER",
+        "say": "That makes sense. And when something does get missed — like a scratch on a countertop or a stain that nobody caught — how does that usually play out? Does the owner find it, or does it come up at the next guest check-in?",
+        "note": "You're looking for the emotional weight of the problem. At luxury estates the stakes are huge — owners are wealthy, expect perfection, and LEMA's entire brand is meticulous care and confidentiality. Let Bo tell you a story. If he mentions specific pain, mirror it back to him.",
+        "branches": [
+          {
+            "label": "Shares a specific pain point or story",
+            "to": "tie_to_solution"
+          },
+          {
+            "label": "Yeah, the owners can be intense about that",
+            "to": "tie_to_solution"
+          },
+          {
+            "label": "It's mostly under control / not a huge issue",
+            "to": "tie_to_solution_soft"
+          }
+        ]
+      },
+      "tie_to_solution": {
+        "label": "TIE PAIN TO SOLUTION",
+        "say": "Yeah, that's exactly what we keep hearing — especially with high-end homes where the bar is just different. So what we've done is basically built an AI that looks at every photo from every turnover and catches that stuff automatically. No workflow change — your team keeps taking photos the way they already do, and we just surface what a human eye would miss after hundreds of photos. Would it make sense to set up 20 minutes so I can show you what it actually looks like? Even if it's just useful context for the team.",
+        "note": "Mirror their specific pain, then bridge to the solution naturally. The CTA is 20 minutes — not a demo, not a sales call. Keep it low-pressure. Bo may need to loop in a PM or Sarah or Britton, and that's completely fine — in fact it's ideal.",
+        "branches": [
+          {
+            "label": "Yeah, let's do it",
+            "to": "book_meeting"
+          },
+          {
+            "label": "I'd need to check with my manager or Sarah or Britton",
+            "to": "referral_through_bo"
+          },
+          {
+            "label": "Send me something first",
+            "to": "send_email"
+          },
+          {
+            "label": "Not sure we need it",
+            "to": "objection_not_interested"
+          }
+        ]
+      },
+      "tie_to_solution_soft": {
+        "label": "SOFT TIE — PROCESS IS WORKING",
+        "say": "That's great honestly. Most of the teams I talk to feel like they've got a decent handle on it until they actually run the AI on a batch of their photos and it catches a few things nobody noticed. Kind of an eye-opener. Would it make sense to do a quick test run on some of your actual turnover photos? No commitment — just see if it catches anything the current process doesn't.",
+        "note": "They think their process works. Don't argue. Offer a zero-risk test on their own data. Make it about proof, not selling. If RapidEye catches something, you have a conversation. If it doesn't, you leave gracefully.",
+        "branches": [
+          {
+            "label": "That could be interesting",
+            "to": "book_meeting"
+          },
+          {
+            "label": "I'd need to run that by someone",
+            "to": "referral_through_bo"
+          },
+          {
+            "label": "Not right now",
+            "to": "objection_not_interested"
+          },
+          {
+            "label": "Send me info",
+            "to": "send_email"
+          }
+        ]
+      },
+      "not_right_person": {
+        "label": "NOT THE RIGHT PERSON",
+        "say": "Totally get it — no worries at all. Who on the team would typically own something like this? Would it be one of the property managers, or more of a Sarah or Britton decision?",
+        "note": "Bo is an assistant PM — he likely reports to one or more PMs. Drop Sarah (President) and Britton (VP) by first name to show you've done homework. Your goal is a specific name plus permission to mention Bo when you call them. You have direct numbers for everyone on the team.",
+        "branches": [
+          {
+            "label": "Names someone specific (a PM, Sarah, Britton)",
+            "to": "referral_got_name"
+          },
+          {
+            "label": "Probably Sarah / probably one of the PMs (vague)",
+            "to": "referral_clarify"
+          },
+          {
+            "label": "I don't know / not sure",
+            "to": "referral_push"
+          },
+          {
+            "label": "Just email the office",
+            "to": "send_email"
+          }
+        ]
+      },
+      "referral_clarify": {
+        "label": "CLARIFY THE REFERRAL",
+        "say": "Got it — and would that be more of an ops-level thing where Nathan or Chris would handle it, or would it go straight to Sarah?",
+        "note": "Drop specific PM names to show credibility and make it easy for Bo to confirm. Nathan Mohrman and Chris Woodring are both PMs with backgrounds that align with RapidEye's value prop. Whichever name Bo confirms, you have their direct cell.",
+        "branches": [
+          {
+            "label": "Points to a specific person",
+            "to": "referral_got_name"
+          },
+          {
+            "label": "Not sure / vague",
+            "to": "referral_push"
+          }
+        ]
+      },
+      "referral_push": {
+        "label": "PUSH GENTLY FOR REFERRAL",
+        "say": "No worries at all. Usually at companies like yours it's either the property managers who handle it day to day or it goes up to leadership. Would you mind if I just tried reaching out to Sarah Korpela? I'll keep your name out of it if you'd prefer.",
+        "note": "Last attempt at a referral. Make it easy — suggest Sarah by name, offer to keep Bo out of it. If he still won't help, exit gracefully. You can call Sarah, Britton, or any PM directly regardless.",
+        "branches": [
+          {
+            "label": "Yeah, try Sarah / gives guidance",
+            "to": "referral_got_name"
+          },
+          {
+            "label": "Still won't say / uncomfortable",
+            "to": "graceful_end"
+          }
+        ]
+      },
+      "referral_through_bo": {
+        "label": "BO NEEDS TO CHECK WITH SOMEONE",
+        "say": "Totally makes sense. Would it be helpful if I set something up where you and whoever makes sense from the team can jump on together? That way you're not playing telephone. Who would that be — one of the PMs, or Sarah?",
+        "note": "Bo wants to loop someone in. Help him by suggesting a joint call. Get the decision-maker's name and set the meeting with both. This is actually ideal — Bo becomes your internal champion.",
+        "branches": [
+          {
+            "label": "Names someone and is open to a joint call",
+            "to": "book_meeting_joint"
+          },
+          {
+            "label": "Let me talk to them first and get back to you",
+            "to": "send_email_bo_followup"
+          },
+          {
+            "label": "Just send me an email I can forward",
+            "to": "send_email"
+          }
+        ]
+      },
+      "book_meeting_joint": {
+        "label": "BOOK JOINT MEETING",
+        "say": "Perfect — I've got next week pulled up. How does Tuesday or Wednesday look for you and them? Even just 20 minutes — I'll keep it tight.",
+        "note": "Pick a specific day. Get it on the calendar NOW. If Bo hesitates on the other person's availability, offer to send the invite to both and let them adjust the time. Ask for the other person's email to include them.",
+        "branches": [
+          {
+            "label": "Suggests a time or agrees to a day",
+            "to": "confirm_joint_details"
+          },
+          {
+            "label": "Let me check and get back to you",
+            "to": "send_email_bo_followup"
+          }
+        ]
+      },
+      "confirm_joint_details": {
+        "label": "CONFIRM JOINT MEETING DETAILS",
+        "say": "Locked in. I'll send over the invite right now. What's the best email for you — bo@luxuryema.com? And what about for them — is it just their first name at luxuryema.com too?",
+        "note": "Confirm Bo's email (likely bo@luxuryema.com based on company pattern). Get the other attendee's email. Send the invite while still on the phone so it's locked. You already know the email pattern is firstname@luxuryema.com.",
+        "branches": [
+          {
+            "label": "Confirms emails",
+            "to": "meeting_booked_end"
+          },
+          {
+            "label": "Isn't sure of the other person's email",
+            "to": "meeting_booked_end"
+          }
+        ]
+      },
+      "send_email_bo_followup": {
+        "label": "BO WILL FOLLOW UP INTERNALLY",
+        "say": "Totally fair. I'll shoot you a quick email you can forward to them — is your email bo@luxuryema.com? And just so I can make it actually relevant and make you look good — what would matter most to them? Is it more about catching damage for owner relations, or more about saving time on the inspection side?",
+        "note": "Bo's email isn't published but company pattern is firstname@luxuryema.com. Confirm it. Ask what to emphasize so the email is tailored AND so Bo looks good forwarding it. This also tells you what the decision-maker cares about. Follow up within 2 hours.",
+        "branches": [
+          {
+            "label": "Confirms email and gives guidance",
+            "to": "email_confirm_end"
+          },
+          {
+            "label": "Just send it, I'll pass it along",
+            "to": "email_confirm_end"
+          }
+        ]
+      },
+      "referral_got_name": {
+        "label": "GOT A REFERRAL NAME",
+        "say": "Perfect — really appreciate that. Would you mind if I mentioned your name when I reach out to them? Just so it doesn't come totally out of left field.",
+        "note": "Get permission to name-drop Bo. This turns a cold call into a warm one for the next person. You have direct cell numbers for every person on LEMA's team from your research. Call the referral within 24 hours.",
+        "branches": [
+          {
+            "label": "Yeah sure, go ahead",
+            "to": "referral_confirmed_end"
+          },
+          {
+            "label": "I'd rather you didn't / just call them",
+            "to": "referral_no_namedrop_end"
+          }
+        ]
+      },
+      "referral_confirmed_end": {
+        "label": "REFERRAL LOCKED WITH NAME DROP",
+        "say": "Really appreciate that, Bo. I'll reach out to them and keep it relevant. And hey — if you ever want to see what we're up to, you know where to find me. Thanks for your time.",
+        "note": "End warm. You now have a name plus a name-drop. Call the referral within 24 hours. Open with: 'I was just talking with Bo Gallagher on your team and he mentioned you'd be the right person to chat with about this.'",
+        "branches": []
+      },
+      "referral_no_namedrop_end": {
+        "label": "REFERRAL LOCKED WITHOUT NAME DROP",
+        "say": "Totally get it — I'll just reach out to them directly. Appreciate your time, Bo. Take care.",
+        "note": "No name-drop but you still have the referral. Call them directly using their published cell number. Open with the standard framework — lead with a connection specific to that person's background from your research.",
+        "branches": []
+      },
+      "objection_not_interested": {
+        "label": "NOT INTERESTED",
+        "say": "I totally get it — honestly I should've assumed you guys would already be all set. With the kind of properties LEMA manages, you'd have to have this dialed in. Just so nobody from my team bugs you again — is it more that this just isn't a problem you're focused on, or is it that you just hate cold calls?",
+        "note": "Agree first — don't fight it. Then split the objection into two choices. If it's the cold call, you can reframe. If it's not their problem, pivot to referral. Mention LEMA by name to show this isn't a spray-and-pray call.",
+        "branches": [
+          {
+            "label": "It's the cold call / bad timing thing",
+            "to": "reframe_cold_call"
+          },
+          {
+            "label": "We really don't have this problem / we're covered",
+            "to": "objection_have_process"
+          },
+          {
+            "label": "I'm just not the right person",
+            "to": "pivot_to_referral"
+          },
+          {
+            "label": "Softens / asks a question",
+            "to": "warm_response"
+          }
+        ]
+      },
+      "reframe_cold_call": {
+        "label": "REFRAME — IT'S THE COLD CALL",
+        "say": "Ha — totally fair, I respect that. Look, I'm not trying to sell you anything right now. If nothing else, I could walk you through what other property management companies in mountain markets — Aspen, Jackson Hole, Park City — are doing with their turnover photos. Worst case you steal some ideas and we part as friends. Would you be open to 15 minutes sometime this week?",
+        "note": "They don't hate the concept, they hate the interruption. Reframe the meeting as value-add, not a pitch. Mentioning mountain markets specifically makes it relevant to LEMA's world.",
+        "branches": [
+          {
+            "label": "Okay, sure",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Just send me an email",
+            "to": "send_email"
+          },
+          {
+            "label": "No thanks",
+            "to": "graceful_end"
+          }
+        ]
+      },
+      "pivot_to_referral": {
+        "label": "PIVOT TO REFERRAL",
+        "say": "Makes total sense. Out of curiosity — is there someone on the team who owns more of the inspection or quality side of things? I don't want to waste your time if this would land better with one of the property managers or Sarah.",
+        "note": "Bo says it's not his problem or not his call. That's fine — pivot to referral. He's an assistant PM so the PMs or Sarah/Britton above him are the real targets. Keep it casual and appreciative.",
+        "branches": [
+          {
+            "label": "Names someone",
+            "to": "referral_got_name"
+          },
+          {
+            "label": "Not sure / doesn't want to help",
+            "to": "graceful_end"
+          }
+        ]
+      },
+      "objection_have_process": {
+        "label": "ALREADY HAVE A PROCESS",
+        "say": "That makes total sense — with the kind of properties LEMA manages, you'd have to have something dialed in. Honestly, most of the teams we work with had a solid process too — the AI just catches the stuff that slips past even a good human eye after the hundredth photo. Is it more that you're fully covered and happy with how it's working, or is it that adding anything new right now would just be a headache?",
+        "note": "Agree and validate, then split. You don't know LEMA's tech stack — listen for whether Bo names a tool (Breezeway, Properly, etc.) or describes a manual process. Position RapidEye as additive, not a replacement.",
+        "branches": [
+          {
+            "label": "We're happy with it / it works fine",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "It's more of a hassle to change anything",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "Names a specific tool or describes their process",
+            "to": "sell_test_drive_specific"
+          },
+          {
+            "label": "Still not interested",
+            "to": "graceful_end"
+          }
+        ]
+      },
+      "sell_test_drive": {
+        "label": "SELL THE TEST DRIVE",
+        "say": "Totally hear you. You're probably not looking to buy anything new right now, and I respect that. But honestly — would it be worth 15 minutes just to see what the AI catches on a sample set of your turnover photos? No commitment at all. If it doesn't find anything your team missed, I'll be the first to say you're in great shape and I'll leave you alone.",
+        "note": "The test drive is the lowest-friction offer you have. You're betting RapidEye will catch something their process missed. If Bo is still resistant, pivot to referral or accept the email.",
+        "branches": [
+          {
+            "label": "Okay, that could work",
+            "to": "book_meeting"
+          },
+          {
+            "label": "I'd need to run that by someone on the team",
+            "to": "referral_through_bo"
+          },
+          {
+            "label": "Send me something I can look at",
+            "to": "send_email"
+          },
+          {
+            "label": "No thanks",
+            "to": "graceful_end"
+          }
+        ]
+      },
+      "sell_test_drive_specific": {
+        "label": "TEST DRIVE — THEY NAMED A TOOL",
+        "say": "Oh nice, that's actually helpful to know. So we'd basically sit on top of whatever you're already using — no switching, no new workflow. We just analyze the photos that are already flowing through your system and flag what gets missed. Honestly, most teams see it as a safety net on top of their current process. Would it be worth a quick look?",
+        "note": "They named a tool or described a process. Reference it naturally. RapidEye integrates with existing PMS/ops tools. Position as additive — a layer on top, not a replacement. If they named Breezeway, Track, etc., mention the integration.",
+        "branches": [
+          {
+            "label": "Yeah, I'd look at that",
+            "to": "book_meeting"
+          },
+          {
+            "label": "I'd need to check with someone",
+            "to": "referral_through_bo"
+          },
+          {
+            "label": "Send me info",
+            "to": "send_email"
+          },
+          {
+            "label": "Not right now",
+            "to": "graceful_end"
+          }
+        ]
+      },
+      "send_email": {
+        "label": "SEND ME AN EMAIL",
+        "say": "Totally fair. One quick question before I do — what would be most relevant to include so it's not just another generic pitch sitting in your inbox? And is your email bo@luxuryema.com?",
+        "note": "Accept the email ask, then ask what to include. This tells you what they care about AND keeps the conversation going for another 30 seconds. Confirm the email — it's not published but follows the company pattern firstname@luxuryema.com. Include a specific time suggestion in the email.",
+        "branches": [
+          {
+            "label": "Gives guidance on what to include and confirms email",
+            "to": "email_confirm_end"
+          },
+          {
+            "label": "Just send whatever / general info",
+            "to": "email_confirm_end"
+          },
+          {
+            "label": "Gives a different email or redirects to someone else",
+            "to": "email_redirect"
+          }
+        ]
+      },
+      "email_redirect": {
+        "label": "EMAIL REDIRECTED TO SOMEONE ELSE",
+        "say": "Oh perfect — and who's that? Just so I can make sure it's relevant to them.",
+        "note": "Bo just gave you a different person's email or told you to email someone else. Get the name. This is a soft referral. Find out who they are and tailor the email to that person.",
+        "branches": [
+          {
+            "label": "Names the person",
+            "to": "referral_got_name"
+          },
+          {
+            "label": "Just says the general email or office",
+            "to": "email_confirm_end"
+          }
+        ]
+      },
+      "email_confirm_end": {
+        "label": "EMAIL CONFIRMED — WRAP UP",
+        "say": "Perfect — I'll get that over to you today. I'll toss a couple times in there to connect too, just in case it makes sense. Really appreciate your time, Bo.",
+        "note": "Send the email within 2 hours. Keep it short, tailored to whatever Bo said matters, and include 2-3 specific time slots. Subject line should reference the conversation: 'Following up from our call — turnover photo review at LEMA.' Follow up by phone in 3-4 days if no response.",
+        "branches": []
+      },
+      "book_meeting": {
+        "label": "BOOK THE MEETING",
+        "say": "Awesome — I've got next week pulled up. How does Tuesday or Wednesday look for you? I just need 20 minutes.",
+        "note": "Pick specific days. Don't say 'when works for you' — give two options. Lock the time and send the invite while on the phone. If Bo mentions wanting to include a PM or Sarah, offer to add them to the invite.",
+        "branches": [
+          {
+            "label": "Picks a day and time",
+            "to": "meeting_booked_end"
+          },
+          {
+            "label": "Let me check my calendar and get back to you",
+            "to": "email_confirm_end"
+          },
+          {
+            "label": "Can we include someone else from the team?",
+            "to": "book_meeting_joint"
+          }
+        ]
+      },
+      "meeting_booked_end": {
+        "label": "MEETING BOOKED — STOP SELLING",
+        "say": "Locked in. I'll send over the invite right now — what's your email, bo@luxuryema.com? Perfect. Really appreciate you taking my call, Bo. Talk soon.",
+        "note": "STOP. Do not keep pitching. Confirm the email, send the calendar invite immediately, and hang up. If Bo mentioned looping in a PM or Sarah or Britton, add them to the invite. You have everyone's email pattern: firstname@luxuryema.com.",
+        "branches": []
+      },
+      "graceful_end": {
+        "label": "GRACEFUL EXIT",
+        "say": "Totally understand, Bo. If anything ever comes up on the inspection or turnover side, I'm easy to find — Sam Parks, RapidEye. Appreciate your time.",
+        "note": "Don't burn the bridge. Bo is on a small 10-person team — he may mention this call to a PM or Sarah. Leave a good impression. Your next move: call one of the PMs directly (Nathan at 970-948-4455, Chris at 970-456-6319, or Dane at 970-379-0043) or go straight to Sarah Korpela at 970-379-4705.",
+        "branches": []
+      }
+    }
+  }
+}

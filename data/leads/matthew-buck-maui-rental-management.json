@@ -1,0 +1,646 @@
+{
+  "name": "Matthew Buck",
+  "title": "Agent",
+  "company": "Maui Rental Management",
+  "location": "Scottsdale, AZ is already on the list. Let me provide the next best option:\\n\\nMaui, HI",
+  "phone": "+1-808-793-5372",
+  "company_phone": "+1-808-437-7737",
+  "alt_phones": [],
+  "flow": {
+    "context": "Matthew Buck is an agent at Maui Rental Management (DBA Hawaii Equity Management LLC) in Kihei, Maui. His email is matt@hawaiivacationhomes.com — he's tied to the Hawaii Vacation Homes vacation rental brand, making him the most STR-adjacent person on the team. He is NOT the decision-maker — Brandon Holmes (BIC/Owner, 805-835-2844) and Christian Don Cramer (Principal Broker, 808-269-8227) sit above him. The company manages 100+ units, primarily long-term, with selective vacation rental services. Maui's Bill 9 is phasing out ~6,200 vacation rentals by 2029-2031, creating major regulatory uncertainty. Sam's surfing background is the strongest personal hook — Maui is a world-class surf destination and Matthew lives and works there.",
+    "start": "opener",
+    "nodes": {
+      "opener": {
+        "label": "OPENER",
+        "say": "Hey Matthew — this might sound random, but I work with a few vacation rental managers out in Hawaii and I saw you're tied to the Hawaii Vacation Homes side of things over at Maui Rental Management. I'm a big surfer myself — actually just got back from Indo this past summer — so I'm always paying attention to what's going on out in Maui. It's Sam Parks with RapidEye. Have you heard my name tossed around at all?",
+        "note": "Sound relaxed, like you're calling someone in a shared world. Feet up on the desk. The surfing mention is a pattern interrupt — it makes you human, not a telemarketer. Don't rush through it.",
+        "branches": [
+          {
+            "label": "No, haven't heard of you",
+            "to": "no_heard"
+          },
+          {
+            "label": "Yeah / maybe / sounds familiar",
+            "to": "yes_heard"
+          },
+          {
+            "label": "Bad timing / busy right now",
+            "to": "bad_timing"
+          },
+          {
+            "label": "Who is this? / What's this about?",
+            "to": "permission_fallback"
+          }
+        ]
+      },
+      "no_heard": {
+        "label": "HAVEN'T HEARD — TRANSITION TO PAIN",
+        "say": "Ha — guess I'm not as popular as I thought. Well the reason I'm calling — I work with a few other vacation rental managers, and one thing I keep hearing, especially from the folks actually running turnovers day to day, is that they've got cleaners sending in photos after every turn, but nobody's really looking at them. Like the photos exist, they're sitting in a folder somewhere, but stuff still slips through — a stain on a couch, a missing coffee maker, a towel rack that got ripped off the wall — and then the guest is the one who catches it. Does any of that sound familiar on the vacation rental side of your operation?",
+        "note": "Pause after 'does any of that sound familiar.' Let him react. You're describing HIS daily life, not pitching a product. The specific details — stain on a couch, missing coffee maker, towel rack — are hairy lollipop specificity. Silence after the question is your friend.",
+        "branches": [
+          {
+            "label": "Yeah, that happens / tells me about their process",
+            "to": "warm_response"
+          },
+          {
+            "label": "We don't really have that problem / we're pretty buttoned up",
+            "to": "objection_no_problem"
+          },
+          {
+            "label": "I'm not really the person for this",
+            "to": "not_right_person"
+          },
+          {
+            "label": "Not interested",
+            "to": "objection_not_interested"
+          }
+        ]
+      },
+      "yes_heard": {
+        "label": "HEARD THE NAME — EXPLORE",
+        "say": "Oh nice — well normally we'd be working with someone in your world. What'd you hear?",
+        "note": "Let them talk. If they actually know something, follow their lead. If they're being polite and say 'not much,' transition to the pain trigger.",
+        "branches": [
+          {
+            "label": "Not much / just the name",
+            "to": "no_heard"
+          },
+          {
+            "label": "Tells you what they heard",
+            "to": "warm_response"
+          }
+        ]
+      },
+      "bad_timing": {
+        "label": "BAD TIMING — RESCHEDULE",
+        "say": "Totally hear you — would it be a terrible idea if I tried you again tomorrow or later this week? When's less hectic for you?",
+        "note": "Don't push. Get a specific day and time. If they give you one, lock it in and get off the phone fast.",
+        "branches": [
+          {
+            "label": "Gives a time / call me back X day",
+            "to": "lock_callback"
+          },
+          {
+            "label": "Just send me an email",
+            "to": "send_email"
+          },
+          {
+            "label": "Don't call back / not interested",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "permission_fallback": {
+        "label": "PERMISSION FALLBACK",
+        "say": "Yeah totally — I mean it is a cold call, I'll own that. Can I get 30 seconds to tell you why I reached out, and you can totally hang up on me if it's not a fit?",
+        "note": "Disarming honesty. Most people will give you 30 seconds once you admit it's a cold call. If they say yes, go straight to the pain trigger.",
+        "branches": [
+          {
+            "label": "Sure / go ahead",
+            "to": "no_heard"
+          },
+          {
+            "label": "No / not interested",
+            "to": "permission_rejected"
+          },
+          {
+            "label": "What do you do?",
+            "to": "no_heard"
+          }
+        ]
+      },
+      "permission_rejected": {
+        "label": "PERMISSION REJECTED — SPLIT",
+        "say": "Shoot, totally my bad. Just so nobody from my team bugs you again — is it that I caught you at a horrible time, or is it that you already know what we do and it's just not interesting?",
+        "note": "This isn't a trick — you're genuinely figuring out if it's timing or fit. The multiple choice forces a real answer instead of a vague brush-off.",
+        "branches": [
+          {
+            "label": "Bad timing",
+            "to": "bad_timing"
+          },
+          {
+            "label": "Not interested / don't need it",
+            "to": "objection_not_interested"
+          },
+          {
+            "label": "Hangs up",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "warm_response": {
+        "label": "THEY'RE WARM — STOP PITCHING, ASK QUESTIONS",
+        "say": "That's really helpful actually. So on the vacation rental side — when your cleaners finish a turn, what does that process look like? Are they taking photos and sending them somewhere, or is it more of a visual walkthrough?",
+        "note": "You've earned the right to ask questions. STOP selling. Learn their process. Listen for pain signals: manual photo review, things slipping through, guest complaints, owner pushback, no structured system.",
+        "branches": [
+          {
+            "label": "Describes their process / shares details",
+            "to": "discovery_deep"
+          },
+          {
+            "label": "We don't do many vacation rentals / mostly long-term",
+            "to": "pivot_to_vr_side"
+          },
+          {
+            "label": "I'm not sure, I don't handle that directly",
+            "to": "not_right_person"
+          }
+        ]
+      },
+      "discovery_deep": {
+        "label": "DEEPER DISCOVERY",
+        "say": "Got it — and when something does slip through, like a guest flags damage or something's off when they check in, how does that usually play out? Is it on you guys to go back and figure out when it happened?",
+        "note": "You're looking for emotional pain — blame, guest complaints, owner frustration, lost deposits, bad reviews. If he starts venting, let him. The more he talks about problems, the warmer he gets.",
+        "branches": [
+          {
+            "label": "Yeah it's a headache / shares frustration",
+            "to": "bridge_to_solution"
+          },
+          {
+            "label": "We handle it okay / not a big deal",
+            "to": "bridge_to_solution_soft"
+          },
+          {
+            "label": "Asks what RapidEye does",
+            "to": "one_sentence_solution"
+          }
+        ]
+      },
+      "pivot_to_vr_side": {
+        "label": "PIVOT — VACATION RENTAL BRAND",
+        "say": "Yeah I noticed the main Maui Rental Management operation is more long-term. But I saw you're connected to the Hawaii Vacation Homes side — is that a growing piece of things, or is that more of a smaller play for you guys right now?",
+        "note": "You're gauging whether the VR side is big enough to matter. If it's tiny, pivot to referral or Bill 9 hook. If it's growing, there's a real play here. His email domain (hawaiivacationhomes.com) suggests it's meaningful to his role.",
+        "branches": [
+          {
+            "label": "It's growing / we're doing more of it",
+            "to": "discovery_deep"
+          },
+          {
+            "label": "It's pretty small / just a few units",
+            "to": "bill_9_hook"
+          },
+          {
+            "label": "You should really talk to Brandon about that",
+            "to": "referral_to_brandon"
+          }
+        ]
+      },
+      "bill_9_hook": {
+        "label": "BILL 9 REGULATORY HOOK",
+        "say": "That makes sense. I know Maui's in a weird spot right now with Bill 9 phasing out a bunch of vacation rental permits over the next few years — I imagine that's making everyone think twice about the short-term rental side. Are you guys feeling that at all?",
+        "note": "Bill 9 phases out ~6,200 STR units by 2029 (West Maui) and 2031 (South Maui). This shows you understand their local market. If they engage, it builds massive credibility. If they're worried about it, RapidEye's value becomes about protecting the units they DO still manage.",
+        "branches": [
+          {
+            "label": "Yeah, it's definitely on our mind",
+            "to": "bill_9_bridge"
+          },
+          {
+            "label": "We're mostly long-term so it doesn't affect us much",
+            "to": "referral_ask_general"
+          },
+          {
+            "label": "Doesn't want to discuss / deflects",
+            "to": "bridge_to_solution_soft"
+          }
+        ]
+      },
+      "bill_9_bridge": {
+        "label": "BILL 9 — BRIDGE TO VALUE",
+        "say": "Yeah I've been hearing that from a few managers out there. The way some of the companies I work with are thinking about it — if you're going to have fewer units, every single turnover matters more. You can't afford a bad review or a damage dispute when your portfolio's getting squeezed. That's basically what we built RapidEye for — it looks at the photos your team's already taking and catches stuff before the guest does. Would you be open to seeing what that looks like? Not trying to sell you on the phone — just a quick look.",
+        "note": "Tying regulatory pressure to RapidEye's value prop. Fewer units = higher stakes per unit = more need for automated quality control. This reframe works even if their VR portfolio is small.",
+        "branches": [
+          {
+            "label": "Sure / yeah I'd check it out",
+            "to": "book_meeting"
+          },
+          {
+            "label": "You should talk to Brandon or Christian about this",
+            "to": "referral_to_brandon"
+          },
+          {
+            "label": "Send me something first",
+            "to": "send_email"
+          },
+          {
+            "label": "Not interested",
+            "to": "objection_not_interested"
+          }
+        ]
+      },
+      "bridge_to_solution": {
+        "label": "BRIDGE TO SOLUTION",
+        "say": "Yeah — that's exactly what I keep hearing. So what we built is basically this: RapidEye plugs into whatever your team's already doing. If they're taking photos after a turn, our AI analyzes them automatically — catches damage, missing items, staging issues — before the guest walks in. No workflow change for your cleaners at all. Would you be open to taking a quick look when I'm not cold calling you out of the blue?",
+        "note": "One sentence on the solution, then straight to the CTA. Don't oversell. Don't explain how the AI works. If he says yes, book it NOW. If he hesitates, he might not be the decision-maker — be ready to pivot to referral.",
+        "branches": [
+          {
+            "label": "Yeah, I'd take a look",
+            "to": "book_meeting"
+          },
+          {
+            "label": "That sounds interesting but I'm not the decision-maker",
+            "to": "not_right_person"
+          },
+          {
+            "label": "Send me an email first",
+            "to": "send_email"
+          },
+          {
+            "label": "We already have something / not interested",
+            "to": "objection_have_process"
+          }
+        ]
+      },
+      "bridge_to_solution_soft": {
+        "label": "SOFT BRIDGE — OFFER OF VALUE",
+        "say": "Totally fair. One thing I could offer — I've been talking to a bunch of vacation rental operators across Hawaii, and I've picked up some interesting stuff about what other companies are doing with their turnover workflows, especially heading into all the regulatory changes. If nothing else I could share some of those ideas. Worst case you steal some and we part as friends. Would you be open to a quick fifteen minutes?",
+        "note": "The offer of value — the meeting is worth their time even if they never buy. You're positioning as a peer with market intel, not a vendor begging for a demo. The 'regulatory changes' reference is Bill 9 — shows you know their world.",
+        "branches": [
+          {
+            "label": "Sure, I could do that",
+            "to": "book_meeting"
+          },
+          {
+            "label": "You should really talk to Brandon",
+            "to": "referral_to_brandon"
+          },
+          {
+            "label": "Just send me something",
+            "to": "send_email"
+          },
+          {
+            "label": "No thanks",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "one_sentence_solution": {
+        "label": "WHAT RAPIDEYE DOES — ONE SENTENCE",
+        "say": "Yeah — so in a nutshell, we built an AI that analyzes the turnover photos your team's already taking. It catches damage, missing items, staging issues — automatically, before the guest checks in. No extra work for your cleaners, no new process. We just plug into whatever you're already using.",
+        "note": "Keep it tight. One breath. Then pause and let him react. Do NOT keep explaining how it works or list features. Silence after this is your friend.",
+        "branches": [
+          {
+            "label": "That's interesting / tell me more",
+            "to": "bridge_to_solution"
+          },
+          {
+            "label": "We don't really take turnover photos",
+            "to": "no_photos_pivot"
+          },
+          {
+            "label": "Who should I connect you with?",
+            "to": "referral_to_brandon"
+          },
+          {
+            "label": "Not interested",
+            "to": "objection_not_interested"
+          }
+        ]
+      },
+      "no_photos_pivot": {
+        "label": "NO PHOTOS — PIVOT",
+        "say": "Got it — that's actually pretty common. A lot of the teams I talk to either skip photos altogether or take them but never do anything with them. We actually have a video walkthrough option too — takes about sixty seconds per unit and we analyze the whole thing. But honestly, the bigger question is whether turnover quality is something you guys are thinking about improving on the vacation rental side. Is that on the radar at all?",
+        "note": "Don't let 'we don't take photos' kill the call. The video workflow is a real alternative. But also check — are they even thinking about this problem? If not, pivot to referral or Bill 9 hook.",
+        "branches": [
+          {
+            "label": "Yeah, it's something we want to improve",
+            "to": "bridge_to_solution"
+          },
+          {
+            "label": "Not really / we're fine",
+            "to": "referral_ask_general"
+          },
+          {
+            "label": "Talk to Brandon about that",
+            "to": "referral_to_brandon"
+          }
+        ]
+      },
+      "not_right_person": {
+        "label": "NOT THE RIGHT PERSON — REFERRAL",
+        "say": "Totally get it — appreciate you being straight with me. Who on your team would typically own the inspection or turnover workflow? I know Brandon's the owner and Christian's the principal broker — would one of them be the right person for this, or is there someone else who handles the day-to-day ops?",
+        "note": "You already know Brandon Holmes (owner/BIC) and Christian Don Cramer (principal broker) are above him. Name-drop to show you've done homework and make it easy for Matthew to confirm. Getting a warm intro through Matthew is way more valuable than cold-dialing Brandon.",
+        "branches": [
+          {
+            "label": "Talk to Brandon",
+            "to": "referral_to_brandon"
+          },
+          {
+            "label": "Talk to Christian",
+            "to": "referral_to_christian"
+          },
+          {
+            "label": "Gives another name",
+            "to": "referral_other"
+          },
+          {
+            "label": "I don't know / can't help",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "referral_to_brandon": {
+        "label": "REFERRAL TO BRANDON HOLMES",
+        "say": "Brandon would be great. If I reach out to him, can I mention you pointed me his way? And do you know — is the best way to get him on his cell or does he prefer email first?",
+        "note": "You have Brandon's number (805-835-2844) and email (mauihomesbyholmes@gmail.com). But getting Matthew to warm the intro is gold. Ask if he can text or Slack Brandon a heads-up. Brandon's maintenance/contracting background makes the 'catch damage early' angle strongest for him.",
+        "branches": [
+          {
+            "label": "Yeah, mention my name / gives context on Brandon",
+            "to": "lock_referral"
+          },
+          {
+            "label": "Just call him, here's his number",
+            "to": "lock_referral"
+          },
+          {
+            "label": "I'll pass your info along to him",
+            "to": "send_email_for_referral"
+          }
+        ]
+      },
+      "referral_to_christian": {
+        "label": "REFERRAL TO CHRISTIAN CRAMER",
+        "say": "Christian — got it. Would it be cool if I mentioned you pointed me his way? And is phone or email the better way to get him?",
+        "note": "Christian Don Cramer: (808) 269-8227, HawaiiEquityManagement@gmail.com. Same play — warm intro through Matthew beats a cold dial. Christian is the principal broker and likely has authority on vendor decisions.",
+        "branches": [
+          {
+            "label": "Yeah, go ahead / gives context",
+            "to": "lock_referral"
+          },
+          {
+            "label": "Just call him",
+            "to": "lock_referral"
+          },
+          {
+            "label": "I'll pass your info along",
+            "to": "send_email_for_referral"
+          }
+        ]
+      },
+      "referral_other": {
+        "label": "REFERRAL TO ANOTHER PERSON",
+        "say": "Perfect — and what's their name and role? If I can put something tailored together for them it'll actually land instead of looking like a random cold pitch.",
+        "note": "Get the name, title, and best way to reach them. Ask if Matthew can give them a heads-up that Sam will be calling.",
+        "branches": [
+          {
+            "label": "Gives name and details",
+            "to": "lock_referral"
+          },
+          {
+            "label": "Vague / doesn't want to give details",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "lock_referral": {
+        "label": "LOCK THE REFERRAL",
+        "say": "Really appreciate that, Matthew. I'll put something specific together for them so it's not just a generic cold outreach. And hey — if you ever want to see what we're building yourself, you know where to find me. Thanks for your time, man. Enjoy the waves out there.",
+        "note": "You got the referral. Stop selling. Be grateful, be brief, get off the phone. Follow up with the referred person within 24 hours. Drop Matthew's name in the opener when you call them.",
+        "branches": []
+      },
+      "send_email_for_referral": {
+        "label": "THEY'LL PASS INFO ALONG",
+        "say": "Appreciate that. I'll shoot you a quick email with a couple bullet points they can look at — is the hawaiivacationhomes email the best one for you?",
+        "note": "Confirm his email (matt@hawaiivacationhomes.com). Send something short and forwardable — specific to their company, not a generic pitch deck. Include context about Maui VR operations and Bill 9 so it feels relevant.",
+        "branches": [
+          {
+            "label": "Confirms email / gives alternate",
+            "to": "lock_referral"
+          },
+          {
+            "label": "Declines to help further",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "objection_not_interested": {
+        "label": "NOT INTERESTED — MIYAGI METHOD",
+        "say": "Totally get it — I should've assumed you'd be all set, otherwise you probably would've reached out to us. Just so nobody from my team cold calls you again — is it that this isn't a problem you're focused on right now, or is it more that you just hate cold calls? Because honestly I get it either way.",
+        "note": "Agree first — surprise them by not pushing back. Then split the objection into multiple choice. The 'so nobody bugs you again' line gives them a reason to answer honestly instead of just hanging up.",
+        "branches": [
+          {
+            "label": "Hate cold calls / bad timing",
+            "to": "bad_timing"
+          },
+          {
+            "label": "Not a problem we have / not focused on it",
+            "to": "test_drive"
+          },
+          {
+            "label": "We're too small for this / not enough VR units",
+            "to": "bill_9_hook"
+          },
+          {
+            "label": "Just not interested, period",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "objection_no_problem": {
+        "label": "NO PROBLEM — REFRAME",
+        "say": "That's great honestly — most companies I talk to don't feel like they have a problem until a guest leaves a one-star review over something that should've been caught. Out of curiosity, how many vacation rental units are you guys turning over right now? I'm just trying to figure out if this is even relevant to your side of things.",
+        "note": "Don't argue with 'we're fine.' Acknowledge, then ask a question that gets them talking about their actual operation. You're looking for scale — if they're only doing a handful of VR turns, pivot to referral to Brandon or ask about the broader Hawaii Vacation Homes portfolio.",
+        "branches": [
+          {
+            "label": "Shares unit count / describes operation",
+            "to": "discovery_deep"
+          },
+          {
+            "label": "Not many / mostly long-term",
+            "to": "pivot_to_vr_side"
+          },
+          {
+            "label": "Still not interested",
+            "to": "test_drive"
+          }
+        ]
+      },
+      "objection_have_process": {
+        "label": "ALREADY HAVE A PROCESS — SPLIT",
+        "say": "That makes total sense — with a hundred-plus properties you'd have to have something in place already. Is it that you're fully covered and happy with how it's working, or is it more that switching anything right now would just be a headache?",
+        "note": "Split the objection. 'Happy with it' vs. 'switching is painful' are two completely different conversations. If happy, offer the test drive as a benchmark. If switching is the issue, sell the zero-workflow-change angle.",
+        "branches": [
+          {
+            "label": "Happy with what we have",
+            "to": "test_drive"
+          },
+          {
+            "label": "Switching would be a pain / not worth the effort",
+            "to": "no_workflow_change"
+          },
+          {
+            "label": "Opens up about gaps in current process",
+            "to": "warm_response"
+          }
+        ]
+      },
+      "no_workflow_change": {
+        "label": "NO WORKFLOW CHANGE PITCH",
+        "say": "Totally hear you — that's actually why we built it the way we did. We don't replace anything. If your team's already taking photos after turnovers, we just analyze what they're already capturing. Nothing changes for them at all. The whole point was zero extra work on the ops side. Would you be open to a quick look just to see if it's even worth a deeper conversation?",
+        "note": "The 'no workflow change' angle is RapidEye's strongest objection killer for ops people. Say it with confidence — this is a real differentiator, not a sales trick.",
+        "branches": [
+          {
+            "label": "Okay, I'd look at it",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Talk to Brandon about this",
+            "to": "referral_to_brandon"
+          },
+          {
+            "label": "Still no",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "test_drive": {
+        "label": "SELL THE TEST DRIVE",
+        "say": "Totally fair — you're probably not buying anything off a cold call, and I respect that. But when the right time does come up, the people who move fastest are the ones who already know what's out there. Would you be open to a fifteen-minute look — not to buy anything, just so you and your team know what's possible? If nothing else I can walk you through what other Hawaii operators are doing with their turnover photos. Worst case you steal some ideas and we part as friends.",
+        "note": "You're not asking him to buy. You're asking him to be informed. The 'other Hawaii operators' angle gives peer intel as a value exchange. If he still says no, try the referral path before exiting.",
+        "branches": [
+          {
+            "label": "Sure / fine, set it up",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Send me something first",
+            "to": "send_email"
+          },
+          {
+            "label": "Not right now",
+            "to": "last_chance_referral"
+          },
+          {
+            "label": "Talk to Brandon about this",
+            "to": "referral_to_brandon"
+          }
+        ]
+      },
+      "last_chance_referral": {
+        "label": "LAST CHANCE — REFERRAL BEFORE EXIT",
+        "say": "No worries at all. Hey one last thing — do you know any other vacation rental managers on Maui who might be dealing with this kind of stuff? I'm talking to a bunch of operators on the island and always looking for intros. Even just a name would be huge.",
+        "note": "Before you hang up, try to get value from the call. Matthew is on the ground in Maui and likely knows other VR operators. A referral from him to another company is still a win.",
+        "branches": [
+          {
+            "label": "Gives a name or company",
+            "to": "lock_referral"
+          },
+          {
+            "label": "Try Brandon at our company",
+            "to": "referral_to_brandon"
+          },
+          {
+            "label": "Can't think of anyone / no",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "book_meeting": {
+        "label": "BOOK THE MEETING",
+        "say": "Awesome — I've got next week pulled up. How's Tuesday or Wednesday look for you? I'm flexible on time, and I'll work around the Hawaii time zone — I can do mornings your time no problem.",
+        "note": "Pick two specific days. Lock the time NOW. Send the calendar invite while you're still on the phone. If he wants to include Brandon or Christian, that's a huge win — ask for their email to add to the invite.",
+        "branches": [
+          {
+            "label": "Picks a day and time",
+            "to": "confirm_meeting"
+          },
+          {
+            "label": "I need to check my schedule",
+            "to": "send_invite_tentative"
+          },
+          {
+            "label": "Include Brandon / someone else too",
+            "to": "confirm_meeting_with_referral"
+          }
+        ]
+      },
+      "confirm_meeting": {
+        "label": "CONFIRM AND CLOSE",
+        "say": "Perfect — I'll send over a calendar invite right now so it's locked in. It'll come from sam@rapideye.ai. Really appreciate you taking my call, Matthew. Talk to you then.",
+        "note": "Stop selling immediately. Confirm the details, send the invite, and get off the phone. Don't add 'one more thing.' End warm and brief.",
+        "branches": []
+      },
+      "send_invite_tentative": {
+        "label": "SEND TENTATIVE INVITE",
+        "say": "No worries — how about I shoot you an invite for Wednesday at ten your time, and if that doesn't work you can just move it to whatever does. Sound good?",
+        "note": "Pick a specific time and send it immediately. A tentative invite on the calendar is ten times better than 'I'll follow up later.' Send to matt@hawaiivacationhomes.com.",
+        "branches": [
+          {
+            "label": "Sounds good",
+            "to": "confirm_meeting"
+          },
+          {
+            "label": "Just email me",
+            "to": "send_email"
+          }
+        ]
+      },
+      "confirm_meeting_with_referral": {
+        "label": "MEETING WITH ADDITIONAL PERSON",
+        "say": "Even better — the more the merrier. What's the best email for them so I can include them on the invite? And does the same time work for both of you or should I coordinate separately?",
+        "note": "Getting Brandon or Christian on the call is a massive win. Get their email for the invite. If Matthew offers to coordinate internally, let him own it — but still send the invite yourself so it's locked in.",
+        "branches": [
+          {
+            "label": "Gives details / confirms",
+            "to": "confirm_meeting"
+          },
+          {
+            "label": "I'll check with them and get back to you",
+            "to": "send_email"
+          }
+        ]
+      },
+      "send_email": {
+        "label": "SEND ME AN EMAIL",
+        "say": "Totally fair. One question before I do — what would be most relevant to include so it's not just another generic pitch sitting in your inbox?",
+        "note": "Accept the email request gracefully, then ask what matters to them. This shows you're tailoring, not blasting. Send to matt@hawaiivacationhomes.com. Include a specific proposed meeting time in the email — don't leave it open-ended.",
+        "branches": [
+          {
+            "label": "Tells you what to include / gives direction",
+            "to": "confirm_email_send"
+          },
+          {
+            "label": "Just send whatever / general info",
+            "to": "confirm_email_send"
+          }
+        ]
+      },
+      "confirm_email_send": {
+        "label": "CONFIRM EMAIL AND CLOSE",
+        "say": "Got it — I'll put something together and send it over today. It'll come from sam@rapideye.ai to your Hawaii Vacation Homes email. I'll include a time option in case you want to hop on a quick call after you look at it. Appreciate your time, Matthew.",
+        "note": "Send the email within one hour. Include: a specific pain point for their operation, what other Hawaii PMs are doing with turnover photos, and a proposed meeting time. Keep it under 150 words. If he gave you intel about Brandon or Christian, tailor a separate outreach to them too.",
+        "branches": []
+      },
+      "lock_callback": {
+        "label": "LOCK CALLBACK TIME",
+        "say": "Perfect — I'll try you then. Same number work? Talk to you soon, Matthew.",
+        "note": "Repeat the day and time back to confirm. Set a reminder immediately. Keep it short — he already told you he's busy. Don't try to sneak in a pitch.",
+        "branches": []
+      },
+      "referral_ask_general": {
+        "label": "GENERAL REFERRAL ASK",
+        "say": "Totally makes sense. Hey — do you know any other vacation rental managers on Maui who might be dealing with this? I'm talking to a bunch of operators on the island and always looking for introductions. Even just a name would help me out.",
+        "note": "If Matthew's side of the operation isn't the right fit, he still lives and works in Maui's property management world. It's a small island community — he likely knows other VR managers. You can also circle back and ask about Brandon for an internal referral.",
+        "branches": [
+          {
+            "label": "Gives a name or suggestion",
+            "to": "lock_referral"
+          },
+          {
+            "label": "Try Brandon at our company",
+            "to": "referral_to_brandon"
+          },
+          {
+            "label": "Can't think of anyone",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "graceful_exit": {
+        "label": "GRACEFUL EXIT",
+        "say": "Totally understand, Matthew. If anything changes, I'm easy to find — Sam Parks, RapidEye. Appreciate your time, man. Enjoy the waves out there.",
+        "note": "Don't burn the bridge. The surfing callback at the end keeps it personal and memorable. Log the call outcome and any intel he shared — company details, who to contact, their VR portfolio size — for follow-up strategy.",
+        "branches": []
+      }
+    }
+  }
+}
