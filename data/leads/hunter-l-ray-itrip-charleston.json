@@ -1,0 +1,569 @@
+{
+  "name": "Hunter L Ray",
+  "title": "Operations Manager",
+  "company": "iTrip Charleston",
+  "location": "Charleston, SC",
+  "phone": "+1-843-303-9225",
+  "company_phone": "(843) 630-6060",
+  "alt_phones": [
+    "+1-843-630-6060"
+  ],
+  "flow": {
+    "context": "Hunter L Ray is Operations Manager at iTrip Charleston Beaches — he owns day-to-day turnover execution (outsourced cleaning vendors + staff QA inspections) across ~108 Charleston-area vacation rentals spanning Folly Beach, Isle of Palms, Mt Pleasant, downtown Charleston, and Kiawah/Seabrook. iTrip is a franchise owned locally by Sarah & Steven Goodwin since 2016; they coordinate turnovers through FlipStream (iTrip's proprietary app that captures photos, damage reports, and GPS tracking from field crews). Their brand promise is 'sparkling clean, well-maintained, impeccably staged' — Hunter is the person who has to deliver on that every single turnover. No strong personal connection to Sam — lead with working with other property managers in Charleston beach rentals and lean hard on knowing they use FlipStream.",
+    "start": "gatekeeper_initial",
+    "nodes": {
+      "gatekeeper_initial": {
+        "label": "GATEKEEPER",
+        "say": "Hey, could you get me through to Hunter? It's Sam.",
+        "note": "Megan Corn (Office Manager) likely answers — she's point of contact for all calls. Don't pitch. Don't over-explain. Sound like you're expected.",
+        "branches": [
+          {
+            "label": "Puts you through",
+            "to": "opener"
+          },
+          {
+            "label": "Asks who's calling / what it's about",
+            "to": "gatekeeper_context"
+          },
+          {
+            "label": "He's not available / not in today",
+            "to": "gatekeeper_voicemail"
+          },
+          {
+            "label": "He's busy right now",
+            "to": "gatekeeper_busy"
+          }
+        ]
+      },
+      "gatekeeper_context": {
+        "label": "GATEKEEPER — WHY",
+        "say": "Yeah, I work with a few other property managers in the Charleston beach market. Would you mind letting him know it's Sam Parks?",
+        "note": "Don't pitch the product. Dose info one piece at a time. If this is Megan, she schedules maintenance and coordinates with ops daily — she understands the world you're talking about.",
+        "branches": [
+          {
+            "label": "Puts you through",
+            "to": "opener"
+          },
+          {
+            "label": "Still pushback / what company",
+            "to": "gatekeeper_social_proof"
+          },
+          {
+            "label": "Not available",
+            "to": "gatekeeper_voicemail"
+          }
+        ]
+      },
+      "gatekeeper_social_proof": {
+        "label": "GATEKEEPER — SOCIAL PROOF",
+        "say": "Totally — it's Sam Parks with RapidEye. We help a couple other property management companies with their turnover inspection workflows. I sent Hunter a note — would you mind giving him a heads up?",
+        "note": "Last escalation. If this doesn't work, ask for a callback window and move on. Don't burn the gatekeeper relationship.",
+        "branches": [
+          {
+            "label": "Puts you through",
+            "to": "opener"
+          },
+          {
+            "label": "Still won't connect",
+            "to": "gatekeeper_voicemail"
+          }
+        ]
+      },
+      "gatekeeper_busy": {
+        "label": "GATEKEEPER — BUSY",
+        "say": "No worries at all. When's he usually easier to catch — mornings or afternoons?",
+        "note": "Get a specific callback window. Write it down. Try again at that exact time.",
+        "branches": [
+          {
+            "label": "Gives a time",
+            "to": "end_graceful"
+          },
+          {
+            "label": "Won't say / just call back",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "gatekeeper_voicemail": {
+        "label": "VOICEMAIL / NOT AVAILABLE",
+        "say": "No worries — I'll try him again. When's he usually easier to reach?",
+        "note": "Don't leave a voicemail on first attempt. Get a callback window if possible. Try again tomorrow at a different time of day.",
+        "branches": [
+          {
+            "label": "Gives a time window",
+            "to": "end_graceful"
+          },
+          {
+            "label": "No info / just try again",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "opener": {
+        "label": "OPENER",
+        "say": "Hey Hunter — I work with a few other property managers running turnover ops in Charleston beach rentals. It's Sam Parks with RapidEye. Have you heard my name tossed around?",
+        "note": "Feet on the desk energy. Slow, relaxed. Sound like a peer, not a salesperson. Pause after 'tossed around' and let him respond. Don't rush to fill silence.",
+        "branches": [
+          {
+            "label": "Yes / maybe / sounds familiar",
+            "to": "heard_yes"
+          },
+          {
+            "label": "No / who?",
+            "to": "heard_no"
+          },
+          {
+            "label": "Bad timing / busy / in a turnover",
+            "to": "bad_timing"
+          },
+          {
+            "label": "Confused / guarded / what do you want",
+            "to": "permission_ask"
+          }
+        ]
+      },
+      "heard_yes": {
+        "label": "THEY'VE HEARD OF YOU",
+        "say": "Oh nice — well normally we'd be working with someone like you on the inspection side. What'd you hear?",
+        "note": "Let him talk. He may have heard from another iTrip franchise or a vendor. Listen for what angle resonates and follow that thread.",
+        "branches": [
+          {
+            "label": "Describes what he heard / asks questions",
+            "to": "warm_discovery"
+          },
+          {
+            "label": "Vague / not much / just the name",
+            "to": "pain_trigger"
+          }
+        ]
+      },
+      "heard_no": {
+        "label": "HAVEN'T HEARD — PIVOT",
+        "say": "Oh, I guess I'm not as popular as I thought. Well, the reason for my call is —",
+        "note": "Say this with a little humor in your voice, then go straight into the pain trigger. Don't pause too long here — keep momentum.",
+        "branches": [
+          {
+            "label": "He's listening / go ahead",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "Cuts you off / not interested",
+            "to": "permission_ask"
+          }
+        ]
+      },
+      "bad_timing": {
+        "label": "BAD TIMING",
+        "say": "Totally hear you — would it be a terrible idea if I tried you again tomorrow? Or later this week? When's easier?",
+        "note": "Get a specific day and time. Don't accept a vague 'call back sometime.' Pin it down so you have a reason to call back.",
+        "branches": [
+          {
+            "label": "Gives a time / day",
+            "to": "end_graceful"
+          },
+          {
+            "label": "Just email me",
+            "to": "send_email"
+          },
+          {
+            "label": "Don't call back",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "permission_ask": {
+        "label": "PERMISSION FALLBACK",
+        "say": "Yeah totally — I mean, it is a cold call. Can I get 30 seconds to tell you why I reached out, and you can totally hang up on me if it's not a fit?",
+        "note": "Disarming honesty. Most people will give you 30 seconds if you acknowledge the situation. Smile when you say this — he can hear it.",
+        "branches": [
+          {
+            "label": "Fine / go ahead / 30 seconds",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "No / not interested / don't have time",
+            "to": "permission_rejected"
+          }
+        ]
+      },
+      "permission_rejected": {
+        "label": "PERMISSION REJECTED — SPLIT",
+        "say": "Shoot, totally my bad. Just so nobody from my team bugs you again — is it that I caught you at a horrible time, or is it that you already know what we do and this just isn't interesting?",
+        "note": "This splits the objection. 'Horrible time' reopens the door for a callback. 'Not interesting' tells you it's a real no. Either answer gives you information to work with.",
+        "branches": [
+          {
+            "label": "Bad time / just busy",
+            "to": "bad_timing"
+          },
+          {
+            "label": "Not interested / we're covered",
+            "to": "objection_not_interested"
+          },
+          {
+            "label": "What do you do exactly?",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "Hard no / hangs up",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "pain_trigger": {
+        "label": "PAIN TRIGGER",
+        "say": "So I was talking to another ops manager running a really similar setup to yours — beach rentals, outsourced cleaning crews submitting turnover photos through an app, staff doing a QA check after. His thing was, even with that inspection step, his team's reviewing hundreds of photos a day across a hundred-plus properties, and stuff still slips. A stained couch cushion here, a cracked bathroom tile there, a missing set of towels — and it doesn't surface until the guest's already checked in and leaving a three-star review about it. Peak season, back-to-back turnovers, and the photos are technically all there in the system but nobody's actually catching everything in real time.",
+        "note": "PAUSE HERE. Do not speak. Let it breathe. Hunter lives this — outsourced cleaners uploading into FlipStream, trying to QA 108 properties across multiple beach markets. Wait for his reaction before you say another word.",
+        "branches": [
+          {
+            "label": "Reacts / agrees / 'yeah that's exactly it'",
+            "to": "solution_drop"
+          },
+          {
+            "label": "Asks a question / curious",
+            "to": "solution_drop"
+          },
+          {
+            "label": "Pushback / 'we handle that fine'",
+            "to": "objection_have_vendor"
+          },
+          {
+            "label": "Silent / waiting for more",
+            "to": "solution_drop"
+          }
+        ]
+      },
+      "solution_drop": {
+        "label": "ONE-SENTENCE SOLUTION",
+        "say": "We built an AI layer that plugs into the turnover photos your team's already capturing — FlipStream, whatever you guys use — and automatically flags damage, missing items, staging issues before the next guest walks in. No workflow change on your end.",
+        "note": "Mentioning FlipStream by name shows you did real homework and positions RapidEye as an add-on to their existing workflow, not a replacement. One sentence. Don't over-explain. Let him respond.",
+        "branches": [
+          {
+            "label": "Interested / tell me more / how does that work",
+            "to": "warm_discovery"
+          },
+          {
+            "label": "Open to seeing it",
+            "to": "cta_meeting"
+          },
+          {
+            "label": "We already have FlipStream for that",
+            "to": "objection_have_flipstream"
+          },
+          {
+            "label": "Not interested / we're good",
+            "to": "objection_not_interested"
+          }
+        ]
+      },
+      "warm_discovery": {
+        "label": "WARM — ASK QUESTIONS",
+        "say": "That's great to hear. So I'm curious — what does your inspection process actually look like right now? Are your cleaning crews uploading photos into FlipStream and then your team's reviewing everything after, or is there a different flow?",
+        "note": "STOP PITCHING. You're warm — now learn. Understand how turnovers actually work at iTrip Charleston so you can tailor the demo. Listen for: who reviews photos, how many turnovers per day, what falls through the cracks, who gets blamed when it does.",
+        "branches": [
+          {
+            "label": "Describes their process / FlipStream workflow",
+            "to": "flipstream_dig"
+          },
+          {
+            "label": "Asks more about RapidEye first",
+            "to": "discovery_redirect"
+          },
+          {
+            "label": "Not really the right person for this",
+            "to": "referral_ask"
+          }
+        ]
+      },
+      "flipstream_dig": {
+        "label": "FLIPSTREAM DEEP DIVE",
+        "say": "Got it. So when those photos come in through FlipStream — who's actually reviewing them? Is it you, or do you have inspectors checking every unit? And on a busy summer day, how many turnovers are you guys running?",
+        "note": "You're looking for the gap: photos exist but nobody has time to review them all thoroughly. iTrip's model has vendors submitting photos + staff doing inspections — find out where the human bottleneck breaks down. Peak Charleston season is May through September.",
+        "branches": [
+          {
+            "label": "Reveals pain / 'honestly we can't catch everything'",
+            "to": "seasonal_pressure"
+          },
+          {
+            "label": "Says they're handling it well",
+            "to": "objection_have_flipstream"
+          },
+          {
+            "label": "Wants to see what RapidEye catches",
+            "to": "cta_meeting"
+          }
+        ]
+      },
+      "discovery_redirect": {
+        "label": "REDIRECT — ANSWER THEN ASK",
+        "say": "Yeah totally — so in a nutshell, we analyze the photos your teams are already taking during turnovers and flag anything that looks off. Damage, missing items, staging that doesn't match the listing — all automated, before the next guest checks in. But honestly, what would help me show you the right thing is understanding what your biggest headache is on the ops side right now. What's been the toughest part of keeping a hundred-plus properties guest-ready?",
+        "note": "Give a quick answer to show good faith, then redirect back to discovery. You need to understand his specific pain to make the demo relevant to iTrip's setup.",
+        "branches": [
+          {
+            "label": "Opens up about challenges",
+            "to": "seasonal_pressure"
+          },
+          {
+            "label": "Wants to see it / open to a demo",
+            "to": "cta_meeting"
+          },
+          {
+            "label": "We're fine honestly",
+            "to": "objection_have_vendor"
+          }
+        ]
+      },
+      "seasonal_pressure": {
+        "label": "SEASONAL PRESSURE PROBE",
+        "say": "Yeah, that makes total sense. With summer coming up — I know Charleston beach rentals go wall to wall from May through September — are you guys staffed up for that turnover volume, or is that when things tend to slip the most?",
+        "note": "Charleston beach season is intense. Back-to-back turnovers, vendor crews stretched thin, and iTrip's promise of 'sparkling clean' gets hardest to deliver. There's also beach replenishment happening in 2026 near IOP — potential for extra guest complaints about conditions not matching photos. If Hunter's worried about the coming season, urgency goes way up.",
+        "branches": [
+          {
+            "label": "Acknowledges seasonal crunch / worried about it",
+            "to": "cta_meeting"
+          },
+          {
+            "label": "We handle it / we're prepped",
+            "to": "cta_meeting"
+          },
+          {
+            "label": "That's more of a Sarah or Steven decision",
+            "to": "objection_need_approval"
+          }
+        ]
+      },
+      "cta_meeting": {
+        "label": "ASK FOR THE MEETING",
+        "say": "Would you be open to taking a look sometime this week? I could walk you through what we're seeing with other beach rental operators and how it connects to FlipStream — worst case you steal some ideas for your turnover flow and we part as friends.",
+        "note": "Low-pressure CTA. You're selling the meeting, not the product. 'Steal some ideas' makes it feel safe even if he's not ready to buy. Mentioning FlipStream again makes it feel tailored, not generic.",
+        "branches": [
+          {
+            "label": "Yeah sure / let's do it",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Send me an email first",
+            "to": "send_email"
+          },
+          {
+            "label": "I'd need to loop in Sarah or Steven",
+            "to": "objection_need_approval"
+          },
+          {
+            "label": "No budget right now",
+            "to": "objection_no_budget"
+          },
+          {
+            "label": "Not interested",
+            "to": "objection_not_interested"
+          }
+        ]
+      },
+      "objection_have_flipstream": {
+        "label": "OBJECTION — WE HAVE FLIPSTREAM",
+        "say": "That totally makes sense — with a hundred-plus properties you'd have to have something solid in place. And FlipStream's great for orchestrating the turnover. I guess my question is — are you guys happy with how much it actually catches on its own, or is it more that the photos go in and your team's still the ones eyeballing everything to spot the problems?",
+        "note": "FlipStream is a workflow and coordination tool — it captures and routes photos, but a human still has to review them. RapidEye isn't replacing FlipStream, it's analyzing what FlipStream already collects. Position as a layer on top, not a competitor. This is THE critical distinction for this call.",
+        "branches": [
+          {
+            "label": "Admits gaps / 'yeah we're still eyeballing it'",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "Says they're fully happy with it",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "How would it actually work with FlipStream?",
+            "to": "cta_meeting"
+          }
+        ]
+      },
+      "objection_have_vendor": {
+        "label": "OBJECTION — WE HAVE A PROCESS",
+        "say": "That makes total sense — with your setup you'd have to. And honestly, most ops managers I talk to do have an inspection step already. The pattern I keep hearing though is that the process works great at sixty, seventy properties — but once you're north of a hundred and the turnovers start stacking up in season, the human QA piece just can't keep up with the photo volume. Has that been your experience, or has it been pretty smooth?",
+        "note": "Don't argue. Agree, then gently probe the scale gap. iTrip promises staff inspections on every turnover — but with 108 properties across Folly Beach, IOP, Mt Pleasant, downtown, and Kiawah/Seabrook during peak season, there's almost certainly a throughput constraint. Let him tell you where it breaks.",
+        "branches": [
+          {
+            "label": "Acknowledges the gap / 'yeah it gets tough'",
+            "to": "solution_drop"
+          },
+          {
+            "label": "Smooth so far / we're fine",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "Actually that's a good point",
+            "to": "cta_meeting"
+          }
+        ]
+      },
+      "objection_no_budget": {
+        "label": "OBJECTION — NO BUDGET",
+        "say": "Totally get it. Nowadays it's harder to keep a tool, let alone buy something new. Just so no one from my team cold calls you again — is it that budget for this cycle is completely locked, or is it more that anything new has to go through Sarah and Steven first?",
+        "note": "Split the objection. iTrip Charleston is a franchise — budget decisions almost certainly involve the Goodwins. If budget isn't locked but approval is the issue, pivot to making it easy for Hunter to bring this upstream.",
+        "branches": [
+          {
+            "label": "Budget is locked / nothing this cycle",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "Has to go through ownership",
+            "to": "objection_need_approval"
+          },
+          {
+            "label": "How much does it cost?",
+            "to": "sell_test_drive"
+          }
+        ]
+      },
+      "objection_not_interested": {
+        "label": "OBJECTION — NOT INTERESTED",
+        "say": "I totally get it — I should've assumed you'd be all set, otherwise you probably would've reached out yourself. Just so nobody from my team bugs you again — is it that turnover QA isn't a problem you're focused on right now, or is it more that you just hate cold calls?",
+        "note": "Split the objection. If 'not focused on this' — ask what IS the priority, there might be an adjacent problem RapidEye solves. If 'hate cold calls' — he's rejecting the format, not the product. Offer a different channel.",
+        "branches": [
+          {
+            "label": "Not a priority right now",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "Just hates cold calls / bad format",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "Genuinely not a fit / hard no",
+            "to": "referral_ask"
+          },
+          {
+            "label": "Hangs up",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "objection_need_approval": {
+        "label": "NEEDS OWNER APPROVAL",
+        "say": "Totally makes sense. Would it be easier if I put together something quick you could forward to Sarah and Steven? Or honestly — would it make more sense if I just showed you first so you know whether it's even worth bringing to them? That way you're not sticking your neck out for something you haven't seen.",
+        "note": "Hunter reports to the Goodwins. Make it easy for him to be an internal champion — if he sees a demo first, he can bring it with a recommendation instead of a cold forward. If he mentions Steven specifically, note that Steven is also president of the iTrip Franchise Association — there's a franchise-wide expansion angle if this works for Charleston.",
+        "branches": [
+          {
+            "label": "Show me first / yeah let me see it",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Send something I can forward",
+            "to": "send_email"
+          },
+          {
+            "label": "Let me just ask them first",
+            "to": "send_email"
+          },
+          {
+            "label": "Can you call Sarah or Steven directly?",
+            "to": "referral_get_name"
+          }
+        ]
+      },
+      "sell_test_drive": {
+        "label": "SELL THE TEST DRIVE",
+        "say": "You're probably not buying anything right now, and I totally respect that. But here's what I've seen — when budget does free up or you're heading into summer and turnover volume spikes, the people who move fastest are the ones who already know what's on their list. Would you be open to just taking a look — not to buy anything — so you know what's out there? If nothing else, I can walk you through what other property managers in Charleston are doing with their turnover photos. Worst case you steal some ideas and we part as friends.",
+        "note": "Remove all buying pressure. Position the meeting as intelligence-gathering for him. The 'steal some ideas' line makes it feel like he wins even if he never buys. Summer season urgency is real — beach turnover volume in Charleston is brutal May through September.",
+        "branches": [
+          {
+            "label": "Yeah okay / let's do it",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Send me an email",
+            "to": "send_email"
+          },
+          {
+            "label": "Not right now / hard no",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "referral_ask": {
+        "label": "REFERRAL — WHO OWNS THIS",
+        "say": "Totally fair. Out of curiosity — who on your team typically makes the call on inspection tooling or turnover ops? Is that more of a Sarah or Steven decision, or someone else entirely?",
+        "note": "If Hunter isn't the buyer, get the right name. Sarah owns the franchise and is accountable for property condition outcomes. Steven runs guest services and is president of the iTrip Franchise Association — huge expansion angle beyond Charleston. Get a specific name and ask for a warm intro.",
+        "branches": [
+          {
+            "label": "Names Sarah or Steven Goodwin",
+            "to": "referral_get_name"
+          },
+          {
+            "label": "Names someone else",
+            "to": "referral_get_name"
+          },
+          {
+            "label": "Won't give a name / just email the office",
+            "to": "send_email"
+          },
+          {
+            "label": "Actually I am the right person",
+            "to": "pain_trigger"
+          }
+        ]
+      },
+      "referral_get_name": {
+        "label": "LOCK IN THE REFERRAL",
+        "say": "Perfect — that's super helpful. If I can mention you pointed me their way, I'll put something tailored together so it actually lands and doesn't look like just another generic cold pitch. Would it be cool if I said Hunter suggested I reach out?",
+        "note": "Getting permission to use Hunter's name turns the next call from cold to warm. If he says Sarah — she's the franchise owner, former corporate attorney, cares deeply about property condition. If Steven — he leads guest services AND is president of the iTrip Franchise Association, so the pitch can scale franchise-wide.",
+        "branches": [
+          {
+            "label": "Yeah that's fine / go ahead",
+            "to": "end_graceful"
+          },
+          {
+            "label": "Rather you didn't / just reach out on your own",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "book_meeting": {
+        "label": "BOOK THE MEETING",
+        "say": "Awesome. I've got next Tuesday and Thursday pulled up — what works better for you? I can do morning or afternoon.",
+        "note": "Pick two specific days. Let him choose the day, then lock a time: 'How's 2 PM?' Send the calendar invite WHILE on the phone so he sees it before you hang up. Once it's booked, STOP SELLING immediately.",
+        "branches": [
+          {
+            "label": "Picks a day and time",
+            "to": "end_booked"
+          },
+          {
+            "label": "Need to check calendar / get back to me",
+            "to": "send_email"
+          },
+          {
+            "label": "Can you just send me a calendar link?",
+            "to": "send_email"
+          }
+        ]
+      },
+      "send_email": {
+        "label": "SEND ME AN EMAIL",
+        "say": "Totally fair. One quick question before I do — what would be most relevant to include so it doesn't just look like another generic pitch? Are you more curious about how it works with FlipStream specifically, or more about what it actually catches compared to manual inspections?",
+        "note": "Accept the email request, then ask ONE tailoring question. Send the email within one hour of hanging up. Reference this conversation specifically. Include a suggested meeting time. Send to hray@itripchs.com. Keep it to 4-5 sentences max.",
+        "branches": [
+          {
+            "label": "Tells you what to include",
+            "to": "end_graceful"
+          },
+          {
+            "label": "Just send whatever / doesn't care",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "end_booked": {
+        "label": "MEETING BOOKED — CLOSE",
+        "say": "Done — you should have the invite in a sec. Really appreciate you taking my call, Hunter. Talk to you then.",
+        "note": "STOP SELLING. Don't add features or benefits. Don't re-pitch. Confirm and hang up. Send the calendar invite immediately. If he mentioned Sarah or Steven should join, offer to add them to the invite.",
+        "branches": []
+      },
+      "end_graceful": {
+        "label": "END GRACEFULLY",
+        "say": "Totally understand. If anything changes — especially heading into summer season — I'm easy to find. Appreciate your time, Hunter.",
+        "note": "Don't burn bridges. Log the outcome, callback date, and any names he mentioned. If he gave a referral to Sarah or Steven Goodwin, call them within 24 hours while the conversation is fresh.",
+        "branches": []
+      }
+    }
+  }
+}

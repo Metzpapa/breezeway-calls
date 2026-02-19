@@ -1,0 +1,756 @@
+{
+  "name": "Len Cavanaugh",
+  "title": "Regional Director of Operations (Lake Tahoe & Truckee, CA)",
+  "company": "Vacasa",
+  "location": "San Diego, CA",
+  "phone": "+1-530-579-0715",
+  "company_phone": "800-544-0300",
+  "alt_phones": [
+    "+1-800-544-0300",
+    "+1-800-863-8415",
+    "+1-850-299-9469",
+    "+1-208-203-3377"
+  ],
+  "flow": {
+    "context": "Len Cavanaugh is Regional Director of Operations at Vacasa for Lake Tahoe & Truckee — a high-complexity mountain market with ~50 local team members handling turnovers, inspections, and maintenance in harsh conditions (snow, fires, rapid-response windows as tight as 15 minutes). Vacasa was acquired by Casago on May 1, 2025, and integration is ongoing — local teams got more autonomy but also more accountability, while ~800 corporate roles were cut. Casago recently partnered with Breezeway for ops and Guesty for PMS across the franchise network. Vacasa's own SEC filings describe a field app that collects post-cleaning photo submissions for real-time inspection approval — the exact workflow RapidEye augments. Sam's hook: he's a skier who was just at Jackson Hole last month, and Len lives the mountain-market ops world daily.",
+    "start": "gatekeeper_or_direct",
+    "nodes": {
+      "gatekeeper_or_direct": {
+        "label": "FIRST CONTACT",
+        "say": "Hey, could you get me through to Len? It's Sam.",
+        "note": "If Len answers directly, skip to 'opener'. If someone else answers, stay here and dose info slowly. Don't pitch the gatekeeper.",
+        "branches": [
+          {
+            "label": "Len answers directly",
+            "to": "opener"
+          },
+          {
+            "label": "Gatekeeper asks who's calling or what it's about",
+            "to": "gatekeeper_context"
+          },
+          {
+            "label": "Len's not available",
+            "to": "gatekeeper_unavailable"
+          }
+        ]
+      },
+      "gatekeeper_context": {
+        "label": "GATEKEEPER — CONTEXT",
+        "say": "Yeah, I work with a few other property managers in the Tahoe area on their turnover workflows. Would you mind letting him know it's Sam Parks?",
+        "note": "Stay casual. Don't over-explain. If they push harder, move to social proof.",
+        "branches": [
+          {
+            "label": "Puts you through",
+            "to": "opener"
+          },
+          {
+            "label": "Asks more questions or pushes back",
+            "to": "gatekeeper_social_proof"
+          },
+          {
+            "label": "Says he's not available",
+            "to": "gatekeeper_unavailable"
+          }
+        ]
+      },
+      "gatekeeper_social_proof": {
+        "label": "GATEKEEPER — SOCIAL PROOF",
+        "say": "Totally. We help a couple other property management companies with their inspection workflows — I sent Len a note and just wanted to follow up. Would you mind giving him a heads up that Sam Parks called?",
+        "note": "If they won't budge, get the best time to call back. Ask 'when's usually a good time to catch him?' Don't burn the bridge.",
+        "branches": [
+          {
+            "label": "Puts you through",
+            "to": "opener"
+          },
+          {
+            "label": "Won't connect but gives callback info",
+            "to": "gatekeeper_unavailable"
+          },
+          {
+            "label": "Hard no",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "gatekeeper_unavailable": {
+        "label": "GATEKEEPER — UNAVAILABLE",
+        "say": "No worries at all. When's usually a good time to catch Len? I want to make sure I'm not calling during the craziest part of his day.",
+        "note": "Get a callback window. Mountain ops people are often slammed mornings with turnover dispatch — try to get a direct line or cell if they'll give it.",
+        "branches": [
+          {
+            "label": "Gives you a time or number",
+            "to": "graceful_exit"
+          },
+          {
+            "label": "Suggests email instead",
+            "to": "gatekeeper_email_redirect"
+          }
+        ]
+      },
+      "gatekeeper_email_redirect": {
+        "label": "GATEKEEPER — EMAIL REDIRECT",
+        "say": "That works. I've got len.cavanaugh@vacasa.com — is that still the best one for him? Appreciate you helping me out.",
+        "note": "Confirm the email. Send a short, personalized note referencing skiing and Tahoe ops within 5 minutes of hanging up.",
+        "branches": [
+          {
+            "label": "Confirms or corrects email",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "opener": {
+        "label": "OPENER",
+        "say": "Hey Len — I work with a few property managers in mountain markets similar to what you guys run up in Tahoe. I'm actually a skier myself, was just at Jackson Hole last month. It's Sam Parks with RapidEye — have you heard my name tossed around at all?",
+        "note": "Feet up energy. The skiing mention is genuine — Sam was at Jackson Hole Jan 2026. Don't rush. Let it breathe. If he bites on skiing, chat for a beat before transitioning.",
+        "branches": [
+          {
+            "label": "No, haven't heard of you",
+            "to": "heard_name_no"
+          },
+          {
+            "label": "Yeah or maybe or sounds familiar",
+            "to": "heard_name_yes"
+          },
+          {
+            "label": "Bad timing or busy or in the middle of something",
+            "to": "bad_timing"
+          },
+          {
+            "label": "Engages on skiing or Jackson Hole",
+            "to": "ski_rapport"
+          },
+          {
+            "label": "No longer at Vacasa or different role",
+            "to": "no_longer_at_vacasa"
+          }
+        ]
+      },
+      "no_longer_at_vacasa": {
+        "label": "NO LONGER AT VACASA",
+        "say": "Oh no kidding — when did you make the move? Are you still in the vacation rental world?",
+        "note": "Post-acquisition churn is real. If he left Vacasa, find out where he is now — he might be an even better prospect at a smaller PM company. If he's out of the industry, ask who replaced him in Tahoe and pivot to a referral.",
+        "branches": [
+          {
+            "label": "Moved to another PM company",
+            "to": "warm_discovery"
+          },
+          {
+            "label": "Left the industry entirely",
+            "to": "referral_replacement"
+          },
+          {
+            "label": "Still at Vacasa but different role",
+            "to": "pain_trigger"
+          }
+        ]
+      },
+      "referral_replacement": {
+        "label": "REFERRAL — WHO REPLACED YOU",
+        "say": "Got it, well good for you. Hey before I let you go — do you happen to know who took over the Tahoe ops role? I'd love to reach out to them. And honestly if I can drop your name that'd go a long way.",
+        "note": "Even if he's gone, the referral is valuable. A name plus permission to mention Len is almost as good as a warm intro.",
+        "branches": [
+          {
+            "label": "Gives you a name",
+            "to": "referral_confirmed"
+          },
+          {
+            "label": "Doesn't know or won't say",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "ski_rapport": {
+        "label": "SKI RAPPORT",
+        "say": "Yeah it was unreal — Jackson was dumping. I can only imagine what Tahoe's been like this season. But hey I won't keep you too long — the reason for my call is I've been talking to a few ops leaders at companies going through similar stuff to what you guys are dealing with post-Casago, and there's a pattern I keep seeing with the inspection side of turnovers. You got 30 seconds?",
+        "note": "Keep the ski chat to 1-2 exchanges max. Transition naturally. The Casago mention signals you've done homework without being heavy-handed.",
+        "branches": [
+          {
+            "label": "Sure go ahead",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "What do you mean",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "Not a great time",
+            "to": "bad_timing"
+          }
+        ]
+      },
+      "heard_name_no": {
+        "label": "HAVEN'T HEARD OF YOU",
+        "say": "Ha — I guess I'm not as popular as I thought. Well the reason for my call is I've been working with a few other ops directors who run mountain markets — similar setup to your Tahoe and Truckee portfolio — and there's a pattern that keeps coming up around post-clean inspections. You got 30 seconds?",
+        "note": "Casual, self-deprecating. 'Similar setup to your Tahoe and Truckee portfolio' shows you know his world. If he gives you 30 seconds, go to pain trigger.",
+        "branches": [
+          {
+            "label": "Sure or go ahead",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "I'm pretty busy",
+            "to": "bad_timing"
+          },
+          {
+            "label": "What is this about or suspicious tone",
+            "to": "permission_fallback"
+          }
+        ]
+      },
+      "heard_name_yes": {
+        "label": "THEY'VE HEARD OF YOU",
+        "say": "Oh nice — well normally we'd be working with someone like you. What'd you hear?",
+        "note": "Let them talk. Whatever they say, use it as a bridge into discovery. If they're vague, transition to pain trigger.",
+        "branches": [
+          {
+            "label": "Vague or not sure",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "Knows about RapidEye or AI inspections",
+            "to": "warm_discovery"
+          }
+        ]
+      },
+      "permission_fallback": {
+        "label": "PERMISSION FALLBACK",
+        "say": "Yeah totally — I mean it is a cold call, I won't pretend it's not. Can I get 30 seconds to tell you why I reached out? And you can totally hang up on me if it's not a fit.",
+        "note": "Radical honesty disarms. Most people will give you 30 seconds because you acknowledged the awkwardness. If they say yes, go straight to pain trigger — you're on the clock.",
+        "branches": [
+          {
+            "label": "Fine go ahead",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "No or not interested",
+            "to": "permission_rejected"
+          }
+        ]
+      },
+      "permission_rejected": {
+        "label": "PERMISSION REJECTED",
+        "say": "Shoot, totally my bad. Just so nobody from my team bugs you again — is it that I caught you at a horrible time, or is it that you already know what we do and this just isn't interesting?",
+        "note": "Last chance to split the objection. If it's timing, get a callback. If it's genuine disinterest, exit gracefully. Don't push past this.",
+        "branches": [
+          {
+            "label": "Bad timing",
+            "to": "bad_timing"
+          },
+          {
+            "label": "Not interested",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "bad_timing": {
+        "label": "BAD TIMING",
+        "say": "Totally hear you — I know Tahoe turnovers don't wait. Would it be a terrible idea if I tried you again tomorrow, maybe early afternoon?",
+        "note": "Respect the timing. Propose a specific callback. Mountain ops people are often slammed mornings with turnover dispatch — afternoons tend to be better.",
+        "branches": [
+          {
+            "label": "Gives a time or agrees to callback",
+            "to": "bad_timing_lock"
+          },
+          {
+            "label": "Just send me an email",
+            "to": "send_email"
+          },
+          {
+            "label": "Not interested at all",
+            "to": "objection_not_interested"
+          }
+        ]
+      },
+      "bad_timing_lock": {
+        "label": "LOCK IN CALLBACK",
+        "say": "Perfect. I'll try you then. And just so I'm not wasting your time when I call back — we help property managers catch damage and issues in the turnover photos their teams are already taking. So when we chat it'll take about two minutes. Talk soon, Len.",
+        "note": "Plant the seed so he's thinking about it before the callback. Send a calendar placeholder and a one-line email confirming the time.",
+        "branches": []
+      },
+      "pain_trigger": {
+        "label": "PAIN TRIGGER",
+        "say": "So I was talking to another ops director who runs a similar-sized mountain market — about fifty people on his local team, cleaning crews going back to back during peak season. And the thing he kept telling me was his team's taking hundreds of post-clean photos every day and submitting them for approval, but nobody actually has time to look at every single one carefully. Stuff slips through — a couch stain, a cracked window, a missing set of towels — and it doesn't get caught until a guest checks in and leaves a one-star review. And in a market like Tahoe where you've got ski boots, fireplaces, hot tubs, things take a beating between guests. Does any of that sound familiar, or is your team pretty buttoned up on that side?",
+        "note": "This maps to Len's exact world: ~50 team members, post-clean photo submissions for inspection approval (from Vacasa SEC filings), mountain-specific damage. PAUSE after asking. Let him react. Do not fill the silence.",
+        "branches": [
+          {
+            "label": "Yeah that resonates or we deal with that",
+            "to": "warm_discovery"
+          },
+          {
+            "label": "We're pretty good actually or we have a process",
+            "to": "objection_have_process"
+          },
+          {
+            "label": "Not really a priority right now",
+            "to": "objection_not_interested"
+          },
+          {
+            "label": "Who did you say you work with",
+            "to": "social_proof_drop"
+          }
+        ]
+      },
+      "social_proof_drop": {
+        "label": "SOCIAL PROOF",
+        "say": "We work with a few PM companies — one in New York managing about 200 luxury homes, another on the East Coast with around 600 properties, and a group out in Dubai. Mix of urban and resort markets. The common thread is they all had teams taking photos already but nobody had time to actually review them carefully at scale. We just plug into that existing workflow.",
+        "note": "Don't name-drop specific clients unless Sam has permission. Keep it credible but brief, then redirect to Len's situation.",
+        "branches": [
+          {
+            "label": "Interesting or tell me more",
+            "to": "warm_discovery"
+          },
+          {
+            "label": "Okay but we're in a different situation",
+            "to": "objection_have_process"
+          },
+          {
+            "label": "Not for us",
+            "to": "objection_not_interested"
+          }
+        ]
+      },
+      "warm_discovery": {
+        "label": "DISCOVERY — GO DEEPER",
+        "say": "Good to know. So I'm curious — what does the inspection flow actually look like for you guys right now in Tahoe? Like after a clean, are your teams still submitting photos through the field app for approval, or has that changed since the Casago transition?",
+        "note": "STOP PITCHING. Ask questions. You know Vacasa uses HomeCare Hub and a field app with post-clean photo submissions — referencing it shows deep knowledge without being creepy. The Casago transition is a live topic. Let him talk.",
+        "branches": [
+          {
+            "label": "Explains their current process",
+            "to": "discovery_photo_volume"
+          },
+          {
+            "label": "Mentions HomeCare Hub or field app still in use",
+            "to": "discovery_photo_volume"
+          },
+          {
+            "label": "Says things have changed with Casago or mentions Breezeway",
+            "to": "discovery_casago_breezeway"
+          },
+          {
+            "label": "Gets guarded or asks why you want to know",
+            "to": "pitch_one_liner"
+          }
+        ]
+      },
+      "discovery_photo_volume": {
+        "label": "DISCOVERY — PHOTO REVIEW BOTTLENECK",
+        "say": "Got it. And when those photos come in for approval — who's actually reviewing them? Is that you, or do you have someone dedicated to that? And how many are we talking on a busy turnover day during ski season?",
+        "note": "You're surfacing the bottleneck: high photo volume, not enough eyeballs, things slipping through the approval gate. Vacasa's SEC filings describe 'post-cleaning photo submissions for real-time inspection approval' — this is a known workflow.",
+        "branches": [
+          {
+            "label": "Admits it's a bottleneck or too many to review",
+            "to": "pitch_one_liner"
+          },
+          {
+            "label": "Says they have a solid review process",
+            "to": "discovery_damage_patterns"
+          },
+          {
+            "label": "Not sure or that's handled by someone else",
+            "to": "referral_corporate"
+          }
+        ]
+      },
+      "discovery_casago_breezeway": {
+        "label": "DISCOVERY — CASAGO BREEZEWAY TRANSITION",
+        "say": "Oh interesting — so you guys are moving to Breezeway now? How's that transition been? I know Casago just announced that partnership. Are you already live on it in Tahoe or still rolling out?",
+        "note": "Casago partnered with Breezeway for ops across the franchise network. If Len confirms they're on Breezeway or transitioning, that's a direct integration path for RapidEye. This also reveals where they are in the tech transition post-acquisition.",
+        "branches": [
+          {
+            "label": "On Breezeway or transitioning to it",
+            "to": "breezeway_integration_angle"
+          },
+          {
+            "label": "Still on old Vacasa tools",
+            "to": "discovery_damage_patterns"
+          },
+          {
+            "label": "Not sure what's happening with tools",
+            "to": "discovery_damage_patterns"
+          }
+        ]
+      },
+      "breezeway_integration_angle": {
+        "label": "BREEZEWAY INTEGRATION",
+        "say": "Oh that's perfect actually — we plug directly into Breezeway. So the photos your cleaners are already uploading through their task workflows, our AI just runs on top of that automatically. No new app, no new process for your team. It's literally just an intelligence layer on what they're already doing.",
+        "note": "This is a strong hook — Breezeway is a confirmed integration surface. Keep it to one sentence on integration, then move to CTA.",
+        "branches": [
+          {
+            "label": "That's interesting or tell me more",
+            "to": "cta_meeting"
+          },
+          {
+            "label": "What exactly does it catch",
+            "to": "pitch_one_liner"
+          },
+          {
+            "label": "I'd need to check with corporate",
+            "to": "referral_corporate"
+          }
+        ]
+      },
+      "discovery_damage_patterns": {
+        "label": "DISCOVERY — DAMAGE PATTERNS",
+        "say": "Makes sense. What about the damage side — in a mountain market like Tahoe, what's the stuff that bites you most? Is it wear and tear from ski gear, hot tub issues, things freezing and cracking? I'm curious what costs you the most between repairs and guest complaints.",
+        "note": "Get him talking about specific pain. Mountain markets have unique damage patterns — freeze damage, fireplace soot, ski boot scuffs, hot tub failures. The more specific he gets, the easier it is to position RapidEye.",
+        "branches": [
+          {
+            "label": "Names specific damage issues",
+            "to": "pitch_one_liner"
+          },
+          {
+            "label": "It's more about volume or staffing than damage types",
+            "to": "pitch_one_liner"
+          },
+          {
+            "label": "We handle it fine honestly",
+            "to": "objection_have_process"
+          }
+        ]
+      },
+      "pitch_one_liner": {
+        "label": "ONE-SENTENCE SOLUTION",
+        "say": "Yeah so that's exactly why we built RapidEye. Our AI analyzes the turnover photos your team's already submitting after cleans — catches damage, missing items, staging issues — and flags everything before the next guest walks in. No new process for your people, just smarter eyes on what they're already shooting.",
+        "note": "ONE clear sentence on what it does. Don't over-explain. Then move to CTA immediately.",
+        "branches": [
+          {
+            "label": "How does it work exactly",
+            "to": "cta_meeting"
+          },
+          {
+            "label": "That's interesting",
+            "to": "cta_meeting"
+          },
+          {
+            "label": "We already have something for that",
+            "to": "objection_have_process"
+          },
+          {
+            "label": "I don't think we need that",
+            "to": "objection_not_interested"
+          },
+          {
+            "label": "What does it cost",
+            "to": "cta_meeting_price_deflect"
+          }
+        ]
+      },
+      "cta_meeting_price_deflect": {
+        "label": "DEFLECT PRICE — PUSH TO MEETING",
+        "say": "Honestly it depends on the setup — number of properties, how many photos per turn, what platform you're feeding from. The easiest thing would be for me to show you how it works on a couple of your actual Tahoe properties and then we can talk numbers once you've seen what it catches. Would you be open to fifteen minutes next week?",
+        "note": "Never quote price on a cold call. Deflect to the demo where you can anchor value first. The offer to run on their actual photos is compelling.",
+        "branches": [
+          {
+            "label": "Sure let's do it",
+            "to": "booking"
+          },
+          {
+            "label": "Just send me pricing",
+            "to": "send_email"
+          },
+          {
+            "label": "Not right now",
+            "to": "test_drive"
+          }
+        ]
+      },
+      "cta_meeting": {
+        "label": "CTA — ASK FOR THE MEETING",
+        "say": "Would you be open to seeing it in action? I could show you in like fifteen minutes — not while I'm cold calling you out of the blue. I could even run it on a couple of your actual Tahoe property photos so you see exactly what it catches in your world.",
+        "note": "Offering to run on THEIR photos is a strong hook — makes it tangible and specific to his market. Low friction. Not asking to buy, just to look.",
+        "branches": [
+          {
+            "label": "Sure or yeah let's do it",
+            "to": "booking"
+          },
+          {
+            "label": "Send me something first",
+            "to": "send_email"
+          },
+          {
+            "label": "I'd need to loop in my boss or corporate",
+            "to": "referral_corporate"
+          },
+          {
+            "label": "Not right now",
+            "to": "test_drive"
+          }
+        ]
+      },
+      "booking": {
+        "label": "BOOK THE MEETING",
+        "say": "Awesome. I've got next Tuesday and Thursday pulled up — what works better for you? I can do morning or afternoon.",
+        "note": "Lock it in NOW. Pick specific days. Send the calendar invite while still on the phone. Once booked, STOP SELLING.",
+        "branches": [
+          {
+            "label": "Picks a time",
+            "to": "meeting_booked"
+          },
+          {
+            "label": "Let me check my calendar and get back to you",
+            "to": "booking_pin_down"
+          }
+        ]
+      },
+      "booking_pin_down": {
+        "label": "PIN DOWN THE MEETING",
+        "say": "Totally. How about I shoot over a couple options and you just pick whichever works? That way it's on the calendar and neither of us has to remember to follow up.",
+        "note": "Don't let it float. If he won't commit right now, send the invite with two time options immediately after hanging up. Follow up same day.",
+        "branches": [
+          {
+            "label": "Agrees to receive options",
+            "to": "meeting_booked"
+          },
+          {
+            "label": "Just email me",
+            "to": "send_email"
+          }
+        ]
+      },
+      "meeting_booked": {
+        "label": "MEETING CONFIRMED",
+        "say": "Perfect — I just sent that over. And hey, if you want, shoot me a couple turnover photos from one of your Tahoe properties before the call. I'll run them through so we have something real to look at instead of a generic demo. Really appreciate you taking my call, Len. Talk soon.",
+        "note": "Stop selling. Confirm the invite. Asking for photos pre-meeting creates engagement and gives you a live demo with his actual properties. Send confirmation email within 2 minutes.",
+        "branches": []
+      },
+      "objection_not_interested": {
+        "label": "OBJECTION — NOT INTERESTED",
+        "say": "I totally get it. I should've assumed you'd be all set — otherwise you probably would've reached out to us. Just so nobody from my team cold calls you again — is it that inspections aren't really a pain point for you right now, or is it more that you're just swamped and cold calls are the last thing you need?",
+        "note": "Miyagi Method. Agree first to surprise them. Then split the objection into two choices. The multiple choice forces engagement and usually softens the no.",
+        "branches": [
+          {
+            "label": "It's the cold call or bad timing thing",
+            "to": "test_drive"
+          },
+          {
+            "label": "Inspections aren't a priority",
+            "to": "miyagi_not_priority"
+          },
+          {
+            "label": "We're just in too much transition right now",
+            "to": "miyagi_transition"
+          }
+        ]
+      },
+      "miyagi_not_priority": {
+        "label": "MIYAGI — NOT A PRIORITY",
+        "say": "That's fair. And honestly with everything changing post-Casago, I'm sure you've got a hundred other things on fire right now. If nothing else — would it be worth a quick look just so you know what's out there? I can walk you through what other mountain market PMs are doing with their turnover photos. Worst case you steal some ideas and we part as friends.",
+        "note": "Sell the value of the meeting, not the product. 'Other mountain market PMs' makes it specific to his world. The Casago reference validates that you understand his reality.",
+        "branches": [
+          {
+            "label": "Sure keep it quick",
+            "to": "booking"
+          },
+          {
+            "label": "Not right now",
+            "to": "graceful_exit"
+          },
+          {
+            "label": "Send me something",
+            "to": "send_email"
+          }
+        ]
+      },
+      "miyagi_transition": {
+        "label": "MIYAGI — POST-ACQUISITION CHAOS",
+        "say": "Totally makes sense. Post-acquisition is the worst time to try anything new — I get it. Here's the thing though, a lot of the ops leaders I talk to who've been through transitions like this tell me the ones who came out ahead were the ones who already had their shortlist ready when things settled down. Would you be open to just getting it on your radar — not for now, but so when the dust settles you already know what's option one, two, three?",
+        "note": "This reframe works because Vacasa-to-Casago integration is genuinely chaotic. You're not asking him to buy, you're asking him to be prepared. Much lower friction.",
+        "branches": [
+          {
+            "label": "That's reasonable or sure",
+            "to": "booking"
+          },
+          {
+            "label": "Maybe later or send info",
+            "to": "send_email"
+          },
+          {
+            "label": "Hard no",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "objection_have_process": {
+        "label": "OBJECTION — ALREADY HAVE A PROCESS",
+        "say": "That makes total sense — with fifty-plus people on your local team up there you'd have to have something dialed in. Just curious — is it that you're fully covered and happy with how the photo review side works, or is it more that switching anything right now in the middle of the Casago transition would just be a nightmare?",
+        "note": "Miyagi. Agree first. Then split. Referencing team size and the Casago transition shows you know his world. The 'switching' split often surfaces the real objection.",
+        "branches": [
+          {
+            "label": "It's the switching or transition headache",
+            "to": "miyagi_transition"
+          },
+          {
+            "label": "We're happy with what we have",
+            "to": "test_drive_complement"
+          },
+          {
+            "label": "Actually it could be better",
+            "to": "warm_discovery"
+          }
+        ]
+      },
+      "test_drive_complement": {
+        "label": "TEST DRIVE — COMPLEMENT NOT REPLACE",
+        "say": "Love to hear that. And I'm not trying to rip out anything you've got — we literally layer on top. Think of it like spell check for your inspection photos. Your team keeps doing exactly what they do, our AI just catches the stuff human eyes miss when you're reviewing hundreds of photos back to back. Would you be open to seeing it side by side? Fifteen minutes, I'll run it on actual turnover photos from Tahoe and you tell me if it catches anything your current process doesn't.",
+        "note": "Position as additive, not replacement. The spell-check analogy is powerful for ops people. The side-by-side challenge appeals to someone who takes pride in their process.",
+        "branches": [
+          {
+            "label": "That could work or sure",
+            "to": "booking"
+          },
+          {
+            "label": "Send me info first",
+            "to": "send_email"
+          },
+          {
+            "label": "No thanks",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "objection_no_budget": {
+        "label": "OBJECTION — NO BUDGET",
+        "say": "Totally get it. Especially post-acquisition — I'm sure every dollar's under a microscope right now. Just so nobody from my team bugs you again — is it that budget for this kind of thing is completely locked up, or is it more that anything new has to go through a whole corporate approval process with Casago?",
+        "note": "Miyagi. Acknowledge the acquisition reality. The split surfaces whether it's truly budget or if there's a corporate path and he needs air cover from above.",
+        "branches": [
+          {
+            "label": "Budget is locked",
+            "to": "test_drive"
+          },
+          {
+            "label": "Everything goes through corporate now",
+            "to": "referral_corporate"
+          },
+          {
+            "label": "Both honestly",
+            "to": "test_drive"
+          }
+        ]
+      },
+      "test_drive": {
+        "label": "TEST DRIVE — FUTURE-PROOF",
+        "say": "Totally hear you. And you're probably not buying anything right now, which I respect. But when budget does free up or things settle down after the transition, the people who move fast are the ones who already know what's on their list. Would you be open to just taking a look so it's on your radar? If nothing else I can show you what other PM companies in mountain markets are doing with their turnover photos. Worst case you steal some ideas.",
+        "note": "Sell the test drive, not the product. The value prop of the meeting itself is intelligence-gathering, not a purchase commitment.",
+        "branches": [
+          {
+            "label": "Okay fine keep it short",
+            "to": "booking"
+          },
+          {
+            "label": "Just email me",
+            "to": "send_email"
+          },
+          {
+            "label": "No",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "referral_corporate": {
+        "label": "REFERRAL — CORPORATE DECISION",
+        "say": "Makes total sense — with the Casago integration I'm sure a lot of decisions are running through corporate right now. Who on that side would typically own a decision around ops tooling for the field teams? Would that be someone like Bob Milne, or is there someone else I should be talking to?",
+        "note": "Name-drop Bob Milne (SVP Operations) to show you know the org structure. If Len gives you a name, ask for an intro or at minimum permission to use his name. John Banczak (COO) and Alex Johnson (VP Franchise Ops) are also top targets.",
+        "branches": [
+          {
+            "label": "Gives you a name",
+            "to": "referral_get_intro"
+          },
+          {
+            "label": "Confirms Bob or mentions John or Alex",
+            "to": "referral_get_intro"
+          },
+          {
+            "label": "Not sure or doesn't know the new structure",
+            "to": "referral_title_probe"
+          },
+          {
+            "label": "Says he can make the call for his region",
+            "to": "cta_meeting"
+          }
+        ]
+      },
+      "referral_title_probe": {
+        "label": "REFERRAL — FIND THE RIGHT ALTITUDE",
+        "say": "No worries — I know the org chart's probably been a moving target since the acquisition. Generally speaking, who handles decisions around the tools your local teams use day to day? Is that a VP level thing now, or does it run even higher up with Casago in the picture?",
+        "note": "You're trying to understand decision-making altitude. Post-acquisition, tooling decisions often centralize. Even a title helps you map to your target list.",
+        "branches": [
+          {
+            "label": "Gives a title or direction",
+            "to": "referral_get_intro"
+          },
+          {
+            "label": "Says it's all in flux right now",
+            "to": "send_email"
+          },
+          {
+            "label": "Doesn't want to help",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "referral_get_intro": {
+        "label": "REFERRAL — GET THE INTRO",
+        "say": "That's super helpful. Would you be open to connecting me, or even just letting me mention your name when I reach out? I'll put something tailored together so it actually lands and doesn't waste their time.",
+        "note": "A warm intro from a Regional Director is gold. Even just permission to name-drop changes the dynamic entirely. If he agrees, send that referral email within the hour.",
+        "branches": [
+          {
+            "label": "Sure mention my name",
+            "to": "referral_confirmed"
+          },
+          {
+            "label": "Just reach out on your own",
+            "to": "referral_confirmed"
+          },
+          {
+            "label": "I'll forward something if you send it to me",
+            "to": "send_email_for_forward"
+          }
+        ]
+      },
+      "send_email_for_forward": {
+        "label": "EMAIL FOR INTERNAL FORWARD",
+        "say": "That'd be amazing. I'll send you something short and specific — not a generic deck, just the relevant stuff for your Tahoe operation so it makes sense when they read it. What's the best email — len.cavanaugh@vacasa.com still good?",
+        "note": "This is actually better than a cold outreach — Len forwarding your email to a VP or COO carries implicit endorsement. Make the email forwardable: short, specific to Vacasa's workflow, no fluff.",
+        "branches": [
+          {
+            "label": "Confirms email",
+            "to": "referral_confirmed"
+          }
+        ]
+      },
+      "referral_confirmed": {
+        "label": "REFERRAL LOCKED",
+        "say": "Really appreciate that, Len. I'll keep it tight and relevant. And hey — if anything on the ops side comes up where you want a second set of eyes on your turnover workflow, I'm always easy to find. Enjoy the rest of ski season up there.",
+        "note": "Close warm. The skiing callback is a nice personal touch. Send the referral email immediately. Keep Len in your follow-up cadence — he's still a potential pilot champion even if corporate decides.",
+        "branches": []
+      },
+      "send_email": {
+        "label": "SEND ME AN EMAIL",
+        "say": "Totally fair. One quick question before I do — what would be most useful to include so it's not just another generic vendor email in your inbox? Like are you more interested in the integration side, or seeing actual examples of what the AI catches on turnover photos?",
+        "note": "Accept the email request, then ask ONE tailoring question. Whatever he says, include it. Propose a specific day and time in the email for a follow-up call.",
+        "branches": [
+          {
+            "label": "Tells you what to include",
+            "to": "send_email_confirm"
+          },
+          {
+            "label": "Just send whatever you've got",
+            "to": "send_email_confirm"
+          }
+        ]
+      },
+      "send_email_confirm": {
+        "label": "EMAIL CONFIRMED",
+        "say": "Perfect — I'll get that over to you today. I'll drop in a couple time options in case you want to hop on for fifteen minutes after you've looked it over. Appreciate your time, Len. And seriously — if Tahoe got anything like the snow Jackson Hole had last month, enjoy it while it lasts.",
+        "note": "Send within 30 minutes. Subject line should reference Tahoe or his specific situation, not a generic pitch. Include two specific day/time suggestions. The skiing callback keeps it personal and memorable.",
+        "branches": []
+      },
+      "graceful_exit": {
+        "label": "GRACEFUL EXIT",
+        "say": "Totally understand. If anything changes — especially once the dust settles from the Casago transition — I'm easy to find. Appreciate your time, Len.",
+        "note": "Don't burn the bridge. The Casago transition reference plants a seed that there may be an opening once things stabilize. Add him to a light-touch follow-up cadence. Try again in 2-3 months or after a major ops change announcement.",
+        "branches": []
+      }
+    }
+  }
+}

@@ -1,0 +1,597 @@
+{
+  "name": "Alex Stone IV",
+  "title": "CEO",
+  "company": "Island Realty",
+  "location": "Charleston, SC",
+  "phone": "+1-843-242-1089",
+  "company_phone": "800-707-6421",
+  "alt_phones": [
+    "+1-843-886-8144",
+    "+1-844-347-5483"
+  ],
+  "flow": {
+    "context": "Alex Stone IV is CEO of Island Realty, a family-owned vacation rental company managing 300+ properties across Isle of Palms, Wild Dunes, Sullivan's Island, and Goat Island near Charleston, SC. Multi-generational Stone family business — his father Sandy owns it, brother Eric is Director of Hospitality. They run in-house housekeeping (Isle Clean It) and maintenance (Isle Fix It), use Escapia as their PMS, NAVIS for reservations, and Key Data for benchmarking — but there is no publicly confirmed inspection or photo-analysis platform. Currently pushing shoulder-season promos and just rolled out a new cancellation policy for 2026. Strongest angle: Sam works with similar-sized coastal PM companies on the East Coast, and if redirected, Collins Atkinson (Dir of Property Mgmt, 843-242-1076) or Alex Lane (Housekeeping Dept Mgr, 843-242-1070) are the ops owners to reach.",
+    "start": "gatekeeper_opening",
+    "nodes": {
+      "gatekeeper_opening": {
+        "label": "GATEKEEPER — SLIDE BY",
+        "say": "Hey — could you get me over to Alex? It's Sam.",
+        "note": "Don't volunteer more. Keep it casual, first-name only, like you know him. If they ask who you are or what it's about, move to gatekeeper_context.",
+        "branches": [
+          {
+            "label": "Puts you through",
+            "to": "opener"
+          },
+          {
+            "label": "Who's calling? / What's this about?",
+            "to": "gatekeeper_context"
+          },
+          {
+            "label": "He's not available right now",
+            "to": "gatekeeper_unavailable"
+          }
+        ]
+      },
+      "gatekeeper_context": {
+        "label": "GATEKEEPER — ADD CONTEXT",
+        "say": "Yeah — I work with a few other property managers in the Charleston beach market. Would you mind letting Alex know it's Sam Parks?",
+        "note": "Dose info slowly. Don't pitch. Don't explain RapidEye. Just enough to sound like a peer, not a vendor.",
+        "branches": [
+          {
+            "label": "OK, connecting you",
+            "to": "opener"
+          },
+          {
+            "label": "Can you send an email instead?",
+            "to": "gatekeeper_email_fallback"
+          },
+          {
+            "label": "Still screening / pushing back",
+            "to": "gatekeeper_social_proof"
+          }
+        ]
+      },
+      "gatekeeper_social_proof": {
+        "label": "GATEKEEPER — SOCIAL PROOF",
+        "say": "Totally understand — we help a couple other vacation rental companies in the area with their inspection workflows. I actually sent Alex a note already — would you mind just giving him a heads up that Sam Parks called?",
+        "note": "Last attempt. If blocked, get the gatekeeper's name and ask for the best time to try back. Don't burn the bridge.",
+        "branches": [
+          {
+            "label": "OK, I'll put you through",
+            "to": "opener"
+          },
+          {
+            "label": "Not happening / take a message",
+            "to": "gatekeeper_blocked"
+          }
+        ]
+      },
+      "gatekeeper_blocked": {
+        "label": "GATEKEEPER — BLOCKED",
+        "say": "No problem at all — I appreciate you. What's the best time to catch Alex? And I'm sorry, I didn't catch your name?",
+        "note": "Get the gatekeeper's name for next time. Note the callback window. Try Collins Atkinson (Dir of Property Mgmt) at 843-242-1076 or Eric Stone (Dir of Hospitality) at 843-242-1082 as alternate paths in.",
+        "branches": []
+      },
+      "gatekeeper_email_fallback": {
+        "label": "GATEKEEPER — EMAIL REQUEST",
+        "say": "Sure, I can do that — astone@islandrealty.com, right? And just so it actually gets to him, when's the best time to follow up with a quick call after he's seen it?",
+        "note": "Confirm the email. Lock in a callback window. Send a short, personalized email within 10 minutes referencing that you called and the gatekeeper's name if you got it.",
+        "branches": []
+      },
+      "gatekeeper_unavailable": {
+        "label": "GATEKEEPER — NOT AVAILABLE",
+        "say": "No worries — when's he usually easiest to catch? Mornings or afternoons better?",
+        "note": "Get the best callback day and time. If they offer voicemail, take it but don't rely on it — call back at the time they suggest.",
+        "branches": [
+          {
+            "label": "Gives you a time to call back",
+            "to": "gatekeeper_blocked"
+          },
+          {
+            "label": "Offers voicemail",
+            "to": "gatekeeper_blocked"
+          },
+          {
+            "label": "Suggests someone else (Collins, Eric, etc.)",
+            "to": "referral_redirect"
+          }
+        ]
+      },
+      "opener": {
+        "label": "OPENER — HEARD THE NAME",
+        "say": "Hey Alex — I work with a handful of other coastal vacation rental operators on the East Coast, pretty similar setup to what y'all have at Island Realty. It's Sam Parks with RapidEye. Have you heard my name tossed around at all?",
+        "note": "Feet up on the desk energy. Sound like you're calling a colleague, not reading a script. Smile. Pause after the question and let him answer.",
+        "branches": [
+          {
+            "label": "Yeah I have / Maybe / Sounds familiar",
+            "to": "opener_yes"
+          },
+          {
+            "label": "No I haven't / Who?",
+            "to": "opener_no"
+          },
+          {
+            "label": "I'm really busy / bad timing",
+            "to": "opener_bad_timing"
+          },
+          {
+            "label": "Is this a sales call?",
+            "to": "permission_fallback"
+          }
+        ]
+      },
+      "opener_yes": {
+        "label": "THEY'VE HEARD OF YOU",
+        "say": "Oh nice — well normally we'd be working with someone like you on inspection workflows. What did you hear?",
+        "note": "Let them talk. If they know anything real, build on it. If they're just being polite, transition naturally into the pain trigger.",
+        "branches": [
+          {
+            "label": "They share what they've heard",
+            "to": "warm_response"
+          },
+          {
+            "label": "Not much really / Just the name",
+            "to": "pain_trigger"
+          }
+        ]
+      },
+      "opener_no": {
+        "label": "THEY HAVEN'T HEARD OF YOU",
+        "say": "Ha — I guess I'm not as popular as I thought. Well the reason for my call is —",
+        "note": "Keep it light and go straight into the pain trigger. Don't pause too long here — maintain momentum into the story.",
+        "branches": [
+          {
+            "label": "Continue to pain trigger",
+            "to": "pain_trigger"
+          }
+        ]
+      },
+      "opener_bad_timing": {
+        "label": "BAD TIMING",
+        "say": "Totally hear you — would it be a terrible idea if I tried you again tomorrow? Or is later this week better?",
+        "note": "Get a specific day and time. Don't just accept 'call me back sometime.' Pin it down. If they push back hard, exit gracefully.",
+        "branches": [
+          {
+            "label": "Gives you a time",
+            "to": "schedule_callback"
+          },
+          {
+            "label": "Just email me",
+            "to": "objection_send_email"
+          },
+          {
+            "label": "Not interested at all",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "permission_fallback": {
+        "label": "PERMISSION — 30 SECONDS",
+        "say": "Yeah totally — it is a cold call, I'll be honest with you. Can I get 30 seconds to tell you why I reached out, and if it's not relevant you can totally hang up on me?",
+        "note": "Disarming honesty. Most people give you 30 seconds when you ask this way. If they say no, go to permission_rejected.",
+        "branches": [
+          {
+            "label": "Sure, go ahead",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "No / I'm not interested",
+            "to": "permission_rejected"
+          }
+        ]
+      },
+      "permission_rejected": {
+        "label": "PERMISSION REJECTED — SPLIT",
+        "say": "Shoot, totally my bad. Just so nobody from my team bugs you again — is it that I caught you at a horrible time, or is it more that you already know what we do and it's just not interesting?",
+        "note": "This splits the rejection into two useful paths. 'Bad time' means try again later. 'Not interesting' means either handle the objection or exit gracefully.",
+        "branches": [
+          {
+            "label": "Bad time",
+            "to": "schedule_callback"
+          },
+          {
+            "label": "Not interested / don't need it",
+            "to": "graceful_exit"
+          },
+          {
+            "label": "What do you actually do? (curiosity)",
+            "to": "pain_trigger"
+          }
+        ]
+      },
+      "pain_trigger": {
+        "label": "PAIN TRIGGER — THE PROBLEM",
+        "say": "So I was talking to another CEO running a pretty similar operation to yours — coastal vacation rentals, about 300 units, in-house cleaning crew, in-house maintenance, the whole setup. And what he told me is that even with his own housekeeping team doing every single turnover, stuff was still getting through — a cracked shower screen, missing cookware, a stain on the sofa — and he wasn't finding out until the next guest complained or the owner called him directly. His team was taking photos after every clean, but with that many units flipping, especially heading into summer, nobody actually had time to look through every photo from every turn. So issues were just getting buried until they became a guest review or a five-hundred-dollar argument about who caused the damage.",
+        "note": "PAUSE here. Let the silence work. Alex runs 300+ properties with in-house teams — this should resonate. Don't rush into the solution. Wait for him to react, agree, or push back.",
+        "branches": [
+          {
+            "label": "Yeah that sounds familiar / We deal with that",
+            "to": "pain_acknowledged"
+          },
+          {
+            "label": "We actually handle that pretty well",
+            "to": "objection_have_process"
+          },
+          {
+            "label": "OK so what do you do?",
+            "to": "solution_statement"
+          },
+          {
+            "label": "I'm not really the right person for that",
+            "to": "referral_redirect"
+          }
+        ]
+      },
+      "pain_acknowledged": {
+        "label": "PAIN ACKNOWLEDGED",
+        "say": "Yeah — that's exactly what I keep hearing from guys running operations like yours. So we built an AI that plugs into the turnover photos your housekeeping team's already taking — works right alongside Escapia — and it automatically flags damage, missing items, staging issues in real time. No change to how your team works. Would you be open to taking a look at it sometime when I'm not cold calling you out of the blue?",
+        "note": "Mentioning Escapia by name shows you did real homework. Keep the solution to two sentences max. The CTA is low-friction — 'take a look,' not 'buy.' Pause and let him respond.",
+        "branches": [
+          {
+            "label": "Yeah sure, that could be interesting",
+            "to": "warm_response"
+          },
+          {
+            "label": "How does it actually work?",
+            "to": "warm_response"
+          },
+          {
+            "label": "We already have something for that",
+            "to": "objection_have_process"
+          },
+          {
+            "label": "I don't have budget for that right now",
+            "to": "objection_no_budget"
+          }
+        ]
+      },
+      "solution_statement": {
+        "label": "SOLUTION — ONE SENTENCE",
+        "say": "We built an AI that plugs into the turnover photos your housekeeping team's already taking — works right alongside Escapia — and automatically flags damage, missing items, and staging issues in real time. No workflow change for Isle Clean It or anyone on your team. Would you be open to seeing what that looks like?",
+        "note": "Naming Isle Clean It and Escapia shows deep research. Keep it brief. Transition to CTA immediately.",
+        "branches": [
+          {
+            "label": "Yeah, I'd take a look",
+            "to": "warm_response"
+          },
+          {
+            "label": "Not really interested",
+            "to": "objection_not_interested"
+          },
+          {
+            "label": "Send me something",
+            "to": "objection_send_email"
+          },
+          {
+            "label": "Talk to Collins / someone on my team",
+            "to": "referral_redirect"
+          }
+        ]
+      },
+      "warm_response": {
+        "label": "THEY'RE WARM — STOP PITCHING",
+        "say": "Awesome. So just so I'm not wasting your time — what does your inspection process actually look like right now after a turnover? Is it your housekeeping team doing a visual check, or do you have a dedicated QA step built in there?",
+        "note": "STOP selling. Start asking. You want to learn: who inspects, what tools they use, how photos are handled, where things fall apart. Listen for mentions of Isle Clean It workflows, owner rep spot checks, or manual processes.",
+        "branches": [
+          {
+            "label": "Describes their current process",
+            "to": "discovery_deep"
+          },
+          {
+            "label": "We don't really have a formal inspection step",
+            "to": "discovery_no_process"
+          },
+          {
+            "label": "Our housekeeping manager handles all that",
+            "to": "discovery_delegate"
+          }
+        ]
+      },
+      "discovery_deep": {
+        "label": "DISCOVERY — DIG IN",
+        "say": "Got it — and when your team does catch something during a turn, how fast is that getting over to maintenance? Is Isle Fix It getting a ticket right away, or is there usually a gap in there?",
+        "note": "You're mapping their internal workflow: housekeeping → inspection → maintenance handoff. Listen for manual steps, delays, text-message-based communication, anything that signals a gap. If he mentions any software (Breezeway, Track, etc.), note it.",
+        "branches": [
+          {
+            "label": "There's usually a lag / It depends",
+            "to": "discovery_pain_confirm"
+          },
+          {
+            "label": "It's pretty tight / We've got it dialed",
+            "to": "cta_meeting"
+          },
+          {
+            "label": "That's really more of a question for Collins or Alex Lane",
+            "to": "referral_redirect"
+          }
+        ]
+      },
+      "discovery_no_process": {
+        "label": "DISCOVERY — NO FORMAL PROCESS",
+        "say": "That's actually super common — especially when you've got a strong in-house team like you guys do, a lot of the QA just lives in people's heads. What's your biggest worry heading into peak season with 300-plus units turning?",
+        "note": "Validate them — don't make them feel behind. Then tie it to seasonal urgency. Summer on Isle of Palms is their highest-volume period and turnovers multiply fast.",
+        "branches": [
+          {
+            "label": "Shares concerns or pain points",
+            "to": "cta_meeting"
+          },
+          {
+            "label": "We're pretty set honestly",
+            "to": "cta_meeting"
+          }
+        ]
+      },
+      "discovery_delegate": {
+        "label": "DISCOVERY — DELEGATES TO SOMEONE",
+        "say": "Makes sense — is that Alex Lane running the housekeeping QA side? Would it make more sense for me to loop her in, or is this the kind of thing where if it makes sense to you, you'd want to see it first and then bring your team in?",
+        "note": "Using Alex Lane's name by title shows you know their org chart. Let him decide if he wants to stay involved or hand off. Either path is a win — you either get a CEO demo or a warm referral to the ops owner.",
+        "branches": [
+          {
+            "label": "Yeah talk to Alex Lane / Collins",
+            "to": "referral_redirect"
+          },
+          {
+            "label": "Show me first, I'll loop them in",
+            "to": "cta_meeting"
+          },
+          {
+            "label": "Let me think about it",
+            "to": "objection_send_email"
+          }
+        ]
+      },
+      "discovery_pain_confirm": {
+        "label": "PAIN CONFIRMED — BRIDGE TO MEETING",
+        "say": "Yeah, that's exactly the gap we sit in. Instead of relying on someone to manually catch everything in every photo, the AI does it in real time — flags it, tags it, your maintenance team knows before the next guest shows up. Would it make sense to carve out 20 minutes so I can walk you through exactly how it works with your setup — Escapia, Isle Clean It, the whole thing?",
+        "note": "Tie the meeting directly to their specific stack. Make it feel tailored, not generic. Go for a specific time immediately.",
+        "branches": [
+          {
+            "label": "Yeah let's do it",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Maybe — send me something first",
+            "to": "objection_send_email"
+          },
+          {
+            "label": "I need to think about it",
+            "to": "sell_test_drive"
+          }
+        ]
+      },
+      "cta_meeting": {
+        "label": "CTA — ASK FOR THE MEETING",
+        "say": "I don't want to take up your whole morning — would it make sense to set up 20 minutes this week or next? I can show you what a couple other coastal PM companies are doing with their turnover photos and you can see if it's even relevant to your operation. Worst case you steal some ideas and we part as friends.",
+        "note": "Low-friction ask. '20 minutes' feels small. 'Steal some ideas' lowers the commitment bar. If he's warm, go straight to booking. If he hesitates, pivot to sell_test_drive.",
+        "branches": [
+          {
+            "label": "Sure, let's do it",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Not right now / Maybe later",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "Just send me an email",
+            "to": "objection_send_email"
+          },
+          {
+            "label": "Loop in Collins or Eric first",
+            "to": "referral_redirect"
+          }
+        ]
+      },
+      "book_meeting": {
+        "label": "BOOK IT — LOCK THE TIME",
+        "say": "Perfect — I've got next Tuesday and Thursday pulled up. What works better for you — morning or afternoon?",
+        "note": "Pick two days, narrow the time. Get it on the calendar NOW. Send the invite while you're still on the phone. Once booked, stop selling immediately.",
+        "branches": [
+          {
+            "label": "Picks a time",
+            "to": "meeting_booked"
+          },
+          {
+            "label": "Let me check my calendar and get back to you",
+            "to": "meeting_follow_up"
+          }
+        ]
+      },
+      "meeting_booked": {
+        "label": "MEETING CONFIRMED",
+        "say": "Awesome — just sent you the invite at astone@islandrealty.com. Really appreciate you taking my call, Alex. Talk to you then.",
+        "note": "Send the calendar invite IMMEDIATELY. Stop selling. Keep it short and warm. If Alex mentioned Collins, Eric, or Alex Lane, add them as optional attendees on the invite and note that in the description.",
+        "branches": []
+      },
+      "meeting_follow_up": {
+        "label": "MEETING — SOFT COMMIT",
+        "say": "Totally — I'll shoot you an email with a couple time options so it's easy to grab one. Best email is astone@islandrealty.com, right?",
+        "note": "Confirm the email. Send the scheduling email within 5 minutes with 2-3 specific time slots. Follow up in 48 hours if no response. Include one sentence of value so it doesn't read as a generic follow-up.",
+        "branches": []
+      },
+      "objection_not_interested": {
+        "label": "OBJECTION — NOT INTERESTED",
+        "say": "Totally get it — I should've assumed you'd be all set. With 300-plus properties and your own in-house crews you'd have to have your process dialed in by now. Just so nobody from my team bugs you again — is it that this just isn't a priority for you right now, or is it more that you just hate getting cold calls? Because honestly I get both.",
+        "note": "Agree first — don't push back. The split gives him an easy out that still gives you information. 'Hate cold calls' is actually the better answer for you — it means the underlying problem might still be real.",
+        "branches": [
+          {
+            "label": "It's not a priority / We're good",
+            "to": "value_offer_peers"
+          },
+          {
+            "label": "I just don't like cold calls",
+            "to": "value_offer_peers"
+          },
+          {
+            "label": "We already use something for this",
+            "to": "objection_have_process"
+          }
+        ]
+      },
+      "objection_have_process": {
+        "label": "OBJECTION — WE HAVE A PROCESS",
+        "say": "That makes total sense — with 300-plus units and Isle Clean It running turnovers in-house, you'd have to have something in place. Is it more that you're fully covered and happy with how it's working, or is it that adding or switching anything right now would just be a headache?",
+        "note": "Naming Isle Clean It shows you know their operation — it also subtly acknowledges their investment in in-house ops. The split reveals whether they're truly satisfied or just resistant to change. 'Happy' is harder; 'headache' means they might have a gap they'd fix if it were easy.",
+        "branches": [
+          {
+            "label": "We're happy with how it works",
+            "to": "value_offer_peers"
+          },
+          {
+            "label": "It's more that adding anything is a pain",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "Well it's not perfect honestly...",
+            "to": "warm_response"
+          }
+        ]
+      },
+      "objection_no_budget": {
+        "label": "OBJECTION — NO BUDGET",
+        "say": "Totally get it — nowadays it's harder to keep a tool than buy a new one, especially heading into the season. Is it that budget this cycle is completely locked, or is it more that anything new has to jump through hoops to get approved?",
+        "note": "Validate the concern. This is a family-owned business so Alex likely IS the final budget authority — but still worth splitting. If budget is locked, pivot to selling a future-planning conversation.",
+        "branches": [
+          {
+            "label": "Budget is locked for now",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "It's more the approval process / timing",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "What does it actually cost?",
+            "to": "sell_test_drive"
+          }
+        ]
+      },
+      "sell_test_drive": {
+        "label": "SELL THE TEST DRIVE",
+        "say": "Totally respect that — you're probably not buying anything off a cold call, and I wouldn't expect you to. But what I've found is the people who end up pulling the trigger on something like this are usually the ones who already know what's on their list when budget opens up. Would you be open to just taking a look — not to buy anything — just so it's on your radar? If nothing else I can walk you through what a couple other coastal PM companies your size are doing with their turnover photos. Worst case you steal some ideas.",
+        "note": "Reframes the meeting as free market intel, not a sales pitch. 'Steal some ideas' is disarming. If he still says no, exit gracefully — don't push a third time.",
+        "branches": [
+          {
+            "label": "OK fine, let's set something up",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Just send me something to look at",
+            "to": "objection_send_email"
+          },
+          {
+            "label": "Not right now",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "value_offer_peers": {
+        "label": "VALUE OFFER — PEER INSIGHTS",
+        "say": "Totally fair. One thing I could do — we work with a handful of PM companies running 200 to 600 properties on the coast, and I could shoot you a quick breakdown of what they're doing with their turnover photos and inspection workflows. No pitch, just what's working in your market. Would that be useful at all?",
+        "note": "This is your last card. You're offering free value with zero commitment. If he takes it, you have a reason to follow up and a foot in the door. If not, exit gracefully and try Collins or Eric.",
+        "branches": [
+          {
+            "label": "Sure, send it over",
+            "to": "objection_send_email"
+          },
+          {
+            "label": "No thanks, I'm good",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "objection_send_email": {
+        "label": "OBJECTION — SEND ME AN EMAIL",
+        "say": "Totally fair — I'll send something over. One quick question before I do so it's actually useful and not just another generic pitch — what would be most relevant to you? The inspection and damage-catching side, or more just how it plugs into a setup like yours with Escapia and in-house teams?",
+        "note": "Accept the email request, then use the question to learn what he cares about. Whatever he answers tells you exactly what to emphasize in the email. Mentioning Escapia again reinforces that this isn't a spray-and-pray outreach.",
+        "branches": [
+          {
+            "label": "Tells you what's relevant",
+            "to": "send_email_exit"
+          },
+          {
+            "label": "Just send whatever / the overview",
+            "to": "send_email_exit"
+          }
+        ]
+      },
+      "send_email_exit": {
+        "label": "SEND EMAIL — WRAP UP",
+        "say": "Got it — I'll put something together and send it over to astone@islandrealty.com. I'll include a couple times in case you want to jump on a quick call after you've looked at it. Appreciate your time, Alex.",
+        "note": "Confirm email address. Send within 30 minutes. Include a personalized 3-4 sentence email referencing what he said on the call, one relevant proof point, and 2 specific time options for a follow-up. Follow up by phone in 3 business days if no reply.",
+        "branches": []
+      },
+      "referral_redirect": {
+        "label": "REFERRAL — GET THE RIGHT PERSON",
+        "say": "That makes total sense — who on your team typically owns the inspection or turnover quality side of things? Would that be Collins Atkinson, or is there someone else who'd be the right person to walk through this with?",
+        "note": "Dropping Collins's name shows you know the org. If he confirms Collins, ask for an intro. If he names someone else — Alex Lane (Housekeeping), Scott Hudson (Maintenance), Eric Stone (Hospitality) — get their direct line and ask if you can mention Alex pointed you their way.",
+        "branches": [
+          {
+            "label": "Yeah talk to Collins",
+            "to": "referral_get_name"
+          },
+          {
+            "label": "Talk to Eric / my brother handles that",
+            "to": "referral_get_name"
+          },
+          {
+            "label": "Talk to our housekeeping manager (Alex Lane)",
+            "to": "referral_get_name"
+          },
+          {
+            "label": "I handle it actually, just not right now",
+            "to": "sell_test_drive"
+          }
+        ]
+      },
+      "referral_get_name": {
+        "label": "REFERRAL — LOCK IN THE INTRO",
+        "say": "Perfect — would you mind if I mentioned you pointed me their way? That way it's not totally out of left field when I reach out. And is their direct line the best way to get them?",
+        "note": "Get permission to name-drop Alex. Confirm the contact info. If he offers to make an intro himself, that's the best outcome — ask when he'd do it so you can time your follow-up. Then send Alex a brief thank-you email.",
+        "branches": [
+          {
+            "label": "Sure, tell them I sent you",
+            "to": "referral_confirmed"
+          },
+          {
+            "label": "Just reach out directly, don't mention me",
+            "to": "referral_confirmed"
+          }
+        ]
+      },
+      "referral_confirmed": {
+        "label": "REFERRAL CONFIRMED — WRAP UP",
+        "say": "Really appreciate that, Alex. I'll put something tailored together so it actually makes sense for them. Thanks for taking my call — enjoy the rest of your day.",
+        "note": "Send the referral a personalized email within the hour. If Alex gave permission to name-drop, lead with 'Alex pointed me your way.' Call the referral within 24 hours. Also send Alex a quick two-line thank-you note.",
+        "branches": []
+      },
+      "schedule_callback": {
+        "label": "SCHEDULE CALLBACK",
+        "say": "No problem at all — would sometime tomorrow morning work, or is there a day this week that's better for a quick two-minute call?",
+        "note": "Get a specific day and time. Don't accept 'sometime next week' — narrow it down. Set a hard reminder. When you call back, open with: 'Hey Alex, it's Sam Parks — you told me to try you back today.'",
+        "branches": [
+          {
+            "label": "Gives a specific time",
+            "to": "callback_confirmed"
+          },
+          {
+            "label": "Just email me instead",
+            "to": "objection_send_email"
+          }
+        ]
+      },
+      "callback_confirmed": {
+        "label": "CALLBACK LOCKED",
+        "say": "Perfect — I'll give you a ring then. Appreciate it, Alex.",
+        "note": "Set a hard calendar reminder. When you call back you are no longer cold — open warmer: 'Hey Alex, it's Sam Parks — you told me to give you a ring back today.' Then go straight to the pain trigger.",
+        "branches": []
+      },
+      "graceful_exit": {
+        "label": "GRACEFUL EXIT",
+        "say": "Totally understand. If anything changes, I'm easy to find — Sam Parks, RapidEye. Appreciate your time, Alex.",
+        "note": "Don't burn the bridge. Keep it warm. Add Alex to a 90-day nurture sequence. Try Collins Atkinson (843-242-1076), Eric Stone (843-242-1082), or Alex Lane (843-242-1070) as alternate paths into Island Realty within the next 48 hours.",
+        "branches": []
+      }
+    }
+  }
+}

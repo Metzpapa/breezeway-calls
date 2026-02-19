@@ -1,0 +1,615 @@
+{
+  "name": "Heather Craigen",
+  "title": "Co-Founder, Vice President/CFO",
+  "company": "Moving Mountains",
+  "location": "Steamboat Springs, CO",
+  "phone": "+1-877-624-2538",
+  "company_phone": "(877) 624-2538",
+  "alt_phones": [
+    "+1-970-870-9359",
+    "+1-970-445-2300",
+    "+1-970-547-2122",
+    "+1-970-870-9487"
+  ],
+  "flow": {
+    "context": "Heather Craigen is Co-Founder, VP, and CFO of Moving Mountains — 250 luxury vacation rentals across Steamboat Springs, Vail, Beaver Creek, and Breckenridge. She co-founded with Robin Craigen (CEO) and controls the financial side: budgets, damage costs, inspection staffing, owner retention economics. They just took investment from StayTerra (May 2025), have been acquiring aggressively (Triumph Mountain Properties in Vail, Paragon Lodging in Breck), and staff dedicated QA inspectors in every market. Confirmed tech: Breezeway for ops, Track for PMS. Sam's ski connection (Jackson Hole last month) and co-founder-to-co-founder framing are the strongest hooks. If she defers, route to Chad Rowe (COO) or Lisa Riniker (Director of Ops).",
+    "start": "gatekeeper",
+    "nodes": {
+      "gatekeeper": {
+        "label": "GATEKEEPER",
+        "say": "Hey, could you get me over to Heather? It's Sam.",
+        "note": "Casual, no last name, no company name. Dose info slowly. Sound like you belong.",
+        "branches": [
+          {
+            "label": "Puts you through",
+            "to": "opener"
+          },
+          {
+            "label": "Asks who's calling / what's this about",
+            "to": "gatekeeper_context"
+          },
+          {
+            "label": "She's not available / voicemail",
+            "to": "voicemail"
+          }
+        ]
+      },
+      "gatekeeper_context": {
+        "label": "GATEKEEPER — WHAT'S THIS ABOUT",
+        "say": "Yeah — I work with a few other property managers in the mountain market. Would you mind letting her know it's Sam Parks?",
+        "note": "Still casual. Don't pitch. End with a redirect question so they act, not interrogate.",
+        "branches": [
+          {
+            "label": "Puts you through",
+            "to": "opener"
+          },
+          {
+            "label": "Pushes back / asks more",
+            "to": "gatekeeper_social_proof"
+          },
+          {
+            "label": "She's not available / voicemail",
+            "to": "voicemail"
+          }
+        ]
+      },
+      "gatekeeper_social_proof": {
+        "label": "GATEKEEPER — SOCIAL PROOF",
+        "say": "Totally — we help a couple other luxury vacation rental companies with their inspection workflows. I sent her a note — would you mind giving her a heads up?",
+        "note": "Last attempt. If blocked here, leave a voicemail and move on. Don't argue with the gatekeeper.",
+        "branches": [
+          {
+            "label": "Puts you through",
+            "to": "opener"
+          },
+          {
+            "label": "Blocked / take a message / voicemail",
+            "to": "voicemail"
+          }
+        ]
+      },
+      "voicemail": {
+        "label": "VOICEMAIL",
+        "say": "Hey Heather, it's Sam Parks with RapidEye. I work with a few other luxury property managers in the mountain markets — saw you guys just brought StayTerra on and are scaling pretty aggressively. Had something specific I wanted to run by you on the inspection side. My number is [your number]. Again, Sam Parks, RapidEye. Talk soon.",
+        "note": "Under 20 seconds. The StayTerra name-drop shows homework and creates curiosity. Call back in 2 days.",
+        "branches": []
+      },
+      "opener": {
+        "label": "OPENER",
+        "say": "Hey Heather — I work with a few other luxury property managers in the mountain markets, and honestly I'm a big skier myself, was just out in Jackson Hole last month. It's Sam Parks with RapidEye. Have you heard my name tossed around?",
+        "note": "Smile. Relaxed. Co-founder to co-founder energy. The ski line is genuine and relevant — her entire business is luxury ski rentals. Don't force it, just let it land.",
+        "branches": [
+          {
+            "label": "Yes / maybe / sounds familiar",
+            "to": "heard_yes"
+          },
+          {
+            "label": "No / who? / don't think so",
+            "to": "heard_no"
+          },
+          {
+            "label": "Bad timing / in a meeting / busy",
+            "to": "bad_timing"
+          },
+          {
+            "label": "Hostile / what are you selling",
+            "to": "permission_fallback"
+          }
+        ]
+      },
+      "heard_yes": {
+        "label": "THEY'VE HEARD OF YOU",
+        "say": "Oh nice — well normally we'd be working with someone in your position. What'd you hear?",
+        "note": "Let her talk. Whatever she says, bridge into discovery or pain trigger based on how much she already knows.",
+        "branches": [
+          {
+            "label": "Vague / curious / tells you what she heard",
+            "to": "discovery_cfo"
+          },
+          {
+            "label": "Confused / thinking of someone else",
+            "to": "heard_no"
+          }
+        ]
+      },
+      "heard_no": {
+        "label": "HAVEN'T HEARD — BRIDGE TO PAIN",
+        "say": "Ha — guess I'm not as popular as I thought. Well the reason for my call —",
+        "note": "Say this light and quick, then flow straight into the pain trigger. No awkward pause here.",
+        "branches": [
+          {
+            "label": "Continue to pain trigger",
+            "to": "pain_trigger"
+          }
+        ]
+      },
+      "bad_timing": {
+        "label": "BAD TIMING",
+        "say": "Totally hear you — would it be a terrible idea if I tried you again tomorrow or later this week?",
+        "note": "Respectful but lock a specific callback window. Don't just say you'll try again sometime.",
+        "branches": [
+          {
+            "label": "Gives a time / says try again",
+            "to": "end_graceful"
+          },
+          {
+            "label": "What's this about? (opens up)",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "Not interested / don't call back",
+            "to": "permission_rejected"
+          }
+        ]
+      },
+      "permission_fallback": {
+        "label": "PERMISSION FALLBACK",
+        "say": "Yeah totally — it is a cold call, I'll be straight with you. Can I get 30 seconds to tell you why I reached out, and you can totally hang up on me if it's not a fit?",
+        "note": "Disarming honesty. Most people respect the transparency and grant 30 seconds. If she does, go straight to pain trigger.",
+        "branches": [
+          {
+            "label": "Fine / go ahead / 30 seconds",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "No / not interested / take me off your list",
+            "to": "permission_rejected"
+          }
+        ]
+      },
+      "permission_rejected": {
+        "label": "PERMISSION REJECTED — SPLIT",
+        "say": "Shoot, totally my bad. Just so nobody from my team bugs you again — is it that I caught you at a horrible time, or is it that you already know what we do and it's just not a fit?",
+        "note": "Last play. The multiple choice reframes the rejection. 'Bad timing' reopens the door. 'Not a fit' gives you intel to work with.",
+        "branches": [
+          {
+            "label": "Bad timing / just busy right now",
+            "to": "bad_timing"
+          },
+          {
+            "label": "Not a fit / firm no",
+            "to": "end_graceful"
+          },
+          {
+            "label": "Actually, what do you do?",
+            "to": "pain_trigger"
+          }
+        ]
+      },
+      "pain_trigger": {
+        "label": "PAIN TRIGGER",
+        "say": "So I was working with another luxury PM company — not too different from you guys. About 200 properties, multiple mountain markets, dedicated QA inspectors. And the CFO told me — they're spending six figures a year on inspection staff, and things are still slipping through. A guest checks into a three-thousand-dollar-a-night home, there's a stain on the sofa nobody caught, a piece of art that got knocked off the wall — and now they're dealing with a bad review, a damage dispute where they can't prove when it happened, and an owner questioning whether the management fee's worth it. And the worst part — they had photos. Hundreds of them sitting in Breezeway. But nobody had time to actually review them all carefully enough to catch it.",
+        "note": "PAUSE here. Let the silence sit. She needs to react. The Breezeway mention is intentional — you know they use it. Watch for her to confirm or react to that detail. The CFO framing is deliberate — she IS the CFO.",
+        "branches": [
+          {
+            "label": "That resonates / yeah we deal with that",
+            "to": "warm_response"
+          },
+          {
+            "label": "We use Breezeway for that / our QA handles it",
+            "to": "breezeway_probe"
+          },
+          {
+            "label": "We're pretty covered / not really a problem for us",
+            "to": "objection_have_vendor"
+          },
+          {
+            "label": "I'm not the right person for this",
+            "to": "referral_pivot"
+          }
+        ]
+      },
+      "warm_response": {
+        "label": "THEY'RE WARM — STOP PITCHING",
+        "say": "Yeah, that's exactly what I keep hearing. So I'm curious — especially with 250 properties now across four markets and the StayTerra investment coming in — how are you guys thinking about scaling the inspection side? Is that something that keeps you up at night or is it more of a 'we've got it dialed' situation?",
+        "note": "She's warm. Switch completely to questions. Let her talk. You're diagnosing now, not selling. The StayTerra reference shows deep homework.",
+        "branches": [
+          {
+            "label": "Opens up about challenges / pain",
+            "to": "discovery_cfo"
+          },
+          {
+            "label": "We've got it handled / Breezeway covers it",
+            "to": "breezeway_probe"
+          },
+          {
+            "label": "That's more of a Chad or Lisa thing",
+            "to": "referral_pivot"
+          }
+        ]
+      },
+      "discovery_cfo": {
+        "label": "DISCOVERY — CFO ANGLE",
+        "say": "That makes sense. And as the person who sees the numbers — what does the damage side look like? Are you guys eating a lot of costs that you can't trace back to a specific guest, or is it more that the inspection staffing itself is the line item that's hard to scale?",
+        "note": "CFO-specific framing. She thinks in dollars. Let her tell you where the pain lives — damage recovery, staffing overhead, owner churn. Whatever she says is your hook for the rest of the call.",
+        "branches": [
+          {
+            "label": "Talks about specific pain (damage, staffing, owner issues)",
+            "to": "discovery_process"
+          },
+          {
+            "label": "Mentions growth / StayTerra / acquisition integration",
+            "to": "stayterra_growth"
+          },
+          {
+            "label": "Wants to know what you do first",
+            "to": "solution_pitch"
+          },
+          {
+            "label": "Defers to ops team",
+            "to": "referral_pivot"
+          }
+        ]
+      },
+      "discovery_process": {
+        "label": "DISCOVERY — PROCESS DIG",
+        "say": "Got it. And just so I understand how it works on your end — your QA team's running inspections through Breezeway right now, taking photos after every turnover? And then someone's manually reviewing those before the guest arrives?",
+        "note": "Confirm the workflow. You know they have QA inspectors (Anna Calhoon in Steamboat, Brian Ball in Breck). If she gives details, mirror them. You're building the case that the bottleneck is photo review, not photo capture.",
+        "branches": [
+          {
+            "label": "Yes, that's basically it",
+            "to": "solution_pitch"
+          },
+          {
+            "label": "We don't review every photo / not enough time",
+            "to": "solution_pitch"
+          },
+          {
+            "label": "Gives more detail about their process",
+            "to": "solution_pitch"
+          }
+        ]
+      },
+      "breezeway_probe": {
+        "label": "BREEZEWAY — SURFACE THE GAP",
+        "say": "Yeah, that makes sense — you guys are on Breezeway, right? So your team's already capturing photos on every turnover. My question is — is someone actually reviewing every single one of those photos before the guest checks in? Or is it more like the photos exist, but unless someone flags something obvious, they kind of just sit there?",
+        "note": "This is the key question. Breezeway captures photos but doesn't analyze them. You're surfacing the gap between 'we have photos' and 'someone actually looked at them.' Be genuinely curious, not adversarial.",
+        "branches": [
+          {
+            "label": "Admits photos aren't all reviewed / too many to check",
+            "to": "breezeway_complement"
+          },
+          {
+            "label": "We review them all / our QA team handles it",
+            "to": "breezeway_complement"
+          },
+          {
+            "label": "I'm not sure how that works day to day / that's ops",
+            "to": "referral_pivot"
+          }
+        ]
+      },
+      "breezeway_complement": {
+        "label": "BREEZEWAY COMPLEMENT — POSITION AS ADD-ON",
+        "say": "Totally — and Breezeway's great for managing the workflow. What we do is actually sit on top of Breezeway. So your team takes photos exactly like they always do, and our AI automatically analyzes every single one — flags damage, missing items, staging issues, anything that changed since the last stay. Think of it like giving your QA team a second set of eyes on every turnover, without adding a single step to what they already do.",
+        "note": "Position as complement, NEVER replacement. 'Sits on top of' is the key phrase. 'No extra steps' is the whole pitch. Then move toward CTA.",
+        "branches": [
+          {
+            "label": "That's interesting / tell me more",
+            "to": "cta"
+          },
+          {
+            "label": "How does that actually work technically?",
+            "to": "solution_detail"
+          },
+          {
+            "label": "What does something like that cost?",
+            "to": "cta"
+          },
+          {
+            "label": "We're fine with what we have",
+            "to": "objection_not_interested"
+          }
+        ]
+      },
+      "solution_pitch": {
+        "label": "SOLUTION — ONE SENTENCE",
+        "say": "So what we built — we plug into Breezeway and Track, which I know you guys are already on. Our AI analyzes every photo your team's already taking and automatically flags damage, missing items, staging problems — anything that changed since the last stay. No workflow change at all. Your team keeps doing exactly what they do, they just get a report that says here's what needs attention.",
+        "note": "One breath. Name their actual tools (Breezeway + Track). Don't oversell features. Transition to CTA immediately after.",
+        "branches": [
+          {
+            "label": "That's interesting / I could see that being useful",
+            "to": "cta"
+          },
+          {
+            "label": "How does it actually work / want more detail",
+            "to": "solution_detail"
+          },
+          {
+            "label": "We're already pretty covered",
+            "to": "objection_have_vendor"
+          },
+          {
+            "label": "What does that cost?",
+            "to": "cta"
+          }
+        ]
+      },
+      "solution_detail": {
+        "label": "SOLUTION — MORE DETAIL",
+        "say": "Yeah so two ways it works. First — the photos your QA team's already uploading into Breezeway after each turnover, our AI scans every one and flags anything that looks off. Damage, stains, missing items, furniture that moved. Second — if your team does a quick video walkthrough, even just a phone video, we run change detection against the property baseline. So if a four-thousand-dollar rug is missing or a wall got scuffed, it catches it before the next guest walks in. The whole point is your team doesn't change anything they do. They just get smarter output.",
+        "note": "Concrete and visual. She's a CFO — she wants to understand the mechanism, not hear buzzwords. Then move to CTA or social proof if she wants validation.",
+        "branches": [
+          {
+            "label": "Makes sense / sounds useful",
+            "to": "cta"
+          },
+          {
+            "label": "Who else is using this?",
+            "to": "social_proof"
+          },
+          {
+            "label": "I'd need to loop in our ops team on this",
+            "to": "referral_pivot"
+          }
+        ]
+      },
+      "social_proof": {
+        "label": "SOCIAL PROOF",
+        "say": "Yeah — right now we're working with a luxury PM company in New York running about 200 high-end homes, another group on the East Coast with about 600 properties, and a company in Dubai doing about 100 luxury units. The common thread is they all had the same thing — tons of photos already being captured, nobody has enough bandwidth to review them all carefully, and at the luxury level the cost of one miss is massive.",
+        "note": "Real traction, specific numbers. Don't name clients unless you have permission. Then pivot back to CTA.",
+        "branches": [
+          {
+            "label": "Impressed / sounds legit",
+            "to": "cta"
+          },
+          {
+            "label": "Do you work with anyone in the Colorado mountain market?",
+            "to": "cta"
+          }
+        ]
+      },
+      "cta": {
+        "label": "ASK FOR THE MEETING",
+        "say": "Look, I know I'm cold calling you out of the blue — would you be open to taking a look when it's not the middle of your day? Even just 20 minutes. Worst case you see what other luxury PMs are doing with their turnover photos and steal some ideas.",
+        "note": "Low friction. 'Take a look' not 'schedule a demo.' The 'steal some ideas' line makes the meeting valuable even if they never buy.",
+        "branches": [
+          {
+            "label": "Sure / yeah let's set something up",
+            "to": "booking"
+          },
+          {
+            "label": "Send me an email first",
+            "to": "send_email"
+          },
+          {
+            "label": "No budget right now / maybe later",
+            "to": "objection_budget"
+          },
+          {
+            "label": "I'd need to loop in Chad or our ops team",
+            "to": "referral_pivot"
+          }
+        ]
+      },
+      "booking": {
+        "label": "BOOK THE MEETING",
+        "say": "Awesome. I've got next Tuesday and Thursday pulled up — does morning or afternoon work better for you?",
+        "note": "Pick specific days. Narrow morning/afternoon, then lock a time. Send the calendar invite WHILE on the phone. Once booked, STOP SELLING.",
+        "branches": [
+          {
+            "label": "Picks a time",
+            "to": "end_booked"
+          },
+          {
+            "label": "Let me check my calendar / I'll get back to you",
+            "to": "send_email"
+          }
+        ]
+      },
+      "objection_budget": {
+        "label": "OBJECTION — BUDGET",
+        "say": "Totally get it. Especially with the StayTerra investment still settling in, I'm sure every dollar's under a microscope right now.",
+        "note": "Agree first. The StayTerra reference shows empathy plus homework. Then split the objection.",
+        "branches": [
+          {
+            "label": "Continue to split",
+            "to": "budget_split"
+          }
+        ]
+      },
+      "budget_split": {
+        "label": "BUDGET — SPLIT THE OBJECTION",
+        "say": "Just so nobody from my team bugs you again — is it that the budget for this cycle is completely locked, or is it more that anything new has to go through a whole approval process now with the new investment structure?",
+        "note": "Multiple choice. 'Budget locked' = revisit next quarter with a test drive. 'Approval process' = who approves? Route to that person or offer low-commitment look.",
+        "branches": [
+          {
+            "label": "Budget is locked / maybe next quarter",
+            "to": "budget_test_drive"
+          },
+          {
+            "label": "Approval process / have to run it up",
+            "to": "referral_pivot"
+          },
+          {
+            "label": "Actually, tell me more first",
+            "to": "solution_pitch"
+          }
+        ]
+      },
+      "budget_test_drive": {
+        "label": "TEST DRIVE — SELL THE LOOK",
+        "say": "Totally respect that. Here's what I'd say though — the people who move fastest when budget does open up are the ones who already know what's on their list. Would you be open to just taking a look so you know what's out there? No commitment, no pressure. If nothing else I can walk you through what a couple other luxury PMs are doing with their turnover workflows. Worst case you steal some ideas and we part as friends.",
+        "note": "Sell the meeting, not the product. The meeting has standalone value. This works especially well on CFOs who like to plan ahead.",
+        "branches": [
+          {
+            "label": "Sure, that's fair",
+            "to": "booking"
+          },
+          {
+            "label": "Send me something first",
+            "to": "send_email"
+          },
+          {
+            "label": "No, not right now",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "objection_not_interested": {
+        "label": "OBJECTION — NOT INTERESTED",
+        "say": "Totally get it. Honestly I should've assumed you'd be all set — otherwise you probably would've reached out yourself.",
+        "note": "Agree and lower the guard. Surprise her by not pushing back. Then split.",
+        "branches": [
+          {
+            "label": "Continue to split",
+            "to": "not_interested_split"
+          }
+        ]
+      },
+      "not_interested_split": {
+        "label": "NOT INTERESTED — SPLIT",
+        "say": "Just so nobody from my team cold calls you again — is it that inspections aren't really a problem you're focused on right now, or is it more that you just hate cold calls?",
+        "note": "The 'hate cold calls' option usually gets a laugh and reopens the conversation. If inspections aren't her focus, route to whoever owns it.",
+        "branches": [
+          {
+            "label": "Laughs / it's the cold call / opens up a bit",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "Inspections aren't my focus / not my area",
+            "to": "referral_pivot"
+          },
+          {
+            "label": "We're genuinely all set / not a problem for us",
+            "to": "objection_have_vendor"
+          },
+          {
+            "label": "Firm no",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "objection_have_vendor": {
+        "label": "OBJECTION — HAVE A VENDOR / PROCESS",
+        "say": "That makes total sense — with 250 properties across four markets you'd have to have something dialed in. You guys are running it through Breezeway, right?",
+        "note": "Agree first, then confirm the tool. You already know they use Breezeway. This lets you position as a complement, not a replacement.",
+        "branches": [
+          {
+            "label": "Yes, Breezeway / confirms tool or process",
+            "to": "breezeway_probe"
+          },
+          {
+            "label": "We have our own internal process",
+            "to": "vendor_split"
+          },
+          {
+            "label": "I'm not sure what we use / that's an ops question",
+            "to": "referral_pivot"
+          }
+        ]
+      },
+      "vendor_split": {
+        "label": "VENDOR — SPLIT THE OBJECTION",
+        "say": "Totally fair. And just so I'm not wasting your time — is it that you're fully happy with how it's working and nothing's falling through the cracks, or is it more that switching anything right now would just be a headache with everything else going on?",
+        "note": "If 'happy' → offer a future look via test drive. If 'switching is a pain' → position as add-on that requires zero switching. If 'things do fall through' → you're back in.",
+        "branches": [
+          {
+            "label": "We're happy / it's working",
+            "to": "budget_test_drive"
+          },
+          {
+            "label": "Switching would be a headache",
+            "to": "breezeway_complement"
+          },
+          {
+            "label": "Actually things do slip through sometimes",
+            "to": "warm_response"
+          }
+        ]
+      },
+      "stayterra_growth": {
+        "label": "STAYTERRA / GROWTH PRESSURE",
+        "say": "Yeah — and honestly that's a big part of why I reached out. When you're integrating new properties from acquisitions and growing this fast, the inspection standards are one of the hardest things to keep consistent across markets. Are you guys finding that's true, or has Breezeway pretty much solved that?",
+        "note": "She brought up growth or StayTerra — lean into it. Tie portfolio growth directly to inspection complexity. Let her confirm or deny. Either answer leads somewhere productive.",
+        "branches": [
+          {
+            "label": "Yeah, consistency across markets is tough",
+            "to": "discovery_cfo"
+          },
+          {
+            "label": "Breezeway handles most of it",
+            "to": "breezeway_probe"
+          },
+          {
+            "label": "That's really more of an ops-level question",
+            "to": "referral_pivot"
+          }
+        ]
+      },
+      "send_email": {
+        "label": "SEND ME AN EMAIL",
+        "say": "Totally fair. One quick question before I do — what would be most relevant to include so it's actually useful and not just another generic pitch sitting in your inbox?",
+        "note": "This gets intel on what she cares about. Whatever she says, tailor the email. Include a specific meeting time suggestion. Send to heather@movingmountains.com (pattern: first@movingmountains.com).",
+        "branches": [
+          {
+            "label": "Tells you what to include / gives direction",
+            "to": "end_email"
+          },
+          {
+            "label": "Just send me a general overview",
+            "to": "end_email"
+          }
+        ]
+      },
+      "referral_pivot": {
+        "label": "REFERRAL — NOT THE RIGHT PERSON",
+        "say": "Totally makes sense — I appreciate you telling me. Who on your team would be the best person to talk to about the inspection and turnover workflow? Would that be more of a Chad Rowe thing, or someone on the ops side like Lisa Riniker?",
+        "note": "Drop the names you know. As co-founder she knows everyone. Chad is COO, Lisa is Director of Ops — both are strong targets. If she names someone else (Anna Calhoon, Erin Hawthorne, etc.) take it. A co-founder referral is gold.",
+        "branches": [
+          {
+            "label": "Gives a name / confirms Chad or Lisa or someone else",
+            "to": "referral_get_name"
+          },
+          {
+            "label": "She can forward your info to them",
+            "to": "referral_get_name"
+          },
+          {
+            "label": "Not sure / just email info@",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "referral_get_name": {
+        "label": "LOCK IN THE REFERRAL",
+        "say": "That's super helpful. Would you mind if I mentioned you pointed me their way? That way it doesn't land as just another cold call. And what's the best way to reach them — direct line, or should I go through the main number?",
+        "note": "Get permission to name-drop Heather. A co-founder's name on a cold call changes everything. Get a direct number or email if possible. Then close warm.",
+        "branches": [
+          {
+            "label": "Sure, tell them I sent you / gives contact info",
+            "to": "end_referral"
+          },
+          {
+            "label": "Just try the main line / I'll give them a heads up",
+            "to": "end_referral"
+          }
+        ]
+      },
+      "end_booked": {
+        "label": "MEETING BOOKED — WRAP UP",
+        "say": "Perfect — I'll shoot you the invite right now. Really appreciate you taking my call, Heather, especially out of the blue like this. Looking forward to it. Talk soon.",
+        "note": "Send the calendar invite WHILE ON THE PHONE. Stop talking. Don't re-pitch. Don't add features. Just end warm and hang up.",
+        "branches": []
+      },
+      "end_graceful": {
+        "label": "END — GRACEFUL EXIT",
+        "say": "Totally understand. If anything changes on your end, I'm easy to find. Appreciate your time, Heather.",
+        "note": "Don't burn the bridge. She's a co-founder — she talks to other operators, boards, investors. Leave a great impression even on a no.",
+        "branches": []
+      },
+      "end_email": {
+        "label": "END — EMAIL FOLLOW-UP",
+        "say": "Got it — I'll put something together and have it in your inbox by end of day. I'll throw a couple time options in there in case you want to hop on a quick call after you've had a chance to look. Appreciate it, Heather.",
+        "note": "Send within 2 hours. Include: (1) whatever she asked for, (2) one pain example from the call, (3) two specific meeting time options. Email heather@movingmountains.com. Subject line should reference the call, not be generic.",
+        "branches": []
+      },
+      "end_referral": {
+        "label": "END — REFERRAL SECURED",
+        "say": "This is really helpful — I appreciate it. I'll reach out to them and mention you pointed me their way. Thanks for your time, Heather. And hey — if you're ever looking for a ski buddy out in Jackson Hole, let me know.",
+        "note": "Light personal close that bookends the ski opener. She gave you a referral — leave her feeling good about it. Call the referral within 24 hours and lead with 'Heather pointed me your way.'",
+        "branches": []
+      }
+    }
+  }
+}

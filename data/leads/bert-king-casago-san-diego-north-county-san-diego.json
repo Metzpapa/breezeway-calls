@@ -1,0 +1,664 @@
+{
+  "name": "Bert King",
+  "title": "Partner/Owner",
+  "company": "Casago San Diego / North County San Diego",
+  "location": "San Diego, CA",
+  "phone": "+1-760-999-0171",
+  "company_phone": "(760) 999-0171",
+  "alt_phones": [
+    "+1-760-656-6053",
+    "+1-877-290-4447"
+  ],
+  "flow": {
+    "context": "Bert King is one of three Partner/Owners at Casago San Diego / North County San Diego, a Casago franchise managing high-end coastal vacation rentals across Carlsbad, Oceanside, Encinitas, Del Mar, and La Jolla. In August 2025, they took on 150+ homes previously managed by Vacasa — a massive portfolio expansion that is almost certainly straining their turnover and inspection workflows right now. They run on Streamline PMS with Property Care X for field ops, publicly promise 75-point cleaning checklists and monthly 100-point inspections, and Casago corporate just partnered with Breezeway network-wide. Bert's bio says he loves the beach, ocean, and sports — Sam surfs and grew up in LA, so lead with the SoCal ocean connection to open warm.",
+    "start": "opener",
+    "nodes": {
+      "opener": {
+        "label": "OPENER",
+        "say": "Hey Bert — I work with a couple property managers down in North County, and I noticed on the Casago page you're a beach and ocean guy. I'm actually from LA — I surf out that way whenever I can. It's Sam Parks with RapidEye. Have you heard my name tossed around at all?",
+        "note": "If someone other than Bert picks up, jump to gatekeeper_initial. Otherwise — feet up on the desk energy. Don't rush. Let the surfing line breathe. Pause after 'tossed around' and wait for his answer.",
+        "branches": [
+          {
+            "label": "No / Who? / Doesn't ring a bell",
+            "to": "heard_no"
+          },
+          {
+            "label": "Yeah actually / Maybe / Sounds familiar",
+            "to": "heard_yes"
+          },
+          {
+            "label": "I'm busy / Not a good time",
+            "to": "bad_timing"
+          },
+          {
+            "label": "What is this? / Are you selling something?",
+            "to": "permission_fallback"
+          }
+        ]
+      },
+      "heard_no": {
+        "label": "HEARD NO — BRIDGE TO PAIN",
+        "say": "Ha — guess I'm not as popular as I thought. Well the reason for my call — I actually work with a few property managers who are in a pretty similar situation to what you guys have going on right now. You mind if I take 30 seconds to tell you why I reached out?",
+        "note": "Keep it light. The self-deprecating line buys goodwill. You're asking permission to continue — respectful, not pushy.",
+        "branches": [
+          {
+            "label": "Sure / Go ahead",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "I'm really busy",
+            "to": "bad_timing"
+          },
+          {
+            "label": "Not interested",
+            "to": "permission_rejected"
+          }
+        ]
+      },
+      "heard_yes": {
+        "label": "HEARD YES — EXPLORE",
+        "say": "Oh nice — well normally we'd be working with someone like you on the inspection side of things. What'd you hear?",
+        "note": "Rare but great. Let him talk. Whatever he says, bridge into discovery. Don't correct or over-explain.",
+        "branches": [
+          {
+            "label": "Shares what he heard",
+            "to": "pain_warm_response"
+          },
+          {
+            "label": "Not sure / Vague",
+            "to": "pain_trigger"
+          }
+        ]
+      },
+      "bad_timing": {
+        "label": "BAD TIMING",
+        "say": "Totally hear you — would it be a terrible idea if I tried you again tomorrow or later this week?",
+        "note": "Don't push. Get a callback time and move on. If he gives a time, lock it in and get off the phone.",
+        "branches": [
+          {
+            "label": "Gives a time / Sure try Thursday",
+            "to": "bad_timing_reschedule"
+          },
+          {
+            "label": "Just send me an email",
+            "to": "send_email"
+          },
+          {
+            "label": "Don't call back / Not interested",
+            "to": "permission_rejected"
+          }
+        ]
+      },
+      "bad_timing_reschedule": {
+        "label": "LOCK IN CALLBACK",
+        "say": "Perfect — I'll try you then. And just so you know what it's about, we help property managers automatically catch damage and issues in the turnover photos your cleaners are already taking. Talk soon, Bert.",
+        "note": "One sentence so he knows what to expect. Don't oversell. Write down the day and time immediately after hanging up.",
+        "branches": []
+      },
+      "permission_fallback": {
+        "label": "PERMISSION ASK",
+        "say": "Yeah totally — I mean it is a cold call, I'll own that. Can I get 30 seconds to tell you why I reached out? You can totally hang up on me if it's not a fit.",
+        "note": "Disarming honesty. Most people give you 30 seconds once you acknowledge the cold call directly.",
+        "branches": [
+          {
+            "label": "Fine / Go ahead / 30 seconds",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "No / Not interested / Take me off your list",
+            "to": "permission_rejected"
+          }
+        ]
+      },
+      "permission_rejected": {
+        "label": "PERMISSION REJECTED — SPLIT",
+        "say": "Shoot, totally my bad. Just so nobody from my team bugs you again — is it that I caught you at a horrible time, or is this just not something you're focused on right now?",
+        "note": "You're not pushing back. You're giving him two doors. Bad timing is recoverable. 'Not focused on it' still opens a crack.",
+        "branches": [
+          {
+            "label": "Bad timing / Just busy right now",
+            "to": "bad_timing"
+          },
+          {
+            "label": "Not interested / Not focused on this",
+            "to": "rejection_reason_split"
+          },
+          {
+            "label": "Hard no / Don't call again",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "rejection_reason_split": {
+        "label": "DIG INTO THE NO",
+        "say": "Totally fair. Is it more that inspections are fully dialed in and you're happy with how things are running, or is it just that adding anything new right now — especially in the middle of onboarding all those new properties — would be a headache?",
+        "note": "The 'onboarding new properties' line references the Vacasa transition without being heavy-handed. If he says inspections are dialed, probe whether that's still true at the new scale.",
+        "branches": [
+          {
+            "label": "We're pretty dialed in",
+            "to": "objection_have_process"
+          },
+          {
+            "label": "Yeah just bad timing / Too much going on",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "Still not interested",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "pain_trigger": {
+        "label": "PAIN TRIGGER — TELL THE STORY",
+        "say": "So I was talking to another manager who went through something really similar to what you guys just did — they took on about 150 properties from another company in a few weeks. Their cleaners were snapping turnover photos, uploading everything into their system, but nobody had the bandwidth to actually look through all of them. Guest checks in, finds a cracked shower door that was sitting right there in the turnover photos — cleaner photographed it, it just never got flagged. Owner calls in furious, wants to know what they're even paying management fees for if that stuff slips through.",
+        "note": "This mirrors their exact situation — 150+ Vacasa homes, photo-heavy workflow via Property Care X, checklist-driven promises to owners. PAUSE HERE. Let Bert react. Do not rush to the solution.",
+        "branches": [
+          {
+            "label": "Yeah / That resonates / We've dealt with that",
+            "to": "pain_warm_response"
+          },
+          {
+            "label": "OK... / Go on / What do you do about it?",
+            "to": "solution_bridge"
+          },
+          {
+            "label": "We actually have a process for that",
+            "to": "objection_have_process"
+          },
+          {
+            "label": "Not really our problem / We're good",
+            "to": "objection_not_interested"
+          }
+        ]
+      },
+      "pain_warm_response": {
+        "label": "HE'S WARM — ASK, DON'T PITCH",
+        "say": "Yeah — I figured that might hit close to home, especially with the Vacasa transition you guys just went through. How's that been going? Are your teams pretty much up to speed on all those homes, or is it still a work in progress?",
+        "note": "He's engaged. STOP PITCHING. Ask questions. You want him talking about his operational reality. The Vacasa expansion is public knowledge from the BusinessWire release — not creepy to reference.",
+        "branches": [
+          {
+            "label": "Opens up about the transition / It's been a lot",
+            "to": "vacasa_transition_probe"
+          },
+          {
+            "label": "We're handling it / Pretty smooth",
+            "to": "discovery_deep_dive"
+          },
+          {
+            "label": "How do you know about that?",
+            "to": "vacasa_explain"
+          }
+        ]
+      },
+      "vacasa_explain": {
+        "label": "EXPLAIN HOW YOU KNOW",
+        "say": "Oh yeah — I saw the press release from a few weeks back. We work with a lot of property managers going through portfolio transitions, so when I saw you guys took on 150-plus homes, it just clicked that we should connect. What's the onboarding been like from an ops standpoint?",
+        "note": "Be transparent — it was a BusinessWire press release. Redirect back to discovery immediately after explaining.",
+        "branches": [
+          {
+            "label": "Shares about operations",
+            "to": "vacasa_transition_probe"
+          },
+          {
+            "label": "Keeps it vague / We're fine",
+            "to": "discovery_deep_dive"
+          }
+        ]
+      },
+      "vacasa_transition_probe": {
+        "label": "DIG INTO THE TRANSITION",
+        "say": "Makes total sense. When you brought all those homes over, were you able to baseline the condition of each one before guests started cycling through? Or was it more of a figure-it-out-as-you-go situation with the turnovers?",
+        "note": "This gets at the core problem — inconsistent condition baselines across 150+ properties inherited from another manager. If they couldn't baseline everything, that's exactly where damage goes undetected and owner trust erodes.",
+        "branches": [
+          {
+            "label": "Couldn't baseline everything / Still catching up",
+            "to": "discovery_deep_dive"
+          },
+          {
+            "label": "We did our best / Used checklists",
+            "to": "discovery_deep_dive"
+          },
+          {
+            "label": "What do you mean by baseline?",
+            "to": "discovery_deep_dive"
+          }
+        ]
+      },
+      "discovery_deep_dive": {
+        "label": "DISCOVERY — PROCESS QUESTIONS",
+        "say": "So right now when your cleaners finish a turnover — they're uploading photos into Property Care, right? Who's actually reviewing those before the next guest checks in?",
+        "note": "You know they use Property Care X tied to Streamline. Naming the tool shows homework. Listen for: nobody reviews them all, a manager spot-checks, or they rely on the checklist pass/fail alone.",
+        "branches": [
+          {
+            "label": "Nobody really reviews all of them / Spot checks only",
+            "to": "solution_bridge"
+          },
+          {
+            "label": "We have inspectors / Someone checks each one",
+            "to": "solution_bridge_inspector"
+          },
+          {
+            "label": "We're actually switching to Breezeway",
+            "to": "breezeway_angle"
+          }
+        ]
+      },
+      "solution_bridge_inspector": {
+        "label": "INSPECTOR ANGLE",
+        "say": "Got it — so you've got someone doing inspections on top of the cleaner photos. How's that scaling with the bigger portfolio? I ask because the managers I work with who went from like 80 units to 200-plus — that's usually where the inspector becomes the bottleneck. They just can't get to every property between checkout and check-in.",
+        "note": "Don't challenge their process. Validate it and probe whether it scales. They went from whatever they had to 150+ more homes — that's a capacity question.",
+        "branches": [
+          {
+            "label": "It's getting harder / We're stretched thin",
+            "to": "solution_bridge"
+          },
+          {
+            "label": "It's working fine for now",
+            "to": "solution_bridge"
+          },
+          {
+            "label": "We're hiring more people / Trying to figure it out",
+            "to": "solution_bridge"
+          }
+        ]
+      },
+      "breezeway_angle": {
+        "label": "BREEZEWAY TRANSITION",
+        "say": "Oh nice — yeah I saw Casago just partnered with Breezeway at the network level. That's actually perfect timing for what we do. RapidEye plugs directly into Breezeway — we analyze the photos your cleaners upload through it and flag anything that needs attention before it becomes a guest complaint. So it'd literally just be a layer on top of whatever you're already building out there.",
+        "note": "Breezeway is a confirmed integration target. Position RapidEye as additive, not competitive. They're already making a tech investment — ride that momentum.",
+        "branches": [
+          {
+            "label": "Interested / Tell me more",
+            "to": "cta_meeting"
+          },
+          {
+            "label": "We're still figuring out Breezeway",
+            "to": "cta_meeting"
+          },
+          {
+            "label": "That's a corporate decision",
+            "to": "objection_corporate_decision"
+          }
+        ]
+      },
+      "solution_bridge": {
+        "label": "ONE-SENTENCE SOLUTION",
+        "say": "So that's exactly what we built. RapidEye plugs into the photo workflow your team's already running — Streamline, Property Care, Breezeway, whatever you end up on — and it automatically analyzes every single turnover photo. Flags damage, missing items, staging issues, anything that's off. No workflow change for your cleaners — they keep doing exactly what they're doing.",
+        "note": "One breath. Don't list features. Key message: no workflow change, automatic, catches what humans miss at scale. Then move straight to the CTA.",
+        "branches": [
+          {
+            "label": "That's interesting / How does it work?",
+            "to": "cta_meeting"
+          },
+          {
+            "label": "What does that cost?",
+            "to": "cta_meeting"
+          },
+          {
+            "label": "We don't have budget for that right now",
+            "to": "objection_no_budget"
+          },
+          {
+            "label": "I'd need to loop in my partners",
+            "to": "objection_corporate_decision"
+          }
+        ]
+      },
+      "cta_meeting": {
+        "label": "ASK FOR THE MEETING",
+        "say": "Would you be open to taking a look when I'm not cold calling you out of the blue? Even just 15 minutes — I could show you what it actually catches on real turnover photos. Worst case, you steal some ideas for how to tighten up your QA as you scale and we part as friends.",
+        "note": "Low friction. 15 minutes. 'Steal some ideas' takes the pressure off buying. If he's asking about cost or features, that's buying interest — redirect to the meeting, don't try to sell on the phone.",
+        "branches": [
+          {
+            "label": "Sure / Yeah let's do it",
+            "to": "meeting_booking"
+          },
+          {
+            "label": "Send me something first",
+            "to": "send_email"
+          },
+          {
+            "label": "I'd need to get Dave and Erik on too",
+            "to": "objection_corporate_decision"
+          },
+          {
+            "label": "Not right now / Maybe later",
+            "to": "sell_test_drive"
+          }
+        ]
+      },
+      "meeting_booking": {
+        "label": "BOOK IT NOW",
+        "say": "Awesome. I've got next Tuesday and Thursday pulled up — does morning or afternoon work better for you? And if Dave or Erik want to jump on too, they're more than welcome.",
+        "note": "Pick specific days. Morning or afternoon. Offering to include his partners shows you understand the 3-owner structure. Send the calendar invite WHILE on the phone.",
+        "branches": [
+          {
+            "label": "Gives a time",
+            "to": "meeting_booked"
+          },
+          {
+            "label": "Let me check my calendar and get back to you",
+            "to": "send_email"
+          }
+        ]
+      },
+      "meeting_booked": {
+        "label": "MEETING CONFIRMED — WRAP UP",
+        "say": "Perfect — I'll send that invite over right now. Really appreciate you taking my call, Bert. And hey — if you ever need a surf spot recommendation for Indo, I just got back. Talk soon.",
+        "note": "STOP SELLING. Lock the calendar invite. The surfing callback at the end personalizes the close and ties back to the opener. Keep it light.",
+        "branches": []
+      },
+      "objection_no_budget": {
+        "label": "NO BUDGET — AGREE FIRST",
+        "say": "Totally get it. Especially right after taking on 150-plus new homes, I'm sure every dollar's accounted for right now.",
+        "note": "Agree completely. Reference their specific expansion to show empathy. Then move to the split.",
+        "branches": [
+          {
+            "label": "Yeah exactly / It's tight right now",
+            "to": "budget_split"
+          },
+          {
+            "label": "It's not just budget...",
+            "to": "interest_split"
+          }
+        ]
+      },
+      "budget_split": {
+        "label": "SPLIT THE BUDGET OBJECTION",
+        "say": "Just so nobody from my team cold calls you again — is it more that the budget for this kind of tool is completely locked for the year, or is it that anything new you try to buy right now puts you through the ringer with approvals?",
+        "note": "Two doors. If budget is locked, sell the test drive for future planning. If it's approvals, you can help build the business case or get in front of the right person.",
+        "branches": [
+          {
+            "label": "Budget's locked / Maybe end of year",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "It's more the approval process / Need partner buy-in",
+            "to": "sell_test_drive"
+          }
+        ]
+      },
+      "objection_not_interested": {
+        "label": "NOT INTERESTED — AGREE FIRST",
+        "say": "Totally get it — I should've assumed you'd be all set. Otherwise you probably would've reached out yourself.",
+        "note": "Disarm completely. Don't argue. The self-deprecating agreement surprises them and opens a crack. Then split.",
+        "branches": [
+          {
+            "label": "Yeah we're good / Appreciates the honesty",
+            "to": "interest_split"
+          },
+          {
+            "label": "Right...",
+            "to": "interest_split"
+          }
+        ]
+      },
+      "interest_split": {
+        "label": "SPLIT THE INTEREST OBJECTION",
+        "say": "Just so I know — is it more that inspection quality isn't really a problem you're focused on right now, or is it honestly that you just hate cold calls and I caught you at the worst time?",
+        "note": "Most people will admit it's at least partly the cold call. If he says inspections genuinely aren't a priority, that's surprising given their public promises — but respect it and try the test drive angle.",
+        "branches": [
+          {
+            "label": "It's not a priority right now",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "Ha — yeah I hate cold calls / Bad timing",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "We genuinely don't need this",
+            "to": "referral_ask"
+          }
+        ]
+      },
+      "objection_have_process": {
+        "label": "HAVE A PROCESS — AGREE FIRST",
+        "say": "That makes total sense — with your kind of portfolio, especially the high-end stuff in Del Mar and La Jolla, you'd have to have something solid in place.",
+        "note": "Validate. Naming their specific luxury markets shows you know the portfolio. Then split to understand if they're truly happy or just avoiding change.",
+        "branches": [
+          {
+            "label": "Yeah we do / We're covered",
+            "to": "process_split"
+          },
+          {
+            "label": "It's not perfect but it works",
+            "to": "solution_bridge"
+          }
+        ]
+      },
+      "process_split": {
+        "label": "SPLIT THE PROCESS OBJECTION",
+        "say": "Makes sense. Is it more that you're fully covered and genuinely happy with how turnover QA is running across all 200-plus units now? Or is it that switching anything or adding a layer right now — especially in the middle of this transition — would just be a headache?",
+        "note": "The '200-plus units' subtly highlights the new scale. Most people will acknowledge the transition is straining things even if they have a process for the original portfolio.",
+        "branches": [
+          {
+            "label": "We're happy with it honestly",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "It's more the timing / Switching is hard",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "Actually it could be better...",
+            "to": "solution_bridge"
+          }
+        ]
+      },
+      "objection_corporate_decision": {
+        "label": "CORPORATE / PARTNER DECISION",
+        "say": "Totally makes sense — with three partners I'd imagine you guys make those calls together. Is this something you'd typically decide locally for the San Diego operation, or does something like this need to go through Casago corporate?",
+        "note": "Critical fork. Casago franchises have local autonomy but corporate is rolling out standardized tools like Breezeway and Wheelhouse. Understanding the decision structure tells you where to aim.",
+        "branches": [
+          {
+            "label": "We decide locally / Me and the guys",
+            "to": "corporate_local"
+          },
+          {
+            "label": "Corporate would need to weigh in",
+            "to": "corporate_escalation"
+          },
+          {
+            "label": "I'd need to talk to Dave and Erik first",
+            "to": "corporate_local"
+          }
+        ]
+      },
+      "corporate_local": {
+        "label": "LOCAL DECISION — INCLUDE PARTNERS",
+        "say": "Perfect — would it make sense to get Dave and Erik on too? That way I'm not making you re-pitch it to them after. I could do 15 minutes with all three of you, walk through what it looks like on actual turnover photos, and you guys can decide together if it's worth exploring.",
+        "note": "You know all three partners by name — Dave Carter and Erik Trogden. Offering a joint meeting respects their decision-making process and shows you did your homework.",
+        "branches": [
+          {
+            "label": "Yeah that'd work / Let me check with them",
+            "to": "meeting_booking"
+          },
+          {
+            "label": "Let me talk to them first and circle back",
+            "to": "send_email"
+          }
+        ]
+      },
+      "corporate_escalation": {
+        "label": "CORPORATE PATH",
+        "say": "Got it. I know Casago's been rolling out a lot of standardized tools across the network right now — Breezeway, Wheelhouse, Guesty. Is there someone at corporate you'd point me toward, or would it work better if you guys flagged it internally and I supported from the outside?",
+        "note": "Naming their actual corporate tool rollouts — Breezeway, Wheelhouse, Guesty — shows deep knowledge and credibility. If corporate controls this, get a name. Don't push too hard.",
+        "branches": [
+          {
+            "label": "Gives a corporate contact name",
+            "to": "referral_get_name"
+          },
+          {
+            "label": "We can flag it / Let me check internally",
+            "to": "send_email"
+          },
+          {
+            "label": "Actually we have some local discretion on this",
+            "to": "corporate_local"
+          }
+        ]
+      },
+      "sell_test_drive": {
+        "label": "SELL THE TEST DRIVE",
+        "say": "Totally respect that. And honestly you're probably not buying anything on a cold call — I wouldn't either. But here's what I've seen with managers in your spot: when you're ready to look at something like this, whether that's next quarter or next year, the people who move fast are the ones who already know what's on their shortlist. Would you be open to just seeing what it does — no commitment, just a look — so it's on your radar when the timing's right?",
+        "note": "This reframes the meeting as research, not a buying decision. If he still says no, offer the email or end gracefully. Don't push past a second no.",
+        "branches": [
+          {
+            "label": "Sure / Fine let's do a quick look",
+            "to": "meeting_booking"
+          },
+          {
+            "label": "Just send me something",
+            "to": "send_email"
+          },
+          {
+            "label": "No thanks / Not right now",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "send_email": {
+        "label": "SEND ME AN EMAIL — ACCEPT AND ASK",
+        "say": "Totally fair — I'll send something over. One quick question so it's not just another generic pitch that hits your inbox — what would actually be relevant? Like would it be more helpful to see how it works with Property Care and Streamline, or would you rather just see the actual damage detection on real turnover photos?",
+        "note": "Don't just agree to email — that email goes straight to trash. Asking what to include makes the follow-up tailored and gives you one more data point. Naming their specific tools shows you're not generic.",
+        "branches": [
+          {
+            "label": "Tells you what he'd want to see",
+            "to": "send_email_confirm"
+          },
+          {
+            "label": "Just send whatever / Doesn't matter",
+            "to": "send_email_confirm"
+          }
+        ]
+      },
+      "send_email_confirm": {
+        "label": "CONFIRM EMAIL — PLANT MEETING SEED",
+        "say": "Got it — I'll put that together and shoot it to your Casago email. I'll throw a couple times in there in case you want to see it live after you've had a chance to look. Appreciate your time, Bert.",
+        "note": "His email is bert.king@casago.com. Include two specific time options in the email. Follow up within 24 hours. Add a one-line surfing reference in the email to stand out.",
+        "branches": []
+      },
+      "referral_ask": {
+        "label": "REFERRAL — FIND THE RIGHT PERSON",
+        "say": "Totally understand. Out of curiosity — who on your team typically owns the inspection and turnover quality side of things? Is that you guys as the owners, or is there an ops manager who runs that day to day?",
+        "note": "With a 3-partner franchise, one of them likely owns ops more directly than the others. Or there may be a local ops or property manager underneath them. If he points to Dave or Erik, you already have their emails.",
+        "branches": [
+          {
+            "label": "That's more Dave's thing / Erik handles that",
+            "to": "referral_get_name"
+          },
+          {
+            "label": "We have an ops manager / Someone else",
+            "to": "referral_get_name"
+          },
+          {
+            "label": "It's all of us / No one specific",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "referral_get_name": {
+        "label": "GET THE NAME",
+        "say": "Perfect — if I can get their name I'll put something tailored together so it actually lands and I'm not calling them completely cold. What's the best way to reach them?",
+        "note": "Get name, title, and ideally email or direct line. If he refers you to Dave Carter or Erik Trogden, you already have their emails at casago.com. Mention you'll reference Bert in your outreach.",
+        "branches": [
+          {
+            "label": "Gives name and contact info",
+            "to": "referral_thank"
+          },
+          {
+            "label": "Won't give a name / Just call the office",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "referral_thank": {
+        "label": "THANK FOR REFERRAL",
+        "say": "Really appreciate that, Bert. I'll reach out to them and mention you pointed me their way. And seriously — if you're ever looking for a surf spot down in Carlsbad, you know where to find me. Take care.",
+        "note": "Light close. Tie back to the personal connection one more time. Note the referral name, title, and contact info immediately after hanging up. Follow up with the referral within 24 hours.",
+        "branches": []
+      },
+      "gatekeeper_initial": {
+        "label": "GATEKEEPER — SLIDE BY",
+        "say": "Hey — could you get me through to Bert? It's Sam.",
+        "note": "First name only for both you and Bert. Sound like you know him. Don't explain anything yet. Don't say your company name.",
+        "branches": [
+          {
+            "label": "Transfers / Hold on",
+            "to": "opener"
+          },
+          {
+            "label": "Who's calling? / What's this about?",
+            "to": "gatekeeper_context"
+          },
+          {
+            "label": "He's not available",
+            "to": "gatekeeper_not_available"
+          }
+        ]
+      },
+      "gatekeeper_context": {
+        "label": "GATEKEEPER — ADD CONTEXT",
+        "say": "Yeah — I work with a few other property managers in North County. Would you mind letting him know it's Sam Parks?",
+        "note": "Give a little more but don't pitch. 'A few other property managers in North County' is true and positions you as industry, not a salesperson.",
+        "branches": [
+          {
+            "label": "Transfers / Let me check",
+            "to": "opener"
+          },
+          {
+            "label": "What company? / What do you do?",
+            "to": "gatekeeper_social_proof"
+          },
+          {
+            "label": "He's busy / Can I take a message?",
+            "to": "gatekeeper_not_available"
+          }
+        ]
+      },
+      "gatekeeper_social_proof": {
+        "label": "GATEKEEPER — SOCIAL PROOF",
+        "say": "It's RapidEye — we help property management companies with their inspection workflows. I sent him a note already, just wanted to follow up. Would you mind giving him a heads up?",
+        "note": "Third attempt. Add company name and a one-line description. 'I sent him a note' implies prior contact. This is the last try before taking a message.",
+        "branches": [
+          {
+            "label": "Transfers / OK hold on",
+            "to": "opener"
+          },
+          {
+            "label": "Take a message / Just email him",
+            "to": "gatekeeper_not_available"
+          }
+        ]
+      },
+      "gatekeeper_not_available": {
+        "label": "GATEKEEPER — NOT AVAILABLE",
+        "say": "No worries at all. Do you know when he's usually free? I want to make sure I catch him at a better time.",
+        "note": "Get a callback window. If they offer to take a message, give your name and number but don't bank on a callback. Ask when to try again.",
+        "branches": [
+          {
+            "label": "Gives a time / Try back in the afternoon",
+            "to": "gatekeeper_wrap"
+          },
+          {
+            "label": "I can take a message / Just email him",
+            "to": "gatekeeper_wrap"
+          }
+        ]
+      },
+      "gatekeeper_wrap": {
+        "label": "GATEKEEPER — WRAP UP",
+        "say": "Perfect — I'll try back then. It's Sam Parks — P as in Parks — with RapidEye. Appreciate your help.",
+        "note": "Be polite and memorable. Note the callback time. Don't burn the gatekeeper relationship — you may need them multiple times.",
+        "branches": []
+      },
+      "end_graceful": {
+        "label": "END GRACEFULLY",
+        "say": "Totally understand, Bert. If anything ever changes on your end, I'm easy to find. Appreciate you taking the call — take care.",
+        "note": "Don't burn the bridge. Stay warm. Log the outcome in CRM immediately. Consider a soft LinkedIn connection request in a couple weeks with a personal note about surfing or North County.",
+        "branches": []
+      }
+    }
+  }
+}

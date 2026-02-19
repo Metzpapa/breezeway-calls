@@ -1,0 +1,738 @@
+{
+  "name": "Amanda Lewis",
+  "title": "Quality Assurance Specialist, Steamboat Springs",
+  "company": "Moving Mountains",
+  "location": "Steamboat Springs, CO",
+  "phone": "+1-970-870-9359",
+  "company_phone": "(877) 624-2538",
+  "alt_phones": [
+    "+1-970-870-9359",
+    "+1-970-445-2300",
+    "+1-970-547-2122",
+    "+1-970-870-9487"
+  ],
+  "flow": {
+    "context": "Amanda Lewis is a Quality Assurance Specialist at Moving Mountains in Steamboat Springs — she's a front-line inspector who personally walks luxury homes after cleans, catching damage, missing items, and staging issues before guests arrive. She reports to Anna Calhoon (Housekeeping & QA Manager, Steamboat). Moving Mountains manages ~250 luxury properties across four Colorado ski markets, uses Breezeway for ops and Track as their PMS, and just received growth investment from StayTerra. Amanda is the end user, not the buyer — validate the pain, then get referred up to Anna Calhoon, Lisa Riniker (Director of Ops), or Chad Rowe (COO). Connection: Sam recently skied Jackson Hole — Steamboat is Amanda's backyard.",
+    "start": "first_contact",
+    "nodes": {
+      "first_contact": {
+        "label": "WHO PICKS UP",
+        "say": "Hey, is Amanda around?",
+        "note": "Keep it casual — first name only. Sound like you know her. If Amanda answers directly, skip to opener.",
+        "branches": [
+          {
+            "label": "Amanda answers or gets transferred",
+            "to": "opener"
+          },
+          {
+            "label": "Someone else answers",
+            "to": "gatekeeper_initial"
+          },
+          {
+            "label": "Voicemail",
+            "to": "voicemail"
+          }
+        ]
+      },
+      "gatekeeper_initial": {
+        "label": "GATEKEEPER — SLIDE BY",
+        "say": "Could you get me through to Amanda? It's Sam.",
+        "note": "Don't volunteer anything else. First name only for both. Pause and wait.",
+        "branches": [
+          {
+            "label": "Transfers you",
+            "to": "opener"
+          },
+          {
+            "label": "Asks what it's regarding",
+            "to": "gatekeeper_context"
+          },
+          {
+            "label": "Says she's unavailable",
+            "to": "gatekeeper_unavailable"
+          }
+        ]
+      },
+      "gatekeeper_context": {
+        "label": "GATEKEEPER — ADD CONTEXT",
+        "say": "Yeah, I work with a few other property managers in Steamboat on their inspection workflows. Would you mind letting her know it's Sam Parks?",
+        "note": "Still don't pitch. Just enough context to sound legitimate. Let them route you.",
+        "branches": [
+          {
+            "label": "Transfers you",
+            "to": "opener"
+          },
+          {
+            "label": "Still pushes back",
+            "to": "gatekeeper_social_proof"
+          },
+          {
+            "label": "Says she's unavailable",
+            "to": "gatekeeper_unavailable"
+          }
+        ]
+      },
+      "gatekeeper_social_proof": {
+        "label": "GATEKEEPER — SOCIAL PROOF",
+        "say": "Totally understand — we help a couple other luxury vacation rental companies with their QA photo workflows. I sent her a note — would you mind giving her a heads up that Sam Parks called?",
+        "note": "Third attempt. If they won't budge, get a callback window and move on gracefully.",
+        "branches": [
+          {
+            "label": "Transfers you",
+            "to": "opener"
+          },
+          {
+            "label": "Takes a message / offers a time",
+            "to": "reschedule_ask"
+          },
+          {
+            "label": "Won't help",
+            "to": "ending_graceful"
+          }
+        ]
+      },
+      "gatekeeper_unavailable": {
+        "label": "GATEKEEPER — SHE'S OUT",
+        "say": "No worries — when's she usually around? I'll try her back.",
+        "note": "Get a specific time or day. If they offer someone else on the team, take the referral — could be Anna Calhoon.",
+        "branches": [
+          {
+            "label": "Gives you a time",
+            "to": "ending_graceful"
+          },
+          {
+            "label": "Suggests someone else (Anna, ops team, etc.)",
+            "to": "referral_obtained"
+          },
+          {
+            "label": "Won't help",
+            "to": "ending_graceful"
+          }
+        ]
+      },
+      "opener": {
+        "label": "OPENER",
+        "say": "Hey Amanda — so I was actually just skiing out at Jackson Hole not too long ago, and I've been working with a few property managers in ski towns like Steamboat on their QA and inspection side of things. It's Sam Parks over at RapidEye — have you heard my name tossed around at all?",
+        "note": "Ski connection is real — Sam was at Jackson Hole Jan 2026. Steamboat is Amanda's world. Sound like a peer, not a rep. Feet up on the desk energy.",
+        "branches": [
+          {
+            "label": "No, I haven't",
+            "to": "heard_name_no"
+          },
+          {
+            "label": "Yeah / maybe",
+            "to": "heard_name_yes"
+          },
+          {
+            "label": "I'm busy / bad timing",
+            "to": "bad_timing"
+          },
+          {
+            "label": "What is this about?",
+            "to": "permission_fallback"
+          }
+        ]
+      },
+      "heard_name_no": {
+        "label": "HAVEN'T HEARD OF YOU",
+        "say": "Ha — guess I'm not as popular as I thought. Well the reason I'm calling is —",
+        "note": "Don't pause here. Transition directly into the pain trigger. Keep momentum.",
+        "branches": [
+          {
+            "label": "Continue to pain trigger",
+            "to": "pain_trigger"
+          }
+        ]
+      },
+      "heard_name_yes": {
+        "label": "HEARD THE NAME",
+        "say": "Oh nice — well normally we'd be working with someone like you on the QA side. What'd you hear?",
+        "note": "Rare but great. Let her talk. Whatever she says, bridge into pain trigger or discovery.",
+        "branches": [
+          {
+            "label": "Shares something / vague recall",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "Confused / thinking of someone else",
+            "to": "pain_trigger"
+          }
+        ]
+      },
+      "bad_timing": {
+        "label": "BAD TIMING",
+        "say": "Totally hear you — would it be a terrible idea if I tried you again tomorrow around this time?",
+        "note": "She might be mid-inspection or between turnovers. Respect it but pin down a callback. Offer a specific day and time.",
+        "branches": [
+          {
+            "label": "Gives a better time",
+            "to": "reschedule_ask"
+          },
+          {
+            "label": "Says don't call back",
+            "to": "permission_rejected"
+          },
+          {
+            "label": "Sure, try me then",
+            "to": "ending_graceful"
+          }
+        ]
+      },
+      "reschedule_ask": {
+        "label": "LOCK CALLBACK TIME",
+        "say": "Perfect — what time works best? I'll set a reminder so I'm not bugging you randomly again.",
+        "note": "Get a specific day and time. Write it down. This is a mini-commitment.",
+        "branches": [
+          {
+            "label": "Gives a time",
+            "to": "ending_graceful"
+          },
+          {
+            "label": "Stays vague",
+            "to": "ending_graceful"
+          }
+        ]
+      },
+      "permission_fallback": {
+        "label": "PERMISSION — 30 SECONDS",
+        "say": "Yeah totally — it is a cold call, I'll be honest. Can I get 30 seconds to tell you why I called, and if it's not relevant to what you do you can totally hang up on me?",
+        "note": "Disarm with honesty. She's a QA specialist — she appreciates directness. The 30-second ask gives her an exit, which makes her more likely to stay.",
+        "branches": [
+          {
+            "label": "Sure, go ahead",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "No / not interested",
+            "to": "permission_rejected"
+          }
+        ]
+      },
+      "permission_rejected": {
+        "label": "PERMISSION REJECTED",
+        "say": "Shoot, totally my bad. Just so nobody from my team bugs you again — is it that I caught you at a horrible time, or is it that you already know what we do and it's just not interesting?",
+        "note": "Split the rejection. Most people soften and tell you which one. 'Horrible time' = callback. 'Not interesting' = dig into why or ask for referral up to Anna.",
+        "branches": [
+          {
+            "label": "Bad time",
+            "to": "reschedule_ask"
+          },
+          {
+            "label": "Not interested / don't care",
+            "to": "not_interested_referral"
+          },
+          {
+            "label": "Hangs up",
+            "to": "ending_graceful"
+          }
+        ]
+      },
+      "pain_trigger": {
+        "label": "PAIN TRIGGER",
+        "say": "So I've been working with another QA lead at a luxury rental company — pretty similar setup to you guys, about 200 homes, dedicated inspectors. And what she kept telling me is the hardest part isn't the cleaning — it's the part after. Walking into a five-thousand-square-foot home and trying to catch every single thing before the next guest shows up. A scuff on a baseboard, a missing throw pillow, a stain under a couch cushion. And when something slips through on a place that's going for eight hundred a night, it's not just a bad review — it's an owner phone call. Does any of that sound familiar, or am I totally off base?",
+        "note": "This is Amanda's daily life. She personally walks luxury homes in Steamboat after cleans. The pain is visceral — she's the one who catches things or gets blamed. PAUSE after this. Let her react. Silence is your friend.",
+        "branches": [
+          {
+            "label": "Yes — that's my world / shares her version",
+            "to": "warm_response"
+          },
+          {
+            "label": "Interesting — what do you do about it?",
+            "to": "solution_one_liner"
+          },
+          {
+            "label": "We already have a process for that",
+            "to": "objection_have_process"
+          },
+          {
+            "label": "Not interested / I'm not the person",
+            "to": "objection_not_interested"
+          }
+        ]
+      },
+      "warm_response": {
+        "label": "SHE RELATES",
+        "say": "Yeah — I figured, especially with the level of homes you guys manage in Steamboat. Can I ask — what does your process look like right now when you finish an inspection? Are you taking photos in Breezeway and someone's reviewing them, or is it more on you to catch everything in person?",
+        "note": "She's warm. STOP PITCHING. Ask questions. We know they use Breezeway — reference it casually to show homework. She'll either be impressed or surprised you know their stack.",
+        "branches": [
+          {
+            "label": "Describes her workflow / confirms Breezeway",
+            "to": "discovery_volume"
+          },
+          {
+            "label": "How do you know we use Breezeway?",
+            "to": "discovery_breezeway_surprised"
+          },
+          {
+            "label": "I'm not sure I should be talking about this",
+            "to": "not_my_call"
+          }
+        ]
+      },
+      "solution_one_liner": {
+        "label": "ONE-SENTENCE SOLUTION",
+        "say": "So we built a tool that plugs into your existing setup — like Breezeway and Track, which I think you guys are already on — and it automatically analyzes the photos your team's already taking during turnovers. It flags damage, missing items, staging issues, stuff that's changed since last time. Basically a second set of eyes that never gets tired. Would you be open to seeing what that looks like? Doesn't have to be right now.",
+        "note": "Name-drop their actual tools. One sentence on what it does, one on the CTA. She's a specialist — she'll appreciate practical framing, not buzzwords.",
+        "branches": [
+          {
+            "label": "That's interesting / tell me more",
+            "to": "discovery_process"
+          },
+          {
+            "label": "I'm not the one who decides that",
+            "to": "not_my_call"
+          },
+          {
+            "label": "We already have Breezeway for that",
+            "to": "objection_have_process"
+          },
+          {
+            "label": "Send me an email",
+            "to": "send_email"
+          }
+        ]
+      },
+      "discovery_process": {
+        "label": "DISCOVERY — HER PROCESS",
+        "say": "Totally — so walk me through it. When you finish a clean on one of the bigger homes, how are you documenting everything? Are you shooting photos room by room, or is it more of a checklist thing?",
+        "note": "Get her talking about HER day. The more she describes her workflow, the more she'll self-identify problems. Listen for: photo volume, time pressure between turnovers, what she misses, what causes callbacks.",
+        "branches": [
+          {
+            "label": "Describes photo + checklist workflow",
+            "to": "discovery_volume"
+          },
+          {
+            "label": "It's mostly visual walk-throughs",
+            "to": "discovery_volume"
+          },
+          {
+            "label": "Starts sharing pain points on her own",
+            "to": "pivot_to_decision_maker"
+          }
+        ]
+      },
+      "discovery_volume": {
+        "label": "DISCOVERY — VOLUME & PRESSURE",
+        "say": "Got it. And how many units are you personally inspecting on a busy turnover day? Like during ski season, what does that look like?",
+        "note": "Ski season in Steamboat is their crunch. She's probably doing 8-15+ inspections on peak days. The more she quantifies, the more the pain compounds. Listen for overwhelm signals.",
+        "branches": [
+          {
+            "label": "Shares her volume / mentions it's a lot",
+            "to": "discovery_pain_deepener"
+          },
+          {
+            "label": "It's manageable / we handle it fine",
+            "to": "acknowledge_and_pivot"
+          },
+          {
+            "label": "She's opening up about challenges",
+            "to": "pivot_to_decision_maker"
+          }
+        ]
+      },
+      "discovery_breezeway_surprised": {
+        "label": "BREEZEWAY MENTION LANDS",
+        "say": "Ha — I've just been working with a bunch of companies on Track and Breezeway, so I always check. That's actually the whole reason I reached out — we plug right into that setup. But honestly I'm more curious about how it's actually working for your QA team day to day. Are you happy with the photo review side of things, or is that still pretty manual?",
+        "note": "She's engaged because you showed you know their stack. Pivot to discovery. Don't oversell the integration — let her tell you what's working and what's not.",
+        "branches": [
+          {
+            "label": "It's pretty manual / shares frustrations",
+            "to": "discovery_volume"
+          },
+          {
+            "label": "It works okay / we're fine",
+            "to": "acknowledge_and_pivot"
+          }
+        ]
+      },
+      "discovery_pain_deepener": {
+        "label": "DEEPEN THE PAIN",
+        "say": "Yeah, that's a lot of ground to cover. And with the kind of homes in your portfolio — the Apex Collection stuff especially — I imagine there's zero room for error. When something does slip through, what does that look like? Does it come back on you, or does it go straight to the ops team?",
+        "note": "Reference Apex Collection to show deep research. She'll feel seen. This question surfaces accountability pressure — who gets blamed when something's missed. That's her emotional driver.",
+        "branches": [
+          {
+            "label": "It comes back on me / shares the pressure",
+            "to": "pivot_to_decision_maker"
+          },
+          {
+            "label": "It goes to Anna / the ops team",
+            "to": "pivot_to_decision_maker"
+          },
+          {
+            "label": "We rarely miss things",
+            "to": "acknowledge_and_pivot"
+          }
+        ]
+      },
+      "acknowledge_and_pivot": {
+        "label": "ACKNOWLEDGE + PIVOT UP",
+        "say": "That's awesome — honestly that says a lot about how tight your team runs things. Here's my thought though. We've been working with a couple other luxury PM companies — one in New York, about 200 homes — and even their best inspectors loved having the AI as a second set of eyes. Not because they were missing stuff, but because it just takes the pressure off on those high-volume days. Would it make sense for me to show this to whoever on your team makes decisions about the inspection tools — maybe Anna or someone on the ops side?",
+        "note": "She says things are fine — don't argue. Compliment the team, then pivot to the decision maker. Name-drop Anna Calhoon casually. If she corrects you, even better — you learn the real org chart.",
+        "branches": [
+          {
+            "label": "Yeah, Anna would be the one / gives a name",
+            "to": "referral_obtained"
+          },
+          {
+            "label": "I can pass it along / let me check",
+            "to": "offer_to_help_champion"
+          },
+          {
+            "label": "I don't think we need anything",
+            "to": "test_drive_value"
+          }
+        ]
+      },
+      "not_my_call": {
+        "label": "NOT THE DECISION MAKER",
+        "say": "Totally get that — and honestly I kinda figured you'd say that. You're the one actually doing the inspections though, so your input matters more than anyone's on whether something like this would actually help. Who on your team would be the one to say yes to trying a new tool — would that be Anna Calhoon, or someone else?",
+        "note": "Amanda is the USER, not the buyer. This was expected. Validate her importance, then ask for the referral. Name-drop Anna Calhoon to show you know the org. She may also mention Lisa Riniker or Chad Rowe.",
+        "branches": [
+          {
+            "label": "Yeah, Anna / confirms the name",
+            "to": "referral_obtained"
+          },
+          {
+            "label": "Gives a different name (Lisa, Chad, etc.)",
+            "to": "referral_obtained"
+          },
+          {
+            "label": "I'm not sure / doesn't want to share",
+            "to": "referral_push_gently"
+          },
+          {
+            "label": "You should just email the office",
+            "to": "send_email"
+          }
+        ]
+      },
+      "pivot_to_decision_maker": {
+        "label": "PIVOT TO DECISION MAKER",
+        "say": "This is super helpful, Amanda — seriously. Here's what I'm thinking. It sounds like this could save your team a ton of time, especially heading into busy season. Who would I talk to about actually getting you guys set up to test it — would that be Anna, or does that go higher up to the ops level?",
+        "note": "She's been warm and sharing. Now transition to the buyer. Keep it collaborative — 'getting you guys set up' not 'selling to your boss.' Name-drop Anna and leave room for her to correct you up the chain to Lisa Riniker or Chad Rowe.",
+        "branches": [
+          {
+            "label": "Anna would be the one",
+            "to": "referral_obtained"
+          },
+          {
+            "label": "It'd be Lisa / Chad / someone at corporate",
+            "to": "referral_obtained"
+          },
+          {
+            "label": "I can bring it up to my manager",
+            "to": "offer_to_help_champion"
+          },
+          {
+            "label": "I don't think we're looking for anything",
+            "to": "test_drive_value"
+          }
+        ]
+      },
+      "referral_push_gently": {
+        "label": "GENTLE REFERRAL PUSH",
+        "say": "No worries at all. If I can just get a name, I'll put something tailored together so it actually lands on their desk and doesn't look like a generic pitch. Would it be Anna on the QA side, or does your ops director handle the tooling stuff?",
+        "note": "Give her a reason to share the name — you'll tailor the outreach so it's relevant. Offer two options to make it multiple choice, not open-ended.",
+        "branches": [
+          {
+            "label": "Gives a name",
+            "to": "referral_obtained"
+          },
+          {
+            "label": "Still won't share",
+            "to": "send_email"
+          },
+          {
+            "label": "Suggests emailing a general inbox",
+            "to": "send_email"
+          }
+        ]
+      },
+      "referral_obtained": {
+        "label": "GOT A REFERRAL",
+        "say": "Perfect — that's really helpful. Would you mind if I mentioned you pointed me their way? Sometimes that helps it not get buried. And any chance you could shoot them a quick text or heads up that I'll be reaching out? Doesn't have to be anything big.",
+        "note": "Get permission to use Amanda's name. Then ask her to warm the intro. Even a text from Amanda to Anna saying 'some guy from RapidEye is calling, seemed legit' dramatically increases pickup rate.",
+        "branches": [
+          {
+            "label": "Sure, I can mention it",
+            "to": "book_referral_meeting"
+          },
+          {
+            "label": "You can use my name but I won't reach out",
+            "to": "book_referral_meeting"
+          },
+          {
+            "label": "I'd rather you don't use my name",
+            "to": "book_referral_meeting"
+          }
+        ]
+      },
+      "offer_to_help_champion": {
+        "label": "HELP HER CHAMPION IT",
+        "say": "That would be awesome. You know what — let me send you something quick you can forward to them. I'll keep it short and I'll frame it around what you just told me so it's actually relevant to how your team works. What's the best email for you?",
+        "note": "She's willing to be an internal champion. Make it easy — send a short, forwardable email. Get her email (likely amanda@movingmountains.com). This is a strong outcome for a front-line contact.",
+        "branches": [
+          {
+            "label": "Gives her email",
+            "to": "book_followup"
+          },
+          {
+            "label": "Just send it to the main office",
+            "to": "send_email"
+          }
+        ]
+      },
+      "objection_have_process": {
+        "label": "OBJECTION — WE HAVE A PROCESS",
+        "say": "That makes total sense — with 250 properties you'd have to have something solid in place. And honestly, from what I can tell your team runs a pretty tight operation.",
+        "note": "AGREE first. Don't argue with Breezeway or their current process. Validate, then split the objection.",
+        "branches": [
+          {
+            "label": "Continue to split",
+            "to": "split_process"
+          }
+        ]
+      },
+      "split_process": {
+        "label": "SPLIT — PROCESS OBJECTION",
+        "say": "Just so I know — is it that Breezeway's handling the photo review side and you're totally happy with it, or is it more that adding anything new right now would just be a headache on top of everything?",
+        "note": "Separates 'satisfied with current tool' from 'change fatigue.' Most people pick the second, which opens the door. If she picks the first, pivot to 'we actually plug into Breezeway.'",
+        "branches": [
+          {
+            "label": "Breezeway handles it / we're happy",
+            "to": "breezeway_enhancement"
+          },
+          {
+            "label": "It's more the hassle of adding something",
+            "to": "test_drive_no_change"
+          },
+          {
+            "label": "Bit of both",
+            "to": "test_drive_no_change"
+          }
+        ]
+      },
+      "breezeway_enhancement": {
+        "label": "BREEZEWAY ADD-ON ANGLE",
+        "say": "Totally hear that. So here's the thing — we actually plug right into Breezeway. It's not a replacement, it's more like an add-on layer. Your team keeps taking photos the same way they already do, and we just run them through an AI that catches stuff a human might miss after their tenth inspection of the day. The companies we work with on Breezeway say it's like having a QA backup that never gets fatigued. Would you be open to me showing that to whoever manages your Breezeway setup — even just a five-minute look?",
+        "note": "Reframes RapidEye from 'new tool' to 'enhancement of existing tool.' Much lower resistance. Pivot to the decision maker since Amanda probably doesn't own Breezeway admin.",
+        "branches": [
+          {
+            "label": "That's interesting / who should you talk to",
+            "to": "not_my_call"
+          },
+          {
+            "label": "I'd want to see that",
+            "to": "pivot_to_decision_maker"
+          },
+          {
+            "label": "Send me some info",
+            "to": "send_email"
+          },
+          {
+            "label": "Still not interested",
+            "to": "test_drive_value"
+          }
+        ]
+      },
+      "test_drive_no_change": {
+        "label": "TEST DRIVE — NO WORKFLOW CHANGE",
+        "say": "Hundred percent — that's actually the whole point of how we built it. There's zero workflow change. Your team keeps doing exactly what they're doing in Breezeway, nobody downloads a new app, nobody changes their process. We just analyze the photos that already exist. Would you be open to me showing that to your team for like fifteen minutes? Even if it's not for right now, at least you'd know what's out there when the next ski season ramps up.",
+        "note": "Address change fatigue directly. 'Zero workflow change' is the key phrase. Tie urgency to their seasonal cycle — ski season turnovers are brutal.",
+        "branches": [
+          {
+            "label": "Yeah maybe / I'd look at it",
+            "to": "pivot_to_decision_maker"
+          },
+          {
+            "label": "Talk to Anna / my manager",
+            "to": "not_my_call"
+          },
+          {
+            "label": "Send me something",
+            "to": "send_email"
+          },
+          {
+            "label": "Not right now",
+            "to": "ending_graceful"
+          }
+        ]
+      },
+      "objection_not_interested": {
+        "label": "OBJECTION — NOT INTERESTED",
+        "say": "I totally get it — I should have assumed you'd be all set. Otherwise you probably would have reached out to us.",
+        "note": "AGREE. Don't fight it. Then split the objection to find the real reason.",
+        "branches": [
+          {
+            "label": "Continue to split",
+            "to": "split_interest"
+          }
+        ]
+      },
+      "split_interest": {
+        "label": "SPLIT — INTEREST OBJECTION",
+        "say": "Just so nobody from my team cold calls you again — is it that catching stuff during inspections isn't really a problem for you, or is it more that you just hate getting cold calls?",
+        "note": "Humor helps here. Most people laugh and admit it's the cold call. That reopens the conversation.",
+        "branches": [
+          {
+            "label": "It's the cold call / laughs",
+            "to": "test_drive_value"
+          },
+          {
+            "label": "We really don't need it",
+            "to": "not_interested_referral"
+          },
+          {
+            "label": "Both",
+            "to": "not_interested_referral"
+          }
+        ]
+      },
+      "not_interested_referral": {
+        "label": "NOT INTERESTED — PIVOT TO REFERRAL",
+        "say": "Totally fair. Last thing and then I'm out of your hair — is there someone on the ops or management side I should be talking to about this instead? I know you guys have been growing a lot, especially with the StayTerra investment, and sometimes the folks managing the overall QA workflow have a different take. Would that be Anna, or someone else?",
+        "note": "She's not interested but her manager might be. Use StayTerra growth angle to reframe — the company is changing, decisions are being made above her. Name-drop Anna one more time.",
+        "branches": [
+          {
+            "label": "Gives a name",
+            "to": "referral_obtained"
+          },
+          {
+            "label": "Won't share / doesn't know",
+            "to": "ending_graceful"
+          },
+          {
+            "label": "Just email the office",
+            "to": "send_email"
+          }
+        ]
+      },
+      "test_drive_value": {
+        "label": "OFFER OF VALUE",
+        "say": "You're probably not buying anything right now, and I totally respect that. But here's what I'd offer — I could walk your team through what other luxury PM companies in ski markets are doing with their turnover photos. Like actual workflows, not a sales pitch. Worst case you steal some ideas and we part as friends. Would that be worth fifteen minutes?",
+        "note": "Make the meeting valuable regardless of purchase. 'Steal some ideas' lowers commitment. Tie it to ski market peers — she'll be curious what competitors are doing.",
+        "branches": [
+          {
+            "label": "Yeah, that could be useful",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Maybe — send me something first",
+            "to": "send_email"
+          },
+          {
+            "label": "No thanks",
+            "to": "ending_graceful"
+          }
+        ]
+      },
+      "book_referral_meeting": {
+        "label": "BOOK THE REFERRAL CALL",
+        "say": "Awesome. I'm gonna reach out to them this week. Do you know if they're more of a morning person or afternoon? I want to catch them at a good time, not in the middle of turnovers.",
+        "note": "Get any intel on the referral's schedule. If she can give you their direct number or email, even better. Lock in your own follow-up plan.",
+        "branches": [
+          {
+            "label": "Gives timing or contact info",
+            "to": "meeting_booked"
+          },
+          {
+            "label": "Not sure, just try them",
+            "to": "meeting_booked"
+          },
+          {
+            "label": "I'll have them call you",
+            "to": "meeting_booked"
+          }
+        ]
+      },
+      "book_followup": {
+        "label": "LOCK IN FOLLOW-UP",
+        "say": "Perfect — I'll get that over to you today. And hey, I really appreciate you taking the time. If you don't mind, I'll follow up in a couple days to make sure it landed. Does Thursday or Friday work better for a quick check-in?",
+        "note": "Pin down the follow-up day. She agreed to champion internally — keep momentum. Get a specific day so you have a reason to call back.",
+        "branches": [
+          {
+            "label": "Gives a day",
+            "to": "meeting_booked"
+          },
+          {
+            "label": "Just email me",
+            "to": "meeting_booked"
+          }
+        ]
+      },
+      "book_meeting": {
+        "label": "BOOK THE MEETING",
+        "say": "Let's lock something in real quick so it doesn't slip through the cracks. I've got next Tuesday and Thursday pulled up — what works better on your end? Even fifteen minutes would do it.",
+        "note": "Pick two specific days. Don't say 'sometime next week.' Fifteen minutes is low commitment for her level. If she defers to her manager, pivot to booking through them.",
+        "branches": [
+          {
+            "label": "Picks a day or time",
+            "to": "meeting_booked"
+          },
+          {
+            "label": "My manager would need to be on it",
+            "to": "pivot_to_decision_maker"
+          },
+          {
+            "label": "Send me an email first",
+            "to": "send_email"
+          }
+        ]
+      },
+      "send_email": {
+        "label": "SEND ME AN EMAIL",
+        "say": "Totally fair. One question before I do — what would be most useful to include so it's not just another generic pitch sitting in your inbox? Like would you want to see what it actually looks like when it flags something, or more about how it works with Breezeway?",
+        "note": "Accept the email request — don't fight it. Ask what to include so it's tailored and you learn what matters to her. Also confirms her email.",
+        "branches": [
+          {
+            "label": "Tells you what she wants to see",
+            "to": "email_confirm"
+          },
+          {
+            "label": "Just send whatever / general info",
+            "to": "email_confirm"
+          }
+        ]
+      },
+      "email_confirm": {
+        "label": "CONFIRM EMAIL & CLOSE",
+        "say": "Got it — I'll put that together. Is amanda at movingmountains dot com the best one, or is there a different one you check more?",
+        "note": "Confirm the email address. Then suggest a specific follow-up time in the email so there's a built-in reason to call back.",
+        "branches": [
+          {
+            "label": "Confirms email",
+            "to": "email_sent"
+          },
+          {
+            "label": "Gives a different email",
+            "to": "email_sent"
+          }
+        ]
+      },
+      "email_sent": {
+        "label": "EMAIL CLOSE",
+        "say": "Perfect. I'll send that over this afternoon, and I'll throw a note in there about following up later this week so it doesn't get buried. Really appreciate your time, Amanda — enjoy the snow out there.",
+        "note": "Friendly close. Include a specific follow-up date in the email so you have a warm reason to call back in a few days.",
+        "branches": []
+      },
+      "meeting_booked": {
+        "label": "MEETING BOOKED",
+        "say": "Awesome — really appreciate it, Amanda. I'll send over a calendar invite right now so we're locked in. And honestly, thanks for taking a cold call — I know that's not the highlight of anyone's day. Talk soon.",
+        "note": "Stop selling immediately. Send the invite while still on the phone. If it's a referral meeting, send the invite to the referral and CC Amanda if she's okay with it.",
+        "branches": []
+      },
+      "voicemail": {
+        "label": "VOICEMAIL",
+        "say": "Hey Amanda, it's Sam Parks — I work with a few vacation rental companies in ski towns on their QA and inspection workflows. Was hoping to pick your brain for two minutes. My number is [your number]. I'll try you again in a couple days — talk soon.",
+        "note": "Keep it under 20 seconds. Don't pitch. Sound like a peer. The goal is name recognition so she picks up next time.",
+        "branches": []
+      },
+      "ending_graceful": {
+        "label": "GRACEFUL EXIT",
+        "say": "Totally understand. If anything changes, I'm easy to find — just look up RapidEye. Appreciate your time, Amanda, and hey — enjoy the snow out there.",
+        "note": "Don't burn the bridge. She talks to Anna, Lisa, and the whole Steamboat team every day — you want her to say 'some guy called, he was pretty chill' not 'some pushy salesperson wouldn't take no for an answer.'",
+        "branches": []
+      }
+    }
+  }
+}

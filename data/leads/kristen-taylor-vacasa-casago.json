@@ -1,0 +1,737 @@
+{
+  "name": "Kristen Taylor",
+  "title": "Vice President, Operations",
+  "company": "Vacasa (Casago)",
+  "location": "Steamboat Springs, CO",
+  "phone": "",
+  "company_phone": "(970) 879-8000",
+  "alt_phones": [
+    "+1-800-544-0300",
+    "+1-800-863-8415"
+  ],
+  "flow": {
+    "context": "Kristen Taylor is VP of Operations at Vacasa, now a Casago subsidiary after the May 2025 acquisition. She likely reports to Bob Milne (SVP Ops) and sits closest to the daily reality of turnover execution, cleaner performance, and photo-based inspection approvals across markets. Vacasa already runs a post-clean photo submission and real-time inspection approval workflow through their proprietary Field App and HomeCare Hub — but review is human, and after 1,100-plus layoffs in 2024 plus the ongoing franchise transition, consistency is under severe pressure. She is based in Steamboat Springs, CO — a ski town — and Sam recently skied Jackson Hole in January 2026. The strongest pitch angle: Vacasa is decentralizing operations into franchise markets while trying to maintain brand-level quality, and their current human photo review bottleneck at scale is exactly what RapidEye automates.",
+    "start": "opener",
+    "nodes": {
+      "opener": {
+        "label": "OPENER",
+        "say": "Hey Kristen — I know this is a little out of the blue. I actually work with a few vacation rental operators in the Colorado mountain markets — and I'm a skier myself, was just out at Jackson Hole in January. It's Sam Parks with RapidEye. Have you heard my name tossed around at all?",
+        "note": "Feet up on the desk. Relaxed tone. The ski mention is your bridge — Steamboat is her world. Sound like someone who belongs in the conversation, not a telemarketer reading a script.",
+        "branches": [
+          {
+            "label": "No, I haven't heard of you",
+            "to": "heard_no"
+          },
+          {
+            "label": "Yeah / maybe / sounds familiar",
+            "to": "heard_yes"
+          },
+          {
+            "label": "Now's not a great time",
+            "to": "bad_timing"
+          },
+          {
+            "label": "Who is this? / What's this about?",
+            "to": "permission_fallback"
+          }
+        ]
+      },
+      "heard_no": {
+        "label": "HEARD NO — TRANSITION TO PAIN",
+        "say": "Ha — I guess I'm not as popular as I thought. Well the reason for my call — I've been working with a few other ops leaders at property management companies that are in a pretty similar spot to what you guys are going through at Vacasa right now. And the thing that keeps coming up is this: you've got cleaners submitting photos after every turn, someone on the team is supposed to review them and approve the inspection before the guest shows up — but with the volume you're running, especially post-merger with all these markets transitioning to franchise operators, stuff just slips. A stain gets missed, a couch cushion's wrong, a piece of decor walks off — and nobody catches it until the guest is already checked in and leaving a two-star review. And then the owner's calling asking why their place looked like that.",
+        "note": "This is the hairy lollipop. Vacasa's own SEC filings describe the post-clean photo to inspection approval workflow. The 2024 layoffs cut central oversight. The franchise transition means new local operators running quality with less institutional knowledge. PAUSE after delivering this and let her react.",
+        "branches": [
+          {
+            "label": "Yeah, that's real / we deal with that",
+            "to": "pain_resonates"
+          },
+          {
+            "label": "We actually have a pretty good process for that",
+            "to": "objection_have_internal_tool"
+          },
+          {
+            "label": "I'm not really the right person for this",
+            "to": "referral_ask"
+          },
+          {
+            "label": "I don't have time / not interested",
+            "to": "objection_not_interested"
+          }
+        ]
+      },
+      "heard_yes": {
+        "label": "HEARD YES — EXPLORE",
+        "say": "Oh nice — well normally we'd be working with someone in your seat. What did you hear?",
+        "note": "Rare but great. Let her talk. Whatever she says, bridge to the pain or directly to discovery. Don't rush to pitch.",
+        "branches": [
+          {
+            "label": "She shares what she heard",
+            "to": "pain_resonates"
+          },
+          {
+            "label": "I don't remember / someone just mentioned it",
+            "to": "pain_trigger_short"
+          }
+        ]
+      },
+      "bad_timing": {
+        "label": "BAD TIMING",
+        "say": "Totally hear you — would it be a terrible idea if I tried you again later this week? Maybe Thursday or Friday?",
+        "note": "Respect the timing. Lock a callback if you can. If she pushes back on even that, offer email.",
+        "branches": [
+          {
+            "label": "Sure, try me Thursday / gives a time",
+            "to": "book_callback"
+          },
+          {
+            "label": "Just send me an email",
+            "to": "objection_send_email"
+          },
+          {
+            "label": "No, what's this about? (curious)",
+            "to": "pain_trigger_short"
+          }
+        ]
+      },
+      "permission_fallback": {
+        "label": "PERMISSION FALLBACK",
+        "say": "Yeah totally — I mean it is a cold call, I'll be honest. Can I get 30 seconds to tell you why I reached out, and if it's not relevant you can totally hang up on me?",
+        "note": "Disarming honesty. Most people grant 30 seconds. If she says yes, go to the compressed pain trigger. If no, go to permission_rejected.",
+        "branches": [
+          {
+            "label": "Sure, go ahead",
+            "to": "pain_trigger_short"
+          },
+          {
+            "label": "No / I'm not interested",
+            "to": "permission_rejected"
+          }
+        ]
+      },
+      "permission_rejected": {
+        "label": "PERMISSION REJECTED",
+        "say": "Shoot, totally my bad. Just so nobody from my team bugs you again — is it that I caught you at a horrible time, or is it that you already know what we do and it's just not interesting?",
+        "note": "Last play. The split gives her two doors — bad time reopens a callback, not interesting gives you intel. Either answer keeps the conversation alive for one more beat.",
+        "branches": [
+          {
+            "label": "Bad time",
+            "to": "bad_timing"
+          },
+          {
+            "label": "Not interesting / don't need it",
+            "to": "objection_not_interested"
+          },
+          {
+            "label": "Hangs up / hard no",
+            "to": "end_graceful_hard"
+          }
+        ]
+      },
+      "pain_trigger_short": {
+        "label": "PAIN TRIGGER — SHORT VERSION",
+        "say": "So I work with a few other ops leaders at large PM companies — and what keeps coming up, especially for anyone going through a big transition like you guys with the Casago merger, is this: cleaners are submitting photos after every turn, but the people who are supposed to review those photos before the guest arrives just can't keep up. Stuff gets missed, guests notice, owners get upset. We built something that automates that review using AI — plugs right into the workflow you already have. Would you be open to taking a look when I'm not cold calling you out of the blue?",
+        "note": "Compressed version — problem, solution, CTA in 30 seconds. You promised 30 seconds, deliver. PAUSE after the CTA and let her respond.",
+        "branches": [
+          {
+            "label": "Yeah, that's interesting / tell me more",
+            "to": "warm_discovery"
+          },
+          {
+            "label": "We already have something for that",
+            "to": "objection_have_internal_tool"
+          },
+          {
+            "label": "Send me an email",
+            "to": "objection_send_email"
+          },
+          {
+            "label": "Not interested",
+            "to": "objection_not_interested"
+          }
+        ]
+      },
+      "pain_resonates": {
+        "label": "PAIN RESONATES — SOLUTION AND CTA",
+        "say": "Yeah, that's exactly what I keep hearing. So what we built — RapidEye — it basically plugs into the photo workflow you already have. Your cleaners submit photos the same way they do now, and our AI reviews every single one automatically. Catches damage, missing items, staging issues, stuff that's out of place — and flags it before the guest checks in. No workflow change for your field teams. Would you be open to taking a look when I'm not interrupting your day?",
+        "note": "One sentence on the solution. Low-friction CTA. Don't oversell. If she's warm, STOP pitching and start asking questions.",
+        "branches": [
+          {
+            "label": "Yeah, I'd be open to that",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Tell me more / how does it work",
+            "to": "warm_discovery"
+          },
+          {
+            "label": "We already have HomeCare Hub / Field App for that",
+            "to": "objection_have_internal_tool"
+          },
+          {
+            "label": "I'd need to loop in Bob / my boss",
+            "to": "objection_not_my_decision"
+          }
+        ]
+      },
+      "warm_discovery": {
+        "label": "WARM — STOP PITCHING, ASK QUESTIONS",
+        "say": "Awesome. So I know Vacasa has the Field App and HomeCare Hub handling the turnover workflow — and I know your cleaners are already submitting photos for inspection approval. I'm curious, what does that review process actually look like on your end right now? Is that getting done locally by the market teams, or is there still a centralized layer looking at those?",
+        "note": "She's warm. STOP SELLING. Ask questions. You know from the SEC filings they have a photo-based inspection approval step. Show you've done homework. Listen for: who reviews, volume per day, what falls through cracks, how the franchise transition is changing things.",
+        "branches": [
+          {
+            "label": "Explains their current process",
+            "to": "discovery_dig_deeper"
+          },
+          {
+            "label": "That's actually changing right now with the transition",
+            "to": "discovery_merger_impact"
+          },
+          {
+            "label": "I'm not sure I can share all that / gets cautious",
+            "to": "discovery_pivot_soft"
+          }
+        ]
+      },
+      "discovery_dig_deeper": {
+        "label": "DIG DEEPER — FRANCHISE CONSISTENCY",
+        "say": "That makes sense. And with the markets moving over to franchise operators — how's that affecting consistency? Like, are the new local teams keeping the same quality bar on those photo reviews, or has that been one of the harder things to standardize?",
+        "note": "This is the money question. Casago is transitioning Vacasa markets into franchise model. Each franchise operator has different capabilities. Standardizing quality across them is the core problem RapidEye solves. Listen for frustration.",
+        "branches": [
+          {
+            "label": "Yeah, that's a real challenge / quality varies",
+            "to": "discovery_franchise_pain"
+          },
+          {
+            "label": "We've got pretty good standards in place",
+            "to": "discovery_acknowledge_then_bridge"
+          },
+          {
+            "label": "That's more of an Alex Johnson / franchise ops question",
+            "to": "referral_ask"
+          }
+        ]
+      },
+      "discovery_merger_impact": {
+        "label": "MERGER IMPACT — EXPLORE",
+        "say": "Yeah, I figured that's a huge moving piece right now. What's been the biggest operational headache with the transition so far? Is it more the systems integration side, or is it the people and process side — getting new local operators up to speed?",
+        "note": "She's opening up about the merger. This is gold. The Casago transition creates exactly the inconsistency RapidEye addresses. Let her vent. Don't jump to solution yet.",
+        "branches": [
+          {
+            "label": "Systems / tech integration is the issue",
+            "to": "discovery_tech_bridge"
+          },
+          {
+            "label": "People / process / training is the issue",
+            "to": "discovery_franchise_pain"
+          },
+          {
+            "label": "Both / it's complicated",
+            "to": "discovery_franchise_pain"
+          }
+        ]
+      },
+      "discovery_franchise_pain": {
+        "label": "FRANCHISE QUALITY PAIN — BRIDGE TO VALUE",
+        "say": "That's exactly what I keep hearing from other operators going through something similar. And honestly, that's kind of the whole reason we built RapidEye — because when you've got different local teams running different markets with different levels of experience, the only way to keep quality consistent is to take the subjectivity out of the photo review. The AI doesn't have a bad day, doesn't get behind — it just flags what's wrong before the guest walks in. Would it make sense to show you what that actually looks like? I could walk you through a quick demo — even just so you can see whether it'd fit with what you're building out.",
+        "note": "You've earned the right to bridge to value. Tie it directly to the franchise consistency problem she just described. CTA is still low pressure.",
+        "branches": [
+          {
+            "label": "Yeah, let's set something up",
+            "to": "book_meeting"
+          },
+          {
+            "label": "I'd need to bring in Bob Milne / my boss",
+            "to": "objection_not_my_decision"
+          },
+          {
+            "label": "Sounds interesting but budget is tight",
+            "to": "objection_no_budget"
+          },
+          {
+            "label": "Send me something first",
+            "to": "objection_send_email"
+          }
+        ]
+      },
+      "discovery_tech_bridge": {
+        "label": "TECH INTEGRATION ANGLE",
+        "say": "Makes sense — and I know you guys are also rolling out Guesty for the franchise side, plus Wheelhouse for revenue. That's a lot of system changes at once. The nice thing about what we do is it's not a rip-and-replace — we plug into whatever photo workflow you're using, whether that's the existing Field App, Breezeway, or whatever the franchise markets end up standardizing on. So it's more of a layer on top than another system to integrate. Would it be worth a quick look?",
+        "note": "Use the Guesty and Wheelhouse intel to show you understand their tech landscape. Position RapidEye as low friction — doesn't add to the integration burden, sits on top.",
+        "branches": [
+          {
+            "label": "Yeah, that's appealing / let's look at it",
+            "to": "book_meeting"
+          },
+          {
+            "label": "I'd need to loop in Carlos / our tech team",
+            "to": "referral_to_tech"
+          },
+          {
+            "label": "We're not adding anything new right now",
+            "to": "objection_no_budget"
+          }
+        ]
+      },
+      "discovery_acknowledge_then_bridge": {
+        "label": "THEY FEEL COVERED — RESPECTFUL BRIDGE",
+        "say": "That's great, honestly. Most companies your size don't have that level of standardization. I'm curious though — when you do catch issues, is that mostly happening at the photo review step, or is it more that guests are the ones finding things? Because what we keep seeing is that even when the process is solid, the volume of photos makes it really hard for reviewers to catch everything consistently.",
+        "note": "Don't argue. Acknowledge, then ask a question that reopens the gap. The question about who catches it first — reviewers or guests — is the wedge.",
+        "branches": [
+          {
+            "label": "Admits guests still find things sometimes",
+            "to": "discovery_franchise_pain"
+          },
+          {
+            "label": "We're honestly pretty covered",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "That's a fair point",
+            "to": "discovery_franchise_pain"
+          }
+        ]
+      },
+      "discovery_pivot_soft": {
+        "label": "SHE'S CAUTIOUS — OFFER VALUE",
+        "say": "Totally fair — I'm not trying to put you on the spot. Honestly, even if we just did a quick 15-minute call, I could walk you through what a couple other large PM companies are doing with their turnover photo workflows right now. Worst case you steal some ideas and we part as friends. Would that be worth it?",
+        "note": "She's guarded. Don't push for internal details. Offer value instead — see what peers are doing. Lowers the commitment threshold.",
+        "branches": [
+          {
+            "label": "Sure, that could be useful",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Send me an email first",
+            "to": "objection_send_email"
+          },
+          {
+            "label": "Not right now",
+            "to": "sell_test_drive"
+          }
+        ]
+      },
+      "objection_have_internal_tool": {
+        "label": "OBJECTION — HOMECARE HUB / FIELD APP",
+        "say": "Yeah, that makes total sense — with 43,000 homes you'd have to have something in place. And I know the Field App already handles photo submissions and inspection approvals. The thing I keep hearing from ops leaders at companies with their own internal tools though is — the photos get submitted, the system works, but the actual review is still a person looking at pictures and deciding good enough. And when you're running thousands of housekeeping schedules a day, that person can't catch everything. Is it that you're fully covered and happy with the catch rate, or is it more that you know stuff gets through but switching anything right now would be a headache?",
+        "note": "You KNOW they have this tool from the SEC filings. Don't be surprised. Acknowledge, then split: fully happy vs switching is hard. The daily housekeeping volume stat is from their own disclosures — shows homework.",
+        "branches": [
+          {
+            "label": "Yeah, stuff does get through / catch rate isn't perfect",
+            "to": "pain_resonates"
+          },
+          {
+            "label": "Switching anything right now is the issue",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "We're pretty happy with what we have",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "I'd need to talk to the tech team about that",
+            "to": "referral_to_tech"
+          }
+        ]
+      },
+      "objection_not_interested": {
+        "label": "OBJECTION — NOT INTERESTED",
+        "say": "I totally get it — I should have assumed you'd be all set, otherwise you probably would have reached out to us. Just so nobody from my team cold calls you again — is it that inspection quality isn't really a pain point for you right now, or is it more that you just hate getting cold called?",
+        "note": "Agree first. Then split: not a problem vs hate cold calls. If it's the cold call itself, she might be open to a different channel. If truly not a problem, consider referral to Bob Milne or Alex Johnson.",
+        "branches": [
+          {
+            "label": "It's not a priority right now",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "I just hate cold calls / bad timing",
+            "to": "bad_timing"
+          },
+          {
+            "label": "We're really focused on the merger integration",
+            "to": "merger_bridge"
+          }
+        ]
+      },
+      "merger_bridge": {
+        "label": "MERGER FOCUS — BRIDGE",
+        "say": "Hundred percent — I figured that's consuming everything right now. And honestly, that's part of why I reached out. When markets are transitioning to new franchise operators, the quality consistency piece tends to be one of the first things that slips — new teams, new processes, different standards. If nothing else, would it be worth a quick 15-minute look at what we do, just so it's on your radar for when you're through the worst of the integration?",
+        "note": "Use the merger as the reason to talk, not a reason to wait. When you're through the worst of it, you'll want to know what's out there. Low pressure.",
+        "branches": [
+          {
+            "label": "Sure, that's fair",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Send me something",
+            "to": "objection_send_email"
+          },
+          {
+            "label": "Not right now",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "objection_no_budget": {
+        "label": "OBJECTION — NO BUDGET",
+        "say": "Totally get it. Especially right after an acquisition — I'm sure every dollar's getting scrutinized right now. Nowadays it's harder to keep a tool, let alone buy something new. Just so nobody bugs you again — is it that budget for this kind of thing is completely locked for the year, or is it more that anything you try to bring in has to go through a gauntlet to get approved?",
+        "note": "Acknowledge the post-acquisition budget reality. Split: locked budget vs approval process is hard. The second answer means there IS a path — she just needs ammunition.",
+        "branches": [
+          {
+            "label": "Budget is locked / nothing new this year",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "Approval process is the issue / need buy-in",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "I don't even know what the budget situation is",
+            "to": "objection_not_my_decision"
+          }
+        ]
+      },
+      "sell_test_drive": {
+        "label": "SELL THE TEST DRIVE",
+        "say": "Totally respect that. And look — you're probably not buying anything right now, and I wouldn't expect you to. But the people who end up making the best decisions when budget does open up are the ones who already know what's one, two, and three on their list. Would you be open to just taking a look — not for now, but so you know it's out there? If nothing else, I can show you what other large PM companies are doing with their turnover photos. Worst case you steal some ideas and we part as friends.",
+        "note": "You're not asking her to buy. You're asking her to be informed. The steal some ideas line lowers the stakes to zero.",
+        "branches": [
+          {
+            "label": "Sure, that's fair / let's do it",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Send me an email first",
+            "to": "objection_send_email"
+          },
+          {
+            "label": "Not right now / no thanks",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "objection_not_my_decision": {
+        "label": "OBJECTION — NOT MY DECISION",
+        "say": "That makes total sense. At a company your size, something like this probably needs buy-in from a few people. Who on your side would typically own the decision on tooling that touches the inspection workflow? Would that be Bob Milne, or is there someone else?",
+        "note": "You know Bob Milne is SVP Ops and likely her boss. Name-drop him — shows you've done homework and makes her feel like you're already in the orbit. If she names someone else, that's even better intel.",
+        "branches": [
+          {
+            "label": "Yeah, Bob would need to be involved",
+            "to": "referral_to_bob"
+          },
+          {
+            "label": "It'd be more of a tech decision / Carlos",
+            "to": "referral_to_tech"
+          },
+          {
+            "label": "It'd be Alex Johnson / franchise ops",
+            "to": "referral_to_franchise"
+          },
+          {
+            "label": "I can take a first look and bring it to them",
+            "to": "book_meeting"
+          }
+        ]
+      },
+      "referral_to_bob": {
+        "label": "REFERRAL — BOB MILNE",
+        "say": "Got it. Would it make sense for me to put together something tailored for Bob — so it actually lands and doesn't look like a generic pitch? And would you be open to making a quick intro, or would it be better if I reached out to him directly and mentioned we talked?",
+        "note": "Bob Milne is SVP Ops at Vacasa. He's the likely decision-maker for inspection workflow tooling. Get Kristen's buy-in on the intro — even a mention we talked is a warm-up.",
+        "branches": [
+          {
+            "label": "I can intro you / I'll pass it along",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Just reach out to him directly",
+            "to": "referral_direct_outreach"
+          },
+          {
+            "label": "Let me talk to him first and get back to you",
+            "to": "objection_send_email"
+          }
+        ]
+      },
+      "referral_to_tech": {
+        "label": "REFERRAL — TECH TEAM",
+        "say": "Makes sense — especially with all the system changes happening right now. Would that be Carlos Corzo, or is there someone else on the product side who'd own this kind of integration?",
+        "note": "Carlos Corzo is CTO. Rochelle Shibahara is Sr PM on Homecare features. Either name is useful. Get the right person and ask for an intro or permission to mention Kristen's name.",
+        "branches": [
+          {
+            "label": "Yeah, Carlos / gives a name",
+            "to": "referral_direct_outreach"
+          },
+          {
+            "label": "I'm not sure who'd own that",
+            "to": "referral_ask"
+          },
+          {
+            "label": "Let me find out and get back to you",
+            "to": "objection_send_email"
+          }
+        ]
+      },
+      "referral_to_franchise": {
+        "label": "REFERRAL — FRANCHISE OPS",
+        "say": "That makes sense — especially with the markets transitioning over. If I put something together specifically for Alex showing how this could help standardize quality across franchise operators, would you be cool with me mentioning we chatted?",
+        "note": "Alex Johnson is VP Franchise Operations — the person setting standards for what franchise operators must adopt. Strong path because franchise quality consistency is the core pitch.",
+        "branches": [
+          {
+            "label": "Sure, mention we talked",
+            "to": "referral_direct_outreach"
+          },
+          {
+            "label": "Just reach out directly",
+            "to": "referral_direct_outreach"
+          },
+          {
+            "label": "I'd want to loop in with her myself first",
+            "to": "objection_send_email"
+          }
+        ]
+      },
+      "referral_ask": {
+        "label": "REFERRAL — FIND THE RIGHT PERSON",
+        "say": "No worries at all. Who on your team would typically own the inspection workflow piece — like, who's the person whose day gets ruined when a guest finds a problem that should've been caught?",
+        "note": "Use vivid language to help her identify the right person. You're looking for Bob Milne, Tyler Roberts (Sr Regional Director), Jonas Verheyen (Head of Photography Ops), or a regional ops manager. Get a name and ask for an intro.",
+        "branches": [
+          {
+            "label": "Gives a name / title",
+            "to": "referral_direct_outreach"
+          },
+          {
+            "label": "That's kind of spread across a few people",
+            "to": "referral_multiple"
+          },
+          {
+            "label": "I honestly don't know / things are shifting",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "referral_multiple": {
+        "label": "MULTIPLE STAKEHOLDERS",
+        "say": "Got it — that makes sense, especially mid-transition. If I could get even one name to start with, I'll put something tailored together so it actually resonates. Who'd be the best first door to knock on?",
+        "note": "Push gently for one name. You can multi-thread later. One warm lead is worth more than a generic blast.",
+        "branches": [
+          {
+            "label": "Gives a name",
+            "to": "referral_direct_outreach"
+          },
+          {
+            "label": "Just email me and I'll forward it",
+            "to": "objection_send_email"
+          }
+        ]
+      },
+      "referral_direct_outreach": {
+        "label": "REFERRAL SECURED — CONFIRM AND CLOSE",
+        "say": "Perfect — really appreciate that. I'll put something specific together for them. And honestly, if it makes sense, it might be worth having you on the call too since you're close to the day-to-day. Would you be open to a quick 15 minutes together? I've got next Tuesday and Thursday open.",
+        "note": "Always try to keep Kristen in the loop. If she's on the call, you have an internal champion. If she declines, you still have the referral. Lock a date.",
+        "branches": [
+          {
+            "label": "Sure, let's do it together",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Just reach out to them directly",
+            "to": "book_meeting_solo"
+          },
+          {
+            "label": "Let me check and get back to you",
+            "to": "confirm_follow_up"
+          }
+        ]
+      },
+      "objection_send_email": {
+        "label": "SEND ME AN EMAIL",
+        "say": "Totally fair. One quick question before I do — what would be most relevant to include so it's not just another generic pitch sitting in your inbox? Like, is it more the technical integration side you'd want to see, or more the operational impact — what it actually catches and what that looks like?",
+        "note": "Accept the email request. But ask one qualifying question — it tells you what she cares about and makes the email 10x better. Whatever she answers, tailor the follow-up and include a specific meeting time suggestion.",
+        "branches": [
+          {
+            "label": "She tells you what to include",
+            "to": "confirm_follow_up"
+          },
+          {
+            "label": "Just send whatever you have",
+            "to": "confirm_follow_up"
+          }
+        ]
+      },
+      "confirm_follow_up": {
+        "label": "CONFIRM EMAIL AND SUGGEST TIME",
+        "say": "Done — I'll get that over today. And I'll throw a couple time options in there for a quick call in case it's interesting. Is kristen.taylor@vacasa.com the best email?",
+        "note": "Confirm the email address. Vacasa pattern is First.Last. Mentioning you'll include time options plants the seed for a meeting without asking again.",
+        "branches": [
+          {
+            "label": "Yes / confirms email",
+            "to": "end_graceful_warm"
+          },
+          {
+            "label": "Gives a different email",
+            "to": "end_graceful_warm"
+          }
+        ]
+      },
+      "book_meeting": {
+        "label": "BOOK THE MEETING — LOCK IT NOW",
+        "say": "Awesome. Let me grab a time while I've got you. I've got next Tuesday at 10 Mountain or Thursday at 2 — which one's easier for you?",
+        "note": "Two specific options. Don't say when works for you — too open. Mountain time since she's in Steamboat. Send the invite while on the phone if possible. Once booked, STOP SELLING.",
+        "branches": [
+          {
+            "label": "Picks a time",
+            "to": "meeting_booked"
+          },
+          {
+            "label": "Neither works / suggests different time",
+            "to": "meeting_booked"
+          },
+          {
+            "label": "Let me check my calendar and get back to you",
+            "to": "confirm_follow_up"
+          }
+        ]
+      },
+      "book_meeting_solo": {
+        "label": "BOOK MEETING WITH REFERRAL ONLY",
+        "say": "Got it. I'll reach out to them directly. What's the best way to reach them — do they use the same vacasa.com email format?",
+        "note": "Confirm contact details for the referral. Then close gracefully with Kristen — thank her and leave the door open.",
+        "branches": [
+          {
+            "label": "Confirms email / gives contact info",
+            "to": "end_graceful_warm"
+          },
+          {
+            "label": "I'm not sure / just try the general format",
+            "to": "end_graceful_warm"
+          }
+        ]
+      },
+      "book_callback": {
+        "label": "BOOK A CALLBACK",
+        "say": "Perfect. I'll try you Thursday. Is the afternoon better, or are you more of a morning person?",
+        "note": "Lock the callback with as much specificity as possible. Morning or afternoon, exact time if she offers one. Log it immediately.",
+        "branches": [
+          {
+            "label": "Gives a time preference",
+            "to": "end_graceful_warm"
+          },
+          {
+            "label": "Anytime's fine",
+            "to": "end_graceful_warm"
+          }
+        ]
+      },
+      "meeting_booked": {
+        "label": "MEETING CONFIRMED — STOP SELLING",
+        "say": "Locked in. I'll send over the invite right now. And hey — I really appreciate you taking my call, especially out of the blue like this. Talk soon, Kristen.",
+        "note": "DONE. Stop talking. Don't add one more thing. Don't re-pitch. Send the calendar invite immediately after hanging up with a one-line agenda.",
+        "branches": []
+      },
+      "end_graceful": {
+        "label": "END — GRACEFUL EXIT",
+        "say": "Totally understand. If anything changes on your end — especially as things settle post-merger — I'm easy to find. Really appreciate your time, Kristen.",
+        "note": "Don't burn bridges. She may circle back in 3-6 months when the integration dust settles. Log the call and set a follow-up reminder for 60-90 days.",
+        "branches": []
+      },
+      "end_graceful_warm": {
+        "label": "END — WARM EXIT",
+        "say": "Awesome. Really appreciate the help, Kristen. Enjoy the rest of your day — and if you get any good powder days up there, I'm jealous in advance.",
+        "note": "End warm. The ski callback is a nice personal touch to bookend the conversation. She remembers you as a real person, not a robot.",
+        "branches": []
+      },
+      "end_graceful_hard": {
+        "label": "END — HARD REJECTION",
+        "say": "Totally fair. Appreciate your time, Kristen. Have a good one.",
+        "note": "She hung up or gave a hard no. Don't take it personally. Log it, move on. Do NOT call back for at least 90 days.",
+        "branches": []
+      },
+      "gatekeeper": {
+        "label": "GATEKEEPER — SLIDE BY",
+        "say": "Hey — could you get me through to Kristen? It's Sam.",
+        "note": "Say it like you belong. First name only for both of you. Don't explain what it's about. Don't pause too long.",
+        "branches": [
+          {
+            "label": "Transfers you / puts you through",
+            "to": "opener"
+          },
+          {
+            "label": "Who's calling? / What's this about?",
+            "to": "gatekeeper_pushback"
+          },
+          {
+            "label": "She's not available / out of office",
+            "to": "gatekeeper_voicemail"
+          }
+        ]
+      },
+      "gatekeeper_pushback": {
+        "label": "GATEKEEPER — ADD CONTEXT",
+        "say": "Yeah — I work with a few other property management companies in the Colorado mountain markets on their turnover operations. Would you mind letting Kristen know it's Sam Parks?",
+        "note": "Add context without pitching. You work with other PM companies — true and non-threatening. End with a redirect question so you stay in control.",
+        "branches": [
+          {
+            "label": "Transfers you",
+            "to": "opener"
+          },
+          {
+            "label": "Can you tell me more / what company?",
+            "to": "gatekeeper_social_proof"
+          },
+          {
+            "label": "She's not available",
+            "to": "gatekeeper_voicemail"
+          }
+        ]
+      },
+      "gatekeeper_social_proof": {
+        "label": "GATEKEEPER — SOCIAL PROOF",
+        "say": "Sure — it's Sam Parks with RapidEye. We help a couple other large property management companies with their inspection workflows. I sent Kristen a note — would you mind giving her a heads up that I'm on the line?",
+        "note": "Third and final level. Name your company, describe what you do generically, imply prior contact. End with a redirect. If this doesn't work, ask for voicemail or best time to call back.",
+        "branches": [
+          {
+            "label": "Transfers you",
+            "to": "opener"
+          },
+          {
+            "label": "I'll take a message / voicemail",
+            "to": "gatekeeper_voicemail"
+          },
+          {
+            "label": "She's not the right person for that",
+            "to": "gatekeeper_redirect"
+          }
+        ]
+      },
+      "gatekeeper_voicemail": {
+        "label": "GATEKEEPER — NOT AVAILABLE",
+        "say": "No worries. Is there a good time to try her again — is she more of a morning person or afternoon? And is this the best number to reach her on?",
+        "note": "Get callback intel. Morning vs afternoon, best number, best day. Don't leave a voicemail unless you have to — cold calls convert live, not on voicemail.",
+        "branches": [
+          {
+            "label": "Gives a time / number",
+            "to": "end_graceful"
+          },
+          {
+            "label": "I can put you through to voicemail",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "gatekeeper_redirect": {
+        "label": "GATEKEEPER — REDIRECTS YOU",
+        "say": "Oh interesting — who on the team would handle the operations and inspection side? I want to make sure I'm reaching the right person.",
+        "note": "The gatekeeper is telling you Kristen isn't the right contact. Take the intel. Get a name and title. Ask to be transferred or get their direct line.",
+        "branches": [
+          {
+            "label": "Gives a name / transfers you",
+            "to": "opener"
+          },
+          {
+            "label": "I'm not sure / try the main line",
+            "to": "end_graceful"
+          }
+        ]
+      }
+    }
+  }
+}

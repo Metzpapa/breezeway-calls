@@ -1,0 +1,930 @@
+{
+  "name": "Rene",
+  "title": "Property Inspector (Seabrook Exclusives)",
+  "company": "Kiawah Seabrook Exclusives",
+  "location": "Charleston, SC",
+  "phone": "+1-888-718-7949",
+  "company_phone": "(800) 845-6966",
+  "alt_phones": [
+    "+1-843-768-0273",
+    "+1-888-718-7949",
+    "+1-843-768-0808",
+    "+1-843-768-0808"
+  ],
+  "flow": {
+    "context": "Calling Rene, Property Inspector at Seabrook Exclusives — she physically walks 70+ vacation rentals after cleans, checking condition before guests arrive using a 25-point checklist with photo verification. Seabrook Exclusives is one of two sister brands (with Kiawah Exclusives, 115+ units) under one ownership, totaling 185+ rentals out of Johns Island, SC. They run on TrackHS for owner portal and reservations, were acquired by Continuum Management Group in 2021, and guarantee properties are 'thoroughly inspected and meticulously cleaned prior to check-in.' Rene is field-level — she lives the inspection pain daily but likely doesn't buy tools. Goal: validate the pain from the person who feels it most, then get a warm referral to Karen McFadden (GM), Ryan (Director of Ops), or Debbie (Housekeeping Manager). Personal detail: Rene's happy place is 'a cabin in the woods with water nearby and anywhere my dog is' — Sam surfs and fishes, both love being outdoors near water.",
+    "start": "call_start",
+    "nodes": {
+      "call_start": {
+        "label": "DIAL SEABROOK MAIN LINE",
+        "say": "Dialing Seabrook Exclusives main line: 888-718-7949 or 843-768-0808. Asking for Rene in property inspections.",
+        "note": "Rene is likely out in the field during the day. Best chance is early morning before turnovers start or late afternoon after she's back in the office. The office is shared for both Kiawah and Seabrook brands on Johns Island.",
+        "branches": [
+          {
+            "label": "Gatekeeper / front desk answers",
+            "to": "gatekeeper_slide"
+          },
+          {
+            "label": "Rene answers directly",
+            "to": "opener"
+          },
+          {
+            "label": "Goes to voicemail",
+            "to": "voicemail"
+          }
+        ]
+      },
+      "gatekeeper_slide": {
+        "label": "GATEKEEPER — SLIDE BY",
+        "say": "Hey — could you get me through to Rene? It's Sam.",
+        "note": "Don't pitch. Don't explain. First name only, casual tone. You're supposed to be calling. If they ask 'Rene who?' just say 'Rene on the inspection team — property inspector.'",
+        "branches": [
+          {
+            "label": "Puts you through",
+            "to": "opener"
+          },
+          {
+            "label": "Asks what it's regarding",
+            "to": "gatekeeper_context"
+          },
+          {
+            "label": "Rene's not available / in the field",
+            "to": "gatekeeper_unavailable"
+          },
+          {
+            "label": "Goes to Rene's voicemail",
+            "to": "voicemail"
+          }
+        ]
+      },
+      "gatekeeper_context": {
+        "label": "GATEKEEPER — ADD CONTEXT",
+        "say": "Yeah — I work with a few other property management companies in the Charleston area on their inspection workflows. Would you mind letting Rene know it's Sam Parks?",
+        "note": "Still not pitching. You're giving just enough to sound like a peer, not a vendor. Mention Charleston area specifically — it signals you're not a mass dialer.",
+        "branches": [
+          {
+            "label": "Puts you through",
+            "to": "opener"
+          },
+          {
+            "label": "Still pushing back / asks more",
+            "to": "gatekeeper_social_proof"
+          },
+          {
+            "label": "Rene's not available",
+            "to": "gatekeeper_unavailable"
+          },
+          {
+            "label": "Offers to take a message",
+            "to": "gatekeeper_leave_message"
+          }
+        ]
+      },
+      "gatekeeper_social_proof": {
+        "label": "GATEKEEPER — SOCIAL PROOF",
+        "say": "Totally fair — we help a couple other vacation rental companies with their turnover inspection process. I sent Rene a note and just wanted to give her a heads up. Would you mind passing me through?",
+        "note": "Third and final attempt. If this doesn't work, pivot to leaving a message or asking for a callback window. Don't burn the gatekeeper relationship.",
+        "branches": [
+          {
+            "label": "Puts you through",
+            "to": "opener"
+          },
+          {
+            "label": "Won't put you through",
+            "to": "gatekeeper_leave_message"
+          },
+          {
+            "label": "Rene's not available",
+            "to": "gatekeeper_unavailable"
+          }
+        ]
+      },
+      "gatekeeper_unavailable": {
+        "label": "RENE UNAVAILABLE",
+        "say": "No worries at all — she's probably out walking properties. Is there a better time to catch her? Like early morning before turnovers start, or end of day?",
+        "note": "Inspectors are usually in the field mid-day. Try to pin down a specific window. If they won't give one, ask if there's a direct line or extension.",
+        "branches": [
+          {
+            "label": "Gives a callback window",
+            "to": "gatekeeper_callback_locked"
+          },
+          {
+            "label": "Suggests email instead",
+            "to": "gatekeeper_email_redirect"
+          },
+          {
+            "label": "Won't give info",
+            "to": "gatekeeper_leave_message"
+          }
+        ]
+      },
+      "gatekeeper_callback_locked": {
+        "label": "CALLBACK TIME LOCKED",
+        "say": "Perfect, I'll try her then. Thanks for that — I appreciate it. And hey, who am I speaking with, just so I can reference you when I call back?",
+        "note": "Get the gatekeeper's name. Next time you call: 'Hey [name], it's Sam again — you told me to try Rene around [time].' Instant credibility.",
+        "branches": []
+      },
+      "gatekeeper_email_redirect": {
+        "label": "GATEKEEPER SUGGESTS EMAIL",
+        "say": "Sure, I can do that. Do you have a direct email for Rene, or should I use the general inbox?",
+        "note": "If they give a direct email, great. If general inbox, send it but plan to call back. Emails to general inboxes rarely reach field staff. Also try to get Rene's last name for email pattern (FirstL@seabrookexclusives.com).",
+        "branches": [
+          {
+            "label": "Gives Rene's direct email",
+            "to": "gatekeeper_callback_locked"
+          },
+          {
+            "label": "Gives general email only",
+            "to": "gatekeeper_leave_message"
+          }
+        ]
+      },
+      "gatekeeper_leave_message": {
+        "label": "LEAVE A MESSAGE",
+        "say": "Could you let Rene know Sam Parks called? I work with a few property management companies on their inspection process. She can reach me at [your number]. I'll try her again too. Thanks so much.",
+        "note": "Keep it short. Don't pitch in the message. The goal is name recognition so when you call back, she's heard of you.",
+        "branches": []
+      },
+      "voicemail": {
+        "label": "VOICEMAIL",
+        "say": "Hey Rene — it's Sam Parks. I work with a few other property inspectors at vacation rental companies about your size, specifically around the turnover photo and inspection workflow. Had something I think would be right up your alley. Give me a ring back when you get a sec — [your number]. Or I'll try you again. Talk soon.",
+        "note": "Keep it under 20 seconds. Sound like a peer, not a pitch. Don't mention RapidEye by name — just enough to spark curiosity. Call back in 2 days if no response.",
+        "branches": []
+      },
+      "opener": {
+        "label": "OPENER — RENE ANSWERS",
+        "say": "Hey Rene — I work with a few other property inspectors at vacation rental companies in the Lowcountry, specifically on how they're handling the turnover inspection process. It's Sam Parks with RapidEye. Have you heard my name tossed around at all?",
+        "note": "Rene's a field person, not an executive. Lead with her peer group — other inspectors. 'Lowcountry' shows you know the area. Tone: relaxed, like you're checking in, not selling. She might be walking through a property right now.",
+        "branches": [
+          {
+            "label": "No, haven't heard of you",
+            "to": "heard_no"
+          },
+          {
+            "label": "Yes / maybe / sounds familiar",
+            "to": "heard_yes"
+          },
+          {
+            "label": "I'm really busy right now / bad timing",
+            "to": "bad_timing"
+          },
+          {
+            "label": "What is this about? / Are you selling something?",
+            "to": "permission_fallback"
+          }
+        ]
+      },
+      "heard_no": {
+        "label": "HASN'T HEARD OF YOU",
+        "say": "Ha — I guess I'm not as popular as I thought. Well, the reason for my call is pretty specific to what you do every day, actually. You got a quick minute?",
+        "note": "Light self-deprecating humor. Then immediately signal this is relevant to HER daily work, not a generic pitch. If she says yes, go to pain trigger. If hesitant, go to permission fallback.",
+        "branches": [
+          {
+            "label": "Sure, go ahead",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "I only have a sec / make it quick",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "Not really / I'm busy",
+            "to": "bad_timing"
+          },
+          {
+            "label": "What are you selling?",
+            "to": "permission_fallback"
+          }
+        ]
+      },
+      "heard_yes": {
+        "label": "HAS HEARD OF YOU",
+        "say": "Oh nice — well normally we'd be working with someone like you. What'd you hear?",
+        "note": "Unlikely but possible if you've emailed or if someone else on the team mentioned it. Let her talk. Whatever she says, bridge to the pain trigger. If she heard from Karen or Ryan, that's gold — reference that connection.",
+        "branches": [
+          {
+            "label": "Heard something positive / vague",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "Not sure / confused with someone else",
+            "to": "pain_trigger"
+          }
+        ]
+      },
+      "bad_timing": {
+        "label": "BAD TIMING",
+        "say": "Totally hear you — you're probably in the middle of walking a property right now. Would it be a terrible idea if I tried you again tomorrow morning before turnovers start? Or is end of day better?",
+        "note": "Acknowledge she's probably literally in the field. Offer specific windows that make sense for an inspector's schedule. Morning before turns or late afternoon after she's done.",
+        "branches": [
+          {
+            "label": "Gives a specific time",
+            "to": "reschedule_locked"
+          },
+          {
+            "label": "Try me tomorrow",
+            "to": "reschedule_locked"
+          },
+          {
+            "label": "Just tell me what this is real quick",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "Don't call me / not interested",
+            "to": "permission_rejected"
+          }
+        ]
+      },
+      "reschedule_locked": {
+        "label": "CALLBACK LOCKED IN",
+        "say": "Done. I'll try you [time she said]. And hey Rene — just so I'm not wasting your time when I call back — this is specifically about the turnover inspection photos and catching things the checklist misses. Sound relevant to your world?",
+        "note": "Plant a seed so she's thinking about it before the callback. If she engages, you might get the conversation now. If not, you've set context for next time.",
+        "branches": [
+          {
+            "label": "Yeah, that sounds interesting — tell me now",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "Sure, call me then",
+            "to": "end_graceful_callback"
+          },
+          {
+            "label": "Not really my area / talk to someone else",
+            "to": "referral_transition"
+          }
+        ]
+      },
+      "end_graceful_callback": {
+        "label": "CALLBACK CONFIRMED — END",
+        "say": "Perfect. Talk to you then, Rene. Appreciate it.",
+        "note": "Stop here. Don't oversell the callback. She agreed — that's a win. Call at exactly the time you said.",
+        "branches": []
+      },
+      "permission_fallback": {
+        "label": "PERMISSION FALLBACK",
+        "say": "Yeah totally — it is a cold call, I'll be honest. Can I get 30 seconds to tell you why I called you specifically, and if it's not relevant to what you do every day you can totally hang up on me?",
+        "note": "Disarm with honesty. 'You specifically' signals this isn't a mass dial. 30 seconds is a low ask for a field worker. If she gives you the window, make it count — go straight to pain.",
+        "branches": [
+          {
+            "label": "Fine, 30 seconds",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "Sure, go ahead",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "No, I'm not interested",
+            "to": "permission_rejected"
+          }
+        ]
+      },
+      "permission_rejected": {
+        "label": "PERMISSION REJECTED",
+        "say": "Shoot, totally my bad for catching you out of nowhere. Just so nobody from my team bugs you again — is it that I caught you at a horrible time, or you just hate cold calls? Either one's fair.",
+        "note": "You're splitting the rejection to understand the real reason. 'So nobody bugs you again' makes it feel like you're doing her a favor. Most people will soften here and give you the real answer.",
+        "branches": [
+          {
+            "label": "It's just bad timing",
+            "to": "bad_timing"
+          },
+          {
+            "label": "I just don't take sales calls",
+            "to": "referral_pivot_soft"
+          },
+          {
+            "label": "I'm not the right person for this",
+            "to": "referral_transition"
+          },
+          {
+            "label": "Hard no / hangs up",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "referral_pivot_soft": {
+        "label": "SOFT PIVOT TO REFERRAL",
+        "say": "Totally respect that. Real quick — would it make more sense for me to reach out to someone like Karen or Ryan on your team? I don't want to keep bugging the wrong person.",
+        "note": "Drop Karen McFadden (GM) or Ryan (Director of Ops) by first name. If Rene confirms either one handles tooling or inspection process decisions, that's your referral. Using first names signals you've done your homework.",
+        "branches": [
+          {
+            "label": "Yeah, talk to Karen / Ryan",
+            "to": "referral_given"
+          },
+          {
+            "label": "I don't know / not sure",
+            "to": "referral_ask_general"
+          },
+          {
+            "label": "Gives someone else's name",
+            "to": "referral_given"
+          },
+          {
+            "label": "Still won't engage",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "pain_trigger": {
+        "label": "PAIN TRIGGER — INSPECTOR'S DAILY GRIND",
+        "say": "So here's why I called you — I was talking to another property inspector at a company pretty similar to yours. About 70-something vacation rentals on the coast. She's walking properties back to back after cleans, checking the same 25 or so points every time, snapping photos so there's documentation — and stuff still slips through. Guest checks in Friday night, finds a cracked tile behind the bathroom door or a missing coffee maker, and suddenly she's the one getting the call. Even with the checklist and the photos, when you're doing that across dozens of turns a week… things just get missed. Not because she's not good — because there's only one of her.",
+        "note": "This is a mirror of Rene's exact daily life — 70+ Seabrook properties, 25-point checklist, photo verification. Pause after 'there's only one of her.' Let her react. She'll either relate or push back. Either way, you've earned credibility by describing her world accurately.",
+        "branches": [
+          {
+            "label": "Yeah, that's exactly what happens / relates to it",
+            "to": "warm_response"
+          },
+          {
+            "label": "I mean, we have a pretty good process...",
+            "to": "has_process"
+          },
+          {
+            "label": "What are you offering exactly?",
+            "to": "one_sentence_solution"
+          },
+          {
+            "label": "That's not really my call / I just do the inspections",
+            "to": "referral_transition"
+          },
+          {
+            "label": "Not interested / objection",
+            "to": "objection_agree"
+          }
+        ]
+      },
+      "warm_response": {
+        "label": "SHE RELATES — STOP PITCHING",
+        "say": "Yeah, I figured. So what does it actually look like for you day to day? Like when you finish a clean check on a property — are you flipping through photos right there, or are you doing that back at the office?",
+        "note": "She's warm. STOP PITCHING. Ask about her process. You want to understand: how she inspects, how photos are used, what gets missed, what happens when something slips through. Let her talk. Every detail she shares is ammo for the referral conversation or the meeting.",
+        "branches": [
+          {
+            "label": "Describes her process / opens up",
+            "to": "discovery_deep"
+          },
+          {
+            "label": "Gives a short answer, still guarded",
+            "to": "discovery_probe"
+          },
+          {
+            "label": "Why do you want to know?",
+            "to": "explain_why_asking"
+          }
+        ]
+      },
+      "discovery_deep": {
+        "label": "DEEP DISCOVERY — HER PROCESS",
+        "say": "That makes sense. And when something does get missed — like damage that wasn't there before or something that should've been caught in the photos — what happens? Does that come back on you, or does it go to Ryan or Debbie first?",
+        "note": "You're mapping the accountability chain. 'Ryan' is Director of Ops, 'Debbie' is Housekeeping Manager at Kiawah. Using their names shows you know the org. Listen for: who gets blamed, how damage is documented, how disputes with owners/guests are handled, and whether the current photo process actually catches things or is just CYA.",
+        "branches": [
+          {
+            "label": "It comes back on me / I hear about it",
+            "to": "pain_validated"
+          },
+          {
+            "label": "Goes to Ryan / ops team",
+            "to": "pain_validated"
+          },
+          {
+            "label": "We have a process for that",
+            "to": "has_process"
+          },
+          {
+            "label": "Mentions a specific tool or system",
+            "to": "tool_mentioned"
+          }
+        ]
+      },
+      "discovery_probe": {
+        "label": "PROBE DEEPER",
+        "say": "Gotcha. And how many turns are you inspecting on a busy day? Like peak season on Seabrook — is it back to back all day?",
+        "note": "Get her talking about volume. Seabrook has 70+ properties, peak season on the coast is brutal. The more turns she describes, the more obvious the problem becomes. If she says a high number, you can tie it to the 'things get missed' pain.",
+        "branches": [
+          {
+            "label": "Describes high volume / busy days",
+            "to": "pain_validated"
+          },
+          {
+            "label": "It varies / moderate",
+            "to": "pain_validated"
+          },
+          {
+            "label": "I'd rather not get into all this",
+            "to": "referral_transition"
+          }
+        ]
+      },
+      "explain_why_asking": {
+        "label": "EXPLAIN WHY ASKING",
+        "say": "Totally fair question. I'm asking because we built something that actually reviews the turnover photos your team's already taking — it flags damage, missing items, staging issues automatically. But whether that's useful depends entirely on how your process works today. I don't want to waste your time if it's not relevant.",
+        "note": "Transparent and respectful. You're letting her know why you're asking without being pushy. If she engages, continue discovery. If she pivots to 'talk to my manager,' follow the referral path.",
+        "branches": [
+          {
+            "label": "Oh, that's interesting — tell me more",
+            "to": "one_sentence_solution"
+          },
+          {
+            "label": "You'd need to talk to someone else about that",
+            "to": "referral_transition"
+          },
+          {
+            "label": "We're fine with what we have",
+            "to": "has_process"
+          }
+        ]
+      },
+      "pain_validated": {
+        "label": "PAIN VALIDATED — BRIDGE TO SOLUTION",
+        "say": "Yeah, that's exactly what I keep hearing. So here's the short version — we built an AI that plugs into the photos your team's already taking during turnovers and automatically flags damage, missing items, staging issues. It connects right into Track, so nothing changes about your workflow. You keep doing what you're doing, it just catches the stuff that's easy to miss when you're moving fast.",
+        "note": "She's validated the pain. Deliver the one-sentence solution. Mention Track (TrackHS) — they use it. 'Nothing changes about your workflow' is critical for a field person who doesn't want more work. Then pivot to referral — she's not the buyer.",
+        "branches": [
+          {
+            "label": "That sounds useful / interesting",
+            "to": "referral_transition_warm"
+          },
+          {
+            "label": "How does that work exactly?",
+            "to": "brief_explain"
+          },
+          {
+            "label": "I'd need to talk to my manager about that",
+            "to": "referral_transition"
+          },
+          {
+            "label": "We're fine / not interested",
+            "to": "objection_agree"
+          }
+        ]
+      },
+      "one_sentence_solution": {
+        "label": "ONE-SENTENCE SOLUTION",
+        "say": "We built an AI that reviews the turnover photos your team's already taking — it plugs into Track and flags damage, missing items, staging problems automatically. No workflow change on your end. You keep doing what you're doing, it just catches more.",
+        "note": "Keep it to two sentences max. Mention Track (their PMS). If she asks how it works, give a brief explanation. If she says 'talk to my manager,' that's the referral you want.",
+        "branches": [
+          {
+            "label": "That's interesting / tell me more",
+            "to": "brief_explain"
+          },
+          {
+            "label": "You'd need to talk to Karen / Ryan / my manager",
+            "to": "referral_transition"
+          },
+          {
+            "label": "How much does it cost?",
+            "to": "bridge_to_referral_from_price"
+          },
+          {
+            "label": "We don't need that",
+            "to": "objection_agree"
+          }
+        ]
+      },
+      "brief_explain": {
+        "label": "BRIEF EXPLANATION",
+        "say": "So basically — the photos your cleaners or you are already snapping after a turn, those go through our system automatically. It compares them to what the property should look like and flags anything off — a dent in the wall, a missing throw pillow, a stain on the couch. Takes about 30 seconds per property. A couple of the PM companies we work with were catching maybe 80 percent of issues manually, and this gets them a lot closer to a hundred.",
+        "note": "Keep it tangible. Real examples she'd encounter in her inspections. Don't go into technical AI details. She's a field person — she cares about what it catches, not how it works. Then pivot to getting the right decision maker.",
+        "branches": [
+          {
+            "label": "That would actually help a lot",
+            "to": "referral_transition_warm"
+          },
+          {
+            "label": "Who else is using this?",
+            "to": "social_proof_drop"
+          },
+          {
+            "label": "I'd need my manager to look at this",
+            "to": "referral_transition"
+          },
+          {
+            "label": "Not sure we need it",
+            "to": "objection_agree"
+          }
+        ]
+      },
+      "social_proof_drop": {
+        "label": "SOCIAL PROOF",
+        "say": "We're working with a few PM companies right now — one in New York managing about 200 luxury homes, another on the East Coast with around 600 properties. Similar deal to you guys — they were already taking turnover photos, just nobody had time to really look at all of them. That's kind of the whole point.",
+        "note": "Don't name-drop clients unless you have permission. Keep it vague but credible. '600 properties on the East Coast' is relatable for a coastal PM company. Then bridge to referral.",
+        "branches": [
+          {
+            "label": "Interesting — I'd want my manager to see this",
+            "to": "referral_transition"
+          },
+          {
+            "label": "Sounds cool but I'm not the one who'd decide",
+            "to": "referral_transition"
+          },
+          {
+            "label": "Can you send me some info?",
+            "to": "send_email"
+          }
+        ]
+      },
+      "tool_mentioned": {
+        "label": "SHE MENTIONS A TOOL",
+        "say": "Oh nice — how long have you guys been using that? And does it handle the photo analysis side too, or is that more manual?",
+        "note": "If she names Breezeway or another ops tool, learn how they use it. RapidEye can plug into existing tools. Don't trash their current tool — position RapidEye as an add-on layer. If they're using something basic or manual, that's your opening.",
+        "branches": [
+          {
+            "label": "Describes tool limitations / manual photo review",
+            "to": "pain_validated"
+          },
+          {
+            "label": "Happy with current tool",
+            "to": "has_process"
+          },
+          {
+            "label": "Not sure, I just use what they give me",
+            "to": "referral_transition"
+          }
+        ]
+      },
+      "has_process": {
+        "label": "OBJECTION — WE HAVE A PROCESS",
+        "say": "That makes total sense — with 70-plus properties on Seabrook alone, you'd have to. I'd be shocked if you didn't have something dialed in by now.",
+        "note": "Agree first. Don't challenge her process. 'I'd be shocked if you didn't' validates her. Then split the objection to find the real gap.",
+        "branches": [
+          {
+            "label": "Pauses / softens",
+            "to": "has_process_split"
+          },
+          {
+            "label": "Yeah, we're good",
+            "to": "has_process_split"
+          }
+        ]
+      },
+      "has_process_split": {
+        "label": "SPLIT THE PROCESS OBJECTION",
+        "say": "Honest question — is it that you're catching everything and you're totally happy with how it works, or is it more that switching anything up right now would just be a headache?",
+        "note": "Most inspectors know things slip through — they just don't want more work. If it's 'switching is a headache,' you can position RapidEye as zero workflow change. If it's 'we catch everything,' respectfully challenge with a specific example.",
+        "branches": [
+          {
+            "label": "Switching would be a headache",
+            "to": "no_workflow_change"
+          },
+          {
+            "label": "We catch most things / it works fine",
+            "to": "test_drive_offer"
+          },
+          {
+            "label": "Honestly, stuff does slip through",
+            "to": "pain_validated"
+          },
+          {
+            "label": "I'm really not the person to talk to about this",
+            "to": "referral_transition"
+          }
+        ]
+      },
+      "no_workflow_change": {
+        "label": "ZERO WORKFLOW CHANGE PITCH",
+        "say": "Totally hear you. And that's actually the whole point of what we built — it plugs into the photos you're already taking through Track. Nothing changes about your day. You don't download an app, you don't fill out a new form. The photos you're already snapping just get smarter, basically.",
+        "note": "This is the key message for a field worker: your day doesn't change. Emphasize integration with TrackHS. Then pivot to getting her manager on a call.",
+        "branches": [
+          {
+            "label": "Huh, that's actually not bad",
+            "to": "referral_transition_warm"
+          },
+          {
+            "label": "You'd need to talk to my manager",
+            "to": "referral_transition"
+          },
+          {
+            "label": "Still not interested",
+            "to": "test_drive_offer"
+          }
+        ]
+      },
+      "objection_agree": {
+        "label": "OBJECTION — AGREE FIRST",
+        "say": "Totally get it. I should've assumed you'd have things figured out — otherwise you probably would've been looking for something like this already.",
+        "note": "Agree. Don't push. This disarms. Then incentivize the next sentence with 'just so nobody bugs you again.'",
+        "branches": [
+          {
+            "label": "Pauses / softens slightly",
+            "to": "objection_split"
+          },
+          {
+            "label": "Yeah, we're good",
+            "to": "objection_split"
+          },
+          {
+            "label": "Hard no",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "objection_split": {
+        "label": "SPLIT THE OBJECTION",
+        "say": "Just so nobody from my team bugs you again — is it that this isn't a problem you're really focused on, or is it more that you just hate cold calls? Either one's fair.",
+        "note": "This splits the real reason from the reflex. Most people will admit they hate cold calls, which opens the door. If she says it's not her problem to solve, perfect — that's a referral opportunity.",
+        "branches": [
+          {
+            "label": "I just hate cold calls / bad timing",
+            "to": "test_drive_offer"
+          },
+          {
+            "label": "It's not really my area / not my decision",
+            "to": "referral_transition"
+          },
+          {
+            "label": "Genuinely not a problem for us",
+            "to": "test_drive_offer"
+          },
+          {
+            "label": "Hard no / wants to end call",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "test_drive_offer": {
+        "label": "SELL THE TEST DRIVE",
+        "say": "I hear you. And look — you're probably not buying anything from a cold call, and I totally respect that. But if nothing else, I could show you what a couple other PM companies in the Charleston area are doing with their turnover photos. Worst case you steal some ideas and we part as friends. Would that be worth 15 minutes?",
+        "note": "Low stakes. 'Steal some ideas' reframes the meeting as valuable even if she never buys. If she says yes, book it NOW. If she defers to a manager, that's the referral.",
+        "branches": [
+          {
+            "label": "Sure, I'd look at that",
+            "to": "book_meeting"
+          },
+          {
+            "label": "You'd really need to talk to my manager for that",
+            "to": "referral_transition"
+          },
+          {
+            "label": "Just send me something",
+            "to": "send_email"
+          },
+          {
+            "label": "No thanks",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "referral_transition": {
+        "label": "TRANSITION TO REFERRAL",
+        "say": "Totally makes sense — and honestly, that's kind of why I called you first. You're the one actually walking the properties, so you'd know better than anyone whether this is real or not. Who on your team would typically look at something like this? Would that be Karen or Ryan?",
+        "note": "Frame the referral as a compliment — you called HER because she knows the real situation. Then drop Karen (GM) and Ryan (Director of Ops) by first name. If she confirms one of them, that's your warm intro.",
+        "branches": [
+          {
+            "label": "Yeah, talk to Karen",
+            "to": "referral_given_karen"
+          },
+          {
+            "label": "Ryan would be the one",
+            "to": "referral_given_ryan"
+          },
+          {
+            "label": "Talk to Debbie / housekeeping",
+            "to": "referral_given_debbie"
+          },
+          {
+            "label": "Gives another name",
+            "to": "referral_given_other"
+          },
+          {
+            "label": "I don't know / not sure",
+            "to": "referral_ask_general"
+          }
+        ]
+      },
+      "referral_transition_warm": {
+        "label": "WARM REFERRAL TRANSITION",
+        "say": "Love that. So here's my honest question — you're clearly the one who'd feel the difference day to day. But who on your team would I need to talk to about actually trying something like this? Would that be Karen McFadden or Ryan in operations?",
+        "note": "She's warm on the idea. Now get the decision maker. Use Karen's full name to show you've done your homework. If she offers to introduce you or pass along your info, that's the best possible outcome.",
+        "branches": [
+          {
+            "label": "Yeah, Karen would be the one",
+            "to": "referral_given_karen"
+          },
+          {
+            "label": "Ryan handles that kind of stuff",
+            "to": "referral_given_ryan"
+          },
+          {
+            "label": "Let me pass your info along",
+            "to": "referral_she_will_pass"
+          },
+          {
+            "label": "Gives another name",
+            "to": "referral_given_other"
+          }
+        ]
+      },
+      "referral_given_karen": {
+        "label": "REFERRAL TO KAREN MCFADDEN",
+        "say": "Perfect. And would you mind if I mentioned you when I reach out to Karen? Just so it's not totally out of the blue for her. Something like 'Hey, I was chatting with Rene on your team and she thought this might be worth a look.'",
+        "note": "Getting permission to name-drop Rene turns a cold call to Karen into a warm one. Karen is the GM — she cares about guest readiness outcomes, owner satisfaction, and reviews. When you call Karen, lead with: 'I was talking to Rene on your inspection team...'",
+        "branches": [
+          {
+            "label": "Yeah, sure / that's fine",
+            "to": "book_or_lock_karen"
+          },
+          {
+            "label": "I'd rather you didn't / just call her directly",
+            "to": "book_or_lock_karen"
+          }
+        ]
+      },
+      "referral_given_ryan": {
+        "label": "REFERRAL TO RYAN (DIRECTOR OF OPS)",
+        "say": "Nice. Ryan's the Director of Operations, right? Would you mind if I mentioned your name when I reach out? Just so it doesn't come out of nowhere.",
+        "note": "Ryan is the most likely direct owner of the inspection workflow. If Rene confirms his last name, get it — you need it for email (FirstL@seabrookexclusives.com pattern). Ask casually: 'And what's Ryan's last name? Just so I reach the right one.'",
+        "branches": [
+          {
+            "label": "Sure, go ahead / confirms Ryan",
+            "to": "get_last_name_ryan"
+          },
+          {
+            "label": "Just call the office",
+            "to": "book_or_lock_karen"
+          }
+        ]
+      },
+      "referral_given_debbie": {
+        "label": "REFERRAL TO DEBBIE (HOUSEKEEPING)",
+        "say": "Debbie in housekeeping — that makes sense actually, since she'd own the cleaner side of the process. Is she based out of the same Johns Island office?",
+        "note": "Debbie is Housekeeping Manager at Kiawah Exclusives. She owns cleaner standards and turnover proof. Good target. Try to get her last name for email pattern.",
+        "branches": [
+          {
+            "label": "Yes, same office",
+            "to": "book_or_lock_karen"
+          },
+          {
+            "label": "Gives more info",
+            "to": "book_or_lock_karen"
+          }
+        ]
+      },
+      "referral_given_other": {
+        "label": "REFERRAL TO SOMEONE ELSE",
+        "say": "Gotcha — and what's their role? Just so I know what angle to come from when I reach out. And would you mind if I mentioned I talked to you?",
+        "note": "Get the name, role, and permission to name-drop. Any warm referral from an internal person is 10x better than cold outreach.",
+        "branches": [
+          {
+            "label": "Gives name and role",
+            "to": "book_or_lock_karen"
+          },
+          {
+            "label": "Vague / not sure",
+            "to": "referral_ask_general"
+          }
+        ]
+      },
+      "referral_ask_general": {
+        "label": "GENERAL REFERRAL ASK",
+        "say": "No worries. Usually on the ops side, the person who'd look at something like this is either the Director of Operations or the General Manager. I think Karen McFadden's your GM — would she be the right one? Or is there someone on the ops side who handles the inspection and turnover process?",
+        "note": "Guide her. You know the org chart better than she might expect. If she confirms Karen or Ryan, you have your target. If she's unsure, that's okay — you still have names from research.",
+        "branches": [
+          {
+            "label": "Yeah, try Karen",
+            "to": "referral_given_karen"
+          },
+          {
+            "label": "Ryan in ops",
+            "to": "referral_given_ryan"
+          },
+          {
+            "label": "Not sure / doesn't know",
+            "to": "book_or_lock_karen"
+          }
+        ]
+      },
+      "referral_she_will_pass": {
+        "label": "SHE'LL PASS YOUR INFO",
+        "say": "I really appreciate that, Rene. If I can put something quick together that's specific to Seabrook — like what the inspection photo analysis would actually look like for your properties — would that help it land better with whoever looks at it?",
+        "note": "If she's willing to champion internally, give her ammo. Offer to create something tailored she can forward. This also lets you follow up with her: 'Hey Rene, sent that over — did you get a chance to share it?'",
+        "branches": [
+          {
+            "label": "Yeah, send it to me",
+            "to": "get_rene_email"
+          },
+          {
+            "label": "Just call the office",
+            "to": "book_or_lock_karen"
+          }
+        ]
+      },
+      "get_rene_email": {
+        "label": "GET RENE'S EMAIL",
+        "say": "Perfect — what's the best email for you? I'll keep it short and specific to what we talked about.",
+        "note": "Get her email address. If she gives it, you've confirmed the email pattern for the whole company (FirstL@seabrookexclusives.com). Use this to build direct emails for Karen, Ryan, and Debbie.",
+        "branches": [
+          {
+            "label": "Gives email",
+            "to": "book_or_lock_karen"
+          },
+          {
+            "label": "Use the general inbox",
+            "to": "book_or_lock_karen"
+          }
+        ]
+      },
+      "get_last_name_ryan": {
+        "label": "GET RYAN'S LAST NAME",
+        "say": "And what's Ryan's last name? Just want to make sure I reach the right person.",
+        "note": "You need his last name to build the email (FirstL@seabrookexclusives.com pattern). If she gives it, you've unlocked direct outreach.",
+        "branches": [
+          {
+            "label": "Gives last name",
+            "to": "book_or_lock_karen"
+          },
+          {
+            "label": "Not sure / just call the office",
+            "to": "book_or_lock_karen"
+          }
+        ]
+      },
+      "book_or_lock_karen": {
+        "label": "LOCK NEXT STEP",
+        "say": "Perfect. I'll reach out to them this week and mention you. Rene — seriously, I appreciate you taking a couple minutes with me. You didn't have to do that. If this ends up being something your team looks at, I owe you one.",
+        "note": "Thank her genuinely. She's a field worker who gave you time during her day. The referral is the win here. Now go call Karen or Ryan with Rene's name as your warm intro. When you do, lead with: 'I was chatting with Rene on your inspection team and she mentioned you'd be the right person to talk to about this.'",
+        "branches": []
+      },
+      "bridge_to_referral_from_price": {
+        "label": "PRICE QUESTION — BRIDGE TO REFERRAL",
+        "say": "Good question — and honestly, that's exactly why I'd need to talk to someone on the operations or management side. The pricing depends on property count, turnover volume, stuff like that. Who would I talk to about that? Karen McFadden?",
+        "note": "She asked about price, which means she's somewhat interested. But she's not the buyer. Use the price question as a natural bridge to the decision maker.",
+        "branches": [
+          {
+            "label": "Yeah, talk to Karen",
+            "to": "referral_given_karen"
+          },
+          {
+            "label": "Ryan / Director of Ops",
+            "to": "referral_given_ryan"
+          },
+          {
+            "label": "Not sure",
+            "to": "referral_ask_general"
+          }
+        ]
+      },
+      "send_email": {
+        "label": "SEND ME AN EMAIL",
+        "say": "Totally fair. One question before I do — what would be most helpful to include so it's not just another generic thing that gets buried? Like would a quick video of what it actually catches be more useful, or more of a comparison to what you're doing now?",
+        "note": "Accept the request, but ask what to include. This tells you what she cares about AND keeps her engaged for 30 more seconds. Include a specific follow-up time in the email: 'I'll try you again Thursday to see if it's worth a longer conversation.'",
+        "branches": [
+          {
+            "label": "Gives a preference / answers",
+            "to": "send_email_confirm"
+          },
+          {
+            "label": "Just send whatever",
+            "to": "send_email_confirm"
+          }
+        ]
+      },
+      "send_email_confirm": {
+        "label": "CONFIRM EMAIL SEND",
+        "say": "Done. I'll get that over to you today. And hey — if it makes sense after you look at it, would it be cool if I tried you again later this week? Not to pitch, just to see if it's worth looping in someone on the ops side.",
+        "note": "Lock in the follow-up call. 'Looping in someone on the ops side' plants the seed that there's a next step beyond Rene. Get her email if you don't have it.",
+        "branches": [
+          {
+            "label": "Sure, that's fine",
+            "to": "get_rene_email"
+          },
+          {
+            "label": "We'll see / maybe",
+            "to": "get_rene_email"
+          },
+          {
+            "label": "Probably not / don't call me",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "book_meeting": {
+        "label": "BOOK THE MEETING",
+        "say": "Nice. I've got next week pulled up — would Tuesday or Wednesday work better? I'm thinking sometime around 10 AM before you're out on properties?",
+        "note": "Lock it in NOW. Give two options. Suggest morning before her field work starts. If she defers to a manager, pivot to booking with the manager instead. Send the invite while on the phone if possible.",
+        "branches": [
+          {
+            "label": "Picks a day/time",
+            "to": "meeting_booked"
+          },
+          {
+            "label": "Can't do next week / suggests another time",
+            "to": "meeting_booked"
+          },
+          {
+            "label": "My manager would need to be on that too",
+            "to": "referral_transition_warm"
+          }
+        ]
+      },
+      "meeting_booked": {
+        "label": "MEETING BOOKED",
+        "say": "Locked in. I'll send the invite right now so you have it. And Rene — really appreciate you giving me a few minutes. I know you've got properties to get to. Talk to you on [day].",
+        "note": "Send the calendar invite immediately. Stop selling. Don't add anything. She said yes — protect the win. If she mentioned a manager should join, add them to the invite or call them separately with Rene as the warm referral.",
+        "branches": []
+      },
+      "end_graceful": {
+        "label": "END GRACEFULLY",
+        "say": "Totally understand, Rene. If anything changes, I'm easy to find. Appreciate you taking my call — I know you're busy. Have a good one.",
+        "note": "Don't burn the bridge. She's a field worker at a company you want to get into. Even if this call goes nowhere, you can still call Karen or Ryan directly. And if you get in with the company later, Rene will remember you were respectful.",
+        "branches": []
+      }
+    }
+  }
+}

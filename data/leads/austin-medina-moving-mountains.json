@@ -1,0 +1,676 @@
+{
+  "name": "Austin Medina",
+  "title": "Lead Maintenance Technician, Steamboat Springs",
+  "company": "Moving Mountains",
+  "location": "Steamboat Springs, CO",
+  "phone": "+1-970-870-9359",
+  "company_phone": "(877) 624-2538",
+  "alt_phones": [
+    "+1-970-870-9359",
+    "+1-970-445-2300",
+    "+1-970-547-2122",
+    "+1-970-870-9487"
+  ],
+  "flow": {
+    "context": "Austin Medina is Lead Maintenance Technician at Moving Mountains in Steamboat Springs — the person who gets dispatched when QA inspections find damage, broken appliances, or staging failures across their luxury homes. He is not a budget holder or tooling decision-maker, but he lives the downstream pain every single day and can provide a warm referral upward. Moving Mountains manages 250 luxury rentals across Steamboat, Vail, Beaver Creek, and Breckenridge, runs Breezeway and Track, staffs dedicated QA inspectors per market, and just took investment from StayTerra. The play is to connect on pain he feels firsthand, then get a warm handoff to Anna Calhoon (Housekeeping & QA Manager, Steamboat), Lisa Riniker (Director of Ops), or Stephanie Stevenson (GM, Steamboat). Sam skied Jackson Hole in January 2026 — natural hook for a maintenance tech living in a Colorado ski town.",
+    "start": "opener",
+    "nodes": {
+      "opener": {
+        "label": "OPENER",
+        "say": "Hey Austin — this is gonna sound random, but I was just out skiing Jackson Hole last month and got talking with a few property managers out in mountain towns. Somebody mentioned Moving Mountains. It's Sam Parks with RapidEye — have you heard my name tossed around at all?",
+        "note": "Feet-up energy. He's a field guy in a ski town — the skiing hook is genuine (Sam skied Jackson Hole Jan 2026). Don't sound corporate. He may be at a property right now so be ready for bad timing.",
+        "branches": [
+          {
+            "label": "No, haven't heard of you",
+            "to": "heard_name_no"
+          },
+          {
+            "label": "Yeah / maybe / sounds familiar",
+            "to": "heard_name_yes"
+          },
+          {
+            "label": "Who is this? / What's this about?",
+            "to": "heard_name_no"
+          },
+          {
+            "label": "Bad timing / I'm busy / I'm at a property",
+            "to": "bad_timing"
+          }
+        ]
+      },
+      "heard_name_no": {
+        "label": "HAVEN'T HEARD — TRANSITION",
+        "say": "Ha — guess I'm not as popular as I thought. Well hey, the reason I'm calling — I work with a few property management companies that run a similar setup to you guys, and the maintenance leads I talk to keep telling me the same thing. Figured it'd be worth a quick conversation. You got like 30 seconds?",
+        "note": "Don't pitch yet. Just get permission to keep going. He's a field tech — keep it casual and time-conscious.",
+        "branches": [
+          {
+            "label": "Sure, go ahead",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "I'm kind of busy right now",
+            "to": "bad_timing"
+          },
+          {
+            "label": "What's this about exactly?",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "Sounds like a sales call / skeptical",
+            "to": "permission_ask"
+          }
+        ]
+      },
+      "heard_name_yes": {
+        "label": "HEARD THE NAME — EXPLORE",
+        "say": "Oh no kidding — well normally we'd be working with someone like you on the maintenance side. What'd you hear?",
+        "note": "Unlikely he's actually heard of Sam, but if he says yes, lean in and let him talk. Use whatever he says to bridge into pain.",
+        "branches": [
+          {
+            "label": "Shares what he heard",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "Not much / someone just mentioned it",
+            "to": "pain_trigger"
+          }
+        ]
+      },
+      "bad_timing": {
+        "label": "BAD TIMING",
+        "say": "Totally hear you — you're probably in the middle of something. Would it be a terrible idea if I tried you again tomorrow? Or is later this week better?",
+        "note": "He's a maintenance tech. He could literally be under a sink right now. Respect it and lock a callback time.",
+        "branches": [
+          {
+            "label": "Yeah try me tomorrow / gives a time",
+            "to": "callback_locked"
+          },
+          {
+            "label": "Just tell me real quick",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "Not interested / don't call back",
+            "to": "objection_not_interested"
+          }
+        ]
+      },
+      "callback_locked": {
+        "label": "CALLBACK SCHEDULED",
+        "say": "Perfect — I'll try you then. Appreciate it, Austin. Talk soon.",
+        "note": "Lock the time in the CRM immediately. Don't push further — he gave you a window, honor it.",
+        "branches": []
+      },
+      "permission_ask": {
+        "label": "PERMISSION FALLBACK",
+        "say": "Yeah totally — I mean it is a cold call. Can I get 30 seconds to tell you why I reached out, and you can totally tell me to kick rocks if it's not relevant?",
+        "note": "Disarm with honesty. 'Kick rocks' is casual enough for a field guy. If he gives 30 seconds, go straight to pain.",
+        "branches": [
+          {
+            "label": "Sure, go ahead",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "No thanks / not interested",
+            "to": "permission_rejected"
+          }
+        ]
+      },
+      "permission_rejected": {
+        "label": "PERMISSION REJECTED",
+        "say": "Shoot, totally my bad. Just so nobody from my team bugs you again — is it that I caught you at a horrible time, or is it that you already know what we do and this just isn't interesting?",
+        "note": "Split the rejection. Timing = callback opportunity. Not interesting = referral opportunity or graceful exit.",
+        "branches": [
+          {
+            "label": "Horrible time",
+            "to": "bad_timing"
+          },
+          {
+            "label": "Not interested",
+            "to": "objection_not_interested"
+          },
+          {
+            "label": "I just don't handle this stuff",
+            "to": "not_my_call"
+          }
+        ]
+      },
+      "pain_trigger": {
+        "label": "PAIN TRIGGER — MAINTENANCE PERSPECTIVE",
+        "say": "So here's why I reached out to you specifically — I talk to a lot of maintenance leads at luxury PM companies, and the thing I keep hearing is… QA finds something during an inspection, they send over a photo or a note, and half the time you show up and it's not what you expected. Like the photo's blurry, or it doesn't actually show the problem, or they just wrote 'damage in master bathroom' and you're walking through a five-thousand-square-foot house trying to figure out what they're talking about. And during peak season with back-to-back turnovers, you're getting pinged on stuff that should've been caught three guests ago. Does any of that sound familiar, or is your world totally different?",
+        "note": "Paint HIS lived experience — not the QA manager's, not the GM's. He's the one who shows up to fix stuff. PAUSE after asking and let him react. Silence is your friend here.",
+        "branches": [
+          {
+            "label": "Yeah that's pretty accurate / laughs / agrees",
+            "to": "warm_response"
+          },
+          {
+            "label": "Somewhat, but we have a good process",
+            "to": "objection_have_process"
+          },
+          {
+            "label": "I mean that's just the job / shrugs",
+            "to": "normalize_then_dig"
+          },
+          {
+            "label": "Hold on, what do you guys actually do?",
+            "to": "solution_drop"
+          }
+        ]
+      },
+      "warm_response": {
+        "label": "HE FEELS THE PAIN — DIG DEEPER",
+        "say": "Yeah, I figured. So when your QA team — like Anna's team — flags something after a clean, how does that actually get to you right now? Is it coming through Breezeway, or is it more like texts and phone calls?",
+        "note": "Drop Anna Calhoon's name casually (she's his Housekeeping & QA Manager). Drop Breezeway (confirmed tool). This shows you know their operation and makes him feel like you're an insider, not a random caller. LISTEN — his answer reveals the real workflow.",
+        "branches": [
+          {
+            "label": "Describes their process / answers openly",
+            "to": "discovery_deeper"
+          },
+          {
+            "label": "Wait, how do you know about Anna / Breezeway?",
+            "to": "credibility_explain"
+          },
+          {
+            "label": "It's a mix / kind of a mess honestly",
+            "to": "discovery_deeper"
+          }
+        ]
+      },
+      "normalize_then_dig": {
+        "label": "SHRUGS IT OFF — NORMALIZE AND DIG",
+        "say": "Totally — I mean that's the gig, right? The thing that caught my attention about you guys though is the scale. Two-fifty luxury homes, post-acquisition integration, peak ski season — the maintenance leads I work with at that size say the hardest part isn't the work itself, it's the triage. Figuring out what's actually urgent versus what can wait. Is that fair?",
+        "note": "He might be stoic about pain because he's used to it. Use the scale (250 homes), acquisitions (Triumph, Paragon), and ski season to elevate the problem beyond 'just part of the job.' If he opens up even a little, you're in.",
+        "branches": [
+          {
+            "label": "Yeah triage is tough / agrees",
+            "to": "discovery_deeper"
+          },
+          {
+            "label": "We handle it fine honestly",
+            "to": "pivot_to_referral_soft"
+          },
+          {
+            "label": "Shows some interest / opens up",
+            "to": "discovery_deeper"
+          }
+        ]
+      },
+      "credibility_explain": {
+        "label": "EXPLAIN HOW YOU KNOW",
+        "say": "Ha — yeah, I do my homework. We work with a few PM companies that run Breezeway and Track, similar setup to yours. And your team page is actually pretty detailed — not in a creepy way, just we try to understand how a company actually runs before calling. Anyway — how does stuff actually flow from QA to your maintenance team day to day?",
+        "note": "Be honest and light about it. A field tech will respect that you didn't come in blind. Then redirect right back to discovery.",
+        "branches": [
+          {
+            "label": "Describes their workflow",
+            "to": "discovery_deeper"
+          },
+          {
+            "label": "Seems impressed / opens up",
+            "to": "discovery_deeper"
+          }
+        ]
+      },
+      "discovery_deeper": {
+        "label": "DISCOVERY — HIS WORLD",
+        "say": "That's really helpful. So when you're getting hit with multiple issues across different properties — especially during a big turnover day — what's the thing that burns the most time? Is it diagnosing what's actually wrong before you get there, or is it more the back-and-forth coordination?",
+        "note": "Keep asking. You're building rapport AND collecting intel. Every answer helps you tailor the pitch when you reach the decision-maker. He's not used to vendors asking about HIS experience — this builds trust.",
+        "branches": [
+          {
+            "label": "Shares specific frustrations",
+            "to": "solution_drop"
+          },
+          {
+            "label": "Asks what you actually do",
+            "to": "solution_drop"
+          },
+          {
+            "label": "Running short on time / wrapping up",
+            "to": "solution_drop_quick"
+          }
+        ]
+      },
+      "solution_drop": {
+        "label": "ONE-SENTENCE SOLUTION",
+        "say": "So what we built — RapidEye — it plugs right into Breezeway and Track, and it automatically analyzes the photos your cleaners and QA team are already taking during turnovers. It flags damage, missing items, staging issues — basically anything that changed from how the property's supposed to look — and creates a report before a human even has to review it. So instead of someone scrolling through a hundred photos and hoping they catch everything, the issues come pre-identified with exactly what's wrong and where it is.",
+        "note": "Grounded, concrete language. He cares about 'will I stop getting bad info and emergency calls' — not AI buzzwords. Reference Breezeway and Track by name since they're confirmed tools.",
+        "branches": [
+          {
+            "label": "That's actually pretty cool / sounds useful",
+            "to": "pivot_to_referral_soft"
+          },
+          {
+            "label": "How does that actually work?",
+            "to": "handle_how_it_works"
+          },
+          {
+            "label": "I'm not really the person for this",
+            "to": "not_my_call"
+          },
+          {
+            "label": "We already have something / Breezeway does that",
+            "to": "objection_have_process"
+          }
+        ]
+      },
+      "solution_drop_quick": {
+        "label": "QUICK SOLUTION + REFERRAL PIVOT",
+        "say": "Real quick then — we built something that plugs into Breezeway and automatically flags damage and issues in the photos your team's already taking. No workflow change. I know you're not the one buying software, but you're the one who'd actually feel it working. Who's the right person on your side to have this conversation with — would that be more Anna's world or someone like Lisa Riniker?",
+        "note": "He's short on time. Compress the solution and referral into one breath. Drop the names you know to make it easy for him to confirm or correct.",
+        "branches": [
+          {
+            "label": "Talk to Anna",
+            "to": "referral_anna"
+          },
+          {
+            "label": "Talk to Lisa / ops",
+            "to": "referral_lisa"
+          },
+          {
+            "label": "Gives another name",
+            "to": "referral_got_name"
+          },
+          {
+            "label": "I gotta go / not sure",
+            "to": "offer_email_instead"
+          }
+        ]
+      },
+      "handle_how_it_works": {
+        "label": "HOW IT WORKS — BRIEF",
+        "say": "Basically — your team's already taking photos in Breezeway after every clean and inspection, right? We sit on top of that. Our AI compares those photos against a baseline of what the property's supposed to look like. If a couch cushion's missing, a wall's scuffed, a showerhead's cracked — it flags it automatically and tells you exactly what room, what item, what changed. No extra steps for your cleaners or QA folks.",
+        "note": "Simple and physical. He's a technician — he thinks in real objects, not software abstractions. Couch cushion, wall scuff, showerhead — these are things he actually fixes.",
+        "branches": [
+          {
+            "label": "That makes sense / nods along",
+            "to": "pivot_to_referral_soft"
+          },
+          {
+            "label": "Sounds interesting but not my decision",
+            "to": "not_my_call"
+          },
+          {
+            "label": "Just send me something",
+            "to": "send_me_email"
+          }
+        ]
+      },
+      "pivot_to_referral_soft": {
+        "label": "SOFT PIVOT TO REFERRAL",
+        "say": "Here's the thing — I know you're not the one buying software. But you're the person who actually feels this stuff every day. Who on your side typically makes calls on tooling like this? Would that be more Anna's world, or does it go up to somebody like Lisa Riniker or Stephanie?",
+        "note": "Drop names: Anna Calhoon (HK & QA Mgr), Lisa Riniker (Director of Ops), Stephanie Stevenson (GM Steamboat). Let him confirm or correct. Getting a name from Austin turns your next call from cold to warm.",
+        "branches": [
+          {
+            "label": "Gives a name / confirms one of them",
+            "to": "referral_got_name"
+          },
+          {
+            "label": "Probably Anna / the QA manager",
+            "to": "referral_anna"
+          },
+          {
+            "label": "That'd be more of a Lisa / ops thing",
+            "to": "referral_lisa"
+          },
+          {
+            "label": "I honestly don't know",
+            "to": "referral_push_gently"
+          }
+        ]
+      },
+      "not_my_call": {
+        "label": "NOT MY DECISION",
+        "say": "Totally get it — and honestly I figured you might say that. That's actually why I called you first though. The maintenance lead is usually the person who knows best whether something like this would actually help or just collect dust. Between you and me — if this actually worked the way I described, would it make your life easier? And if so, who's the right person for me to talk to?",
+        "note": "Validate him. He's not the buyer but his endorsement matters. If he says yes it would help, the referral has implicit backing. If he's lukewarm, don't force it.",
+        "branches": [
+          {
+            "label": "Yeah it would help / gives a name",
+            "to": "referral_got_name"
+          },
+          {
+            "label": "Maybe — talk to Anna / QA manager",
+            "to": "referral_anna"
+          },
+          {
+            "label": "I'd say Lisa / the ops director",
+            "to": "referral_lisa"
+          },
+          {
+            "label": "Not sure / doesn't engage",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "referral_anna": {
+        "label": "REFERRAL — ANNA CALHOON",
+        "say": "Anna Calhoon, right? The Housekeeping and QA Manager? Perfect — she's exactly who I'd want to talk to. Would you mind if I mentioned you pointed me her way? And do you happen to have her direct number, or is the Steamboat office line the best bet?",
+        "note": "Confirm full name and title. Getting Austin's permission to name-drop is gold — it turns the Anna call warm. Ask for direct contact info but don't push hard.",
+        "branches": [
+          {
+            "label": "Sure, mention me / gives info",
+            "to": "referral_got_name"
+          },
+          {
+            "label": "Just call the office",
+            "to": "referral_got_name"
+          },
+          {
+            "label": "I'd rather you didn't use my name",
+            "to": "referral_no_namedrop"
+          }
+        ]
+      },
+      "referral_lisa": {
+        "label": "REFERRAL — LISA RINIKER",
+        "say": "Lisa Riniker — Director of Operations, right? That makes sense, she'd own the process across all your markets. Mind if I mention you and I chatted? And is there a good way to reach her directly?",
+        "note": "Lisa is a higher-value contact — Director of Ops owns tooling decisions across all four markets. Getting Austin's name-drop here is extremely valuable.",
+        "branches": [
+          {
+            "label": "Sure / gives info",
+            "to": "referral_got_name"
+          },
+          {
+            "label": "Just try the main number",
+            "to": "referral_got_name"
+          },
+          {
+            "label": "I'd rather you didn't use my name",
+            "to": "referral_no_namedrop"
+          }
+        ]
+      },
+      "referral_push_gently": {
+        "label": "PUSH GENTLY FOR A NAME",
+        "say": "No worries — would it be more of an ops-level person, like whoever runs the day-to-day across properties? Or more of a GM-level call?",
+        "note": "Help him navigate the org without making him feel put on the spot. Any name or title helps. If he really can't help, pivot to the email forward option.",
+        "branches": [
+          {
+            "label": "Gives a name or title",
+            "to": "referral_got_name"
+          },
+          {
+            "label": "Probably ops level / gives vague direction",
+            "to": "referral_got_name"
+          },
+          {
+            "label": "I really don't know / can't help",
+            "to": "offer_email_instead"
+          }
+        ]
+      },
+      "referral_got_name": {
+        "label": "GOT A REFERRAL — LOCK IT IN",
+        "say": "That's perfect, Austin. I really appreciate that. I'll put something together for them that's actually specific to how you guys run — not just a generic pitch. And honestly, if this ends up being useful, you'd probably be the first to feel it since you're the one downstream fixing everything. Thanks for taking my call, man. Enjoy the rest of ski season out there.",
+        "note": "Close warm. He did you a favor — acknowledge it genuinely. The ski season sign-off is natural for Steamboat in winter. Log the referral name, title, contact info, and anything Austin told you about the workflow — use all of it in the next call.",
+        "branches": []
+      },
+      "referral_no_namedrop": {
+        "label": "NO NAME DROP — STILL GOT THE REFERRAL",
+        "say": "Totally respect that — I'll reach out to them independently. Appreciate you pointing me in the right direction though, Austin. If they ever ask around internally, at least you'll know what it's about. Thanks for your time, man.",
+        "note": "Don't push. You still have the name — that's a win. Call that person next and say 'someone on your maintenance team mentioned you'd be the right person to talk to' without naming Austin specifically.",
+        "branches": []
+      },
+      "objection_not_interested": {
+        "label": "NOT INTERESTED",
+        "say": "Totally get it — I should've assumed you'd already be all set, otherwise you probably would've reached out. Just so nobody from my team bugs you again — is it that this isn't really a problem you deal with, or is it more that I just caught you at a horrible time?",
+        "note": "Split the objection. Timing = callback. Not my area = referral pivot. Genuinely not interested = graceful exit. Stay relaxed either way.",
+        "branches": [
+          {
+            "label": "Bad timing",
+            "to": "bad_timing"
+          },
+          {
+            "label": "Not my area / not my decision",
+            "to": "not_my_call"
+          },
+          {
+            "label": "We're all set / don't need it",
+            "to": "objection_all_set_split"
+          },
+          {
+            "label": "Firm no / just not interested",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "objection_all_set_split": {
+        "label": "ALL SET — DIG DEEPER",
+        "say": "Makes sense — with 250 homes and dedicated QA staff, you'd have to have something solid in place. Is it that the current process is working great and nothing's slipping through, or is it more that switching anything up right now during ski season would be a nightmare?",
+        "note": "Use their scale and the dedicated QA team as proof you know their world. Ski season timing is a real constraint for mountain operators — acknowledge it. The split gives him an out that still keeps conversation alive.",
+        "branches": [
+          {
+            "label": "It's a timing thing / ski season",
+            "to": "timing_followup"
+          },
+          {
+            "label": "Process works fine",
+            "to": "pivot_to_referral_soft"
+          },
+          {
+            "label": "Shows some openness / acknowledges gaps",
+            "to": "warm_response"
+          }
+        ]
+      },
+      "objection_have_process": {
+        "label": "WE HAVE BREEZEWAY / A PROCESS",
+        "say": "That makes total sense — I know you guys use Breezeway, and it's great for coordinating the workflow. The thing we do is actually different though — we're not replacing Breezeway, we sit on top of it. Breezeway tells your team what tasks to do and where. We analyze the photos they're already uploading into Breezeway and flag what they missed. So it's not a switch — it's a layer. But honestly, is that even something you'd want? Or is the current setup catching everything?",
+        "note": "Do NOT trash Breezeway. Position RapidEye as additive. If he says Breezeway catches everything, pivot to referral. If he admits things slip through, you have an opening.",
+        "branches": [
+          {
+            "label": "Stuff does slip through / acknowledges gaps",
+            "to": "warm_response"
+          },
+          {
+            "label": "It works fine for us",
+            "to": "pivot_to_referral_soft"
+          },
+          {
+            "label": "Interesting but not my call",
+            "to": "not_my_call"
+          }
+        ]
+      },
+      "timing_followup": {
+        "label": "TIMING — PLANT THE SEED",
+        "say": "Hundred percent — I wouldn't want to add anything to your plate mid-season either. When do things slow down enough to even look at something like this? Is there a point after ski season where you guys do a reset?",
+        "note": "Steamboat ski season runs through mid-April. Summer is shoulder season with lighter turnover volume — better time to evaluate tools. If he gives a timeframe, you've got a callback window plus time to reach the decision-maker before then.",
+        "branches": [
+          {
+            "label": "Gives a timeframe (spring / summer)",
+            "to": "book_callback_future"
+          },
+          {
+            "label": "I'm really not the person for this",
+            "to": "not_my_call"
+          },
+          {
+            "label": "Not sure / noncommittal",
+            "to": "pivot_to_referral_soft"
+          }
+        ]
+      },
+      "book_callback_future": {
+        "label": "FUTURE CALLBACK + REFERRAL PLAY",
+        "say": "Perfect — how about I reach back out around then? And in the meantime, who on your side should I loop in so we're not starting from scratch when things slow down? Would that be more of an Anna or Lisa kind of conversation?",
+        "note": "Two-for-one move: lock a follow-up AND get a referral name now. Even if the callback is months away, the referral lets you call the decision-maker immediately with a warmer approach.",
+        "branches": [
+          {
+            "label": "Gives a name",
+            "to": "referral_got_name"
+          },
+          {
+            "label": "Just call me back then",
+            "to": "callback_locked"
+          }
+        ]
+      },
+      "send_me_email": {
+        "label": "SEND ME AN EMAIL",
+        "say": "Totally fair. One thing before I do — what would actually be useful to include so it's not just another generic pitch? Like is it more about how it works with Breezeway, or more what other PM companies at your scale are seeing?",
+        "note": "If he tells you what to include, that's a soft buying signal. Tailor the email and include a specific callback time. If he can't articulate it, just send a short case-study style email.",
+        "branches": [
+          {
+            "label": "Tells you what to include",
+            "to": "get_email"
+          },
+          {
+            "label": "Just send whatever / doesn't care",
+            "to": "get_email"
+          }
+        ]
+      },
+      "offer_email_instead": {
+        "label": "OFFER EMAIL FORWARD",
+        "say": "Tell you what — if I send over a quick one-pager that shows what this looks like for a company running Breezeway and Track at your scale, could you forward it to whoever you think should see it? I'll keep it short, I promise.",
+        "note": "If he can't give a name, getting him to forward something is the next best play. It lands RapidEye in front of the right person with Austin's implicit endorsement.",
+        "branches": [
+          {
+            "label": "Sure, send it over",
+            "to": "get_email"
+          },
+          {
+            "label": "Nah, just call the office",
+            "to": "graceful_exit_with_office"
+          }
+        ]
+      },
+      "get_email": {
+        "label": "GET HIS EMAIL",
+        "say": "Awesome — is austin at movingmountains dot com the best one?",
+        "note": "Confirm the email (firstname@movingmountains.com is the confirmed company pattern based on observed addresses). If he corrects you, note the actual format for future contacts.",
+        "branches": [
+          {
+            "label": "Yes / confirms",
+            "to": "email_confirmed"
+          },
+          {
+            "label": "Gives a different email",
+            "to": "email_confirmed"
+          }
+        ]
+      },
+      "email_confirmed": {
+        "label": "EMAIL CONFIRMED — CLOSE",
+        "say": "Perfect. I'll send that over today — nothing long, just enough to see if it's worth a look. Thanks for humoring me, Austin. Enjoy the snow out there.",
+        "note": "Send the email within the hour. Include a brief case study relevant to luxury PM, mention Breezeway and Track compatibility, and suggest he forward to Anna Calhoon or whoever owns QA. Keep the email under 150 words. Include a specific follow-up time.",
+        "branches": []
+      },
+      "graceful_exit_with_office": {
+        "label": "EXIT — OFFICE REDIRECT",
+        "say": "Fair enough — I'll try the Steamboat office. Appreciate your time, Austin. Stay warm out there.",
+        "note": "Call the Steamboat office at 970-870-9359 next and ask for Anna Calhoon or Stephanie Stevenson. Say 'I was chatting with someone on the maintenance team who suggested them' without naming Austin.",
+        "branches": []
+      },
+      "graceful_exit": {
+        "label": "GRACEFUL EXIT",
+        "say": "Totally understand, man. If anything ever changes, I'm easy to find — Sam Parks, RapidEye. Appreciate you taking my call. Have a good one, Austin.",
+        "note": "Don't burn the bridge. He might mention you to Anna or his GM later. Log the call, note any intel he shared, and plan to call Anna Calhoon or Lisa Riniker directly as your next move at Moving Mountains.",
+        "branches": []
+      },
+      "gatekeeper": {
+        "label": "GATEKEEPER — FRONT DESK",
+        "say": "Hey — could you get me through to Austin? It's Sam.",
+        "note": "Steamboat office: 970-870-9359. First name only. Sound like you know him. Keep it short.",
+        "branches": [
+          {
+            "label": "Puts you through",
+            "to": "opener"
+          },
+          {
+            "label": "Who's calling? / What's this about?",
+            "to": "gatekeeper_context"
+          },
+          {
+            "label": "He's not available / out in the field",
+            "to": "gatekeeper_unavailable"
+          }
+        ]
+      },
+      "gatekeeper_context": {
+        "label": "GATEKEEPER — MORE CONTEXT",
+        "say": "Yeah — I work with a few property managers in the Steamboat area on their inspection workflows. Would you mind letting him know it's Sam Parks?",
+        "note": "Don't pitch the gatekeeper. Don't over-explain. Keep redirecting to getting patched through. If they push harder, give one more layer.",
+        "branches": [
+          {
+            "label": "Puts you through",
+            "to": "opener"
+          },
+          {
+            "label": "Can I take a message?",
+            "to": "gatekeeper_message"
+          },
+          {
+            "label": "He's out / not in today",
+            "to": "gatekeeper_unavailable"
+          }
+        ]
+      },
+      "gatekeeper_message": {
+        "label": "GATEKEEPER — LEAVE MESSAGE",
+        "say": "Sure — just let him know Sam Parks called. My number is [your number]. And actually — while I have you, is there a better time to catch him? I know he's probably out at properties most of the day.",
+        "note": "Get a callback window. Maintenance techs are in the field most of the day — mornings before dispatch or end of day are usually best. Also note who the gatekeeper is for future calls.",
+        "branches": [
+          {
+            "label": "Gives a time / suggests best window",
+            "to": "callback_locked"
+          },
+          {
+            "label": "I'll pass it along / no time given",
+            "to": "gatekeeper_exit"
+          }
+        ]
+      },
+      "gatekeeper_unavailable": {
+        "label": "GATEKEEPER — UNAVAILABLE",
+        "say": "No worries — he's probably out at a property. When's the best time to catch him? Is he usually around in the mornings before he heads out, or more end of day?",
+        "note": "Maintenance leads in mountain markets often start early. If the gatekeeper can't help with Austin's schedule, consider asking for Anna Calhoon (HK & QA Manager, same office) as an alternative.",
+        "branches": [
+          {
+            "label": "Gives a time suggestion",
+            "to": "callback_locked"
+          },
+          {
+            "label": "Try his cell / gives direct number",
+            "to": "callback_locked"
+          },
+          {
+            "label": "Not sure / try back later",
+            "to": "gatekeeper_alt_contact"
+          }
+        ]
+      },
+      "gatekeeper_alt_contact": {
+        "label": "GATEKEEPER — TRY ALTERNATE CONTACT",
+        "say": "Got it — I'll try him back. Actually, while I have you — is Anna Calhoon around by chance? She's the other person I was going to reach out to.",
+        "note": "If you can't reach Austin, try Anna Calhoon (Housekeeping & QA Manager) since she's in the same Steamboat office and is actually a higher-value contact for RapidEye anyway.",
+        "branches": [
+          {
+            "label": "Puts you through to Anna",
+            "to": "opener"
+          },
+          {
+            "label": "She's not available either",
+            "to": "gatekeeper_exit"
+          },
+          {
+            "label": "Let me take a message for both",
+            "to": "gatekeeper_exit"
+          }
+        ]
+      },
+      "gatekeeper_exit": {
+        "label": "GATEKEEPER EXIT",
+        "say": "Appreciate it — I'll try back. Thanks for your help.",
+        "note": "Try again at a different time. Also add Anna Calhoon and Stephanie Stevenson (GM Steamboat) to the call list as independent dial attempts through the same office line.",
+        "branches": []
+      },
+      "voicemail": {
+        "label": "VOICEMAIL",
+        "say": "Hey Austin — it's Sam Parks. I work with a few property management companies that run a similar setup to Moving Mountains — Breezeway, Track, luxury portfolio. Had a quick question about how your QA-to-maintenance handoff works during peak season. Nothing crazy. My number is [your number]. I'll try you again if I don't hear back. Thanks, man.",
+        "note": "Under 20 seconds. Drop Breezeway and Track to signal you're not a random vendor. Tease a relevant question but do NOT pitch. Plan to call back in 2 days. Also call Anna Calhoon independently in the meantime.",
+        "branches": []
+      }
+    }
+  }
+}

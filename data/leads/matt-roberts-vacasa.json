@@ -1,0 +1,558 @@
+{
+  "name": "Matt Roberts",
+  "title": "CEO",
+  "company": "Vacasa",
+  "location": "San Diego, CA",
+  "phone": "+1-503-345-9399",
+  "company_phone": "800-544-0300",
+  "alt_phones": [
+    "+1-800-544-0300",
+    "+1-800-863-8415",
+    "+1-850-299-9469",
+    "+1-208-203-3377"
+  ],
+  "flow": {
+    "context": "Matt Roberts is CEO of Vacasa, now a wholly owned subsidiary of Casago after the acquisition closed May 1, 2025. He personally championed Vacasa's smart home and tech rollout and is publicly tied to quality-of-experience investments. Vacasa manages 40,000+ properties across North America using a proprietary ops stack — critically, their field app already includes post-cleaning photo submission for real-time inspection approval, which is the exact workflow RapidEye plugs into. The company is mid-integration into Casago's franchise model, dealing with owner churn (homes dropped from ~42K to ~38K in 2024), demand softness, 800+ layoffs weighted toward corporate, and a Wyndham Rewards partnership wind-down. Matt is in San Diego — Sam is from the LA area and surfs, so lead with SoCal proximity. No shared school or direct personal connection found; fall back to geographic and industry relevance. Best referral targets if Matt delegates: John Banczak (COO), Bob Milne (SVP Ops), or Carlos Corzo (CTO).",
+    "start": "gatekeeper",
+    "nodes": {
+      "gatekeeper": {
+        "label": "GATEKEEPER",
+        "say": "Hey, could you get me through to Matt? It's Sam.",
+        "note": "Don't pitch. Don't explain. Sound like you belong. Dose info one layer at a time.",
+        "branches": [
+          {
+            "label": "Puts you through",
+            "to": "opener"
+          },
+          {
+            "label": "Asks what it's regarding",
+            "to": "gatekeeper_context"
+          },
+          {
+            "label": "Matt is unavailable",
+            "to": "gatekeeper_unavailable"
+          },
+          {
+            "label": "Asks for more info / screens hard",
+            "to": "gatekeeper_social_proof"
+          }
+        ]
+      },
+      "gatekeeper_context": {
+        "label": "GATEKEEPER — CONTEXT",
+        "say": "Yeah, I work with a few other property management companies on their inspection workflows — would you mind letting Matt know it's Sam Parks?",
+        "note": "Give just enough to sound legitimate. End with a redirect question so you stay in control.",
+        "branches": [
+          {
+            "label": "Puts you through",
+            "to": "opener"
+          },
+          {
+            "label": "Still screening / wants more",
+            "to": "gatekeeper_social_proof"
+          },
+          {
+            "label": "Says he's unavailable",
+            "to": "gatekeeper_unavailable"
+          }
+        ]
+      },
+      "gatekeeper_social_proof": {
+        "label": "GATEKEEPER — SOCIAL PROOF",
+        "say": "Totally — we help a couple other large property management companies with their turnover photo workflows. I actually sent Matt a note, just wanted to give him a heads up I'd be following up. Would you mind passing that along?",
+        "note": "Third layer. If this doesn't work, pivot to getting a callback time or asking who else handles field ops.",
+        "branches": [
+          {
+            "label": "Puts you through",
+            "to": "opener"
+          },
+          {
+            "label": "Gives a callback time",
+            "to": "gatekeeper_callback"
+          },
+          {
+            "label": "Won't connect you at all",
+            "to": "gatekeeper_referral"
+          }
+        ]
+      },
+      "gatekeeper_unavailable": {
+        "label": "GATEKEEPER — UNAVAILABLE",
+        "say": "No worries at all. When's the best time to catch Matt? I want to make sure I'm not interrupting something.",
+        "note": "Get a specific callback window. If they offer voicemail, take it but still get a time.",
+        "branches": [
+          {
+            "label": "Gives a time or day",
+            "to": "gatekeeper_callback"
+          },
+          {
+            "label": "Offers voicemail only",
+            "to": "gatekeeper_callback"
+          },
+          {
+            "label": "Suggests someone else",
+            "to": "gatekeeper_referral"
+          }
+        ]
+      },
+      "gatekeeper_callback": {
+        "label": "GATEKEEPER — CALLBACK LOCKED",
+        "say": "Perfect, I'll try back then. Appreciate your help — what was your name, by the way?",
+        "note": "Get the gatekeeper's name so you can use it next time. Write down the exact callback window.",
+        "branches": []
+      },
+      "gatekeeper_referral": {
+        "label": "GATEKEEPER — REDIRECT TO OPS",
+        "say": "Totally fair. Quick question — who on Matt's team would typically handle anything related to field operations or the inspection workflow? Would that be someone like John Banczak or Bob Milne?",
+        "note": "Drop real names from research. You're trying to get routed to COO or SVP Ops. If they give you a name, treat that person as a warm lead.",
+        "branches": [
+          {
+            "label": "Gives a name or transfers you",
+            "to": "opener"
+          },
+          {
+            "label": "Won't help further",
+            "to": "gatekeeper_callback"
+          }
+        ]
+      },
+      "opener": {
+        "label": "OPENER",
+        "say": "Hey Matt — I work with a few property managers out here in SoCal, actually grew up in the LA area myself. It's Sam Parks with RapidEye. Have you heard my name tossed around at all?",
+        "note": "SoCal proximity is your icebreaker. Feet up on the desk energy. Don't rush. Pause and let him answer.",
+        "branches": [
+          {
+            "label": "No / who?",
+            "to": "heard_no"
+          },
+          {
+            "label": "Yes / maybe",
+            "to": "heard_yes"
+          },
+          {
+            "label": "Bad timing / busy",
+            "to": "bad_timing"
+          },
+          {
+            "label": "What are you selling?",
+            "to": "permission_fallback"
+          }
+        ]
+      },
+      "heard_no": {
+        "label": "HEARD NO — BRIDGE TO PAIN",
+        "say": "Ha — I guess I'm not as popular as I thought. Well the reason for my call is — I've been working with a few other large property managers, and one thing that keeps coming up, especially at the scale you guys are running — forty thousand plus homes — is this gap between what cleaners upload after turnovers and what actually gets caught before the next guest walks in. Like, hundreds of thousands of photos flowing through the field app every week, and the ops team basically has to trust that nothing got missed — a cracked countertop, a stained sofa, a missing coffee maker — because nobody has the bandwidth to actually review all of them at that volume. And then the first person to notice is the guest, and that's when it shows up in a review. We built an AI layer that sits on top of the turnover photos you're already collecting — catches damage, missing items, staging issues — before the guest checks in. No workflow change for your field teams. Would you be open to taking a look at some point when I'm not cold calling you out of the blue?",
+        "note": "He's the CEO — frame pain around business impact: guest reviews, owner churn, the scale problem. Reference their 40K homes and the existing photo workflow from HomeCare Hub. PAUSE after the CTA. Let him react. Do not fill the silence.",
+        "branches": [
+          {
+            "label": "Interested / tell me more",
+            "to": "discovery_warm"
+          },
+          {
+            "label": "We already have something for that",
+            "to": "objection_have_vendor"
+          },
+          {
+            "label": "Not interested",
+            "to": "objection_not_interested"
+          },
+          {
+            "label": "No budget right now",
+            "to": "objection_no_budget"
+          },
+          {
+            "label": "Send me an email",
+            "to": "send_email"
+          },
+          {
+            "label": "I'm not the right person for this",
+            "to": "referral_from_lead"
+          }
+        ]
+      },
+      "heard_yes": {
+        "label": "HEARD YES — EXPLORE",
+        "say": "Oh nice — well normally we'd be working with someone in your position. What did you hear?",
+        "note": "Let him talk. This is gold. He'll reveal context, who mentioned you, and what angle matters to him.",
+        "branches": [
+          {
+            "label": "Describes what they heard",
+            "to": "discovery_warm"
+          },
+          {
+            "label": "Vague / doesn't really remember",
+            "to": "heard_no"
+          }
+        ]
+      },
+      "bad_timing": {
+        "label": "BAD TIMING",
+        "say": "Totally hear you — would it be a terrible idea if I tried you again later this week? I'll keep it under two minutes.",
+        "note": "Don't pitch when they can't listen. Get a specific day and time. If they push back, offer a single alternative.",
+        "branches": [
+          {
+            "label": "Gives a day/time",
+            "to": "book_callback"
+          },
+          {
+            "label": "Just tell me quickly now",
+            "to": "heard_no"
+          },
+          {
+            "label": "Don't call back",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "permission_fallback": {
+        "label": "PERMISSION FALLBACK",
+        "say": "Yeah totally — it is a cold call, I'll own that. Can I get thirty seconds to tell you why I reached out, and you can totally hang up on me if it's not a fit?",
+        "note": "Disarm with honesty. Most people will give you 30 seconds if you ask directly and sound human.",
+        "branches": [
+          {
+            "label": "Go ahead / fine",
+            "to": "heard_no"
+          },
+          {
+            "label": "No / not interested",
+            "to": "permission_rejected"
+          }
+        ]
+      },
+      "permission_rejected": {
+        "label": "PERMISSION REJECTED",
+        "say": "Shoot — totally my bad. Just so nobody from my team bugs you again — is it that I caught you at a horrible time, or is it that you already know what we do and this just isn't interesting?",
+        "note": "Split the objection. You're trying to figure out if it's timing or genuine disinterest. Either answer gives you a path.",
+        "branches": [
+          {
+            "label": "It's timing / bad moment",
+            "to": "bad_timing"
+          },
+          {
+            "label": "Not interested at all",
+            "to": "graceful_exit"
+          },
+          {
+            "label": "Opens up slightly",
+            "to": "heard_no"
+          }
+        ]
+      },
+      "discovery_warm": {
+        "label": "DISCOVERY — THEY'RE WARM",
+        "say": "Awesome. So I know you guys already have the photo submission step built into the field app, and with the Casago integration happening right now I'm guessing there's about a hundred moving pieces. How are you thinking about maintaining inspection quality across all those homes as the operating model shifts more toward local autonomy?",
+        "note": "STOP PITCHING. Ask questions. He's CEO — ask about strategy and priorities. Reference specifics: HomeCare Hub, Casago integration, the push to local empowerment from their shareholder letters. Let him talk.",
+        "branches": [
+          {
+            "label": "Shares challenges / context",
+            "to": "discovery_deep"
+          },
+          {
+            "label": "We're handling it fine",
+            "to": "discovery_probe"
+          },
+          {
+            "label": "Someone else handles that",
+            "to": "referral_from_lead"
+          }
+        ]
+      },
+      "discovery_deep": {
+        "label": "DISCOVERY — GOING DEEPER",
+        "say": "That makes a ton of sense. One thing I hear a lot from operators at your scale is that the photos are already flowing — cleaners are uploading them every turn — but nobody's actually reviewing them in a meaningful way until something goes wrong. Like, the approval gate exists in the system, but at volume it becomes more of a checkbox than a real quality check. Is that something you're seeing too, or have you guys gotten ahead of that?",
+        "note": "You're probing the gap between photo collection and photo review. This is where RapidEye fits perfectly. If he confirms it, you're golden. If he says they've solved it, ask how — that tells you about competitors or internal tools.",
+        "branches": [
+          {
+            "label": "Confirms the gap / shares pain",
+            "to": "pitch_light"
+          },
+          {
+            "label": "Says they've solved it",
+            "to": "objection_have_vendor"
+          },
+          {
+            "label": "Wants to hear what you do",
+            "to": "pitch_light"
+          }
+        ]
+      },
+      "discovery_probe": {
+        "label": "DISCOVERY — PROBE THE EXCEPTION",
+        "say": "Good to hear. Out of curiosity — when something does slip through, like damage that doesn't get caught until a guest reports it — how does that typically surface? Is it through the guest review, a support call, or does your team usually catch it on the next turn?",
+        "note": "He said it's fine but there's always a crack. Ask about the exception path. Everyone has stories of things that slipped through. One concrete example changes the conversation.",
+        "branches": [
+          {
+            "label": "Admits gaps / shares an example",
+            "to": "pitch_light"
+          },
+          {
+            "label": "Stays defensive",
+            "to": "pitch_light"
+          },
+          {
+            "label": "Delegates to someone else",
+            "to": "referral_from_lead"
+          }
+        ]
+      },
+      "pitch_light": {
+        "label": "LIGHT PITCH + CTA",
+        "say": "So here's the short version — we built an AI layer that sits on top of the photos your field teams are already uploading after every turn. Every image gets analyzed automatically — damage, missing items, staging issues, anything that's changed since the last stay. It flags it before the guest checks in, and your ops team only sees what needs attention instead of reviewing everything manually. No new workflow, no new hardware, nothing for your cleaners to do differently. We're live with a few other large PM companies right now — one running about six hundred properties on the East Coast. I think it'd be worth twenty minutes to show you what it actually looks like on real turnover photos. How does next Tuesday or Wednesday look for you?",
+        "note": "Keep it tight. One clear CTA with two specific day options. He's a CEO — he doesn't need the full technical walkthrough, he needs to believe it's real and worth twenty minutes.",
+        "branches": [
+          {
+            "label": "Agrees to meet",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Interested but wants email first",
+            "to": "send_email"
+          },
+          {
+            "label": "Wants to loop in someone else",
+            "to": "referral_warm_handoff"
+          },
+          {
+            "label": "Pushes back / not now",
+            "to": "objection_not_interested"
+          }
+        ]
+      },
+      "objection_have_vendor": {
+        "label": "OBJECTION — HAVE A VENDOR/PROCESS",
+        "say": "That makes total sense — with forty thousand homes you'd have to have something in place. I'd honestly be surprised if you didn't. Just so nobody from my team cold calls you again — is it that you're fully covered and happy with how the photo review works at scale, or is it more that adding anything new right now while the Casago integration is still going would just be a headache?",
+        "note": "Agree first — never argue. Then split the objection. Reference the Casago integration — it's a real constraint he's living with. You're looking for which half of the split he leans toward.",
+        "branches": [
+          {
+            "label": "It's the integration / timing",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "We're fully covered and happy",
+            "to": "sell_test_drive_value"
+          },
+          {
+            "label": "Opens up about gaps in current process",
+            "to": "discovery_deep"
+          }
+        ]
+      },
+      "objection_not_interested": {
+        "label": "OBJECTION — NOT INTERESTED",
+        "say": "Totally get it. I should've assumed you'd be all set — otherwise you probably would've reached out to us. Just so no one from my team bugs you again — is it that inspection quality isn't really a priority right now with everything else going on, or is it more that you just hate cold calls?",
+        "note": "Agree and lower the temperature. The split gives them a safe out that still keeps the door open. Most people will laugh at the cold call option.",
+        "branches": [
+          {
+            "label": "Hates cold calls / it's the interruption",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "Not a priority right now",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "Actually tell me more",
+            "to": "discovery_warm"
+          },
+          {
+            "label": "Firm no",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "objection_no_budget": {
+        "label": "OBJECTION — NO BUDGET",
+        "say": "Totally get it. Especially coming out of the acquisition — I'm sure there's not a ton of appetite to add new line items right now. Just so no one from my team follows up again — is it that budget for this kind of thing is completely locked for the year, or is it more that anything you try to buy has to go through Casago's approval chain now and that's a whole process?",
+        "note": "Reference the Casago acquisition directly — shows you know their world. The split helps you understand if it's a real freeze or organizational friction.",
+        "branches": [
+          {
+            "label": "Budget is truly locked",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "It's the approval process",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "Opens up / softens",
+            "to": "discovery_warm"
+          }
+        ]
+      },
+      "sell_test_drive": {
+        "label": "SELL THE TEST DRIVE",
+        "say": "Totally respect that — and I'm not trying to get you to buy anything today. But here's what I've seen: when budget does free up or the integration dust settles, the people who move fast are the ones who already know what's one, two, and three on their list. Would you be open to twenty minutes just so you've seen it? Worst case, I walk you through what a couple other large operators are doing with their turnover photos — you steal some ideas and we part as friends.",
+        "note": "You're selling the meeting, not the product. Frame it as intelligence gathering. No commitment, no pressure. Just twenty minutes.",
+        "branches": [
+          {
+            "label": "Agrees to meet",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Send me something first",
+            "to": "send_email"
+          },
+          {
+            "label": "Loop in someone on my team",
+            "to": "referral_warm_handoff"
+          },
+          {
+            "label": "Still no",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "sell_test_drive_value": {
+        "label": "SELL THE TEST DRIVE — VALUE ANGLE",
+        "say": "Love to hear that. Honestly, if you've got the photo review dialed in at forty thousand homes, I'd love to learn how you're doing it — most operators I talk to haven't cracked that at scale. Would you be open to a quick twenty minutes? Even if it's just comparing notes. If what we built isn't better than what you have, I'll be the first to say so.",
+        "note": "Flip the frame — appeal to his pride in their process and position the meeting as a two-way conversation. CEOs like being benchmarked, not sold to.",
+        "branches": [
+          {
+            "label": "Agrees to meet",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Send me something first",
+            "to": "send_email"
+          },
+          {
+            "label": "Not worth the time",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "referral_from_lead": {
+        "label": "REFERRAL — ASK FOR THE RIGHT PERSON",
+        "say": "Totally makes sense — you've got a million things going on. Who on your team would typically own the inspection workflow or the field ops tooling? Would that be someone like John Banczak or Bob Milne?",
+        "note": "Drop real names. Matt will either confirm one, correct you, or give a new name. Any of those outcomes is a win. If he says Carlos Corzo (CTO), that's also great — RapidEye has a clear technical integration path.",
+        "branches": [
+          {
+            "label": "Confirms John or Bob",
+            "to": "referral_lock"
+          },
+          {
+            "label": "Gives a different name",
+            "to": "referral_lock"
+          },
+          {
+            "label": "Suggests Carlos Corzo / tech team",
+            "to": "referral_lock"
+          },
+          {
+            "label": "Won't refer anyone",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "referral_warm_handoff": {
+        "label": "REFERRAL — WARM HANDOFF",
+        "say": "That'd be great actually. Who would you want on the call? Is that someone on the ops side like John Banczak, or more on the tech side?",
+        "note": "He volunteered to loop someone in — this is the best outcome. Get the specific person and try to book the meeting right now with both of them.",
+        "branches": [
+          {
+            "label": "Names someone and wants to set it up",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Names someone but says reach out to them directly",
+            "to": "referral_lock"
+          },
+          {
+            "label": "Says he'll forward your info",
+            "to": "send_email"
+          }
+        ]
+      },
+      "referral_lock": {
+        "label": "REFERRAL — LOCK IT IN",
+        "say": "Perfect. Would you mind if I mentioned you pointed me their way? I'll put something specific together so it actually lands and doesn't look like a cold pitch. What's the best way to reach them — email or phone?",
+        "note": "Get permission to name-drop Matt. A CEO referral completely changes the dynamic of the next call. Get contact details or at least confirm the email pattern.",
+        "branches": [
+          {
+            "label": "Green light to use his name",
+            "to": "close_referral"
+          },
+          {
+            "label": "Says just reach out on your own",
+            "to": "close_referral"
+          }
+        ]
+      },
+      "close_referral": {
+        "label": "CLOSE — REFERRAL SECURED",
+        "say": "Really appreciate that, Matt. I'll reach out to them this week and keep it super relevant. Thanks for taking my call.",
+        "note": "You got a named referral from the CEO. Huge win. Send Matt a brief thank-you email within the hour. Call the referral the same day using Matt's name in the opener.",
+        "branches": []
+      },
+      "book_meeting": {
+        "label": "BOOK THE MEETING",
+        "say": "Awesome. I've got next Tuesday at ten AM Pacific or Wednesday at two pulled up — which one works better for you?",
+        "note": "Two specific options. Don't say 'when works for you' — that leads to 'let me check and get back to you.' Lock it now.",
+        "branches": [
+          {
+            "label": "Picks one of those times",
+            "to": "confirm_meeting"
+          },
+          {
+            "label": "Needs a different time",
+            "to": "confirm_meeting_alt"
+          },
+          {
+            "label": "Wants to check calendar first / email me",
+            "to": "send_email"
+          }
+        ]
+      },
+      "confirm_meeting_alt": {
+        "label": "CONFIRM — ALTERNATE TIME",
+        "say": "No problem — what does your week look like? I can work around your schedule.",
+        "note": "Let him pick. Whatever he says, confirm it immediately and send the invite.",
+        "branches": [
+          {
+            "label": "Gives a time",
+            "to": "confirm_meeting"
+          }
+        ]
+      },
+      "confirm_meeting": {
+        "label": "CONFIRM MEETING — SEND INVITE",
+        "say": "Perfect — I'm sending you the invite right now. It'll be twenty minutes, I'll show you what the AI catches on real turnover photos, and if it's not relevant you can kick me out early. Really appreciate you taking my call, Matt.",
+        "note": "Send the calendar invite WHILE ON THE PHONE to matt.roberts@vacasa.com (or whatever email he confirms). Then STOP SELLING. Do not add anything. End clean and confident.",
+        "branches": []
+      },
+      "send_email": {
+        "label": "SEND ME AN EMAIL",
+        "say": "Totally fair. One quick question before I do — what would be most useful to include so it's not just sitting in your inbox looking like every other cold pitch? Like, would it be more helpful to see how it works with an existing turnover photo workflow, or more about what other large operators are seeing in terms of ROI?",
+        "note": "Accept the request, but ask what to include. His answer tells you what he cares about. Then suggest a specific follow-up time in the email.",
+        "branches": [
+          {
+            "label": "Tells you what to include",
+            "to": "close_email"
+          },
+          {
+            "label": "Just send whatever / doesn't care",
+            "to": "close_email"
+          }
+        ]
+      },
+      "close_email": {
+        "label": "CLOSE — EMAIL FOLLOW-UP",
+        "say": "Got it — I'll send something over today. I'll drop in a couple times to connect next week in case anything jumps out. Appreciate your time, Matt.",
+        "note": "Send the email within 30 minutes. Personalize it: reference Vacasa's 40K homes, the HomeCare Hub photo workflow, the Casago integration. Include two specific meeting time options. Follow up in 3 business days if no reply.",
+        "branches": []
+      },
+      "book_callback": {
+        "label": "BOOK CALLBACK",
+        "say": "Perfect — I'll try you again then. Appreciate it, Matt.",
+        "note": "Write down the exact day and time. When you call back, open with: 'Hey Matt, you told me to try you back today — it's Sam Parks with RapidEye.' That reframes it as a scheduled call, not a cold call.",
+        "branches": []
+      },
+      "graceful_exit": {
+        "label": "GRACEFUL EXIT",
+        "say": "Totally understand. If anything changes on your end, I'm easy to find — Sam Parks, RapidEye. Appreciate your time, Matt.",
+        "note": "Don't burn the bridge. Add to 90-day re-contact list. Send a LinkedIn connection request within 24 hours referencing the call briefly. If you got any intel (names, timing, process details), log it for the next attempt.",
+        "branches": []
+      }
+    }
+  }
+}

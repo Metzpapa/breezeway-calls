@@ -1,0 +1,598 @@
+{
+  "name": "Brian Mello",
+  "title": "President of Real Estate Sales and Broker-in-Charge",
+  "company": "Dunes Properties / Charleston Coast Vacations",
+  "location": "Charleston, SC",
+  "phone": "+1-800-476-8444",
+  "company_phone": "800-476-8444",
+  "alt_phones": [
+    "+1-800-476-8444",
+    "+1-843-881-5600"
+  ],
+  "flow": {
+    "context": "Brian Mello was just named President of Real Estate Sales and Broker-in-Charge at Dunes Properties in a March 2025 leadership transition alongside new COO Layne Kipp. His primary lane is real estate sales — not vacation rentals — but as Broker-in-Charge he has authority across the whole company including the ~183-unit Charleston Coast Vacations short-term rental program. Dunes explicitly does NOT employ housekeeping or maintenance staff; all turnovers are handled by third-party cleaning companies across Folly Beach, IOP, Wild Dunes, Sullivan's, and Kiawah. They run on TrackHS. If Brian isn't the right person, the warm referral targets are Liz Bernthal (VP Vacation Rentals), Layne Kipp (COO — operational efficiency mandate), or area directors Mark Malone (Folly Beach) and Fran Cote (IOP/Wild Dunes/Sullivan's). No direct personal connection with Sam — lead with congratulating him on the new President role from the March press release.",
+    "start": "gatekeeper_initial",
+    "nodes": {
+      "gatekeeper_initial": {
+        "label": "GATEKEEPER — SLIDE BY",
+        "say": "Hey, could you get me through to Brian? It's Sam.",
+        "note": "Say it like you know him. Don't volunteer a company name or reason. Pause and wait.",
+        "branches": [
+          {
+            "label": "Put through / transferring",
+            "to": "opener"
+          },
+          {
+            "label": "Who's calling? / What's this about?",
+            "to": "gatekeeper_context"
+          },
+          {
+            "label": "He's not available / out of office",
+            "to": "gatekeeper_voicemail"
+          }
+        ]
+      },
+      "gatekeeper_context": {
+        "label": "GATEKEEPER — ADD CONTEXT",
+        "say": "Yeah, I work with a few other vacation rental companies in the Charleston area. Would you mind letting Brian know it's Sam Parks?",
+        "note": "Stay casual. Don't pitch. You're just asking to be connected. If they press, go to social proof.",
+        "branches": [
+          {
+            "label": "Put through / hold on",
+            "to": "opener"
+          },
+          {
+            "label": "What company? / Is he expecting your call?",
+            "to": "gatekeeper_social_proof"
+          },
+          {
+            "label": "He's not available",
+            "to": "gatekeeper_voicemail"
+          }
+        ]
+      },
+      "gatekeeper_social_proof": {
+        "label": "GATEKEEPER — SOCIAL PROOF",
+        "say": "Totally fair — it's Sam Parks with RapidEye. We help a couple vacation rental companies in the area with their inspection workflows. I sent Brian a note — would you mind giving him a heads up I'm on the line?",
+        "note": "This is your last attempt. If they still block, pivot to voicemail or ask for Liz Bernthal or Layne Kipp instead.",
+        "branches": [
+          {
+            "label": "Put through",
+            "to": "opener"
+          },
+          {
+            "label": "Still can't connect / take a message",
+            "to": "gatekeeper_voicemail"
+          }
+        ]
+      },
+      "gatekeeper_voicemail": {
+        "label": "VOICEMAIL / NOT AVAILABLE",
+        "say": "No worries at all. Would it make more sense to try him on his cell, or is there a better time to catch him in the office? ... And actually — would Liz Bernthal or Layne Kipp be around? This might land on their desk anyway.",
+        "note": "Try to get a callback time or redirect to Liz (VP Vacation Rentals) or Layne (COO). If you get voicemail, leave a 15-second message: 'Hey Brian, Sam Parks with RapidEye. I work with a few vacation rental companies in the Charleston area — wanted to run something by you real quick. My number is [number]. Talk soon.' If transferred to Liz or Layne, adapt the opener — use their name and mention you were trying to reach Brian.",
+        "branches": [
+          {
+            "label": "Transferred to Liz or Layne",
+            "to": "opener"
+          },
+          {
+            "label": "Given a callback time / left voicemail",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "opener": {
+        "label": "OPENER",
+        "say": "Hey Brian — saw the news about the leadership transition at Dunes, congrats on the President role. It's Sam Parks with RapidEye. Have you heard my name tossed around at all?",
+        "note": "Feet-up-on-the-desk energy. The congrats is genuine and shows homework. Pause after 'tossed around' — let him answer. If you got transferred and are speaking to Liz or Layne instead, adapt: swap in their name and their role.",
+        "branches": [
+          {
+            "label": "No / Who? / Doesn't ring a bell",
+            "to": "opener_heard_no"
+          },
+          {
+            "label": "Yeah actually / Maybe / Sounds familiar",
+            "to": "opener_heard_yes"
+          },
+          {
+            "label": "Not a good time / I'm busy",
+            "to": "bad_timing"
+          }
+        ]
+      },
+      "opener_heard_no": {
+        "label": "HASN'T HEARD OF YOU",
+        "say": "Ha — I guess I'm not as popular as I thought. Well, the reason for my call — I work with a few other vacation rental companies on the coast, and I wanted to run something by you real quick. You guys run about 180 rentals through Charleston Coast Vacations with third-party cleaners, right?",
+        "note": "The question at the end pulls him into conversation and confirms you know his business. If he corrects you, even better — he's engaging. If he immediately says 'that's the VR side,' pivot to referral.",
+        "branches": [
+          {
+            "label": "Yeah roughly / That's right",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "That's more on the vacation rental side, not my area",
+            "to": "not_my_department"
+          },
+          {
+            "label": "What's this about? / What do you want?",
+            "to": "permission_fallback"
+          },
+          {
+            "label": "I'm not interested",
+            "to": "objection_not_interested"
+          }
+        ]
+      },
+      "opener_heard_yes": {
+        "label": "HAS HEARD OF YOU",
+        "say": "Oh nice — normally we'd be working with someone in your position. What did you hear?",
+        "note": "Let him talk. Whatever he says, use it to bridge into pain or discovery. If vague, say 'Yeah that's the gist' and go to pain trigger.",
+        "branches": [
+          {
+            "label": "Mentions inspection / AI / photos",
+            "to": "warm_response"
+          },
+          {
+            "label": "Vague or unsure what he heard",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "Heard of you but not interested",
+            "to": "objection_not_interested"
+          }
+        ]
+      },
+      "bad_timing": {
+        "label": "BAD TIMING",
+        "say": "Totally hear you — would it be a terrible idea if I tried you again later this week? What day works better?",
+        "note": "Lock in a specific day and time. Don't say 'I'll try back sometime.' If he won't commit, suggest one: 'How about Thursday afternoon?'",
+        "branches": [
+          {
+            "label": "Gives a day/time",
+            "to": "confirm_callback"
+          },
+          {
+            "label": "Just send me an email",
+            "to": "send_email"
+          },
+          {
+            "label": "Not interested at all",
+            "to": "objection_not_interested"
+          }
+        ]
+      },
+      "confirm_callback": {
+        "label": "LOCK IN CALLBACK",
+        "say": "Perfect — I'll try you [day] around [time]. Really appreciate it, Brian. Talk soon.",
+        "note": "Write it down immediately. Set a calendar reminder. This is now a warm callback, not a cold call.",
+        "branches": []
+      },
+      "permission_fallback": {
+        "label": "PERMISSION — 30 SECONDS",
+        "say": "Yeah, totally fair — I mean, it is a cold call. Can I get 30 seconds to tell you why I reached out, and you can totally hang up on me if it doesn't sound relevant?",
+        "note": "Pattern interrupt. Most people will give you 30 seconds. If they do, go straight to pain trigger — don't waste the window.",
+        "branches": [
+          {
+            "label": "Sure / Go ahead / Fine",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "No / I'm really not interested",
+            "to": "permission_rejected"
+          }
+        ]
+      },
+      "permission_rejected": {
+        "label": "PERMISSION REJECTED — SPLIT",
+        "say": "Shoot, totally my bad. Just so nobody from my team bugs you again — is it that I caught you at a horrible time, or is it that you already know what we do and this just isn't interesting?",
+        "note": "Last chance. The 'so nobody bugs you again' line gives them a reason to engage. Most people will tell you which one.",
+        "branches": [
+          {
+            "label": "Bad time / caught me in the middle of something",
+            "to": "bad_timing"
+          },
+          {
+            "label": "Not interested / don't need it",
+            "to": "end_graceful"
+          },
+          {
+            "label": "What do you do exactly?",
+            "to": "pain_trigger"
+          }
+        ]
+      },
+      "pain_trigger": {
+        "label": "PAIN TRIGGER",
+        "say": "So I work with another vacation rental company that runs a pretty similar model to you guys — outsourced cleaning, third-party vendors, couple hundred properties across beach markets. Their biggest headache was that gap between when a cleaner marks a unit done and when a guest actually walks in. Stuff was slipping through — a stain on a couch, a broken screen door, a missing set of towels — and they wouldn't find out until a guest called or dropped a review. With 180-plus units and no in-house housekeeping team, there just wasn't a way to catch everything manually.",
+        "note": "PAUSE HERE. Let him react. The outsourced cleaning detail is the key — Dunes explicitly does not employ housekeeping staff, so this should land. If he's quiet, add: 'Sound familiar at all?' Do NOT jump to the solution yet.",
+        "branches": [
+          {
+            "label": "Yeah that resonates / We deal with that",
+            "to": "warm_response"
+          },
+          {
+            "label": "So what do you do about it?",
+            "to": "solution_and_cta"
+          },
+          {
+            "label": "That's really more of a question for our VR team",
+            "to": "not_my_department"
+          },
+          {
+            "label": "We've got a process for that",
+            "to": "objection_have_process"
+          },
+          {
+            "label": "Not really a priority / Not interested",
+            "to": "objection_not_interested"
+          }
+        ]
+      },
+      "solution_and_cta": {
+        "label": "SOLUTION + CTA",
+        "say": "We built an AI that plugs right into Track — which I think is what you guys are on — and automatically analyzes the photos your cleaners are already taking after each turnover. Catches damage, missing items, staging issues, all of it, before a guest ever walks in. No workflow change on your end. Would you be open to taking a look sometime when I'm not cold calling you out of the blue?",
+        "note": "Mentioning TrackHS by name shows you know their stack. Keep the solution to one sentence. The CTA is low-friction — 'take a look,' not 'buy.'",
+        "branches": [
+          {
+            "label": "Yeah I'd take a look / That's interesting",
+            "to": "book_meeting"
+          },
+          {
+            "label": "How does that actually work?",
+            "to": "warm_response"
+          },
+          {
+            "label": "You should talk to Liz or Layne about this",
+            "to": "referral_ask"
+          },
+          {
+            "label": "Send me something / Send me an email",
+            "to": "send_email"
+          },
+          {
+            "label": "We're not looking at new tools right now",
+            "to": "objection_no_budget"
+          }
+        ]
+      },
+      "warm_response": {
+        "label": "THEY'RE WARM — STOP PITCHING",
+        "say": "That's honestly what I keep hearing from folks in your position. Can I ask — what does the quality check process look like right now between when a cleaner finishes and when a guest checks in? Is there a formal inspection step, or is it more of a spot-check situation?",
+        "note": "STOP SELLING. Discovery mode. Let him talk. Every answer is ammo. If he mentions reviews, owner complaints, or time spent reviewing photos, mirror it back.",
+        "branches": [
+          {
+            "label": "Describes their process / Opens up about gaps",
+            "to": "discovery_deeper"
+          },
+          {
+            "label": "We do spot checks but it's not perfect",
+            "to": "discovery_deeper"
+          },
+          {
+            "label": "Honestly I don't know the details — that's the VR team",
+            "to": "referral_ask"
+          },
+          {
+            "label": "We're pretty happy with how things work",
+            "to": "objection_have_process"
+          }
+        ]
+      },
+      "discovery_deeper": {
+        "label": "DEEPER DISCOVERY",
+        "say": "Got it. And how many people on the team are actually doing those checks? Like, is it the area directors handling that, or do you have dedicated inspectors going out to each property?",
+        "note": "You're mapping their org. Dunes has area directors (Mark Malone for Folly, Fran Cote for IOP/Wild Dunes/Sullivan's) plus coordinators. The answer tells you who the real end-user would be and how stretched they are.",
+        "branches": [
+          {
+            "label": "It's the directors / area managers / a few people",
+            "to": "discovery_volume"
+          },
+          {
+            "label": "We don't really have dedicated inspectors",
+            "to": "discovery_volume"
+          },
+          {
+            "label": "I'm not sure exactly — let me connect you with the right person",
+            "to": "referral_ask"
+          }
+        ]
+      },
+      "discovery_volume": {
+        "label": "DISCOVERY — VOLUME PRESSURE",
+        "say": "Yeah that's what I figured. When you've got 183 units turning over across Folly and IOP and Wild Dunes and a handful of people managing all of it — there's just not enough eyeballs. That's exactly the gap we fill. We're not replacing anyone — we're just making sure the photos that are already being taken actually get reviewed for issues before they become guest complaints. What's the biggest priority for you guys heading into this summer season?",
+        "note": "Naming their specific markets shows deep research. Tying it to summer creates urgency. Let him answer — if he mentions growth, owner retention, guest experience, reviews, or the leadership transition, use it to bridge to the meeting.",
+        "branches": [
+          {
+            "label": "Mentions season prep / growth / quality",
+            "to": "bridge_to_meeting"
+          },
+          {
+            "label": "Mentions the leadership transition / new initiatives",
+            "to": "bridge_to_meeting"
+          },
+          {
+            "label": "I think you should talk to Layne or Liz about this",
+            "to": "referral_ask"
+          }
+        ]
+      },
+      "bridge_to_meeting": {
+        "label": "BRIDGE TO MEETING",
+        "say": "That makes a lot of sense — especially with the new leadership structure, I'm sure there's pressure to tighten things up. Look, I don't want to take up your whole afternoon. Would it make sense to set up 20 minutes where I can show you what this actually looks like inside Track? Even if it's not for right now, you'd know what's out there. I could loop in Liz or Layne if that'd be helpful.",
+        "note": "Offering to include Liz Bernthal (VP VR) or Layne Kipp (COO) shows you know their org and gets you in front of the real decision makers. It also makes the meeting more valuable for Brian.",
+        "branches": [
+          {
+            "label": "Yeah let's set something up",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Loop in Layne or Liz — they'd be better for this",
+            "to": "referral_ask"
+          },
+          {
+            "label": "Just send me something first",
+            "to": "send_email"
+          }
+        ]
+      },
+      "not_my_department": {
+        "label": "NOT MY DEPARTMENT",
+        "say": "Totally makes sense — as President your plate's full enough without me adding vacation rental ops to it. Who on the VR side would be the right person to run this by? I know Liz Bernthal runs the vacation rental program and Layne Kipp just stepped into the COO role — would one of them be the better conversation?",
+        "note": "Naming Liz and Layne shows homework and makes it easy for him to confirm or redirect. Don't let him just say 'call the main line' — push for a specific name and ideally a direct number or warm intro.",
+        "branches": [
+          {
+            "label": "Yeah talk to Liz / She's the one",
+            "to": "referral_got_name"
+          },
+          {
+            "label": "Talk to Layne — she handles operations",
+            "to": "referral_got_name"
+          },
+          {
+            "label": "Gives a different name",
+            "to": "referral_got_name"
+          },
+          {
+            "label": "Just call the main office",
+            "to": "referral_push_for_intro"
+          }
+        ]
+      },
+      "referral_ask": {
+        "label": "REFERRAL — WHO OWNS THIS",
+        "say": "That's super helpful. Would it be Liz Bernthal on the vacation rental side, or Layne Kipp as COO? I just want to make sure I'm reaching out to the right person so I'm not wasting anyone's time.",
+        "note": "Give him two names to choose from — it's easier than an open-ended 'who should I talk to.' Either name gets you to a strong contact.",
+        "branches": [
+          {
+            "label": "Liz would be right / Talk to Liz",
+            "to": "referral_got_name"
+          },
+          {
+            "label": "Layne handles that / Go to Layne",
+            "to": "referral_got_name"
+          },
+          {
+            "label": "Gives a different name entirely",
+            "to": "referral_got_name"
+          },
+          {
+            "label": "I don't know / Just call the office",
+            "to": "referral_push_for_intro"
+          }
+        ]
+      },
+      "referral_got_name": {
+        "label": "GOT A NAME — LOCK IT IN",
+        "say": "Perfect. Would you be open to shooting them a quick heads-up that I'll be reaching out? Even a one-liner — that way I'm not totally cold calling them. And what's the best way to reach them directly — do they have a direct line, or is it through the main number?",
+        "note": "A warm intro from Brian is worth ten cold calls. Push gently for the email intro. If he won't, at least get a direct number or email confirmation. You can now drop Brian's name when you call them.",
+        "branches": [
+          {
+            "label": "Sure I'll send them a note / I'll mention it",
+            "to": "referral_close_warm"
+          },
+          {
+            "label": "Just call the main line and ask for them",
+            "to": "referral_close_cold"
+          },
+          {
+            "label": "Here's their direct number or email",
+            "to": "referral_close_warm"
+          }
+        ]
+      },
+      "referral_push_for_intro": {
+        "label": "PUSH FOR INTRO",
+        "say": "Totally get it. If I can get a name, I'll put something tailored together so it actually lands on the right desk. Is there someone on the vacation rental operations side — maybe one of the area directors — who deals with turnover quality day to day?",
+        "note": "You're fishing for Mark Malone (Folly Beach director) or Fran Cote (IOP/Wild Dunes/Sullivan's director). If he gives you any name, take it and run.",
+        "branches": [
+          {
+            "label": "Gives a name",
+            "to": "referral_got_name"
+          },
+          {
+            "label": "Won't give a name / says to just call in",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "referral_close_warm": {
+        "label": "WARM REFERRAL — CLOSE",
+        "say": "Really appreciate that, Brian. I'll reach out to them this week and mention you pointed me their way. Thanks for taking my call — and congrats again on the new role.",
+        "note": "Send the follow-up email to the referral within the hour. Reference Brian by name in your outreach. If he offered to intro via email, follow up within 24 hours if you don't see it.",
+        "branches": []
+      },
+      "referral_close_cold": {
+        "label": "COLD REFERRAL — CLOSE",
+        "say": "Got it — I'll give them a ring. Really appreciate you pointing me in the right direction, Brian. Congrats again on the President role.",
+        "note": "You can still drop 'Brian Mello suggested I reach out' when calling Liz or Layne — he pointed you there even if he didn't formally intro you. Call the referral the same day.",
+        "branches": []
+      },
+      "objection_not_interested": {
+        "label": "OBJECTION — NOT INTERESTED",
+        "say": "Totally get it. I probably should've assumed you'd be all set — otherwise you would've reached out to us. Just so nobody from my team cold calls you again — is it that this isn't really a problem on your radar, or is it more that you just hate getting cold calls?",
+        "note": "Agree first, then split. 'Hate cold calls' reopens the conversation. 'Not on my radar' opens the door to asking if someone else at Dunes would care about it.",
+        "branches": [
+          {
+            "label": "Hate cold calls / it's the timing",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "Not a problem we're focused on",
+            "to": "redirect_to_referral"
+          },
+          {
+            "label": "We're just not interested at all",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "objection_have_process": {
+        "label": "OBJECTION — HAVE A PROCESS",
+        "say": "That makes total sense — with 180-plus properties you'd have to have something dialed in. Just curious — is it that you're fully covered and happy with how it works, or is it more that changing anything right now during a leadership transition would just be a headache?",
+        "note": "The leadership transition reference shows you know their situation and validates the objection. 'Switching is a headache' opens the door to a no-pressure look. 'Fully happy' is rare — most people admit gaps when you give them permission.",
+        "branches": [
+          {
+            "label": "It works well enough / We're covered",
+            "to": "offer_of_value"
+          },
+          {
+            "label": "Switching would be a headache / Timing is bad",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "Honestly there are some gaps",
+            "to": "warm_response"
+          }
+        ]
+      },
+      "objection_no_budget": {
+        "label": "OBJECTION — NO BUDGET",
+        "say": "Totally get it. Nowadays it's harder to keep a tool, let alone buy something new — especially with a new leadership team getting settled in. Just so I know — is it that budget for this year is completely locked, or is it more that anything new has to go through a bunch of approvals right now?",
+        "note": "The leadership transition makes budget timing real and validates his position. If it's approvals, offer to help build the case. If it's locked, sell the test drive for future planning.",
+        "branches": [
+          {
+            "label": "Budget is locked / Not in the cards right now",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "Would need approvals / It's complicated",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "This would need to go through Layne or Liz",
+            "to": "referral_ask"
+          }
+        ]
+      },
+      "redirect_to_referral": {
+        "label": "REDIRECT — SOMEONE ELSE MIGHT CARE",
+        "say": "Makes sense — your world is the real estate sales side and I respect that. Would someone like Liz Bernthal or Layne Kipp care about this more? Inspection quality and turnover ops probably lands on their desk, right?",
+        "note": "If the pain doesn't resonate with Brian personally, don't force it. Pivot to referral. He's giving you a clean exit to the right person.",
+        "branches": [
+          {
+            "label": "Yeah talk to Liz or Layne",
+            "to": "referral_got_name"
+          },
+          {
+            "label": "I don't know / Maybe",
+            "to": "referral_push_for_intro"
+          },
+          {
+            "label": "Not interested for anyone",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "offer_of_value": {
+        "label": "OFFER OF VALUE",
+        "say": "Totally respect that. If nothing else — I could walk you or whoever runs VR ops through what a few other beach-market property managers are doing with their turnover photos right now. Some of it's pretty creative stuff. Worst case you steal some ideas and we part as friends.",
+        "note": "The 'steal some ideas' line lowers stakes. You're offering industry intel, not a sales demo. This reframes the meeting as valuable even if they never buy.",
+        "branches": [
+          {
+            "label": "That could be interesting / Sure",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Send me something on that",
+            "to": "send_email"
+          },
+          {
+            "label": "No thanks / We're good",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "sell_test_drive": {
+        "label": "SELL THE TEST DRIVE",
+        "say": "Totally hear you — you're probably not buying something right now and I get that. But the people who end up pulling the trigger on stuff like this are the ones who already know what's out there when the time comes. Would you be open to a 20-minute look — not to buy anything, just so it's on your radar? If nothing else I can show you what other companies your size are doing with their turnover photos.",
+        "note": "No pressure. You're selling the meeting, not the product. 'When the time comes' plants the seed. If he pushes back again, accept it gracefully.",
+        "branches": [
+          {
+            "label": "Yeah that's fair / Sure",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Send me an email first",
+            "to": "send_email"
+          },
+          {
+            "label": "This should really go to someone else",
+            "to": "referral_ask"
+          },
+          {
+            "label": "No thanks",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "book_meeting": {
+        "label": "BOOK THE MEETING",
+        "say": "Awesome. I've got next Tuesday and Thursday pulled up — what looks better for you? Morning or afternoon?",
+        "note": "Pick TWO specific days. Let him choose. Lock a time. Send the calendar invite WHILE on the phone. If he wants to include Liz or Layne, even better — offer to send the invite to them too.",
+        "branches": [
+          {
+            "label": "Picks a day and time",
+            "to": "confirm_meeting"
+          },
+          {
+            "label": "Let me check and get back to you",
+            "to": "send_email"
+          }
+        ]
+      },
+      "confirm_meeting": {
+        "label": "CONFIRM AND CLOSE",
+        "say": "Perfect — I'll send over a calendar invite right now for [day] at [time]. Should I include anyone else from your team — maybe Liz or Layne so they can see it too? ... Great. Really appreciate you taking my call, Brian. Looking forward to it.",
+        "note": "Send the invite IMMEDIATELY after hanging up. Include a one-line agenda: 'Quick look at how RapidEye analyzes turnover photos inside Track — 20 min.' Stop selling. You won.",
+        "branches": []
+      },
+      "send_email": {
+        "label": "SEND ME AN EMAIL",
+        "say": "Totally fair. One quick question before I do — what would be most relevant to include so it's not just another generic pitch sitting in your inbox? Like, is it more about how it works with Track, or more about what other beach-market companies are seeing on the operations side?",
+        "note": "The question makes the email useful AND keeps him engaged. Whatever he says, tailor the email. Always include a specific time suggestion in the email: 'Would next Thursday at 2pm work for a quick look?'",
+        "branches": [
+          {
+            "label": "Tells you what to include / Gives direction",
+            "to": "send_email_close"
+          },
+          {
+            "label": "Just send me whatever / General info",
+            "to": "send_email_close"
+          }
+        ]
+      },
+      "send_email_close": {
+        "label": "CLOSE — EMAIL FOLLOW-UP",
+        "say": "Got it — I'll send that over today. What's the best email? Is it bmello at dunesproperties dot com? ... Perfect. I'll include a couple time options in there too in case you want to hop on a quick call after you look it over. Appreciate the time, Brian.",
+        "note": "Confirm the email address. Send within 30 minutes of hanging up. Subject line should reference something from the conversation, not a generic pitch line. Follow up in 3 business days if no response.",
+        "branches": []
+      },
+      "end_graceful": {
+        "label": "END — GRACEFUL EXIT",
+        "say": "Totally understand, Brian. If anything changes — especially heading into summer season — I'm easy to find. Appreciate your time, and congrats again on the new role.",
+        "note": "Don't burn the bridge. The summer season mention plants a seed. Log the call with outcome details and set a follow-up reminder for 6-8 weeks out. Consider reaching out directly to Liz Bernthal or Layne Kipp as a separate cold call.",
+        "branches": []
+      }
+    }
+  }
+}

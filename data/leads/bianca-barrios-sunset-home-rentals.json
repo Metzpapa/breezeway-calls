@@ -1,0 +1,599 @@
+{
+  "name": "Bianca Barrios",
+  "title": "Property Manager",
+  "company": "Sunset Home Rentals",
+  "location": "San Diego, CA",
+  "phone": "+1-866-545-5303",
+  "company_phone": "(858) 351-0067",
+  "alt_phones": [
+    "+1-858-779-0577",
+    "+1-866-545-5303",
+    "+1-866-201-4022",
+    "+1-602-765-4750",
+    "+1-858-779-0577"
+  ],
+  "flow": {
+    "context": "Bianca Barrios is a Property Manager at GoldenWest Management / Sunset Home Rentals in San Diego. She likely owns inspection cadence, vendor follow-ups, and property readiness standards across both their vacation portfolio (40+ units on LMPM) and long-term side (1,000-3,000+ total units on AppFolio). They run 24/7 maintenance with a remote coordination team in Nicaragua and El Salvador, but have no detectable ops/photo platform like Breezeway — meaning photo review is almost certainly manual. They are actively expanding into Cabo San Lucas ('Coming Soon' on their site), which will multiply QA pressure with new cleaners and vendors they don't yet trust. Her Director of Ops is Roy True; founder is Jayson Yoss. Sam's SoCal roots (grew up in LA) and surfing connect naturally to this San Diego-based team.",
+    "start": "gatekeeper",
+    "nodes": {
+      "gatekeeper": {
+        "label": "GATEKEEPER — SLIDE BY",
+        "say": "Hey, could you get me through to Bianca? It's Sam.",
+        "note": "Don't explain anything. Name only. If Bianca picks up directly, skip to opener.",
+        "branches": [
+          {
+            "label": "Transferred / Bianca answers",
+            "to": "opener"
+          },
+          {
+            "label": "\"Who's calling?\" / \"What's this about?\"",
+            "to": "gatekeeper_context"
+          },
+          {
+            "label": "\"She's not available right now\"",
+            "to": "gatekeeper_voicemail"
+          }
+        ]
+      },
+      "gatekeeper_context": {
+        "label": "GATEKEEPER — ADD CONTEXT",
+        "say": "Yeah, I work with a few other property managers in San Diego on their inspection workflows. Would you mind letting her know it's Sam Parks?",
+        "note": "Still casual. Don't pitch. Let the context do the work.",
+        "branches": [
+          {
+            "label": "Transferred / Bianca answers",
+            "to": "opener"
+          },
+          {
+            "label": "\"What company?\" / pushes harder",
+            "to": "gatekeeper_social_proof"
+          },
+          {
+            "label": "\"She's busy / not available\"",
+            "to": "gatekeeper_voicemail"
+          }
+        ]
+      },
+      "gatekeeper_social_proof": {
+        "label": "GATEKEEPER — SOCIAL PROOF",
+        "say": "Totally — we help a couple other property management companies with their turnover inspection workflows. I sent her a note last week. Would you mind giving her a heads up that Sam Parks from RapidEye called?",
+        "note": "Last attempt. If blocked, ask when the best time to reach Bianca would be, then exit gracefully.",
+        "branches": [
+          {
+            "label": "Transferred / Bianca answers",
+            "to": "opener"
+          },
+          {
+            "label": "Agrees to pass message",
+            "to": "graceful_exit"
+          },
+          {
+            "label": "Hard block / no",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "gatekeeper_voicemail": {
+        "label": "GATEKEEPER — TIMING REDIRECT",
+        "say": "No worries at all. When would be a better time to catch her — is she usually around mornings or afternoons?",
+        "note": "Get a specific callback window. Write it down. Don't leave a voicemail pitch.",
+        "branches": [
+          {
+            "label": "Gives a time",
+            "to": "graceful_exit"
+          },
+          {
+            "label": "\"Just send an email\"",
+            "to": "send_email"
+          },
+          {
+            "label": "Won't help",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "opener": {
+        "label": "OPENER",
+        "say": "Hey Bianca — I work with a couple other property managers in San Diego, actually grew up right up the road in LA. It's Sam Parks with RapidEye. Have you heard my name tossed around?",
+        "note": "Feet up on the desk energy. Casual, not chipper. Pause and let her answer. The SoCal connection is real — Sam grew up in La Cañada Flintridge. Don't rush past the question.",
+        "branches": [
+          {
+            "label": "\"Yeah\" / \"Maybe\" / \"I think so\"",
+            "to": "heard_yes"
+          },
+          {
+            "label": "\"No\" / \"I haven't\" / \"Who?\"",
+            "to": "heard_no"
+          },
+          {
+            "label": "\"I'm busy\" / \"Not a good time\"",
+            "to": "bad_timing"
+          },
+          {
+            "label": "Skeptical / \"Is this a sales call?\"",
+            "to": "permission_ask"
+          }
+        ]
+      },
+      "heard_yes": {
+        "label": "THEY'VE HEARD OF YOU",
+        "say": "Oh nice — well normally we'd be working with someone like you on the inspection side. What did you hear?",
+        "note": "Let her talk. If she knows something real, match it. If she's just being polite, transition to pain.",
+        "branches": [
+          {
+            "label": "Describes something / warm",
+            "to": "warm_response"
+          },
+          {
+            "label": "Vague / \"Not much\" / \"Remind me\"",
+            "to": "pain_trigger"
+          }
+        ]
+      },
+      "heard_no": {
+        "label": "HAVEN'T HEARD — TRANSITION",
+        "say": "Oh, I guess I'm not as popular as I thought. Well the reason for my call —",
+        "note": "Laugh it off. Self-deprecating. Move straight to pain trigger without a long pause.",
+        "branches": [
+          {
+            "label": "Continue to pain",
+            "to": "pain_trigger"
+          }
+        ]
+      },
+      "bad_timing": {
+        "label": "BAD TIMING",
+        "say": "Totally hear you — would it be a terrible idea if I tried you again tomorrow, maybe in the morning?",
+        "note": "Offer a specific time, not an open-ended 'when works.' If she gives any opening to talk now, take it.",
+        "branches": [
+          {
+            "label": "Gives a time / \"Sure, try me tomorrow\"",
+            "to": "graceful_exit"
+          },
+          {
+            "label": "\"Just tell me quick\" / \"What's this about?\"",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "\"Don't call back\" / hard no",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "permission_ask": {
+        "label": "PERMISSION FALLBACK",
+        "say": "Yeah, totally — I mean it is a cold call. Can I get thirty seconds to tell you why I reached out, and you can totally hang up on me if it's not a fit?",
+        "note": "Disarming honesty. Most people respect the transparency and give you the 30 seconds.",
+        "branches": [
+          {
+            "label": "\"Sure\" / \"Go ahead\"",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "\"No\" / \"Not interested\"",
+            "to": "permission_rejected"
+          }
+        ]
+      },
+      "permission_rejected": {
+        "label": "PERMISSION REJECTED — SPLIT",
+        "say": "Shoot, totally my bad. Just so nobody from my team bugs you again — is it that I caught you at a horrible time, or is it more that you already know what we do and this just isn't interesting?",
+        "note": "You're splitting the rejection into timing vs. relevance. Most people soften and pick one — either gives you a path back in.",
+        "branches": [
+          {
+            "label": "\"Bad timing\"",
+            "to": "bad_timing"
+          },
+          {
+            "label": "\"Not interested\" / \"I'm set\"",
+            "to": "not_interested"
+          },
+          {
+            "label": "\"What do you do?\" / curious",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "Hard no / hangs up",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "pain_trigger": {
+        "label": "PAIN TRIGGER",
+        "say": "So I was talking to another property manager who runs a pretty similar setup to you guys — vacation rentals on one side, long-term portfolio on the other, remote team helping coordinate everything. And she was telling me how after every turnover, her cleaners upload like thirty, forty photos, and technically someone's supposed to review every single one before the next guest checks in. But in reality? Nobody has time for that. So stuff slips through — a stain on the couch, a missing set of towels, something cracked — and it doesn't get caught until a guest complains or an owner sees it in their portal. And then it turns into a fire drill.",
+        "note": "PAUSE HERE. Let Bianca react. This pain is specific to her — she's the PM reviewing photos, coordinating vendors, fielding complaints when something's missed. With no ops platform detected, this is almost certainly a manual process for her. The 'remote team' mention mirrors their actual setup in Nicaragua. Don't rush to the solution.",
+        "branches": [
+          {
+            "label": "Resonates / \"Yeah, that's exactly...\" / \"We deal with that\"",
+            "to": "warm_response"
+          },
+          {
+            "label": "Quiet / neutral / \"Okay...\"",
+            "to": "solution_and_cta"
+          },
+          {
+            "label": "\"We already have a process for that\"",
+            "to": "have_process"
+          },
+          {
+            "label": "\"I'm not really the right person\"",
+            "to": "referral_path"
+          },
+          {
+            "label": "\"Not interested\" / \"We're fine\"",
+            "to": "not_interested"
+          }
+        ]
+      },
+      "solution_and_cta": {
+        "label": "SOLUTION + CTA",
+        "say": "So we built something that plugs into the photos your team's already taking during turnovers and automatically flags damage, missing items, staging issues — no workflow change on your end. Would you be open to taking a look sometime when I'm not cold calling you out of the blue?",
+        "note": "One sentence on the product. Then the low-friction CTA. Don't over-explain. They use LMPM for vacation and AppFolio for long-term — both sides generate photos that could be analyzed. Pause after the CTA.",
+        "branches": [
+          {
+            "label": "\"Sure\" / \"Yeah, I'd look at that\"",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Curious / asks questions",
+            "to": "warm_response"
+          },
+          {
+            "label": "\"Send me something\" / \"Email me\"",
+            "to": "send_email"
+          },
+          {
+            "label": "\"We already have something\" / \"We're covered\"",
+            "to": "have_process"
+          },
+          {
+            "label": "\"No budget\" / \"Not right now\"",
+            "to": "no_budget"
+          },
+          {
+            "label": "\"Not interested\"",
+            "to": "not_interested"
+          }
+        ]
+      },
+      "warm_response": {
+        "label": "THEY'RE WARM — STOP PITCHING",
+        "say": "That's exactly why I called. So I'm curious — what does your inspection process actually look like right now after a turnover? Are your cleaners taking photos through LMPM, or is it more of a manual thing?",
+        "note": "STOP SELLING. Ask questions. She likely manages both vacation turnovers (LMPM side) and long-term inspections (AppFolio side). Learn which side hurts more. Listen for mentions of the remote team in Nicaragua handling photo review — that's a massive opening. Referencing LMPM by name shows you've done your homework.",
+        "branches": [
+          {
+            "label": "Describes their process / opens up",
+            "to": "discovery_deeper"
+          },
+          {
+            "label": "\"How do you know about LMPM?\" / impressed",
+            "to": "discovery_deeper"
+          },
+          {
+            "label": "Gives short answer, seems guarded",
+            "to": "discovery_deeper"
+          }
+        ]
+      },
+      "discovery_deeper": {
+        "label": "DEEPER DISCOVERY",
+        "say": "Got it. And when something does get missed — like a guest checks in and there's damage from the last stay — what happens? Does that come back to you, or does that go through the maintenance team?",
+        "note": "You're mapping her pain chain. Their maintenance manager (Donald Chamorro) is based in Nicaragua — if missed issues become emergency work orders routed internationally, that's slow and expensive. Also listen for whether she has to deal with owner complaints or guest review fallout. Both are powerful pain points.",
+        "branches": [
+          {
+            "label": "Describes pain / frustration / current problems",
+            "to": "cabo_expansion_hook"
+          },
+          {
+            "label": "\"We handle it\" / confident",
+            "to": "cabo_expansion_hook"
+          },
+          {
+            "label": "Wants to know more about RapidEye",
+            "to": "explain_and_book"
+          },
+          {
+            "label": "\"I should loop in Roy\" / mentions someone else",
+            "to": "referral_path"
+          }
+        ]
+      },
+      "cabo_expansion_hook": {
+        "label": "CABO EXPANSION ANGLE",
+        "say": "That makes sense. And I noticed you guys are expanding into Cabo — when you're standing up a whole new market with new cleaners and new vendors you haven't worked with before, how are you thinking about keeping that same quality bar when nobody can physically be there to check every unit?",
+        "note": "This is a researched insight — Cabo is marked 'Coming Soon' on their site. New market = new vendors, no established trust, higher risk of missed issues. Bianca may or may not own Cabo, but the scaling pressure is real. If she says 'that's Roy's area,' pivot to referral.",
+        "branches": [
+          {
+            "label": "Engages / \"Yeah, that's a big concern\"",
+            "to": "explain_and_book"
+          },
+          {
+            "label": "\"That's more Roy's area\" / \"That's above me\"",
+            "to": "referral_path"
+          },
+          {
+            "label": "\"We're not really focused on that yet\"",
+            "to": "explain_and_book"
+          },
+          {
+            "label": "Asks about RapidEye specifically",
+            "to": "explain_and_book"
+          }
+        ]
+      },
+      "explain_and_book": {
+        "label": "BRIEF EXPLAIN + BOOK",
+        "say": "So in a nutshell — we plug into whatever your team's already doing for photos. No new app, no new process. Our AI reviews every image automatically and flags anything that's off — damage, missing items, wear and tear, staging problems. We're doing it right now for a company managing about two hundred luxury homes in New York and another one with six hundred properties on the East Coast. Honestly the best way to see if it fits is just a quick fifteen-minute look. I've got next Tuesday pulled up — how does afternoon look for you?",
+        "note": "Name the traction (NYC 200 luxury homes, East Coast 600 properties). Pick a specific day and time — don't say 'whenever works.' If she wants to include Roy True or someone else, say 'Even better — want to loop him in on the invite?'",
+        "branches": [
+          {
+            "label": "Agrees to a time",
+            "to": "meeting_booked"
+          },
+          {
+            "label": "\"Let me check\" / \"Can I get back to you?\"",
+            "to": "book_meeting"
+          },
+          {
+            "label": "\"I'd need to loop in my boss\" / mentions Roy",
+            "to": "referral_include"
+          },
+          {
+            "label": "\"Send me something first\"",
+            "to": "send_email"
+          },
+          {
+            "label": "\"Not right now\" / hesitates",
+            "to": "test_drive"
+          }
+        ]
+      },
+      "not_interested": {
+        "label": "OBJECTION — NOT INTERESTED",
+        "say": "I totally get it. I should've assumed you'd be all set — otherwise you probably would've reached out to us. Just so no one from my team cold calls you again — is it that this isn't really a problem you're focused on right now, or is it more that you just hate cold calls? Because honestly I get both.",
+        "note": "Agree first — surprise her. Then split the objection. Most people pick one, and either answer gives you a path back in. Don't sound defensive.",
+        "branches": [
+          {
+            "label": "\"Not a priority\" / \"We're focused on other things\"",
+            "to": "test_drive"
+          },
+          {
+            "label": "\"I hate cold calls\" / laughs",
+            "to": "test_drive"
+          },
+          {
+            "label": "\"Both\" / stays firm",
+            "to": "graceful_exit"
+          },
+          {
+            "label": "Opens up about a real reason",
+            "to": "warm_response"
+          }
+        ]
+      },
+      "have_process": {
+        "label": "OBJECTION — HAVE A PROCESS",
+        "say": "That makes total sense — with the number of properties you guys manage across three markets, you'd have to have something in place. Just out of curiosity — is it that you're fully covered and happy with how it's working, or is it more that switching anything right now would just be a headache?",
+        "note": "They have no detectable ops/photo platform — so 'the process' is probably manual checklists, basic photo uploads in LMPM, or cleaners texting photos. Either answer gives you a wedge. Reference 'three markets' (SD, LV, Phoenix) to show you know the org.",
+        "branches": [
+          {
+            "label": "\"We're happy\" / \"It works fine\"",
+            "to": "have_process_dig"
+          },
+          {
+            "label": "\"Switching would be a pain\" / \"We just can't right now\"",
+            "to": "test_drive"
+          },
+          {
+            "label": "\"What would be different about yours?\"",
+            "to": "explain_and_book"
+          },
+          {
+            "label": "Firm no",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "have_process_dig": {
+        "label": "DIG INTO CURRENT PROCESS",
+        "say": "Respect that. Just so I know — are your cleaners uploading photos into LMPM and then someone's reviewing them manually, or do you have a separate tool handling the QA side?",
+        "note": "You're showing you know their stack — LMPM for vacation, AppFolio for long-term. If it's manual review, that's your opening: nobody reviews every photo at scale. If they name a tool, learn what it is and note it for follow-up research.",
+        "branches": [
+          {
+            "label": "\"It's mostly manual\" / describes manual process",
+            "to": "test_drive"
+          },
+          {
+            "label": "Names a specific tool",
+            "to": "test_drive"
+          },
+          {
+            "label": "\"I'm not sure\" / vague",
+            "to": "referral_path"
+          },
+          {
+            "label": "Doesn't want to discuss",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "no_budget": {
+        "label": "OBJECTION — NO BUDGET",
+        "say": "Totally get it. Nowadays it's harder to keep a tool, let alone buy something new. Just so I'm not wasting your time — is it that budget for this cycle is completely locked, or is it more that anything new has to go through a whole approval process with GoldenWest?",
+        "note": "Reference the parent org (GoldenWest) by name — shows you know the structure. Sunset is a brand under GoldenWest, so budgets likely go through centralized approval. If budget is locked, sell the test drive for future planning. If approval is the issue, ask who approves and pivot to referral.",
+        "branches": [
+          {
+            "label": "\"Budget is locked\"",
+            "to": "test_drive"
+          },
+          {
+            "label": "\"Has to go through approval\" / mentions leadership",
+            "to": "referral_path"
+          },
+          {
+            "label": "\"Both\" / firm",
+            "to": "test_drive"
+          },
+          {
+            "label": "Hard no",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "test_drive": {
+        "label": "SELL THE TEST DRIVE",
+        "say": "Look, you're probably not buying anything off a cold call, and I totally respect that. But when this does become a priority — especially if you guys are ramping up Cabo and need more eyes on more properties without hiring more people — the folks who move fast are the ones who already know what's on their shortlist. Would you be open to a quick fifteen-minute look? Not to buy anything, just so you know what's out there. Worst case I'll walk you through what some other San Diego property managers are doing with their turnover photos and you steal some ideas.",
+        "note": "Low pressure. 'Steal some ideas' reframes the meeting as valuable even if she never buys. The Cabo reference ties to a real scaling challenge. If she softens even slightly, go to book_meeting.",
+        "branches": [
+          {
+            "label": "\"Okay, sure\" / agrees",
+            "to": "book_meeting"
+          },
+          {
+            "label": "\"Send me something first\"",
+            "to": "send_email"
+          },
+          {
+            "label": "\"I'd need to include someone else\"",
+            "to": "referral_include"
+          },
+          {
+            "label": "Still no",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "send_email": {
+        "label": "\"SEND ME AN EMAIL\"",
+        "say": "Totally fair. One quick question before I do — what would be most relevant to include so it doesn't just sit in your inbox? Are you more curious about the turnover photo analysis side, or more about how it works with the move-in move-out inspections?",
+        "note": "Accept the email ask gracefully. Then tailor it. Her answer tells you which workflow matters most — vacation turnovers (LMPM) or long-term inspections (AppFolio). Ask for her direct email. Include a specific meeting time suggestion in the email.",
+        "branches": [
+          {
+            "label": "Tells you what to include / gives preference",
+            "to": "send_email_confirm"
+          },
+          {
+            "label": "\"Just send whatever\" / generic",
+            "to": "send_email_confirm"
+          }
+        ]
+      },
+      "send_email_confirm": {
+        "label": "CONFIRM EMAIL + PLANT MEETING",
+        "say": "Perfect. What's the best email to send that to? And I'll throw a fifteen-minute slot on there for next week just in case you want to see it live — totally no pressure to accept.",
+        "note": "Get the direct email address — don't assume it's sdpm@ or info@. Plant a calendar link or specific time suggestion. Follow up within 24 hours. Use a subject line that references something specific from this call, not a generic pitch.",
+        "branches": [
+          {
+            "label": "Gives email",
+            "to": "graceful_exit"
+          },
+          {
+            "label": "\"Just use the company email\" / won't give direct",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "referral_path": {
+        "label": "NOT THE RIGHT PERSON — REFERRAL",
+        "say": "Totally makes sense. Who on your team would typically own the inspection workflow or the decision around ops tooling? Would that be Roy, or someone else?",
+        "note": "Drop Roy True's name (Director of Operations) naturally — it shows you've done homework and makes it easy for her to confirm or redirect. If she mentions Jayson Yoss (founder/broker), even better — that's the executive sponsor. Don't make her feel unimportant; she's still a user and potential champion.",
+        "branches": [
+          {
+            "label": "Confirms Roy True / gives his info",
+            "to": "referral_get_name"
+          },
+          {
+            "label": "Names someone else",
+            "to": "referral_get_name"
+          },
+          {
+            "label": "\"I'm not sure\" / won't give a name",
+            "to": "referral_push"
+          },
+          {
+            "label": "\"You can talk to me, I'll loop them in\"",
+            "to": "book_meeting"
+          }
+        ]
+      },
+      "referral_push": {
+        "label": "PUSH FOR REFERRAL GENTLY",
+        "say": "No worries. If I can get a name, I'll put something tailored together so it actually lands and doesn't just look like a generic cold pitch. Even a first name helps.",
+        "note": "Light push. If she still won't give a name, exit gracefully. Don't make it awkward — she might still mention you to the right person after the call.",
+        "branches": [
+          {
+            "label": "Gives a name",
+            "to": "referral_get_name"
+          },
+          {
+            "label": "Won't help",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "referral_get_name": {
+        "label": "GOT THE REFERRAL",
+        "say": "Perfect — really appreciate that. Would it be cool if I mentioned you pointed me their way? Sometimes that helps it not look like a totally random cold call.",
+        "note": "Getting permission to use Bianca's name makes the next call significantly warmer. If she says yes, open the Roy/Jayson call with 'Bianca on your team suggested I reach out.'",
+        "branches": [
+          {
+            "label": "\"Sure\" / gives permission",
+            "to": "referral_close"
+          },
+          {
+            "label": "\"I'd rather you didn't\"",
+            "to": "referral_close"
+          }
+        ]
+      },
+      "referral_close": {
+        "label": "CLOSE THE REFERRAL",
+        "say": "Got it. And honestly Bianca, if you end up wanting to see it yourself, I'm happy to loop you in too. Really appreciate you taking my call — enjoy the rest of your day.",
+        "note": "Leave the door open. She may circle back after talking to Roy or whoever she named. Send a short thank-you email within the hour referencing the conversation.",
+        "branches": []
+      },
+      "referral_include": {
+        "label": "INCLUDE SOMEONE ELSE ON THE MEETING",
+        "say": "Even better — who would you want on it? Roy, or someone else on the ops side? I'll send the invite to both of you so nobody has to relay anything.",
+        "note": "She's signaling she can't decide alone — this is good. Get the decision-maker on the call. Roy True (Director of Ops) is the ideal add. Get their email for the invite and send it while still on the phone if possible.",
+        "branches": [
+          {
+            "label": "Names the person / gives details",
+            "to": "book_meeting"
+          },
+          {
+            "label": "\"Let me check with them first\"",
+            "to": "send_email"
+          }
+        ]
+      },
+      "book_meeting": {
+        "label": "BOOK THE MEETING",
+        "say": "Awesome. I've got next Tuesday and Thursday open — does afternoon work better for you, or are you more of a morning person?",
+        "note": "Give two day options and a time-of-day choice. Lock a specific slot. Send the calendar invite WHILE on the phone so it's real. If she wants to include Roy or Jayson, get their email for the invite. Keep it to 15 minutes — don't oversell the time commitment.",
+        "branches": [
+          {
+            "label": "Picks a time",
+            "to": "meeting_booked"
+          },
+          {
+            "label": "\"Let me check and get back to you\"",
+            "to": "send_email"
+          }
+        ]
+      },
+      "meeting_booked": {
+        "label": "MEETING BOOKED — WRAP UP",
+        "say": "Perfect, sending that over right now. Really appreciate you taking my call, Bianca. Talk to you then.",
+        "note": "STOP SELLING. Send the invite immediately with a brief agenda: '15 min — quick look at how RapidEye works with turnover photos. No commitment.' Follow up with a short confirmation email that references one specific thing from the conversation. Do not add more detail or re-pitch.",
+        "branches": []
+      },
+      "graceful_exit": {
+        "label": "GRACEFUL EXIT",
+        "say": "Totally understand. If anything changes, I'm easy to find — Sam Parks, RapidEye. Appreciate your time, Bianca.",
+        "note": "Don't burn the bridge. Log the call outcome, the specific objection, and any intel she shared (current process, who owns what, Cabo timeline, budget cycle). Set a follow-up reminder for 3-4 weeks. If she mentioned a specific timing trigger, note it and call back then.",
+        "branches": []
+      }
+    }
+  }
+}

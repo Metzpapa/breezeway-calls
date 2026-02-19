@@ -1,0 +1,590 @@
+{
+  "name": "Robert Lambert",
+  "title": "Chief Engineer",
+  "company": "Stay Duvet",
+  "location": "Charleston, SC",
+  "phone": "",
+  "company_phone": "(843) 628-5327",
+  "alt_phones": [
+    "+1-843-628-3401",
+    "+1-843-640-5837",
+    "+1-843-306-8068",
+    "+1-843-429-8611"
+  ],
+  "flow": {
+    "context": "Robert Lambert is Chief Engineer at Stay Duvet — he owns maintenance triage, vendor dispatch, and property condition across 200–360+ short-term rental units in Charleston, SC. Stay Duvet runs a high-touch, hotel-style operation across downtown Charleston and beach markets (Folly Beach, Isle of Palms, Kiawah, Seabrook) with explicit pre/post-stay inspections and a 'Clean Duvet Guarantee.' BBB and Vrbo reviews show maintenance and condition issues still slipping through at scale — one Vrbo guest named specific problems like loose hardware, stains, and pests. Charlene Lambert (GM/Home Care — possibly related to Robert) owns the inspection and turnover workflow, making her the natural referral if Robert isn't the entry point. No direct personal connection to Sam — lead with industry and role proximity to other maintenance leads at similar-scale STR operators.",
+    "start": "gatekeeper_or_robert",
+    "nodes": {
+      "gatekeeper_or_robert": {
+        "label": "WHO PICKS UP?",
+        "say": "",
+        "note": "Listen for who answers. If Robert picks up directly, go to opener. If it's a receptionist or someone else, go to gatekeeper. If voicemail, leave a short message.",
+        "branches": [
+          {
+            "label": "Robert answers",
+            "to": "opener"
+          },
+          {
+            "label": "Someone else answers",
+            "to": "gatekeeper_slide"
+          },
+          {
+            "label": "Voicemail",
+            "to": "voicemail"
+          }
+        ]
+      },
+      "gatekeeper_slide": {
+        "label": "GATEKEEPER — SLIDE BY",
+        "say": "Hey — could you get me through to Robert? It's Sam.",
+        "note": "Don't pitch. Don't explain. Say it like you know him. Pause and wait for their response.",
+        "branches": [
+          {
+            "label": "Puts you through",
+            "to": "opener"
+          },
+          {
+            "label": "Asks what it's about",
+            "to": "gatekeeper_context"
+          },
+          {
+            "label": "He's not available",
+            "to": "gatekeeper_unavailable"
+          }
+        ]
+      },
+      "gatekeeper_context": {
+        "label": "GATEKEEPER — CONTEXT",
+        "say": "Yeah — I work with a few other property managers in the Charleston area on their inspection workflows. Would you mind letting Robert know it's Sam Parks?",
+        "note": "Still don't pitch RapidEye. Keep it vague and peer-level. You're just a guy who works with similar companies.",
+        "branches": [
+          {
+            "label": "Puts you through",
+            "to": "opener"
+          },
+          {
+            "label": "Still pushing back",
+            "to": "gatekeeper_social_proof"
+          },
+          {
+            "label": "He's not available",
+            "to": "gatekeeper_unavailable"
+          }
+        ]
+      },
+      "gatekeeper_social_proof": {
+        "label": "GATEKEEPER — SOCIAL PROOF",
+        "say": "Totally understand — we actually help a couple property management companies with their turnover inspection workflows. I sent Robert a note already, just wanted to follow up real quick. Would you mind giving him a heads up that Sam Parks called?",
+        "note": "This is your last play. Be warm, not pushy. If they won't budge, get a callback time or leave a message gracefully.",
+        "branches": [
+          {
+            "label": "Puts you through",
+            "to": "opener"
+          },
+          {
+            "label": "Offers to take a message",
+            "to": "gatekeeper_unavailable"
+          },
+          {
+            "label": "Hard no",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "gatekeeper_unavailable": {
+        "label": "GATEKEEPER — LEAVE MESSAGE",
+        "say": "No worries at all. Could you let him know Sam Parks called? He can reach me anytime. And actually — when's usually the best time to catch him?",
+        "note": "Get a callback window and write it down. Don't leave a detailed message about what you sell — just your name.",
+        "branches": [
+          {
+            "label": "Gives you a time",
+            "to": "graceful_exit"
+          },
+          {
+            "label": "Won't help further",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "voicemail": {
+        "label": "VOICEMAIL",
+        "say": "Hey Robert — it's Sam Parks. I've been working with a few other maintenance leads at short-term rental companies similar to Stay Duvet. Had something I wanted to run by you — give me a shout when you get a sec. My number is [your number]. Again, it's Sam Parks. Talk soon.",
+        "note": "Keep it under 20 seconds. Sound casual, not salesy. Don't explain what RapidEye does — just create enough curiosity for a callback.",
+        "branches": []
+      },
+      "opener": {
+        "label": "OPENER",
+        "say": "Hey Robert — this might sound a little random, but I've been working with a few other engineering and maintenance leads at STR companies running portfolios pretty similar to Stay Duvet's. It's Sam Parks with RapidEye — have you heard my name tossed around at all?",
+        "note": "Feet up on the desk energy. Not chipper, not rushed. Say it like you're calling someone a mutual friend mentioned. Pause after the question and let him respond.",
+        "branches": [
+          {
+            "label": "Yes / maybe / sounds familiar",
+            "to": "heard_name_yes"
+          },
+          {
+            "label": "No / who?",
+            "to": "heard_name_no"
+          },
+          {
+            "label": "Bad timing / I'm busy",
+            "to": "bad_timing"
+          }
+        ]
+      },
+      "heard_name_yes": {
+        "label": "THEY'VE HEARD OF YOU",
+        "say": "Oh nice — well normally we'd be working with someone like you on this. What'd you hear?",
+        "note": "Let him talk. If he knows what RapidEye does and seems interested, skip pain and go straight to discovery. If it's vague, pivot to pain trigger.",
+        "branches": [
+          {
+            "label": "Knows what you do / interested",
+            "to": "discovery_questions"
+          },
+          {
+            "label": "Vague / not much",
+            "to": "pain_trigger"
+          }
+        ]
+      },
+      "heard_name_no": {
+        "label": "HAVEN'T HEARD OF YOU",
+        "say": "Ha — guess I'm not as popular as I thought. Well the reason for my call is —",
+        "note": "Transition immediately into the pain trigger. Don't dwell on the no. Keep the energy light.",
+        "branches": [
+          {
+            "label": "Continue to pain",
+            "to": "pain_trigger"
+          }
+        ]
+      },
+      "bad_timing": {
+        "label": "BAD TIMING",
+        "say": "Totally hear you — would it be a terrible idea if I tried you again tomorrow? Or later this week? I just need like five minutes.",
+        "note": "Don't pitch now. Just lock in a callback. If he pushes back but isn't a hard no, try permission fallback.",
+        "branches": [
+          {
+            "label": "Gives a time to call back",
+            "to": "bad_timing_locked"
+          },
+          {
+            "label": "Reluctant but not a hard no",
+            "to": "permission_fallback"
+          },
+          {
+            "label": "Hard no / don't call back",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "bad_timing_locked": {
+        "label": "CALLBACK LOCKED",
+        "say": "Perfect — I'll try you then. It's Sam Parks with RapidEye. I'll shoot you a quick note so you've got my info. Talk soon, Robert.",
+        "note": "Write down the time immediately. Send a brief email within 5 minutes — no pitch, just 'looking forward to connecting at [time].' Use robert@stayduvet.com.",
+        "branches": []
+      },
+      "permission_fallback": {
+        "label": "PERMISSION FALLBACK",
+        "say": "Yeah totally — I mean, it is a cold call. Can I get 30 seconds to tell you why I reached out? And you can totally hang up on me if it's not a fit.",
+        "note": "This is your safety net when the opener doesn't fully land. '30 seconds' lowers the stakes. If he gives permission, go straight to pain.",
+        "branches": [
+          {
+            "label": "Gives permission / go ahead",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "No thanks / rejects",
+            "to": "permission_rejected"
+          }
+        ]
+      },
+      "permission_rejected": {
+        "label": "PERMISSION REJECTED",
+        "say": "Shoot, totally my bad. Just so nobody from my team bugs you again — is it that I caught you at a terrible time, or is it that you already know what we do and it's just not interesting?",
+        "note": "Split the objection. 'Terrible time' reopens a callback. 'Not interesting' might open a referral or let you clarify what you actually do.",
+        "branches": [
+          {
+            "label": "Bad time actually",
+            "to": "bad_timing"
+          },
+          {
+            "label": "Not interested",
+            "to": "objection_not_interested"
+          },
+          {
+            "label": "Hard no / hangs up",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "pain_trigger": {
+        "label": "PAIN TRIGGER",
+        "say": "So I was talking to another maintenance lead at an STR company — pretty similar to you guys actually, couple hundred units, mix of downtown and beach properties. And the thing that kept eating his time was — his cleaning teams were taking turnover photos every single stay, right? Like clockwork. But nobody had the bandwidth to actually go through all of them for maintenance stuff. So a cracked tile, water damage under a vanity, a wobbly deck railing, a stained sofa — it'd just sit there through three or four guest stays until someone finally complained. And then it's an emergency dispatch on a Saturday, the owner's calling asking why nobody caught it two weeks ago, and his guys look bad even though the photo evidence was literally sitting right there the whole time.",
+        "note": "PAUSE HERE. Do not rush to the solution. Let Robert react. You want him to see himself in this story. If he says 'yeah that happens' or asks a question, he's warm. If he's quiet, give him a beat then move to solution.",
+        "branches": [
+          {
+            "label": "Engaged — 'yeah' / 'that sounds familiar' / asks question",
+            "to": "warm_response"
+          },
+          {
+            "label": "Quiet but listening",
+            "to": "solution_cta"
+          },
+          {
+            "label": "Not interested / pushes back",
+            "to": "objection_not_interested"
+          },
+          {
+            "label": "We already have a process for that",
+            "to": "objection_have_process"
+          }
+        ]
+      },
+      "warm_response": {
+        "label": "THEY'RE WARM — ONE-SENTENCE SOLUTION",
+        "say": "Yeah — that's actually exactly why I reached out to you specifically. We built something that scans the turnover photos your team's already taking and flags the maintenance issues automatically — before the next guest checks in. No workflow change, it just reads the photos that already exist.",
+        "note": "One sentence on the solution, then STOP talking about the product. Transition to asking questions. He's engaged — don't lose him by over-explaining.",
+        "branches": [
+          {
+            "label": "Curious — asks how it works / wants details",
+            "to": "discovery_questions"
+          },
+          {
+            "label": "Open but cautious",
+            "to": "solution_cta"
+          },
+          {
+            "label": "We have our own system for that",
+            "to": "objection_have_process"
+          }
+        ]
+      },
+      "discovery_questions": {
+        "label": "DISCOVERY — STOP PITCHING, ASK QUESTIONS",
+        "say": "I'm curious — what does it look like right now when a cleaner spots something during a turnover? How does that get to your team?",
+        "note": "You're warm. Stop selling and start learning. Follow-ups to weave in naturally: 'How are you prioritizing what gets fixed between guests vs. what can wait?' / 'Are you seeing stuff that sits for multiple stays before it gets caught?' / 'How are turnovers being documented photo-wise — is that going through your internal system?' Stay Duvet claims a proprietary dashboard — listen for whether it actually handles maintenance routing.",
+        "branches": [
+          {
+            "label": "Describes their process — good conversation",
+            "to": "solution_cta"
+          },
+          {
+            "label": "Mentions their proprietary system or dashboard",
+            "to": "discovery_tech_stack"
+          },
+          {
+            "label": "This is more Charlene's area / not my side",
+            "to": "referral_charlene"
+          },
+          {
+            "label": "Getting short on time",
+            "to": "solution_cta"
+          }
+        ]
+      },
+      "discovery_tech_stack": {
+        "label": "DISCOVERY — TECH STACK",
+        "say": "Oh interesting — so your team's routing work orders through that internal system? Is that where the turnover photos live too, or is that separate?",
+        "note": "Stay Duvet built a proprietary owner dashboard — possibly tied to FeatherPMS. You need to know if photo capture and issue flagging live in that system or somewhere else. This determines how RapidEye plugs in. Don't bash their tools — be genuinely curious.",
+        "branches": [
+          {
+            "label": "Photos go through their system",
+            "to": "solution_cta_tech"
+          },
+          {
+            "label": "Separate tools / fragmented process",
+            "to": "solution_cta"
+          },
+          {
+            "label": "Not sure / someone else manages that",
+            "to": "referral_ask"
+          }
+        ]
+      },
+      "solution_cta_tech": {
+        "label": "SOLUTION + CTA — TECH-AWARE",
+        "say": "Got it — so the photos are already flowing through your system. What we do is sit on top of whatever you're already using. We read those photos and flag stuff your team should look at — damage, wear and tear, missing items, anything that changed since last time. No extra app for your cleaners, no workflow change. Would you be open to taking a look at how that'd work with your setup? Not trying to sell you on the phone — just 15 minutes so you can see if it even makes sense.",
+        "note": "Acknowledge their existing system and position RapidEye as additive, not a replacement. This is critical for Stay Duvet — they built their own tools and won't rip them out. Keep the CTA low-pressure.",
+        "branches": [
+          {
+            "label": "Yeah I'd look at that",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Send me something first",
+            "to": "send_email_handle"
+          },
+          {
+            "label": "Not sure I'm the right person for this",
+            "to": "referral_ask"
+          },
+          {
+            "label": "Not interested right now",
+            "to": "objection_not_interested"
+          }
+        ]
+      },
+      "solution_cta": {
+        "label": "SOLUTION + CTA",
+        "say": "So what we built — it scans the turnover photos your cleaning team's already taking and automatically flags anything that needs maintenance attention. Damage, missing items, wear and tear, stuff that changed since last time. No extra steps for your cleaners, nothing changes in their workflow. Would you be open to taking a look when I'm not cold calling you out of the blue? Just 15 minutes.",
+        "note": "One sentence on the product then straight to CTA. Don't oversell. If he's been engaged, this should feel like a natural next step.",
+        "branches": [
+          {
+            "label": "Yeah I'd be open to that",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Send me an email",
+            "to": "send_email_handle"
+          },
+          {
+            "label": "Talk to Charlene / not my area",
+            "to": "referral_charlene"
+          },
+          {
+            "label": "Not interested",
+            "to": "objection_not_interested"
+          },
+          {
+            "label": "No budget for that",
+            "to": "objection_no_budget"
+          },
+          {
+            "label": "We already have something for this",
+            "to": "objection_have_process"
+          }
+        ]
+      },
+      "objection_not_interested": {
+        "label": "OBJECTION — NOT INTERESTED",
+        "say": "I totally get it. I should've assumed you'd be all set — otherwise you probably would've reached out to us. Just so nobody from my team cold calls you again — is it more that this just isn't a problem you're focused on right now, or is it more that you just hate getting cold calls?",
+        "note": "Agree first — surprise him by not pushing back. Then split the objection. 'Not focused on it' might mean referral opportunity. 'Hate cold calls' = the reaction is about the interruption, not the product.",
+        "branches": [
+          {
+            "label": "Hate cold calls / just busy",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "Not a problem we have / we're covered",
+            "to": "challenge_gently"
+          },
+          {
+            "label": "Not my area / someone else handles this",
+            "to": "referral_ask"
+          },
+          {
+            "label": "Hard no",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "challenge_gently": {
+        "label": "GENTLE CHALLENGE — QUALITY SIGNAL",
+        "say": "Totally fair. I only ask because — at your scale, 200-plus properties with the inspection cadence you guys run, I keep hearing from other operators that even with a solid process in place, stuff still slips through once you're past a certain unit count. Is that not something you're running into?",
+        "note": "You're not arguing — you're genuinely curious. Stay Duvet has visible BBB and Vrbo complaints about property condition issues. Don't cite those directly, but you know the pressure exists. If he opens up, go to discovery. If he holds firm, respect it.",
+        "branches": [
+          {
+            "label": "Actually yeah, we do see that",
+            "to": "discovery_questions"
+          },
+          {
+            "label": "Nah, we've got it handled",
+            "to": "graceful_exit_soft"
+          },
+          {
+            "label": "That's more Charlene's side of things",
+            "to": "referral_charlene"
+          }
+        ]
+      },
+      "objection_no_budget": {
+        "label": "OBJECTION — NO BUDGET",
+        "say": "Totally get it. Nowadays it's harder to keep a tool, let alone buy something new. Just so no one from my team bugs you about this again — is it that budget for this cycle is completely locked, or is it more that anything you try to bring in puts you through the ringer internally?",
+        "note": "Agree and split. 'Budget locked' = future opportunity, sell the test drive. 'Internal ringer' = you can help him build the case with data. Either way you're selling a meeting, not a purchase.",
+        "branches": [
+          {
+            "label": "Budget is locked / maybe later in the year",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "Approval process is painful",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "Hard no / not happening",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "objection_have_process": {
+        "label": "OBJECTION — ALREADY HAVE A PROCESS",
+        "say": "That makes total sense — with 200-plus properties and the inspection promises you guys make to homeowners, you'd have to have something in place. Just out of curiosity — is it that you're fully covered and it's working great, or is it more that switching anything right now would just be a headache?",
+        "note": "Stay Duvet claims a proprietary system plus pre/post inspections. Validate that they have something — don't dismiss it. Then split. 'Working great' = respect it. 'Switching is a headache' = position RapidEye as additive, not a replacement.",
+        "branches": [
+          {
+            "label": "It's working / we're good",
+            "to": "graceful_exit_soft"
+          },
+          {
+            "label": "It works but not perfect / we make do",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "Switching anything is the real issue",
+            "to": "sell_test_drive_no_switch"
+          }
+        ]
+      },
+      "sell_test_drive": {
+        "label": "SELL THE TEST DRIVE",
+        "say": "Totally hear you — and you're probably not buying anything from a cold call today, I respect that. But when budget does free up or you're looking to tighten things up, the people who get the most out of it are the ones who already know what's out there. If nothing else, I could walk you through what a few other PM companies in the Charleston market are doing with their turnover photos. Worst case you steal some ideas and we part as friends.",
+        "note": "You're selling a meeting, not the product. Make it zero risk. 'Steal some ideas' makes it worth his time even if he never buys.",
+        "branches": [
+          {
+            "label": "Yeah alright, I'll take a look",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Send me something first",
+            "to": "send_email_handle"
+          },
+          {
+            "label": "No thanks",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "sell_test_drive_no_switch": {
+        "label": "SELL — NO SWITCHING NEEDED",
+        "say": "That's actually the best part — we plug into whatever you're already using. Your cleaners don't change a thing, your workflow stays the same. We just read the photos that are already being captured and flag what needs attention. It's additive, not a replacement. Would you be open to a quick 15 minutes to see if it even makes sense with your current setup?",
+        "note": "This is the critical message for Stay Duvet — they built proprietary tools and will not rip them out. RapidEye sits on top. Make that crystal clear.",
+        "branches": [
+          {
+            "label": "Open to it",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Send me something",
+            "to": "send_email_handle"
+          },
+          {
+            "label": "Still not interested",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "book_meeting": {
+        "label": "BOOK THE MEETING",
+        "say": "Awesome — I've got next week pulled up. How does Tuesday or Wednesday look? I'm flexible on time.",
+        "note": "Lock it in NOW. Pick specific days. Once he gives a time, send the calendar invite while you're still on the phone. Don't keep selling after he says yes.",
+        "branches": [
+          {
+            "label": "Picks a time",
+            "to": "meeting_booked"
+          },
+          {
+            "label": "Not sure / let me check my schedule",
+            "to": "book_meeting_push"
+          }
+        ]
+      },
+      "book_meeting_push": {
+        "label": "PIN DOWN THE MEETING",
+        "say": "No rush — how about I throw something on for Wednesday afternoon and if it doesn't work you can just move it? That way it's on the calendar and we don't have to play email tag.",
+        "note": "Don't let it slip into 'I'll get back to you.' Put something tentative on the calendar now. A booked meeting that gets moved is better than no meeting at all.",
+        "branches": [
+          {
+            "label": "Agrees to tentative time",
+            "to": "meeting_booked"
+          },
+          {
+            "label": "Prefers email first",
+            "to": "send_email_handle"
+          }
+        ]
+      },
+      "meeting_booked": {
+        "label": "MEETING LOCKED",
+        "say": "Perfect — I'll send over a calendar invite right now so we're locked in. Really appreciate you taking my call, Robert. Talk soon.",
+        "note": "STOP SELLING. Send the invite immediately. Keep it warm and brief. You won.",
+        "branches": []
+      },
+      "send_email_handle": {
+        "label": "SEND ME AN EMAIL",
+        "say": "Totally fair. One quick question before I do — what would be the most relevant thing to include so it's not just another generic pitch sitting in your inbox?",
+        "note": "This one question makes your email 10x more likely to get opened and read. Whatever he says, tailor the email around it. Then suggest a specific meeting time in the email.",
+        "branches": [
+          {
+            "label": "Tells you what to include",
+            "to": "send_email_confirmed"
+          },
+          {
+            "label": "Just send whatever / doesn't care",
+            "to": "send_email_confirmed"
+          }
+        ]
+      },
+      "send_email_confirmed": {
+        "label": "EMAIL CONFIRMED",
+        "say": "Got it — I'll put something together and get it over to you today. I'll include a couple times that work on my end too in case you want to hop on a quick call after you've looked it over. Appreciate your time, Robert.",
+        "note": "Send the email within 1 hour. Reference this conversation and what he said to include. Put a specific time suggestion for a meeting. Use robert@stayduvet.com. Follow up in 2-3 days if no reply.",
+        "branches": []
+      },
+      "referral_ask": {
+        "label": "REFERRAL — WHO OWNS THIS?",
+        "say": "Totally makes sense — I don't want to waste your time if this isn't your lane. Who on your team would typically own the inspection workflow or the turnover quality side of things? Like who's the person deciding if a property's guest-ready after a clean?",
+        "note": "You're looking for Charlene Lambert (GM/Home Care) or Anne O'Donnell (Head of Guest Experience). If he gives a name, ask for an intro or at least a direct line. 'If I can get a name, I'll put something tailored together so it actually lands with them.'",
+        "branches": [
+          {
+            "label": "Mentions Charlene Lambert",
+            "to": "referral_charlene"
+          },
+          {
+            "label": "Gives another name",
+            "to": "referral_received"
+          },
+          {
+            "label": "Won't give a name / doesn't know",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "referral_charlene": {
+        "label": "REFERRAL — CHARLENE LAMBERT",
+        "say": "Charlene — got it. She's the GM over Home Care, right? Yeah that makes a ton of sense, she'd be the one living this every day. Would you be cool if I reached out to her and mentioned you pointed me her way? Or even better — any chance you could shoot her a quick heads up so I'm not totally cold calling her too?",
+        "note": "Charlene Lambert is GM/Home Care — she's the number one target for inspection workflow ownership at Stay Duvet. Getting Robert's warm intro is a huge win. They share a last name so they may be related — even better for a warm handoff. Don't ask about the relationship, just use the natural dynamic.",
+        "branches": [
+          {
+            "label": "Yeah I'll give her a heads up",
+            "to": "referral_received"
+          },
+          {
+            "label": "Just reach out to her directly",
+            "to": "referral_received"
+          },
+          {
+            "label": "Not sure / hesitant",
+            "to": "referral_received"
+          }
+        ]
+      },
+      "referral_received": {
+        "label": "REFERRAL LOCKED",
+        "say": "That's super helpful — really appreciate it, Robert. I'll put something together specifically for them so it's actually relevant. And hey, if anything ever comes up on the maintenance side where this makes sense for you directly, I'm always easy to find. Thanks again.",
+        "note": "Write down the name, title, and any contact info immediately. Send a tailored outreach to the referral within the hour mentioning Robert. Send Robert a brief thank-you note too — keep that door open.",
+        "branches": []
+      },
+      "graceful_exit_soft": {
+        "label": "SOFT EXIT — DOOR OPEN",
+        "say": "Totally respect that. Hey — if anything changes down the road, or you ever hit a stretch where stuff starts slipping through faster than your team can catch it, I'm easy to find. Appreciate your time, Robert.",
+        "note": "Don't burn this bridge. Stay Duvet is a high-value account. You can still come in through Charlene, Anne O'Donnell, Seth Reeves, or Michael Gates.",
+        "branches": []
+      },
+      "graceful_exit": {
+        "label": "GRACEFUL EXIT",
+        "say": "Totally understand. If anything changes, I'm easy to find. Appreciate your time, Robert.",
+        "note": "Keep it short and warm. No guilt trip, no last-second pitch. You'll follow up through other contacts at Stay Duvet — Charlene Lambert, Anne O'Donnell, Michael Gates.",
+        "branches": []
+      }
+    }
+  }
+}

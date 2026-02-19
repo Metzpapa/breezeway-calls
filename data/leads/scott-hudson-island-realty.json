@@ -1,0 +1,667 @@
+{
+  "name": "Scott Hudson",
+  "title": "Maintenance Department Manager",
+  "company": "Island Realty",
+  "location": "Charleston, SC",
+  "phone": "+1-843-242-1516",
+  "company_phone": "800-707-6421",
+  "alt_phones": [
+    "+1-843-886-8144",
+    "+1-844-347-5483",
+    "+1-843-242-1083"
+  ],
+  "flow": {
+    "context": "Scott Hudson is the Maintenance Department Manager at Island Realty — he runs 'Isle Fix It,' their in-house maintenance team covering 300+ vacation rentals across Isle of Palms, Wild Dunes, and Sullivan's Island. He owns the maintenance queue and dispatch, so every damage issue missed during a turnover lands on his team as an emergency guest call or reactive repair. Island Realty runs Escapia (PMS), NAVIS (reservations), Key Data (benchmarking), and YapStone (payments), but has no confirmed inspection or photo-analysis platform — meaning there's likely a gap between housekeeping turnovers and maintenance awareness. Peak season is approaching fast, and they just ran shoulder-season promos (15–25% off through May) to fill occupancy, which means turn volume is about to spike. Best angle: lead with working with other coastal PM maintenance teams in the Charleston market — Sam surfs and fishes barrier-island coastline, so the connection to Isle of Palms is natural but don't force it.",
+    "start": "opener",
+    "nodes": {
+      "opener": {
+        "label": "OPENER",
+        "say": "Hey Scott — I've been talking with a couple other property managers out on the barrier islands near you. It's Sam Parks with RapidEye. Have you heard my name tossed around at all?",
+        "note": "Relaxed tone. Feet up on the desk. You're not pitching — you're checking if he's heard of you. Pause after the question and let him respond.",
+        "branches": [
+          {
+            "label": "He says yes or asks 'what about?'",
+            "to": "heard_yes"
+          },
+          {
+            "label": "He says no / 'No, what's this about?'",
+            "to": "heard_no"
+          },
+          {
+            "label": "Bad timing / busy / 'I'm in the middle of something'",
+            "to": "bad_timing"
+          },
+          {
+            "label": "Someone else answers the phone",
+            "to": "gatekeeper"
+          }
+        ]
+      },
+      "heard_yes": {
+        "label": "THEY'VE HEARD OF YOU",
+        "say": "Oh nice — yeah, normally we'd be working with someone in your shoes. What'd you hear?",
+        "note": "Don't pitch. Let him talk. Whatever he says, bridge to the pain trigger or straight to discovery.",
+        "branches": [
+          {
+            "label": "He shares what he heard / describes it",
+            "to": "pain_warm"
+          },
+          {
+            "label": "Vague / 'not sure, what do you guys do?'",
+            "to": "pain_trigger"
+          }
+        ]
+      },
+      "heard_no": {
+        "label": "HAVEN'T HEARD OF YOU",
+        "say": "Ha — well I guess I'm not as popular as I thought. Hey, the reason I'm calling — I've been working with a few other maintenance teams at vacation rental companies on the coast, and your name kept coming up as the guy running the show over at Island Realty. You got a sec?",
+        "note": "Self-deprecating, then straight into relevance. 'Your name kept coming up' gives him status without sounding fake.",
+        "branches": [
+          {
+            "label": "Sure / 'yeah, what's up'",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "Not really / busy right now",
+            "to": "bad_timing"
+          },
+          {
+            "label": "'What are you selling?'",
+            "to": "permission_fallback"
+          }
+        ]
+      },
+      "bad_timing": {
+        "label": "BAD TIMING",
+        "say": "Totally hear you — would it be a terrible idea if I tried you again tomorrow, maybe first thing before the work orders start rolling in?",
+        "note": "Don't over-apologize. Suggest a specific time. Mornings work for maintenance managers — afternoons are all reactive chaos.",
+        "branches": [
+          {
+            "label": "Sure, try me tomorrow / gives a time",
+            "to": "bad_timing_reschedule"
+          },
+          {
+            "label": "'Just tell me what it's about now'",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "No, don't call back",
+            "to": "ending_graceful"
+          }
+        ]
+      },
+      "bad_timing_reschedule": {
+        "label": "LOCK IN CALLBACK",
+        "say": "Perfect — I'll ring you at that time. It's Sam Parks, RapidEye. Appreciate it, Scott.",
+        "note": "Repeat the time back to confirm. Calendar it immediately. This is a warm callback now — treat it differently next time.",
+        "branches": []
+      },
+      "gatekeeper": {
+        "label": "GATEKEEPER ANSWERED",
+        "say": "Hey — could you get me over to Scott? It's Sam.",
+        "note": "Casual. First name only for both of you. Don't explain what you do. Don't say the company name yet. Pause and wait.",
+        "branches": [
+          {
+            "label": "They put you through to Scott",
+            "to": "opener"
+          },
+          {
+            "label": "'Who's calling?' / 'What's this about?'",
+            "to": "gatekeeper_context"
+          },
+          {
+            "label": "'He's not available right now'",
+            "to": "gatekeeper_social_proof"
+          }
+        ]
+      },
+      "gatekeeper_context": {
+        "label": "GATEKEEPER WANTS CONTEXT",
+        "say": "Yeah — I work with a few other property managers out on Isle of Palms. Would you mind letting him know it's Sam Parks?",
+        "note": "Dose info slowly. Don't pitch. Don't say 'we sell' or 'we offer.' Just ask them to relay your name.",
+        "branches": [
+          {
+            "label": "They put you through",
+            "to": "opener"
+          },
+          {
+            "label": "They push back / 'What company?'",
+            "to": "gatekeeper_social_proof"
+          },
+          {
+            "label": "'He's not available / send an email'",
+            "to": "gatekeeper_email_fallback"
+          }
+        ]
+      },
+      "gatekeeper_social_proof": {
+        "label": "GATEKEEPER — SOCIAL PROOF",
+        "say": "Totally understand. We help a couple property management companies with their maintenance and inspection workflows — I actually sent Scott a note about it. Would you mind giving him a heads up that Sam Parks called?",
+        "note": "Claim you sent a note. Leave your name clearly. Even if he never calls back, you've planted the seed for next touch.",
+        "branches": [
+          {
+            "label": "They agree to pass the message",
+            "to": "ending_graceful"
+          },
+          {
+            "label": "They put you through",
+            "to": "opener"
+          }
+        ]
+      },
+      "gatekeeper_email_fallback": {
+        "label": "GATEKEEPER — GET THE EMAIL",
+        "say": "No problem at all. I'll shoot something over to him — is shudson at islandrealty dot com still the best one for him? And who am I speaking with, just so I can mention you gave me the heads up?",
+        "note": "Confirm the email address. Get the gatekeeper's name — reference them in your email to Scott to add legitimacy.",
+        "branches": []
+      },
+      "permission_fallback": {
+        "label": "PERMISSION ASK",
+        "say": "Yeah, totally — I mean, it is a cold call. Full transparency. Can I get 30 seconds to tell you why I called, and if it's not relevant you can absolutely hang up on me?",
+        "note": "Acknowledge it head-on. The honesty disarms. 30 seconds is a small ask — most people will grant it.",
+        "branches": [
+          {
+            "label": "Fine / 'you got 30 seconds'",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "No / not interested / I'm good",
+            "to": "permission_rejected"
+          }
+        ]
+      },
+      "permission_rejected": {
+        "label": "PERMISSION DENIED",
+        "say": "Shoot, that's totally my bad for the cold call. Just so nobody from my team bugs you again — is it that I caught you at a terrible time, or is it that you already know about us and this just isn't on your radar?",
+        "note": "Give him two doors. One keeps the conversation alive, the other lets him go cleanly. Either answer gives you useful info.",
+        "branches": [
+          {
+            "label": "Bad timing / caught me at a bad time",
+            "to": "bad_timing"
+          },
+          {
+            "label": "Not interested / not on my radar",
+            "to": "permission_rejected_split"
+          },
+          {
+            "label": "'Who are you again?' / curious",
+            "to": "pain_trigger"
+          }
+        ]
+      },
+      "permission_rejected_split": {
+        "label": "SPLIT THE REJECTION",
+        "say": "Makes total sense. Is it more that the maintenance and inspection side is pretty locked down and you don't need anything new, or is it just that cold calls are the worst way to hear about it?",
+        "note": "If it's about the format, pivot to email. If it's about the topic, learn why they feel covered — that's intel either way.",
+        "branches": [
+          {
+            "label": "We're locked down / have a system",
+            "to": "objection_have_process"
+          },
+          {
+            "label": "Just hate cold calls / send me something",
+            "to": "objection_send_email"
+          },
+          {
+            "label": "'Actually, what do you guys do?'",
+            "to": "pain_trigger"
+          }
+        ]
+      },
+      "pain_trigger": {
+        "label": "PAIN TRIGGER",
+        "say": "So I was talking to a maintenance manager at another beach rental company — not too different from your setup, about 300 units, in-house maintenance crew. He was telling me his team was running fire drills every Monday in peak season. Cleaners would turn a unit, mark it guest-ready, and then the next guest checks in and calls about a cracked toilet seat, a screen door off its track, a dishwasher that won't drain — stuff that was sitting right there during the turnover but nobody flagged it. So his techs are getting pulled off scheduled work for emergency dispatches that could've been a calm Tuesday repair if someone had just caught it three days earlier. And the part that really got him — when they tried to charge damage back to the outgoing guest, they had zero photos proving when it happened. Does any of that ring a bell?",
+        "note": "PAUSE after 'ring a bell.' Let the silence sit. He either relates or he doesn't. Do NOT fill the gap. This is where the call turns.",
+        "branches": [
+          {
+            "label": "Yeah, that's exactly what happens / laughs / 'tell me about it'",
+            "to": "pain_warm"
+          },
+          {
+            "label": "Somewhat / 'we deal with some of that'",
+            "to": "pain_neutral"
+          },
+          {
+            "label": "Not really / we've got that handled",
+            "to": "objection_have_process"
+          },
+          {
+            "label": "'Who did you say you're with?' / wants the pitch",
+            "to": "solution_sentence"
+          },
+          {
+            "label": "I'm not really the right person for this",
+            "to": "not_decision_maker"
+          }
+        ]
+      },
+      "pain_warm": {
+        "label": "THEY FEEL THE PAIN",
+        "say": "Yeah — I figured, with 300-plus properties turning over on the islands, especially heading into summer — that's a lot of turns where stuff can slip through. What does it look like right now when your cleaners find something? Do they flag it to your team directly, or is it more like you hear about it when the guest calls?",
+        "note": "He's engaged. STOP pitching. Ask questions. Learn his workflow. The more he talks, the more invested he gets.",
+        "branches": [
+          {
+            "label": "He describes the process — cleaners text, call, or enter work orders",
+            "to": "discovery_questions"
+          },
+          {
+            "label": "It's a mess / no real system for flagging",
+            "to": "discovery_questions"
+          },
+          {
+            "label": "'That's more Alex Lane's side on housekeeping'",
+            "to": "not_decision_maker"
+          }
+        ]
+      },
+      "pain_neutral": {
+        "label": "NEUTRAL — LUKEWARM RESPONSE",
+        "say": "Yeah — and the tricky part is, with your in-house team running Isle Fix It, I'm guessing your guys are the ones absorbing the hit when something slips through a turn, right? Like the cleaners do their thing, but it's your crew getting the emergency call at 8 PM on a Friday when the guest finds something.",
+        "note": "Use the 'Isle Fix It' name — shows you know their operation. Make it about HIS team's pain specifically. If he's surprised you know the brand name, lean into it.",
+        "branches": [
+          {
+            "label": "Yeah, that's fair / that does happen",
+            "to": "discovery_questions"
+          },
+          {
+            "label": "It's not that bad / we manage it fine",
+            "to": "solution_sentence"
+          },
+          {
+            "label": "'How do you know about Isle Fix It?'",
+            "to": "rapport_bridge"
+          }
+        ]
+      },
+      "rapport_bridge": {
+        "label": "RAPPORT — THEY NOTICED YOUR HOMEWORK",
+        "say": "Ha — yeah, I've been doing my homework. I work with a bunch of property managers that have in-house maintenance and housekeeping teams, and honestly the ones with in-house crews are the ones where this fits best. You guys aren't farming stuff out to random vendors — your team is the one on the ground every day. That's a real advantage.",
+        "note": "Compliment the in-house model genuinely. It differentiates them from competitors and shows you understand their structure.",
+        "branches": [
+          {
+            "label": "He opens up / tells you more about the operation",
+            "to": "discovery_questions"
+          },
+          {
+            "label": "'So what exactly are you selling?'",
+            "to": "solution_sentence"
+          }
+        ]
+      },
+      "discovery_questions": {
+        "label": "DISCOVERY — DIG INTO THE WORKFLOW",
+        "say": "That makes sense. So when a property gets turned and there's an issue — stain on the couch, dent in the wall, whatever — is there any photo documentation happening during the clean right now, or is it more word-of-mouth from the cleaner to your team?",
+        "note": "You're trying to learn: do cleaners take photos? Is there an inspection layer? Where's the gap between cleaning and maintenance awareness? Listen more than you talk.",
+        "branches": [
+          {
+            "label": "Cleaners take some photos / use Escapia for work orders",
+            "to": "discovery_deep"
+          },
+          {
+            "label": "Not really / it's pretty informal",
+            "to": "discovery_deep"
+          },
+          {
+            "label": "'We're actually looking at something for that'",
+            "to": "seasonal_pressure"
+          },
+          {
+            "label": "'What are you getting at?'",
+            "to": "solution_sentence"
+          }
+        ]
+      },
+      "discovery_deep": {
+        "label": "DISCOVERY — GO DEEPER",
+        "say": "Got it. And with summer coming up — I know Isle of Palms gets absolutely slammed — does the volume of turnovers make it harder to keep the quality consistent? Like, does your team see more stuff getting missed in June through August versus the shoulder months?",
+        "note": "Tie it to seasonality. They just ran spring promos to fill occupancy, so turn volume is about to ramp hard. Peak season = peak pain for maintenance.",
+        "branches": [
+          {
+            "label": "Yeah, peak season is a different animal",
+            "to": "seasonal_pressure"
+          },
+          {
+            "label": "We handle it / we staff up",
+            "to": "solution_sentence"
+          },
+          {
+            "label": "That's more of a Collins or Alex question",
+            "to": "not_decision_maker"
+          }
+        ]
+      },
+      "seasonal_pressure": {
+        "label": "SEASONAL TIMING HOOK",
+        "say": "That's exactly what I keep hearing from folks heading into summer. Turn volume doubles, the team's stretched thin, and that's when stuff slips through — and that's also when guest reviews matter the most. A couple of the companies I work with wanted to get something in place before peak season hit rather than trying to figure it out in the middle of July when everything's on fire.",
+        "note": "Create urgency without being pushy. Let the seasonal pressure do the selling. If he agrees, go to the solution. Don't linger here.",
+        "branches": [
+          {
+            "label": "'What exactly do you guys do?'",
+            "to": "solution_sentence"
+          },
+          {
+            "label": "That makes sense / nods along",
+            "to": "solution_sentence"
+          },
+          {
+            "label": "We'd need to talk to Collins or Alex Stone about something like that",
+            "to": "not_decision_maker"
+          }
+        ]
+      },
+      "solution_sentence": {
+        "label": "ONE-SENTENCE SOLUTION",
+        "say": "So what we built — it's pretty simple. RapidEye plugs into the photos your team is already taking during turnovers and uses AI to automatically flag damage, missing items, staging issues — stuff that a human eye skips when you're reviewing 50 sets of photos in a day. It basically turns those photos into an inspection report without changing anyone's workflow. I know you guys are on Escapia — we integrate with that world.",
+        "note": "One breath. Don't over-explain. Mention Escapia casually to show you know their stack. Then immediately move to the CTA — don't sit here pitching features.",
+        "branches": [
+          {
+            "label": "That's interesting / 'tell me more'",
+            "to": "cta_meeting"
+          },
+          {
+            "label": "We don't really take photos during turns right now",
+            "to": "no_photos_pivot"
+          },
+          {
+            "label": "'What does it cost?'",
+            "to": "cta_meeting"
+          },
+          {
+            "label": "I'd need to talk to someone else about this",
+            "to": "not_decision_maker"
+          },
+          {
+            "label": "We're not looking for anything right now",
+            "to": "objection_not_interested"
+          }
+        ]
+      },
+      "no_photos_pivot": {
+        "label": "NO PHOTOS CURRENTLY",
+        "say": "That's actually super common — a lot of the teams I work with weren't taking photos consistently before either. One of the things we walk through is how other maintenance teams set that up so it's not a burden — literally a 60-second phone walkthrough and the AI handles the rest. It actually ends up saving time because you've got documentation for damage claims and you catch stuff before the guest ever has to call.",
+        "note": "Don't make him feel behind. Normalize it. The video walkthrough workflow is the alternative path here — quick phone video, no app needed.",
+        "branches": [
+          {
+            "label": "That could be useful / 'we've been wanting to do that'",
+            "to": "cta_meeting"
+          },
+          {
+            "label": "I don't think we have bandwidth to add something new",
+            "to": "objection_not_interested"
+          },
+          {
+            "label": "Would need to run that by someone above me",
+            "to": "not_decision_maker"
+          }
+        ]
+      },
+      "cta_meeting": {
+        "label": "ASK FOR THE MEETING",
+        "say": "Would you be open to taking a quick look when I'm not cold calling you out of the blue? I can show you what a couple other coastal PM companies are doing with their turnover photos — worst case you steal some ideas and we part as friends.",
+        "note": "Low pressure. 'Worst case you steal some ideas' makes the meeting valuable even if he never buys. Pause and wait for the answer.",
+        "branches": [
+          {
+            "label": "Sure / 'yeah, let's do it'",
+            "to": "booking_meeting"
+          },
+          {
+            "label": "I'm pretty busy / not right now",
+            "to": "objection_no_budget"
+          },
+          {
+            "label": "Send me something first",
+            "to": "objection_send_email"
+          },
+          {
+            "label": "I don't handle the tech decisions",
+            "to": "not_decision_maker"
+          },
+          {
+            "label": "I'm not really interested",
+            "to": "objection_not_interested"
+          }
+        ]
+      },
+      "booking_meeting": {
+        "label": "BOOK IT NOW",
+        "say": "Awesome. I've got next week pulled up — would Tuesday or Wednesday work better for you? I can do morning before your guys head out.",
+        "note": "Give two options. Mornings are better for maintenance managers — by 10 AM they're in reactive mode. Lock the day first, then the time. Send the invite while still on the phone.",
+        "branches": [
+          {
+            "label": "Picks a day/time",
+            "to": "meeting_booked"
+          },
+          {
+            "label": "'Let me check my calendar and get back to you'",
+            "to": "pin_down_meeting"
+          },
+          {
+            "label": "'Can we do it in a couple weeks?'",
+            "to": "meeting_booked"
+          }
+        ]
+      },
+      "pin_down_meeting": {
+        "label": "PIN IT DOWN",
+        "say": "Totally — how about I throw something on the calendar for next Wednesday at 9 AM, and if it doesn't work we can always move it? That way it's locked in and I'm not chasing you down.",
+        "note": "Anchor to a specific time. It's much easier to move a meeting than to schedule one from scratch. If he agrees, treat it as booked.",
+        "branches": [
+          {
+            "label": "That works / fine",
+            "to": "meeting_booked"
+          },
+          {
+            "label": "'Just email me and I'll confirm'",
+            "to": "objection_send_email"
+          }
+        ]
+      },
+      "meeting_booked": {
+        "label": "MEETING CONFIRMED",
+        "say": "Perfect — I'll send over a calendar invite right now so it's locked in. It'll be a quick 20 minutes, super casual. Really appreciate you taking my call, Scott. Talk soon.",
+        "note": "Send the invite IMMEDIATELY after hanging up. Stop selling. Keep it short. Get off the phone before anything changes.",
+        "branches": []
+      },
+      "objection_no_budget": {
+        "label": "OBJECTION — NO BUDGET / NO TIME",
+        "say": "Totally get it — heading into summer I'm sure the whole team's stretched. Honestly I wouldn't expect you to buy anything off a cold call. Would it make sense to just take a look so it's on your radar? That way if it ever does come up — or if you're putting together a case for tools heading into next budget cycle — you've already seen it.",
+        "note": "Reframe the meeting as low-stakes recon, not a buying decision. Remove the purchase pressure entirely.",
+        "branches": [
+          {
+            "label": "Fine, let's do a quick call",
+            "to": "booking_meeting"
+          },
+          {
+            "label": "Not right now / maybe later",
+            "to": "budget_split"
+          },
+          {
+            "label": "Send me info",
+            "to": "objection_send_email"
+          }
+        ]
+      },
+      "budget_split": {
+        "label": "SPLIT THE BUDGET OBJECTION",
+        "say": "No worries at all. Just so I'm not bugging you — is it that there's genuinely no room for anything new this year, or is it more that getting approval for a new tool is a process over there?",
+        "note": "You're learning whether it's a real constraint or an approval-chain issue. If it goes through Collins or Alex Stone, that's your referral path.",
+        "branches": [
+          {
+            "label": "Budget is tight / nothing new this year",
+            "to": "test_drive"
+          },
+          {
+            "label": "Would need to go through Collins / Alex / leadership",
+            "to": "not_decision_maker"
+          },
+          {
+            "label": "Just not the right time",
+            "to": "test_drive"
+          }
+        ]
+      },
+      "objection_not_interested": {
+        "label": "OBJECTION — NOT INTERESTED",
+        "say": "Totally get that — I probably should've assumed you'd have things dialed in. With 300-plus units and an in-house crew, you'd have to. Just so nobody from my team follows up on this — is it that inspections and damage tracking aren't really a pain point for your team, or is it more that you just hate getting cold called about it?",
+        "note": "Agree first — surprise him by not pushing back. Then split. If inspections aren't a pain, find out why. If it's the cold call, offer email instead.",
+        "branches": [
+          {
+            "label": "Inspections aren't really my area / not my problem",
+            "to": "not_decision_maker"
+          },
+          {
+            "label": "I just don't like cold calls / bad format",
+            "to": "objection_send_email"
+          },
+          {
+            "label": "We've already got something for that",
+            "to": "objection_have_process"
+          },
+          {
+            "label": "Actually… it is a pain / opens up",
+            "to": "pain_warm"
+          }
+        ]
+      },
+      "objection_have_process": {
+        "label": "OBJECTION — ALREADY HAVE A PROCESS",
+        "say": "That makes total sense — with a portfolio your size you'd have to have something in place. Out of curiosity, is it working well for you, or is it one of those things where it technically works but there's still stuff slipping through?",
+        "note": "Don't fight the process. Don't trash their current tool. Just ask honestly if it's working. Most people will admit gaps if you give them a safe opening.",
+        "branches": [
+          {
+            "label": "It works fine / we're happy",
+            "to": "test_drive"
+          },
+          {
+            "label": "It's not perfect / stuff still slips through",
+            "to": "solution_sentence"
+          },
+          {
+            "label": "We just use internal checklists / nothing fancy",
+            "to": "solution_sentence"
+          }
+        ]
+      },
+      "test_drive": {
+        "label": "SELL THE TEST DRIVE",
+        "say": "I hear you. Look — I know you're not buying anything off a random phone call, and I respect that. But when the time does come — whether it's before peak season or next year — the folks who already know what's out there are the ones who move fast. Would you be open to a 15-minute look? I can show you what a few other beach rental companies are doing with their turnovers. No pitch — just sharing what's working for them.",
+        "note": "Future-frame it. Remove all buying pressure. The meeting is positioned as intelligence gathering, not a sales demo.",
+        "branches": [
+          {
+            "label": "Fine, let's do it",
+            "to": "booking_meeting"
+          },
+          {
+            "label": "Send me something first",
+            "to": "objection_send_email"
+          },
+          {
+            "label": "No, I'm good",
+            "to": "ending_graceful"
+          }
+        ]
+      },
+      "objection_send_email": {
+        "label": "'SEND ME AN EMAIL'",
+        "say": "Totally fair — I'll send something over. One quick question so I don't just send you a generic pitch deck — what would actually be useful to see? Like, would you want to see how the photo analysis works, or more about what other maintenance teams are doing to cut down on emergency calls between guests?",
+        "note": "Accept the email request, then ask ONE question to tailor the content. Whatever he says, build the email around it. Always include a specific meeting time in the email.",
+        "branches": [
+          {
+            "label": "He answers with a preference",
+            "to": "email_followup"
+          },
+          {
+            "label": "'Just send me whatever / the overview'",
+            "to": "email_followup"
+          }
+        ]
+      },
+      "email_followup": {
+        "label": "CONFIRM EMAIL & WRAP",
+        "say": "Done — I'll get that over to shudson at islandrealty dot com today. I'll toss in a couple time options in case you want to hop on a quick call after you've looked at it. Appreciate your time, Scott.",
+        "note": "Confirm the email address. Send within an hour while you're top of mind. Include 2 specific meeting time options in the email. Follow up in 2-3 days if no reply.",
+        "branches": []
+      },
+      "not_decision_maker": {
+        "label": "NOT THE RIGHT PERSON",
+        "say": "That totally makes sense — I appreciate you being straight with me. Who on your team would typically own a decision like this? Would that be Collins Atkinson on the property management side, or does something like this go through Alex Stone or Eric?",
+        "note": "Drop names you already know from research. It shows homework and makes it easier for him to confirm or redirect. If he gives a name, push for an intro.",
+        "branches": [
+          {
+            "label": "'Yeah, talk to Collins'",
+            "to": "referral_ask_collins"
+          },
+          {
+            "label": "'That would be Alex or Eric'",
+            "to": "referral_ask_executive"
+          },
+          {
+            "label": "Not sure / 'just email the office'",
+            "to": "referral_generic"
+          }
+        ]
+      },
+      "referral_ask_collins": {
+        "label": "REFERRAL — COLLINS ATKINSON",
+        "say": "Perfect — would you be open to shooting Collins a quick text or email letting him know I'll be reaching out? Just so it doesn't land totally cold. If I can say 'Scott mentioned I should talk to you,' that goes a long way versus me just calling him out of the blue.",
+        "note": "A warm intro from Scott is 10x more effective than another cold call. Even a heads-up text changes Collins's receptiveness completely.",
+        "branches": [
+          {
+            "label": "Sure, I can do that",
+            "to": "referral_got_name"
+          },
+          {
+            "label": "Just call him directly / here's his number",
+            "to": "referral_got_name"
+          },
+          {
+            "label": "I'd rather not get involved",
+            "to": "referral_got_name"
+          }
+        ]
+      },
+      "referral_ask_executive": {
+        "label": "REFERRAL — ALEX STONE / ERIC STONE",
+        "say": "Got it — that's really helpful. Would you mind if I mention your name when I reach out to them? And is there anything I should know about how they think about stuff like this — like, is it more of a 'show me the cost savings' conversation or a 'protect the guest experience and reviews' conversation?",
+        "note": "Learn the executive's buying lens — cost savings, quality, liability, owner retention. Tailor your outreach to Collins or the Stones based on what Scott tells you.",
+        "branches": [
+          {
+            "label": "He gives insight on how leadership thinks",
+            "to": "referral_got_name"
+          },
+          {
+            "label": "'Just call them' / no additional context",
+            "to": "referral_got_name"
+          }
+        ]
+      },
+      "referral_generic": {
+        "label": "REFERRAL — DIG FOR A NAME",
+        "say": "No problem. Would Collins Atkinson be the right person on the property management side, or is there someone else who handles the operations and tech decisions? I just want to make sure I'm not wasting anyone's time — yours included.",
+        "note": "Try one more time to get a specific name. If he confirms Collins, you have your next call. If not, accept it and exit cleanly.",
+        "branches": [
+          {
+            "label": "Gives a name / confirms Collins",
+            "to": "referral_got_name"
+          },
+          {
+            "label": "'I really don't know' / won't help further",
+            "to": "ending_graceful"
+          }
+        ]
+      },
+      "referral_got_name": {
+        "label": "GOT THE REFERRAL — WRAP UP",
+        "say": "Really appreciate that, Scott. I'll put something together specifically for them so it actually lands and it's not just a generic email. And hey — if you ever want to see what we're doing on the maintenance side, you know where to find me. Thanks for your time, man.",
+        "note": "Thank him genuinely. He just gave you a warm path into Collins or leadership. Send the referral outreach within 24 hours while Scott's name is still fresh in everyone's mind.",
+        "branches": []
+      },
+      "ending_graceful": {
+        "label": "GRACEFUL EXIT",
+        "say": "Totally understand, Scott. If anything changes or you guys ever want to take a look, I'm easy to find. Appreciate you giving me a minute — enjoy the rest of your day.",
+        "note": "Don't burn the bridge. Be genuinely kind. Log the call notes. You might circle back in 3-6 months or come in through Collins or the Stones instead.",
+        "branches": []
+      }
+    }
+  }
+}

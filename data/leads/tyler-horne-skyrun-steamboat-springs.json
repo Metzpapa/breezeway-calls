@@ -1,0 +1,549 @@
+{
+  "name": "Tyler Horne",
+  "title": "Operations (SkyRun Steamboat)",
+  "company": "SkyRun (Steamboat Springs)",
+  "location": "Steamboat Springs, CO",
+  "phone": "+1 (970) 315-0209",
+  "company_phone": "(970) 315-0209",
+  "alt_phones": [
+    "+1 (970) 761-0573"
+  ],
+  "flow": {
+    "context": "Tyler Horne is the operations person at SkyRun Steamboat Springs — one of roughly two full-time staff managing about 36 vacation rentals in a premier Colorado ski market. He's listed alongside owner Megan Gutschenritter as a primary contact on property management directories, meaning he's likely the one executing turnovers, pre-arrival inspections, and guest support on a daily basis. SkyRun is a franchise network in the middle of a major tech-stack overhaul — Track PMS, PriceLabs, RemoteLock — but Steamboat has no confirmed inspection or photo-review tool. They explicitly promise pre-arrival inspections and professional cleaning every turnover to both owners and guests, and Tyler's tiny team has to actually deliver on that during peak ski season. Strongest hook: Sam skied Jackson Hole last month and works with other PMs in mountain resort markets.",
+    "start": "gatekeeper",
+    "nodes": {
+      "gatekeeper": {
+        "label": "GATEKEEPER OR DIRECT ANSWER",
+        "say": "Hey, could you get me through to Tyler? It's Sam.",
+        "note": "Calling the main SkyRun Steamboat line (970-315-0209). With only 2 FTEs, Tyler or Megan may answer directly. If Tyler picks up, skip straight to opener. If someone else answers, stay casual — do not pitch.",
+        "branches": [
+          {
+            "label": "Tyler answers directly",
+            "to": "opener"
+          },
+          {
+            "label": "Someone else answers or asks who's calling",
+            "to": "gatekeeper_context"
+          }
+        ]
+      },
+      "gatekeeper_context": {
+        "label": "GATEKEEPER — WHO IS CALLING",
+        "say": "Yeah, I work with a few property managers in the Steamboat area. Would you mind letting Tyler know it's Sam Parks?",
+        "note": "No pitch. Just enough to sound legitimate. If it's Megan who answered, that's fine — she's the owner and a valid contact. Pivot to the opener with her name instead.",
+        "branches": [
+          {
+            "label": "They transfer to Tyler",
+            "to": "opener"
+          },
+          {
+            "label": "Push back or want more info",
+            "to": "gatekeeper_social_proof"
+          },
+          {
+            "label": "It's Megan — she asks what it's about",
+            "to": "opener"
+          }
+        ]
+      },
+      "gatekeeper_social_proof": {
+        "label": "GATEKEEPER — SOCIAL PROOF",
+        "say": "Totally understand. We help a couple other vacation rental companies with their turnover and inspection workflows — I sent Tyler a note about it. Would you mind just giving him a heads up that Sam Parks called?",
+        "note": "If fully blocked, don't fight it. Ask when Tyler is usually in and what time is best to try back. Log every detail.",
+        "branches": [
+          {
+            "label": "They transfer or agree to pass the message",
+            "to": "opener"
+          },
+          {
+            "label": "Fully blocked — won't transfer or take a message",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "opener": {
+        "label": "OPENER",
+        "say": "Hey Tyler — I work with a few property managers out in ski country, and I'm a big skier myself actually — was just out in Jackson Hole last month. It's Sam Parks with RapidEye. Have you heard my name tossed around at all?",
+        "note": "Feet up on the desk. Don't rush. The ski connection is real — Sam was at Jackson Hole in January 2026. Steamboat is Tyler's world. Let the ski mention land naturally before asking the question. If Megan answered instead, swap the name but keep the same energy.",
+        "branches": [
+          {
+            "label": "No — hasn't heard of you",
+            "to": "no_heard"
+          },
+          {
+            "label": "Yeah actually — or maybe",
+            "to": "yes_heard"
+          },
+          {
+            "label": "Not a good time or I'm slammed right now",
+            "to": "bad_timing"
+          }
+        ]
+      },
+      "no_heard": {
+        "label": "HAVEN'T HEARD OF ME",
+        "say": "Ha — I guess I'm not as popular as I thought. Well the reason for my call —",
+        "note": "Quick self-deprecating beat. Don't dwell. Transition straight into the pain trigger.",
+        "branches": [
+          {
+            "label": "Continue to pain trigger",
+            "to": "pain_trigger"
+          }
+        ]
+      },
+      "yes_heard": {
+        "label": "THEY'VE HEARD OF ME",
+        "say": "Oh nice — good things I hope. Well normally we'd be working with someone in your shoes, honestly. What did you hear?",
+        "note": "Rare but possible — maybe someone at SkyRun HQ or another franchise location mentioned RapidEye, or Tyler saw an email. Let him talk. Don't correct anything, just flow into discovery.",
+        "branches": [
+          {
+            "label": "Shares what they heard — engaged",
+            "to": "discovery_warm"
+          },
+          {
+            "label": "Vague or confused — doesn't really know",
+            "to": "no_heard"
+          }
+        ]
+      },
+      "bad_timing": {
+        "label": "BAD TIMING",
+        "say": "Totally hear you — would it be a terrible idea if I tried you again Thursday or Friday afternoon?",
+        "note": "He's probably mid-turnover or dealing with a guest issue. Peak ski season in Steamboat is chaos. Respect it. Propose a specific day, not a vague 'sometime later.'",
+        "branches": [
+          {
+            "label": "Sure, try me then",
+            "to": "reschedule_confirm"
+          },
+          {
+            "label": "No or pushes back harder",
+            "to": "split_rejection"
+          }
+        ]
+      },
+      "reschedule_confirm": {
+        "label": "CALLBACK LOCKED",
+        "say": "Sounds good — I'll try you Thursday afternoon. Appreciate it, Tyler.",
+        "note": "Log the callback day and time in CRM immediately. Set a reminder. When you call back, open with: 'Hey Tyler, it's Sam Parks — you told me to try you Thursday. Got a couple minutes?'",
+        "branches": []
+      },
+      "pain_trigger": {
+        "label": "PAIN TRIGGER",
+        "say": "So I work with another ops manager at a ski-market rental company pretty similar to yours — small team, thirty-something units, promising pre-arrival inspections to every guest and owner. And what he told me is his cleaners are snapping photos every turnover, and he's supposed to be reviewing them all, but right now in peak season with back-to-back turns he's maybe actually looking at ten percent of those photos before the next guest walks in. And inevitably something slips — a stain on a couch, a busted door handle — and three turnovers later there's a damage dispute and nobody can figure out when it happened or who's on the hook for it.",
+        "note": "PAUSE. Do not speak after this. Let Tyler sit with it. Every detail is tailored to his world — roughly 36 units, 2 FTEs, pre-arrival inspections promised on the website, peak ski season right now. If he sighs, laughs, or says 'yeah' — he feels it. Wait for his reaction before saying another word.",
+        "branches": [
+          {
+            "label": "Engages — relates to the pain, sighs, says 'yeah exactly'",
+            "to": "pain_warm"
+          },
+          {
+            "label": "Dismissive, silent, or flat 'okay'",
+            "to": "permission_fallback"
+          },
+          {
+            "label": "We already have something for that",
+            "to": "objection_have_process"
+          },
+          {
+            "label": "That's more of a corporate or HQ thing",
+            "to": "objection_corporate"
+          },
+          {
+            "label": "I'm not really the right person for this",
+            "to": "not_right_person"
+          }
+        ]
+      },
+      "permission_fallback": {
+        "label": "PERMISSION FALLBACK",
+        "say": "Yeah totally — I mean it is a cold call, I get it. Can I get thirty seconds to tell you why I actually reached out, and if it's not relevant you can totally hang up on me?",
+        "note": "Say it with a smile. You're acknowledging the awkwardness of the interruption. Most people will give 30 seconds out of politeness — make every one count.",
+        "branches": [
+          {
+            "label": "Fine, go ahead — grants 30 seconds",
+            "to": "pain_trigger_short"
+          },
+          {
+            "label": "No, I'm good — rejects",
+            "to": "split_rejection"
+          }
+        ]
+      },
+      "pain_trigger_short": {
+        "label": "30-SECOND VERSION",
+        "say": "Appreciate it. Quick version — we work with vacation rental ops teams and the problem we keep solving is this: cleaners take turnover photos, but nobody actually has time to review all of them, especially right now in ski season. Damage gets missed, disputes pile up, and you're stuck playing detective after the fact. We built an AI that reviews those photos automatically and flags the problems — no workflow change for your team. Would it be worth a fifteen-minute look?",
+        "note": "Compressed pitch: pain, solution, CTA in 30 seconds. You earned this window — use every second. Don't slow down but don't race either. Pause after the ask.",
+        "branches": [
+          {
+            "label": "Shows interest or says sure",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Not interested",
+            "to": "objection_not_interested"
+          },
+          {
+            "label": "We already have something for that",
+            "to": "objection_have_process"
+          },
+          {
+            "label": "Just send me something",
+            "to": "send_email"
+          }
+        ]
+      },
+      "split_rejection": {
+        "label": "SPLIT THE REJECTION",
+        "say": "Totally my bad. Just so nobody from my team bugs you again — is it that I caught you at a terrible time, or is this just genuinely not something you guys think about?",
+        "note": "You're splitting to find out if it's timing or fit. If timing, you get a callback. If fit, you learn something and can potentially get a referral to the right person.",
+        "branches": [
+          {
+            "label": "Bad timing — it's just a crazy day",
+            "to": "reschedule_confirm"
+          },
+          {
+            "label": "Not my area or talk to someone else",
+            "to": "not_right_person"
+          },
+          {
+            "label": "Hard no — not interested at all",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "pain_warm": {
+        "label": "THEY FEEL THE PAIN",
+        "say": "Yeah — that's exactly what I keep hearing. So what does your process look like right now? Like after a turnover, are your cleaners uploading photos somewhere, or is it more of a checklist thing?",
+        "note": "STOP PITCHING. You are in discovery mode. Let Tyler talk about his workflow. Listen for: what tool they use or don't, who reviews photos, where things fall through the cracks. The more he talks, the stronger your position.",
+        "branches": [
+          {
+            "label": "Describes their process and opens up",
+            "to": "discovery_ops"
+          },
+          {
+            "label": "Interested but guarded — 'why do you ask?'",
+            "to": "solution_bridge"
+          }
+        ]
+      },
+      "discovery_ops": {
+        "label": "DISCOVERY — DIG DEEPER",
+        "say": "Got it. And who's actually eyeballing those — is that on you, or does Megan look at them too? And when something does slip through — like damage that wasn't caught at turnover — how does that usually play out with the owner?",
+        "note": "Two things to learn here: (1) who reviews inspection evidence and who decides on tools, and (2) what happens when damage is missed — that reveals the real cost of the current gap. If Tyler says Megan makes tool decisions, you'll want a referral. If Tyler owns it, he may be your buyer.",
+        "branches": [
+          {
+            "label": "Tyler owns the process — shows frustration with the gap",
+            "to": "solution_bridge"
+          },
+          {
+            "label": "Megan handles that — signals it's not his call",
+            "to": "referral_megan"
+          },
+          {
+            "label": "Mentions HQ, corporate tools, or franchise-level decisions",
+            "to": "objection_corporate"
+          }
+        ]
+      },
+      "discovery_warm": {
+        "label": "DISCOVERY — ALREADY WARM",
+        "say": "Yeah that's the gist of it. So I'm curious — what does your inspection workflow actually look like at the Steamboat location? After a cleaner finishes a turn, what happens before the next guest checks in?",
+        "note": "They came in warm — maybe they heard about RapidEye or they're genuinely curious. Don't waste it by pitching. Explore their workflow. Listen for the gap between what they promise guests (pre-arrival inspections) and what actually happens operationally.",
+        "branches": [
+          {
+            "label": "Describes their process in detail",
+            "to": "solution_bridge"
+          },
+          {
+            "label": "Turns it back — 'what exactly do you guys do?'",
+            "to": "pain_trigger"
+          }
+        ]
+      },
+      "solution_bridge": {
+        "label": "SOLUTION — ONE SENTENCE",
+        "say": "So that's exactly what we built RapidEye for. It plugs into whatever your team's already using to upload turnover photos — works with Track, Breezeway, whatever you've got — and it automatically analyzes every image. Flags damage, missing items, staging issues. Your cleaners don't change a thing, you just start getting reports that catch the stuff that's been slipping through.",
+        "note": "One breath. Mentioning Track is intentional — SkyRun is rolling out Track PMS network-wide, so Tyler will likely recognize it. If he reacts to the Track mention, it shows you know their world. Don't oversell. Move straight to the CTA.",
+        "branches": [
+          {
+            "label": "Continue to CTA",
+            "to": "cta_meeting"
+          }
+        ]
+      },
+      "cta_meeting": {
+        "label": "ASK FOR THE MEETING",
+        "say": "Would you be open to taking a quick look at what this actually looks like? Not asking you to buy anything — just fifteen minutes when I'm not cold calling you out of the blue.",
+        "note": "Low friction. You're selling the meeting, not the product. Shut up after you ask. Let the silence do the work.",
+        "branches": [
+          {
+            "label": "Yeah sure — agrees to meet",
+            "to": "book_meeting"
+          },
+          {
+            "label": "I don't have budget for something new",
+            "to": "objection_no_budget"
+          },
+          {
+            "label": "Not really interested",
+            "to": "objection_not_interested"
+          },
+          {
+            "label": "Just send me an email",
+            "to": "send_email"
+          },
+          {
+            "label": "I'd need to run it by Megan — not my call",
+            "to": "referral_megan"
+          }
+        ]
+      },
+      "objection_no_budget": {
+        "label": "NO BUDGET",
+        "say": "Totally get it. Nowadays it's honestly harder to keep a tool than to buy something new.",
+        "note": "Agree first. Don't push back. The agreement disarms them. Then move to the split.",
+        "branches": [
+          {
+            "label": "Continue to split",
+            "to": "split_budget"
+          }
+        ]
+      },
+      "split_budget": {
+        "label": "SPLIT — BUDGET",
+        "say": "Just so nobody on my team cold calls you again — is it that budget this cycle is completely locked up, or is it more that anything new has to go through a whole approval process?",
+        "note": "If budget is locked, sell the test drive so he knows what's out there when money frees up. If there's an approval chain, figure out whether that's Megan locally or HQ at the franchise level. SkyRun's franchise structure means tooling budget could live at either level.",
+        "branches": [
+          {
+            "label": "Budget is locked — timing issue",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "Has to go through Megan or HQ approval",
+            "to": "franchise_navigate"
+          },
+          {
+            "label": "Flat no — not happening",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "objection_not_interested": {
+        "label": "NOT INTERESTED",
+        "say": "I totally get it. Honestly I should've assumed you'd be all set — otherwise you probably would've reached out to us.",
+        "note": "Agree and lower the temperature. Surprises them that you're not pushing. Then split to find out what's really going on.",
+        "branches": [
+          {
+            "label": "Continue to split",
+            "to": "split_not_interested"
+          }
+        ]
+      },
+      "split_not_interested": {
+        "label": "SPLIT — NOT INTERESTED",
+        "say": "Just so I know — is it that turnover inspections aren't really a headache for you guys right now, or is it more that you just hate getting cold calls? Honestly either one's fair.",
+        "note": "If inspections aren't a pain, respect it — but it might mean Tyler isn't close enough to the problem day-to-day, or that Megan and the cleaners feel it more. If it's the cold call itself, there's still a shot.",
+        "branches": [
+          {
+            "label": "Inspections aren't really an issue for us",
+            "to": "end_graceful"
+          },
+          {
+            "label": "I just hate cold calls — softens up",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "Not really my area — someone else handles that",
+            "to": "not_right_person"
+          }
+        ]
+      },
+      "objection_have_process": {
+        "label": "ALREADY HAVE A PROCESS",
+        "say": "That makes total sense — with thirty-something units you'd have to have something in place. That's actually a good sign.",
+        "note": "Validate them. Don't challenge their current process. The goal now is to understand whether they're happy or just tolerating what they have.",
+        "branches": [
+          {
+            "label": "Continue to split",
+            "to": "split_have_process"
+          }
+        ]
+      },
+      "split_have_process": {
+        "label": "SPLIT — HAVE A PROCESS",
+        "say": "Is it that you're fully covered and happy with how it's working, or is it more that with all the tech changes SkyRun's been rolling out — Track, PriceLabs, all of that — switching anything else right now would just be one more thing on the pile?",
+        "note": "The tech-stack reference is intentional. SkyRun has been rolling out Track PMS, PriceLabs, and RemoteLock across franchise locations. If Tyler's drowning in platform changes, that's empathy. If he's surprised you know about it, that's credibility. Either way you learn something valuable.",
+        "branches": [
+          {
+            "label": "Happy with what we have — truly covered",
+            "to": "end_graceful"
+          },
+          {
+            "label": "More about timing and change fatigue",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "Curious — 'how do you know about that?'",
+            "to": "sell_test_drive"
+          }
+        ]
+      },
+      "objection_corporate": {
+        "label": "CORPORATE OR FRANCHISE DECISION",
+        "say": "That makes total sense — I know SkyRun's got the franchise structure. So just so I understand, is something like this a call you and Megan can make locally for the Steamboat location, or does ops tooling need to go through HQ?",
+        "note": "Critical intel. SkyRun franchise locations have some local autonomy — Megan owns Steamboat and runs it independently. But the tech stack is increasingly standardized by HQ (Track, PriceLabs, RemoteLock all came from corporate mandates). Figure out where a decision like this actually lives.",
+        "branches": [
+          {
+            "label": "We have some local flexibility on ops tools",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "HQ controls the tech stack for us",
+            "to": "franchise_navigate"
+          },
+          {
+            "label": "Megan would be the one to decide that",
+            "to": "referral_megan"
+          }
+        ]
+      },
+      "franchise_navigate": {
+        "label": "NAVIGATE THE FRANCHISE STRUCTURE",
+        "say": "Got it — that's actually really common with franchise setups. Here's what I've seen work: sometimes the fastest path is showing one location what it looks like, letting the results speak for themselves, and then HQ sees it and wants to roll it out. Would Megan be open to a quick look just for the Steamboat location, or would it make more sense for me to reach out to someone on the HQ side — like Lindsey Eller on the location support team?",
+        "note": "Name-dropping Lindsey Eller (Sr. Director of Location Support at SkyRun HQ) is intentional. She controls tool adoption across franchise locations and is quoted in public case studies about SkyRun's tech modernization. If Tyler recognizes the name, it builds instant credibility. If he offers a different or better HQ contact, take it and log it.",
+        "branches": [
+          {
+            "label": "Talk to Megan — go the local route",
+            "to": "referral_megan"
+          },
+          {
+            "label": "Yeah reach out to HQ — or gives a HQ name",
+            "to": "referral_hq"
+          },
+          {
+            "label": "Let me think about it — not sure",
+            "to": "send_email"
+          }
+        ]
+      },
+      "sell_test_drive": {
+        "label": "SELL THE TEST DRIVE",
+        "say": "Look, I totally get you're probably not buying anything new right now — especially mid-season. But the managers who actually get ahead on this stuff are the ones who already know what's out there before they need it. I could walk you through what other mountain-market PMs are doing with their turnover photos — fifteen minutes, worst case you steal some ideas and we part as friends.",
+        "note": "The offer of value: the meeting is worth Tyler's time even if he never buys. You're offering peer intel from his exact market segment — mountain resort property managers — not a product demo. That framing makes all the difference.",
+        "branches": [
+          {
+            "label": "Alright sure — agrees",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Send me something first",
+            "to": "send_email"
+          },
+          {
+            "label": "Hard no",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "not_right_person": {
+        "label": "NOT THE RIGHT PERSON",
+        "say": "No worries at all — who on your team would typically own something like inspection workflows or turnover quality? Is that more on Megan's plate?",
+        "note": "Tyler may handle ops day-to-day but not evaluate or approve new tools. That's fine — he's your doorway. Get the right name, title, and ideally a direct phone or email. With only 2 FTEs at Steamboat, it's almost certainly Megan.",
+        "branches": [
+          {
+            "label": "Yeah that's Megan",
+            "to": "referral_megan"
+          },
+          {
+            "label": "That would be someone at corporate or HQ",
+            "to": "referral_hq"
+          }
+        ]
+      },
+      "referral_megan": {
+        "label": "REFERRAL TO MEGAN",
+        "say": "Totally makes sense — Megan's the one I should be talking to then. Would you mind if I reached out to her directly? And honestly, if you could just give her a quick heads up that I called, that'd make a huge difference. I'll put something specific together so it's not just another random cold pitch.",
+        "note": "Get Megan's best contact — a direct line, personal email, or best time to reach her. Ask what Megan cares most about right now (growth? guest reviews? owner retention? cost control?) — that intel shapes the entire next call. Megan Gutschenritter is the owner, bought the location in Dec 2020, previously ran it solo. She cares about operational leverage.",
+        "branches": [
+          {
+            "label": "Agrees to intro or pass the message along",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Just email the office inbox",
+            "to": "send_email"
+          },
+          {
+            "label": "Declines to help with referral",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "referral_hq": {
+        "label": "REFERRAL TO HQ",
+        "say": "Perfect. Is Lindsey Eller still the one running location support over there? And would you mind if I mentioned your name when I reach out — just so it's not completely cold?",
+        "note": "Confirm Lindsey Eller is still Sr. Director of Location Support (per RemoteLock case study and SkyRun about page). Ask for any other HQ names — Cord Thomas is President and COO. Get permission to use Tyler's name. Log everything. HQ contacts are gold for a potential network-wide rollout across SkyRun franchise locations.",
+        "branches": []
+      },
+      "send_email": {
+        "label": "SEND ME AN EMAIL",
+        "say": "Totally fair. One quick question before I do — what would be most useful to include so it actually gets read and doesn't just sit in your inbox?",
+        "note": "This turns a brush-off into intel. Whatever Tyler says to include, that becomes your email subject line and first paragraph. Do not skip this question — it's the difference between a deleted email and one that gets opened.",
+        "branches": [
+          {
+            "label": "He tells you what to include",
+            "to": "email_confirm"
+          }
+        ]
+      },
+      "email_confirm": {
+        "label": "CONFIRM EMAIL AND CLOSE",
+        "say": "Got it — I'll make it relevant, I promise. What's the best email for you? Is it tyler at skyrun dot com, or should I use the Steamboat office inbox?",
+        "note": "Get the actual email address. Send within 10 minutes of hanging up. Subject line should reference the call specifically. Include a proposed time: 'Would next Tuesday at 2pm MT work for 15 minutes?' Reference whatever Tyler said he wanted to see. If he gave you steamboat@skyrun.com, that email goes to both Tyler and Megan — write it accordingly.",
+        "branches": []
+      },
+      "book_meeting": {
+        "label": "BOOK THE MEETING",
+        "say": "Awesome — I've got next week pulled up. How does Tuesday or Wednesday afternoon look? I'm thinking like two, two-thirty Mountain Time.",
+        "note": "Propose specific days and times. Don't ask 'when works for you' — that becomes infinite email tag. Lock a time NOW. Send the calendar invite while still on the phone if possible.",
+        "branches": [
+          {
+            "label": "Confirms a specific time",
+            "to": "end_meeting_booked"
+          },
+          {
+            "label": "Let me check my calendar and get back to you",
+            "to": "pin_meeting"
+          }
+        ]
+      },
+      "pin_meeting": {
+        "label": "PIN THE MEETING DOWN",
+        "say": "For sure — why don't I just send over an invite for Wednesday at two Mountain Time, and if you need to move it just drag it around? That way it's on both our calendars and we don't have to go back and forth over email.",
+        "note": "Default to a specific time. Put the burden on them to reschedule rather than schedule from scratch. Moving a meeting is always easier than creating one.",
+        "branches": [
+          {
+            "label": "Sure, send it over",
+            "to": "end_meeting_booked"
+          },
+          {
+            "label": "Declines — wants email first",
+            "to": "send_email"
+          }
+        ]
+      },
+      "end_meeting_booked": {
+        "label": "MEETING BOOKED — WRAP UP",
+        "say": "Really appreciate you taking my call, Tyler. I'll send that invite over right now. Looking forward to it — and honestly, even if it ends up not being a fit, I think you'll find the conversation useful. Talk soon.",
+        "note": "STOP SELLING. The meeting is booked. Send the calendar invite immediately. Add Tyler and Megan to CRM with all notes from this call. Before the meeting, dig deeper: look for recent guest reviews mentioning damage or cleanliness issues at SkyRun Steamboat, check Megan's LinkedIn, and review SkyRun's latest Track PMS rollout updates.",
+        "branches": []
+      },
+      "end_graceful": {
+        "label": "GRACEFUL EXIT",
+        "say": "Totally understand. Hey, if anything changes — especially heading into spring break madness — I'm easy to find. Appreciate your time, Tyler.",
+        "note": "Don't burn the bridge. Log the call outcome, the specific objection, and a follow-up date. Try again in 6-8 weeks or right after ski season ends in mid-April when the pace slows and they have time to think about tooling. Tyler is inside the building even if he's not the buyer today.",
+        "branches": []
+      }
+    }
+  }
+}

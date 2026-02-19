@@ -1,0 +1,611 @@
+{
+  "name": "Jillian Marquis",
+  "title": "Human Resources Director",
+  "company": "Retreatia",
+  "location": "Steamboat Springs, CO",
+  "phone": "+1-970-871-6253",
+  "company_phone": "(970) 871-6253",
+  "alt_phones": [
+    "+1-970-871-6253",
+    "+1-970-691-0251"
+  ],
+  "flow": {
+    "context": "Jillian Marquis is the HR Director at Retreatia (since 2018), a 230–250 unit vacation rental and property management company in Steamboat Springs, CO. She is NOT the inspection or operations decision-maker — she's a routing contact. Your real goal is to get referred to whoever runs operations or housekeeping (likely Viktorija Hristovska, the GM listed on BBB, or the Housekeeping Supervisor they're actively hiring). The hook: Retreatia is currently hiring for a Housekeeping Supervisor and Owner Liaison — both inspection-heavy roles — which makes this directly relevant to HR. They run TRACK PMS, promise inspection after every guest with a team separate from cleaning, and manage roughly 250 condo-heavy units. No personal connections with Sam found — use the hiring angle and ski-market proximity.",
+    "start": "initial_contact",
+    "nodes": {
+      "initial_contact": {
+        "label": "WHO PICKS UP",
+        "say": "Hey, is Jillian around? It's Sam.",
+        "note": "Keep it casual. If Jillian answers directly, move to opener. If someone else answers, you're in gatekeeper mode.",
+        "branches": [
+          {
+            "label": "Jillian answers directly",
+            "to": "opener"
+          },
+          {
+            "label": "Someone else answers",
+            "to": "gatekeeper"
+          },
+          {
+            "label": "Voicemail",
+            "to": "voicemail"
+          }
+        ]
+      },
+      "gatekeeper": {
+        "label": "GATEKEEPER — SLIDE BY",
+        "say": "Could you get me through to Jillian? It's Sam.",
+        "note": "Don't explain anything yet. Say it like you know her. Dose info one piece at a time.",
+        "branches": [
+          {
+            "label": "Puts you through",
+            "to": "opener"
+          },
+          {
+            "label": "Asks who you are / what it's about",
+            "to": "gatekeeper_context"
+          },
+          {
+            "label": "She's not available",
+            "to": "gatekeeper_unavailable"
+          }
+        ]
+      },
+      "gatekeeper_context": {
+        "label": "GATEKEEPER — ADD CONTEXT",
+        "say": "Yeah, I work with a few other vacation rental managers in ski markets on their inspection workflows. Would you mind letting her know it's Sam Parks?",
+        "note": "Still not pitching. Just enough context to sound legitimate and not like a vendor cold call.",
+        "branches": [
+          {
+            "label": "Puts you through",
+            "to": "opener"
+          },
+          {
+            "label": "Still pushes back / asks more",
+            "to": "gatekeeper_social_proof"
+          },
+          {
+            "label": "She's not available",
+            "to": "gatekeeper_unavailable"
+          }
+        ]
+      },
+      "gatekeeper_social_proof": {
+        "label": "GATEKEEPER — SOCIAL PROOF",
+        "say": "Totally fair. We help a couple other property management companies with their turnover inspection workflows — I actually sent Jillian a note. Would you mind giving her a heads up that I called?",
+        "note": "This is your last push. If they still won't connect you, get a callback time or leave a message.",
+        "branches": [
+          {
+            "label": "Puts you through",
+            "to": "opener"
+          },
+          {
+            "label": "Takes a message / offers callback time",
+            "to": "gatekeeper_unavailable"
+          },
+          {
+            "label": "Hard no",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "gatekeeper_unavailable": {
+        "label": "GATEKEEPER — NOT AVAILABLE",
+        "say": "No worries at all. When's a good time to catch her? I'll try back then.",
+        "note": "Get a specific day and time. If they won't give one, ask for her direct line or email.",
+        "branches": [
+          {
+            "label": "Gives a callback time",
+            "to": "callback_schedule"
+          },
+          {
+            "label": "Won't commit to a time",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "voicemail": {
+        "label": "VOICEMAIL",
+        "say": "Hey Jillian, it's Sam Parks — I work with a few vacation rental managers in ski markets on their inspection workflows. I noticed you guys are hiring for some inspection-heavy roles and thought it'd be worth a quick chat. My number is [your number]. Again, Sam Parks with RapidEye.",
+        "note": "Keep it under 20 seconds. Say your number slowly. Don't pitch — just create enough curiosity to get a callback.",
+        "branches": []
+      },
+      "opener": {
+        "label": "OPENER",
+        "say": "Hey Jillian — I noticed Retreatia's been hiring for a housekeeping supervisor and some inspection-focused roles — it's Sam Parks with RapidEye. Have you heard my name tossed around at all?",
+        "note": "This connects to her world as HR Director. The hiring observation shows you did your homework. Relaxed tone — feet up on the desk. Pause after the question and let her respond.",
+        "branches": [
+          {
+            "label": "No, I haven't",
+            "to": "heard_name_no"
+          },
+          {
+            "label": "Yes / maybe / sounds familiar",
+            "to": "heard_name_yes"
+          },
+          {
+            "label": "Now's not a good time",
+            "to": "bad_timing"
+          },
+          {
+            "label": "What is this about? / Who are you?",
+            "to": "permission_ask"
+          }
+        ]
+      },
+      "heard_name_no": {
+        "label": "HAVEN'T HEARD — PIVOT TO PAIN",
+        "say": "Ha — I guess I'm not as popular as I thought. Well the reason for my call — I work with a few other vacation rental managers around Retreatia's size, and the thing I keep hearing is that filling inspection and QA roles is brutal right now. You post for a housekeeping supervisor, you get a hundred applicants and maybe two who can actually run quality control across two hundred plus units. We built something that takes the photo review piece off that person's plate entirely so whoever you hire can focus on the stuff that actually needs a human. Would it make sense for me to loop in whoever's running your operations or housekeeping side to take a quick look?",
+        "note": "You're speaking HR's language: hiring pain, role scope, making new hires more effective. The CTA is a referral — not a meeting with Jillian. Pause after the question.",
+        "branches": [
+          {
+            "label": "That's interesting / tell me more",
+            "to": "warm_response"
+          },
+          {
+            "label": "You'd need to talk to someone else for that",
+            "to": "not_her_department"
+          },
+          {
+            "label": "We're all set / not interested",
+            "to": "not_interested"
+          },
+          {
+            "label": "Send me an email",
+            "to": "send_email"
+          }
+        ]
+      },
+      "heard_name_yes": {
+        "label": "HEARD THE NAME — EXPLORE",
+        "say": "Oh nice — well normally we'd be working with someone on your ops or housekeeping side. What did you hear?",
+        "note": "Unlikely but great if it happens. Let them talk. Figure out who they heard it from and what they know.",
+        "branches": [
+          {
+            "label": "Mentions a specific person or context",
+            "to": "warm_response"
+          },
+          {
+            "label": "Vague / not sure",
+            "to": "heard_name_no"
+          }
+        ]
+      },
+      "bad_timing": {
+        "label": "BAD TIMING",
+        "say": "Totally hear you — would it be a terrible idea if I tried you again tomorrow, maybe in the morning?",
+        "note": "Don't push. Get a specific callback time. She's HR — mornings before interviews and meetings often work best.",
+        "branches": [
+          {
+            "label": "Gives a time",
+            "to": "callback_schedule"
+          },
+          {
+            "label": "Just send me something",
+            "to": "send_email"
+          },
+          {
+            "label": "Don't call back",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "callback_schedule": {
+        "label": "CALLBACK LOCKED",
+        "say": "Perfect, I'll try you then. Appreciate it, Jillian.",
+        "note": "Write down the exact time. Call back exactly when you said you would. No excuses.",
+        "branches": []
+      },
+      "permission_ask": {
+        "label": "PERMISSION FALLBACK",
+        "say": "Yeah totally — I mean it is a cold call. Can I get 30 seconds to tell you why I reached out, and you can totally hang up on me if it's not a fit?",
+        "note": "Self-aware honesty. Most people will give you 30 seconds once you acknowledge the cold call disarms them.",
+        "branches": [
+          {
+            "label": "Sure, go ahead",
+            "to": "pain_trigger_short"
+          },
+          {
+            "label": "No / not interested",
+            "to": "permission_denied"
+          }
+        ]
+      },
+      "permission_denied": {
+        "label": "PERMISSION DENIED — SPLIT",
+        "say": "Shoot, totally my bad. Just so nobody from my team bugs you again — is it that I caught you at a horrible time, or is it more that you already know what we do and this just isn't interesting?",
+        "note": "This splits the rejection into something you can work with. If it's timing, you get a callback. If it's disinterest, you can still pivot to a referral.",
+        "branches": [
+          {
+            "label": "Bad timing",
+            "to": "bad_timing"
+          },
+          {
+            "label": "Not interested / not my area",
+            "to": "not_her_department"
+          },
+          {
+            "label": "Hard no / hangs up",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "pain_trigger_short": {
+        "label": "30-SECOND PAIN TRIGGER",
+        "say": "So I work with a few vacation rental managers around Retreatia's size — two, three hundred units — and the thing they all tell me is the same. They promise owners an inspection after every guest, they hire people specifically for it, and stuff still slips through. A stain gets missed, a piece of furniture walks out, and the first person who finds out is the next guest or the owner. We built an AI that reviews the turnover photos your team's already taking and catches that stuff automatically — plugs right into Track. Would it make sense for me to chat with whoever runs your operations or housekeeping side? I don't want to waste your time on the technical stuff if there's someone better for it.",
+        "note": "You mentioned Track (their PMS) to show you know the stack. You're asking for a referral, not pitching Jillian on the product. Keep it concise — you promised 30 seconds.",
+        "branches": [
+          {
+            "label": "That's interesting / tell me more",
+            "to": "warm_response"
+          },
+          {
+            "label": "You'd need to talk to someone else",
+            "to": "not_her_department"
+          },
+          {
+            "label": "We're all set",
+            "to": "not_interested"
+          },
+          {
+            "label": "Send me an email",
+            "to": "send_email"
+          }
+        ]
+      },
+      "warm_response": {
+        "label": "THEY'RE WARM — STOP PITCHING",
+        "say": "Yeah — so honestly, the best person for me to walk through this with would be whoever owns your inspection workflow or housekeeping operations. I know you guys have that whole separate inspection team from cleaning, which is actually why I reached out — most companies your size don't do that. Who on your side would be the right person for me to connect with?",
+        "note": "She's engaged but she's HR. Don't deep-dive on product with her. Pivot to getting the right name. You referenced their separate inspection team to show you know the operation.",
+        "branches": [
+          {
+            "label": "Mentions Viktorija / the GM",
+            "to": "referral_viktorija"
+          },
+          {
+            "label": "Gives another name",
+            "to": "referral_given"
+          },
+          {
+            "label": "Not sure who / let me think",
+            "to": "referral_help"
+          },
+          {
+            "label": "Wants to learn more herself first",
+            "to": "hiring_deep_dive"
+          }
+        ]
+      },
+      "not_her_department": {
+        "label": "NOT HER DEPARTMENT — REFERRAL PIVOT",
+        "say": "That makes total sense — I figured this might sit more on the ops side. Who on your team would typically own the inspection and turnover workflow? I'd love to put something tailored together for them so it's not just another cold call out of the blue.",
+        "note": "This is the most likely path. She knows it's not her area. Make the referral easy — you're asking her to help you help the right person.",
+        "branches": [
+          {
+            "label": "Mentions Viktorija / the GM",
+            "to": "referral_viktorija"
+          },
+          {
+            "label": "Gives another name (housekeeping lead, ops, etc.)",
+            "to": "referral_given"
+          },
+          {
+            "label": "I'm not sure / doesn't want to give names",
+            "to": "referral_reluctant"
+          },
+          {
+            "label": "Just email info@retreatia.com",
+            "to": "send_email_generic"
+          }
+        ]
+      },
+      "referral_viktorija": {
+        "label": "VIKTORIJA MENTIONED",
+        "say": "Viktorija — perfect. Is she the best person to talk to about the inspection and turnover side of things? And do you happen to have a direct line or email for her? I'd way rather reach out warm than cold call her the way I just did to you.",
+        "note": "Viktorija Hristovska is the GM listed on BBB. If Jillian confirms, get contact info. Her likely email is h-viktorija@retreatia.com but take whatever Jillian offers.",
+        "branches": [
+          {
+            "label": "Gives contact info",
+            "to": "book_intro"
+          },
+          {
+            "label": "Says to just call the main line",
+            "to": "book_intro"
+          },
+          {
+            "label": "Offers to pass the message along",
+            "to": "leave_message_with_jillian"
+          }
+        ]
+      },
+      "referral_given": {
+        "label": "REFERRAL NAME GIVEN",
+        "say": "Awesome — and what's their role? I just want to make sure I tailor what I send so it's actually relevant to what they deal with day to day. Do you have a direct number or email for them?",
+        "note": "Get the name, title, and contact info. Write it all down. If they give someone unexpected, roll with it — any named referral is gold.",
+        "branches": [
+          {
+            "label": "Gives contact info",
+            "to": "book_intro"
+          },
+          {
+            "label": "Says to just call the main line",
+            "to": "book_intro"
+          },
+          {
+            "label": "Offers to pass the message along",
+            "to": "leave_message_with_jillian"
+          }
+        ]
+      },
+      "referral_help": {
+        "label": "HELP THEM THINK",
+        "say": "No worries. Usually at a company your size it'd be someone like your GM or whoever runs housekeeping — the person who'd get the call if an inspection gets missed and a guest checks into a dirty unit. Does that sound like anyone specific?",
+        "note": "Paint the scenario to jog her memory. At Retreatia this is likely the GM (Viktorija) or the Housekeeping Supervisor role they're currently filling.",
+        "branches": [
+          {
+            "label": "Mentions someone by name",
+            "to": "referral_given"
+          },
+          {
+            "label": "Mentions Viktorija / GM",
+            "to": "referral_viktorija"
+          },
+          {
+            "label": "Still unsure / won't share",
+            "to": "referral_reluctant"
+          }
+        ]
+      },
+      "referral_reluctant": {
+        "label": "WON'T GIVE A NAME",
+        "say": "Totally fair — I don't want to put you on the spot. Would it be easier if I sent you a quick one-pager you could forward to whoever you think makes sense? That way it comes from you, not from a random cold call.",
+        "note": "Give her an easy out. A forwardable one-pager lets her pass it along without committing to a name. Include your contact info and a clear CTA in whatever you send.",
+        "branches": [
+          {
+            "label": "Sure, send it over",
+            "to": "send_email_forward"
+          },
+          {
+            "label": "Actually, let me give you a name",
+            "to": "referral_given"
+          },
+          {
+            "label": "Not interested in helping",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "hiring_deep_dive": {
+        "label": "HR ANGLE — HIRING PAIN",
+        "say": "Totally. So here's what I keep seeing — companies your size post for a housekeeping supervisor or QA lead, and the job description is basically three roles in one. You need someone who can manage the cleaning crew, run inspections on two hundred fifty units, and handle all the documentation. What we do is take the photo review and damage detection piece completely off that person's plate. So whoever you hire walks in with the hardest part of the job already automated. Has filling that supervisor role been tough?",
+        "note": "She's engaging as HR, so talk in hiring terms — workload, role scope, retention. If she opens up about the difficulty of the hire, you're building rapport. Then redirect to who should see the product.",
+        "branches": [
+          {
+            "label": "Yes, it's been hard to fill / talks about hiring challenges",
+            "to": "hiring_empathy"
+          },
+          {
+            "label": "Pivots to who you should talk to",
+            "to": "not_her_department"
+          },
+          {
+            "label": "Not really a problem / we're fine",
+            "to": "not_interested"
+          }
+        ]
+      },
+      "hiring_empathy": {
+        "label": "CONNECT ON HIRING PAIN",
+        "say": "Yeah, that's exactly what I hear. The talent pool for someone who can do field QA and manage a team in a ski market is tiny — especially when you're competing with every other property manager in Steamboat for the same people. That's honestly part of why we built this. If the tool handles the tedious photo-by-photo review, you can hire for leadership and people skills instead of needing someone who can also stare at five hundred photos a day. Would it make sense for me to show this to whoever's overseeing that side — your GM or ops lead? I can frame it around making that new hire successful from day one.",
+        "note": "You've built real rapport on her turf. Now smoothly transition to the referral ask. The 'make the new hire successful' framing gives her a reason to connect you internally.",
+        "branches": [
+          {
+            "label": "Gives a name / suggests someone",
+            "to": "referral_given"
+          },
+          {
+            "label": "Mentions Viktorija / GM",
+            "to": "referral_viktorija"
+          },
+          {
+            "label": "Let me think about it / send me something",
+            "to": "send_email_forward"
+          },
+          {
+            "label": "We handle it differently",
+            "to": "not_interested"
+          }
+        ]
+      },
+      "not_interested": {
+        "label": "NOT INTERESTED — AGREE FIRST",
+        "say": "Totally get it. I should have assumed you'd be all set — otherwise you probably would have reached out to us. Just so nobody from my team cold calls you again — is it that inspections aren't really a pain point right now, or is it more that you just hate cold calls? Because honestly, I hate making them.",
+        "note": "Agree first, then split the objection. The humor at the end usually gets a real answer. If it's 'not a pain point' you can challenge gently. If it's 'hate cold calls' you can offer email instead.",
+        "branches": [
+          {
+            "label": "Not a pain point / we're covered",
+            "to": "has_process"
+          },
+          {
+            "label": "Hate cold calls / just not interested",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "It's really not my area",
+            "to": "not_her_department"
+          },
+          {
+            "label": "Hard no",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "has_process": {
+        "label": "THEY HAVE A PROCESS",
+        "say": "That makes total sense — with two hundred fifty units you'd have to have something in place. Is it more that your current process is working great and there's no gaps, or is it more that switching anything right now would just be a headache on top of everything else?",
+        "note": "Split it. 'Working great' is rare — most people will admit there are gaps. 'Switching is a headache' is easier to handle because RapidEye plugs into existing tools with no workflow change.",
+        "branches": [
+          {
+            "label": "It's working fine",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "Switching would be a pain",
+            "to": "no_workflow_change"
+          },
+          {
+            "label": "Actually there are some gaps",
+            "to": "warm_response"
+          }
+        ]
+      },
+      "no_workflow_change": {
+        "label": "NO WORKFLOW CHANGE NEEDED",
+        "say": "That's actually the whole point of what we built — it sits on top of Track, which I know you guys are already on, and just reads the photos your team's already uploading. Nobody changes what they do. The only difference is instead of someone eyeballing every photo, you get an automatic flag when something's off. Would whoever runs your ops side be open to seeing a ten-minute demo? Worst case they steal some ideas from what other managers in ski markets are doing.",
+        "note": "You addressed the switching pain directly. You named their PMS (Track). The 'steal some ideas' framing lowers the commitment bar significantly.",
+        "branches": [
+          {
+            "label": "That's interesting — let me connect you",
+            "to": "referral_given"
+          },
+          {
+            "label": "Send me something",
+            "to": "send_email_forward"
+          },
+          {
+            "label": "Still no",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "sell_test_drive": {
+        "label": "SELL THE TEST DRIVE",
+        "say": "Totally respect that. You're probably not buying anything right now, and that's fine. But if nothing else, I could walk whoever runs your inspection side through what other property managers in Steamboat and ski markets are doing with their turnover photos right now. Worst case they steal some ideas and we part as friends. Would you feel comfortable pointing me to the right person?",
+        "note": "Low pressure. You're not asking Jillian to buy — you're asking her to make an introduction. The 'other PM companies in Steamboat' angle creates curiosity because it implies their competitors are doing something.",
+        "branches": [
+          {
+            "label": "Gives a name",
+            "to": "referral_given"
+          },
+          {
+            "label": "Mentions Viktorija / GM",
+            "to": "referral_viktorija"
+          },
+          {
+            "label": "Just send me an email",
+            "to": "send_email_forward"
+          },
+          {
+            "label": "Not going to help",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "book_intro": {
+        "label": "BOOK THE INTRO",
+        "say": "Perfect. Would it be okay if I mentioned your name when I reach out? And actually — would it be even better if you shot them a quick heads-up that I'll be calling? That way it's not totally cold. I'm looking at next week — does Tuesday or Wednesday tend to work on their end, do you know?",
+        "note": "You're locking in the warm intro. Getting Jillian to send a heads-up transforms your next call from cold to warm. If she won't, at least get permission to drop her name.",
+        "branches": [
+          {
+            "label": "Will send a heads-up",
+            "to": "confirm_referral"
+          },
+          {
+            "label": "You can use my name but I won't send anything",
+            "to": "confirm_referral"
+          },
+          {
+            "label": "Just call them directly",
+            "to": "confirm_referral"
+          }
+        ]
+      },
+      "confirm_referral": {
+        "label": "CONFIRM AND CLOSE",
+        "say": "Really appreciate that, Jillian. I'll reach out to them this week and keep it short. And hey — if you ever want to see what we're doing on the hiring efficiency side, happy to chat anytime. Thanks for taking my call.",
+        "note": "Stop selling. You got what you came for — a name and a warm path in. Be warm, be brief, be gone. Follow up with the referral within 24 hours. Send Jillian a thank-you email too.",
+        "branches": []
+      },
+      "leave_message_with_jillian": {
+        "label": "SHE'LL PASS IT ALONG",
+        "say": "That'd be great. The short version is — we help property managers automate their post-turnover inspection using the photos they're already taking. Plugs right into Track. If they're curious, they can reach me at [your number] or sam@rapideye.com. Could I also shoot you a quick email with a one-pager to forward? That way they've got something to look at.",
+        "note": "Give her enough to pass along credibly. Get permission to send a follow-up email she can forward. Include the referral's name in your email subject line if she gave one.",
+        "branches": [
+          {
+            "label": "Sure, send it over",
+            "to": "confirm_referral"
+          },
+          {
+            "label": "I'll just pass along your name",
+            "to": "confirm_referral"
+          }
+        ]
+      },
+      "send_email": {
+        "label": "SEND ME AN EMAIL — REDIRECT",
+        "say": "Totally fair. One question before I do — who on your side should I actually address it to? I don't want to send you something that should really go to your ops or housekeeping lead. If I can get a name, I'll put something tailored together so it actually lands.",
+        "note": "Use the email request as a referral opportunity. She's giving you an out — take it, but try to get a name first so you're not emailing into a void.",
+        "branches": [
+          {
+            "label": "Gives a name to address it to",
+            "to": "referral_given"
+          },
+          {
+            "label": "Just send it to me",
+            "to": "send_email_confirm"
+          },
+          {
+            "label": "Use info@retreatia.com",
+            "to": "send_email_generic"
+          }
+        ]
+      },
+      "send_email_forward": {
+        "label": "SEND FORWARDABLE EMAIL",
+        "say": "Perfect — I'll send you something short that's easy to forward. What's the best email for you? And just so I tailor it right — is the inspection workflow more under your GM, or is there a housekeeping or ops director who owns that piece?",
+        "note": "You're getting her email AND sneaking in one more referral attempt. Her likely email is m-jillian@retreatia.com but confirm whatever she gives you.",
+        "branches": [
+          {
+            "label": "Gives her email + a name",
+            "to": "confirm_referral"
+          },
+          {
+            "label": "Gives her email, no name",
+            "to": "send_email_confirm"
+          },
+          {
+            "label": "Just use info@retreatia.com",
+            "to": "send_email_generic"
+          }
+        ]
+      },
+      "send_email_confirm": {
+        "label": "CONFIRM EMAIL DETAILS",
+        "say": "Got it. I'll have something over to you by end of day. And I'll suggest a couple times to connect in case whoever reads it wants to take a closer look. Appreciate you taking my call, Jillian.",
+        "note": "Send the email within 2 hours max. Include a specific day and time suggestion. Make it forwardable — assume she'll pass it to someone else internally. Subject line should reference Retreatia's inspection workflow, not RapidEye.",
+        "branches": []
+      },
+      "send_email_generic": {
+        "label": "GENERIC EMAIL — LAST SHOT",
+        "say": "Got it — I'll send something to info@. Real quick though, just so it gets to the right desk — would that go to your GM, or is there someone else who handles the operations and inspection side? I just don't want it sitting in a shared inbox forever.",
+        "note": "One last attempt to get a name or routing direction. If she won't give one, send to info@ AND to her likely email (m-jillian@retreatia.com) AND to Viktorija's likely email (h-viktorija@retreatia.com).",
+        "branches": [
+          {
+            "label": "Gives a name or direction",
+            "to": "confirm_referral"
+          },
+          {
+            "label": "Just send it to info",
+            "to": "send_email_confirm"
+          }
+        ]
+      },
+      "end_graceful": {
+        "label": "GRACEFUL EXIT",
+        "say": "Totally understand. If anything changes on your end, I'm easy to find — Sam Parks, RapidEye. Appreciate your time, Jillian.",
+        "note": "Don't burn the bridge. She's been at Retreatia since 2018 — she's not going anywhere. Send a brief, non-pushy follow-up email within 24 hours referencing the call. She may forward it when timing is better or when those new hires start struggling with inspection volume.",
+        "branches": []
+      }
+    }
+  }
+}

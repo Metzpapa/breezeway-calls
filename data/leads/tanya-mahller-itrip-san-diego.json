@@ -1,0 +1,622 @@
+{
+  "name": "Tanya Mahller",
+  "title": "Co-operator, iTrip San Diego",
+  "company": "iTrip San Diego",
+  "location": "San Diego, CA",
+  "phone": "+1-858-800-2534",
+  "company_phone": "(858) 800-2534",
+  "alt_phones": [],
+  "flow": {
+    "context": "Tanya Mahller co-runs iTrip San Diego with her husband Ari — she is the operational backbone, likely the one coordinating cleaners, reviewing FlipStream turnover photos, and making sure properties are guest-ready across Del Mar, Coronado, Mission Bay, and Rancho Santa Fe. iTrip is a franchise (corporate provides the PMS, FlipStream turnover app, and an API with a Breezeway endpoint), but local quality execution falls entirely on Tanya and Ari. They are roughly a year into Airbnb with about 34 reviews — still scaling and tightening processes as the portfolio grows. Their owner-facing promises (no maintenance markups, free light maintenance) mean every missed damage item costs them directly out of margin. Connection: Sam is a SoCal native who surfs and already works with other vacation rental managers in the San Diego market.",
+    "start": "opener",
+    "nodes": {
+      "opener": {
+        "label": "INITIAL PICKUP",
+        "say": "Hey, is Tanya around? It's Sam.",
+        "note": "Keep it casual — sound like you know her. Don't offer any more info until asked. If it's Tanya, move to opener_direct. If someone else, slide into gatekeeper flow.",
+        "branches": [
+          {
+            "label": "This is Tanya / speaking",
+            "to": "opener_direct"
+          },
+          {
+            "label": "Who's calling? / Gatekeeper answers",
+            "to": "gatekeeper_slide"
+          },
+          {
+            "label": "She's not available right now",
+            "to": "gatekeeper_blocked"
+          },
+          {
+            "label": "Goes to voicemail",
+            "to": "voicemail_drop"
+          }
+        ]
+      },
+      "gatekeeper_slide": {
+        "label": "GATEKEEPER — SLIDE BY",
+        "say": "Yeah — I work with a couple other property managers in San Diego. Would you mind letting her know it's Sam Parks?",
+        "note": "Don't pitch. Don't explain what RapidEye does. Dose information one bit at a time. Redirect with a question — you control the conversation.",
+        "branches": [
+          {
+            "label": "Puts you through",
+            "to": "opener_direct"
+          },
+          {
+            "label": "What's this regarding?",
+            "to": "gatekeeper_context"
+          },
+          {
+            "label": "She's not available",
+            "to": "gatekeeper_blocked"
+          }
+        ]
+      },
+      "gatekeeper_context": {
+        "label": "GATEKEEPER — CONTEXT",
+        "say": "We help a few vacation rental companies in the area with their inspection workflows. I sent her a note — would you mind giving her a heads up that I'm on the line?",
+        "note": "Frame as a follow-up, not a cold call. Don't oversell. End with a redirect question so the gatekeeper has something to act on.",
+        "branches": [
+          {
+            "label": "Puts you through",
+            "to": "opener_direct"
+          },
+          {
+            "label": "Still pushing back / what company",
+            "to": "gatekeeper_social_proof"
+          },
+          {
+            "label": "She's unavailable",
+            "to": "gatekeeper_blocked"
+          }
+        ]
+      },
+      "gatekeeper_social_proof": {
+        "label": "GATEKEEPER — SOCIAL PROOF",
+        "say": "Totally understand — we work with a few property management companies similar to iTrip on their turnover photo workflows. Would you mind just passing along that Sam Parks from RapidEye called? I can try her again.",
+        "note": "Third and final attempt. If this doesn't work, get callback timing and move on gracefully. Don't burn the gatekeeper — they remember.",
+        "branches": [
+          {
+            "label": "Puts you through",
+            "to": "opener_direct"
+          },
+          {
+            "label": "Will pass along the message",
+            "to": "gatekeeper_callback_set"
+          },
+          {
+            "label": "Won't help / stonewalls",
+            "to": "gatekeeper_blocked"
+          }
+        ]
+      },
+      "gatekeeper_blocked": {
+        "label": "GATEKEEPER — BLOCKED",
+        "say": "No worries at all. What would be the best time to try Tanya back? And is this still the best number to reach her?",
+        "note": "Get callback timing. If they offer voicemail, take it. Consider asking for Ari directly as a parallel path — same number (858) 800-2534.",
+        "branches": [
+          {
+            "label": "Gives a time to call back",
+            "to": "gatekeeper_callback_set"
+          },
+          {
+            "label": "Offers voicemail",
+            "to": "voicemail_drop"
+          },
+          {
+            "label": "Won't share anything useful",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "gatekeeper_callback_set": {
+        "label": "GATEKEEPER — CALLBACK NOTED",
+        "say": "Great, I'll try back then. Appreciate your help.",
+        "note": "Log the day and time immediately. Consider trying Ari at (858) 800-2534 as a parallel path. Try a different time of day on the next attempt.",
+        "branches": []
+      },
+      "voicemail_drop": {
+        "label": "VOICEMAIL",
+        "say": "Hey Tanya — it's Sam Parks with RapidEye. I work with a couple other vacation rental managers in San Diego on their turnover workflows. Was hoping to grab a couple minutes with you — my number is [your number]. I'll try you again in a day or two.",
+        "note": "Under 20 seconds. Do not pitch. Just enough to spark curiosity. Call again in 2 days at a different time of day.",
+        "branches": []
+      },
+      "opener_direct": {
+        "label": "OPENER — TANYA ON THE LINE",
+        "say": "Hey Tanya — I work with a couple other vacation rental managers down in San Diego on their turnover workflows. It's Sam Parks with RapidEye. Have you heard my name tossed around at all?",
+        "note": "Relaxed. Feet up on the desk energy. Sound like a peer, not a salesperson. Pause after the question and let her respond. If she sounds rushed, acknowledge it — don't bulldoze.",
+        "branches": [
+          {
+            "label": "Yes, I've heard of you / RapidEye",
+            "to": "heard_yes"
+          },
+          {
+            "label": "No, I haven't heard of you",
+            "to": "heard_no"
+          },
+          {
+            "label": "Now's not a great time",
+            "to": "bad_timing"
+          },
+          {
+            "label": "Who is this? / Skeptical / what do you want",
+            "to": "permission_ask"
+          }
+        ]
+      },
+      "heard_yes": {
+        "label": "HEARD OF YOU — EXPLORE",
+        "say": "Oh nice — well usually we'd be working with someone like you. What did you hear?",
+        "note": "Rare but great. Let her talk. Whatever she shares, use it as a bridge into discovery. If she's vague or dismissive, transition to pain trigger.",
+        "branches": [
+          {
+            "label": "Shares something specific / curious",
+            "to": "warm_discovery"
+          },
+          {
+            "label": "Vague or dismissive",
+            "to": "pain_trigger"
+          }
+        ]
+      },
+      "heard_no": {
+        "label": "HASN'T HEARD — TRANSITION",
+        "say": "Ha — well I guess I'm not as popular as I thought. Well the reason for my call —",
+        "note": "Keep it light and self-deprecating. Immediately transition into pain trigger. Don't pause awkwardly here — just keep moving.",
+        "branches": [
+          {
+            "label": "Continues listening",
+            "to": "pain_trigger"
+          }
+        ]
+      },
+      "bad_timing": {
+        "label": "BAD TIMING",
+        "say": "Totally hear you — would it be a terrible idea if I tried you again tomorrow around the same time?",
+        "note": "Respect the boundary but lock in a callback. If she pushes back harder, try the permission ask as a last attempt.",
+        "branches": [
+          {
+            "label": "Sure, try me then / gives a time",
+            "to": "bad_timing_locked"
+          },
+          {
+            "label": "I'm just not interested",
+            "to": "permission_ask"
+          },
+          {
+            "label": "Yeah try back later this week",
+            "to": "bad_timing_locked"
+          }
+        ]
+      },
+      "bad_timing_locked": {
+        "label": "CALLBACK LOCKED",
+        "say": "Perfect — I'll give you a ring then. Appreciate it, Tanya.",
+        "note": "Log the callback time immediately. When you call back, open with: Hey Tanya, it's Sam Parks — you told me to try you back today.",
+        "branches": []
+      },
+      "permission_ask": {
+        "label": "PERMISSION FALLBACK",
+        "say": "Yeah totally — I mean it is a cold call. Can I get 30 seconds to tell you why I reached out, and you can totally hang up on me if it's not a fit?",
+        "note": "Disarming honesty. Most people give you 30 seconds when you acknowledge it's a cold call and hand them an explicit out.",
+        "branches": [
+          {
+            "label": "OK, go ahead",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "No, I'm good / not interested",
+            "to": "permission_rejected"
+          }
+        ]
+      },
+      "permission_rejected": {
+        "label": "PERMISSION REJECTED — SPLIT",
+        "say": "Shoot, totally my bad. Just so nobody from my team bugs you again — is it that I caught you at a horrible time, or is this just not something you're focused on right now?",
+        "note": "Two doors. Bad timing keeps the door open for a callback. Not focused on it lets you exit gracefully or sometimes surfaces the real reason.",
+        "branches": [
+          {
+            "label": "Bad timing",
+            "to": "bad_timing"
+          },
+          {
+            "label": "Not focused on this / not interested",
+            "to": "graceful_exit"
+          },
+          {
+            "label": "Actually, what is it?",
+            "to": "pain_trigger"
+          }
+        ]
+      },
+      "pain_trigger": {
+        "label": "PAIN TRIGGER",
+        "say": "I work with another franchise operator in a pretty similar spot to you — coastal market, high-end properties, growing the portfolio. The thing that kept coming up was turnover photos. Their cleaners were snapping photos after every flip, uploading them into the system, but between back-to-back turnovers nobody had the time to actually compare every shot against what the unit's supposed to look like. So a guest checks into a beachfront property and there's a scratch across the dining table that was sitting right there in the cleaner's photos — but nobody caught it. Now it's a conversation with the owner about when it happened and who's covering it.",
+        "note": "PAUSE HERE. Do not rush to the solution. Let Tanya react. If she engages with the pain — yeah that happens, we deal with that — go to warm_discovery and stop pitching. If she's quiet or noncommittal, move to solution_bridge.",
+        "branches": [
+          {
+            "label": "Yeah, we deal with that / that resonates",
+            "to": "warm_discovery"
+          },
+          {
+            "label": "How does that work? / Tell me more",
+            "to": "solution_bridge"
+          },
+          {
+            "label": "Quiet / noncommittal / hmm",
+            "to": "solution_bridge"
+          },
+          {
+            "label": "We already have a process for that",
+            "to": "objection_have_vendor"
+          },
+          {
+            "label": "I'm not really interested",
+            "to": "objection_not_interested"
+          },
+          {
+            "label": "That's more Ari's area",
+            "to": "referral_to_ari"
+          }
+        ]
+      },
+      "solution_bridge": {
+        "label": "SOLUTION + CTA",
+        "say": "So we built a tool that plugs into the photos your team's already taking — whether that's through FlipStream or however you're running turnovers — and it automatically flags anything that's off. Damage, missing items, staging issues. No extra steps for your cleaners, no workflow change. Would you be open to taking a look sometime when I'm not cold calling you out of the blue?",
+        "note": "One sentence on the solution. Mentioning FlipStream by name shows you know their stack. Low-friction CTA. Pause and let her respond.",
+        "branches": [
+          {
+            "label": "Sure, I'd look at that",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Send me something first",
+            "to": "send_email"
+          },
+          {
+            "label": "Not interested",
+            "to": "objection_not_interested"
+          },
+          {
+            "label": "No budget for that right now",
+            "to": "objection_no_budget"
+          },
+          {
+            "label": "Corporate controls our tools / that's an iTrip thing",
+            "to": "objection_corporate"
+          },
+          {
+            "label": "That'd be more of an Ari decision",
+            "to": "referral_to_ari"
+          }
+        ]
+      },
+      "warm_discovery": {
+        "label": "WARM — DISCOVERY",
+        "say": "I'd love to hear how you guys are handling it right now. When your cleaners finish a turn, what does the inspection flow look like on your end?",
+        "note": "STOP SELLING. Ask questions and listen. Map their workflow: who takes photos, who reviews them, what tool they use, what falls through the cracks, who gets blamed when something is missed.",
+        "branches": [
+          {
+            "label": "Describes their FlipStream / photo process",
+            "to": "warm_process_deep"
+          },
+          {
+            "label": "It's not great / we struggle with it",
+            "to": "warm_process_deep"
+          },
+          {
+            "label": "Ari handles that side of things",
+            "to": "referral_to_ari"
+          },
+          {
+            "label": "We've got it pretty dialed in",
+            "to": "warm_cta"
+          }
+        ]
+      },
+      "warm_process_deep": {
+        "label": "WARM — DIG DEEPER",
+        "say": "Got it — and when those photos come through, who's actually reviewing them? Is that you going through each set, or is there someone checking before the guest arrives?",
+        "note": "You are looking for the gap between photos being taken and someone actually reviewing them. That gap is where RapidEye lives. Listen for frustration about volume, time pressure, or things slipping through.",
+        "branches": [
+          {
+            "label": "I review them / we try but it's a lot",
+            "to": "flipstream_angle"
+          },
+          {
+            "label": "Nobody really reviews every photo",
+            "to": "flipstream_angle"
+          },
+          {
+            "label": "We have a QA process / inspectors check",
+            "to": "warm_cta"
+          },
+          {
+            "label": "Honestly it's a headache",
+            "to": "warm_cta"
+          }
+        ]
+      },
+      "flipstream_angle": {
+        "label": "FLIPSTREAM GAP — BRIDGE",
+        "say": "Yeah that's exactly what I hear from other iTrip operators — FlipStream's great for tracking the flip and getting photos in, but actually comparing those photos against what the place should look like, shot by shot — nobody has the bandwidth for that. That's literally what we automate. The AI looks at every photo and flags anything that's changed or missing. Would it make sense to show you how that works with a couple of your actual properties?",
+        "note": "You named their tool, validated their pain, and offered something concrete. Don't oversell — let her respond. If she defers to Ari, that's fine — get the referral.",
+        "branches": [
+          {
+            "label": "Yeah, let's take a look",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Send me something first",
+            "to": "send_email"
+          },
+          {
+            "label": "I'd need to loop in Ari",
+            "to": "referral_to_ari"
+          },
+          {
+            "label": "Not sure it's worth the time",
+            "to": "test_drive"
+          }
+        ]
+      },
+      "warm_cta": {
+        "label": "WARM — OFFER THE MEETING",
+        "say": "Here's what I'd suggest — I can pull up a quick walkthrough showing how this works with properties like yours. Fifteen minutes, and worst case you see what other property managers in the San Diego market are doing with their turnover photos and steal some ideas. Would you be open to that?",
+        "note": "Sell the meeting, not the product. The value prop of the meeting itself is learning what peers are doing. Low risk, high curiosity.",
+        "branches": [
+          {
+            "label": "Sure, let's do it",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Send me info first",
+            "to": "send_email"
+          },
+          {
+            "label": "Let me talk to Ari first",
+            "to": "referral_to_ari"
+          },
+          {
+            "label": "Not right now",
+            "to": "test_drive"
+          }
+        ]
+      },
+      "objection_not_interested": {
+        "label": "OBJECTION — NOT INTERESTED",
+        "say": "I totally get it — I should have assumed you'd be all set. Otherwise you probably would have reached out yourself.",
+        "note": "Agree first. Surprise her by NOT pushing back. Brief pause, then move to the split.",
+        "branches": [
+          {
+            "label": "Continues / softens",
+            "to": "split_not_interested"
+          }
+        ]
+      },
+      "split_not_interested": {
+        "label": "SPLIT — NOT INTERESTED",
+        "say": "Just so nobody from my team cold calls you about this again — is it that turnover quality isn't really something you're focused on right now, or is it more that you just hate getting cold calls?",
+        "note": "Two doors. Not focused on it opens a future timing window. Hate cold calls humanizes the conversation and often gets the real reason out.",
+        "branches": [
+          {
+            "label": "Not a priority right now",
+            "to": "test_drive"
+          },
+          {
+            "label": "I just hate cold calls",
+            "to": "test_drive"
+          },
+          {
+            "label": "Actually we do struggle with this",
+            "to": "warm_discovery"
+          },
+          {
+            "label": "We're too small for this kind of thing",
+            "to": "test_drive"
+          }
+        ]
+      },
+      "objection_have_vendor": {
+        "label": "OBJECTION — HAVE A PROCESS",
+        "say": "That makes total sense — managing properties in Del Mar and Coronado, you'd have to have something in place. I'd be worried if you didn't.",
+        "note": "Validate, don't fight. Referencing their specific markets shows you did your homework. Then move to the split.",
+        "branches": [
+          {
+            "label": "Continues",
+            "to": "split_have_vendor"
+          }
+        ]
+      },
+      "split_have_vendor": {
+        "label": "SPLIT — HAVE A PROCESS",
+        "say": "Honest question — is it that your current process catches everything and you're totally happy with it, or is it more that adding or changing anything right now would just be a headache?",
+        "note": "Most people will not claim their process is perfect. If they say switching is a pain, the door is open for a no-disruption pitch. If they mention FlipStream or corporate tools, pivot to the corporate thread.",
+        "branches": [
+          {
+            "label": "We're happy with what we have",
+            "to": "test_drive"
+          },
+          {
+            "label": "Changing anything is a headache",
+            "to": "test_drive"
+          },
+          {
+            "label": "It's not perfect but it works",
+            "to": "warm_discovery"
+          },
+          {
+            "label": "It's a corporate thing / FlipStream",
+            "to": "objection_corporate"
+          }
+        ]
+      },
+      "objection_no_budget": {
+        "label": "OBJECTION — NO BUDGET",
+        "say": "Totally get it. Nowadays it's hard enough to keep the tools you've got, let alone add something new.",
+        "note": "Agree and empathize. Don't fight the budget objection head on — reframe the meeting as a no-cost investment in future planning.",
+        "branches": [
+          {
+            "label": "Continues",
+            "to": "split_no_budget"
+          }
+        ]
+      },
+      "split_no_budget": {
+        "label": "SPLIT — NO BUDGET",
+        "say": "Just so I know — is it that the budget for this cycle is completely spoken for, or is it more that any new tool would need to go through corporate first?",
+        "note": "Budget cycle issue means the test drive pitch works perfectly — get educated now so you are ready when budget opens. Corporate approval means pivot to that thread.",
+        "branches": [
+          {
+            "label": "Budget is locked / spoken for",
+            "to": "test_drive"
+          },
+          {
+            "label": "Would need corporate approval",
+            "to": "objection_corporate"
+          },
+          {
+            "label": "It's not really about budget, it's more...",
+            "to": "warm_discovery"
+          }
+        ]
+      },
+      "objection_corporate": {
+        "label": "OBJECTION — CORPORATE CONTROLS TECH",
+        "say": "Yeah, that's super common with iTrip franchises — a lot of the tooling flows down from corporate. Totally makes sense.",
+        "note": "Don't fight the franchise structure. Validate it first. Then reframe — RapidEye adds to the iTrip stack, it does not replace it. iTrip's API already has a Breezeway endpoint so the integration path exists.",
+        "branches": [
+          {
+            "label": "Continues",
+            "to": "corporate_reframe"
+          }
+        ]
+      },
+      "corporate_reframe": {
+        "label": "CORPORATE — REFRAME",
+        "say": "Here's what's interesting though — we're not replacing FlipStream or anything in the iTrip stack. We plug into the photos that are already flowing through your system and add a layer of analysis on top. It's not a rip-and-replace thing — it's more like adding a second set of eyes to what's already happening. Would it make sense for me to show you how it works, and then you and Ari could decide if it's worth bringing up to corporate?",
+        "note": "Position as additive, not disruptive. Lower the commitment bar — they just need to see it, not buy anything. If she still defers to Ari, pivot to referral.",
+        "branches": [
+          {
+            "label": "OK, show me",
+            "to": "book_meeting"
+          },
+          {
+            "label": "I'd need Ari on that call too",
+            "to": "referral_to_ari"
+          },
+          {
+            "label": "Send me something first",
+            "to": "send_email"
+          },
+          {
+            "label": "Not worth the time right now",
+            "to": "test_drive"
+          }
+        ]
+      },
+      "test_drive": {
+        "label": "TEST DRIVE — SELL THE MEETING",
+        "say": "Totally hear you — you're probably not buying anything off a cold call, and honestly I wouldn't either. But if nothing else, I could walk you through what a couple other property managers in San Diego are doing with their turnover photos. Fifteen minutes, worst case you steal some ideas and we part as friends. Would you be open to that?",
+        "note": "Last real attempt to convert to a meeting. If this doesn't land, exit gracefully. Do not push beyond this point.",
+        "branches": [
+          {
+            "label": "Fine, let's do it",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Just send me an email",
+            "to": "send_email"
+          },
+          {
+            "label": "No thanks, I'm good",
+            "to": "graceful_exit"
+          },
+          {
+            "label": "Maybe talk to Ari instead",
+            "to": "referral_to_ari"
+          }
+        ]
+      },
+      "book_meeting": {
+        "label": "BOOK THE MEETING",
+        "say": "Perfect — I've got next Tuesday and Thursday pulled up. What works better for you, morning or afternoon?",
+        "note": "Pick specific days. Lock it in now. Do not say when works for you — give constrained options. If she wants Ari on the call too, even better — offer to send an invite to both of them.",
+        "branches": [
+          {
+            "label": "Picks a day and time",
+            "to": "meeting_confirmed"
+          },
+          {
+            "label": "Let me check my calendar / email me times",
+            "to": "send_email"
+          }
+        ]
+      },
+      "meeting_confirmed": {
+        "label": "MEETING LOCKED",
+        "say": "Awesome — I'll shoot over a calendar invite right now so it's locked in. Really appreciate you taking my call, Tanya. Talk soon.",
+        "note": "STOP SELLING. The meeting is booked. Do not re-pitch, do not add caveats. Send the invite immediately after hanging up. If Ari should join, ask for his email to cc him on the invite.",
+        "branches": []
+      },
+      "send_email": {
+        "label": "SEND EMAIL — QUALIFY IT",
+        "say": "Totally fair. One quick question before I do — what would be most useful to include so it's not just another generic email that gets buried?",
+        "note": "Her answer tells you what to emphasize in the follow-up. Whatever she says, tailor the email to it. If she says just send whatever, still include a specific time to connect.",
+        "branches": [
+          {
+            "label": "Gives direction on what to include",
+            "to": "email_confirmed"
+          },
+          {
+            "label": "Just send whatever / general info",
+            "to": "email_confirmed"
+          }
+        ]
+      },
+      "email_confirmed": {
+        "label": "EMAIL — WRAP UP",
+        "say": "Got it — I'll send that over today. I'll throw a couple times in there for next week in case you want to dig in a bit more. Really appreciate your time, Tanya.",
+        "note": "Send the email within the hour. Include a specific day and time suggestion. Follow up in 3 days if no response. Also consider sending a separate tailored email to Ari directly at sandiego@itrip.net.",
+        "branches": []
+      },
+      "referral_to_ari": {
+        "label": "REFERRAL — ARI",
+        "say": "Totally makes sense — Ari's the one making those calls. Would you mind if I reached out to him directly? Is the best way just calling this same number, or does he have a direct line?",
+        "note": "Get Ari's best contact path. Then ask if Tanya would give him a heads up — a warm intro converts way better. Known contacts: sandiego@itrip.net, (858) 800-2534.",
+        "branches": [
+          {
+            "label": "Same number / I'll mention it to him",
+            "to": "referral_warm_intro"
+          },
+          {
+            "label": "Just email him / gives his email",
+            "to": "referral_cold"
+          },
+          {
+            "label": "I'd rather not send you to him either",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "referral_warm_intro": {
+        "label": "REFERRAL — WARM INTRO",
+        "say": "That would be huge — if you could just mention Sam from RapidEye called about the turnover photo stuff, that way I'm not totally cold when I reach him. Really appreciate it, Tanya.",
+        "note": "Tanya mentioning you to Ari is gold. Follow up with Ari within 24 hours. Open with: Hey Ari, Tanya mentioned she'd give you a heads up I'd be calling.",
+        "branches": []
+      },
+      "referral_cold": {
+        "label": "REFERRAL — COLD OUTREACH TO ARI",
+        "say": "Perfect — I'll put something tailored together for Ari so it actually lands. Thanks for pointing me in the right direction, Tanya. Appreciate your time.",
+        "note": "Email Ari at sandiego@itrip.net. Reference the conversation with Tanya by name. Keep it short and specific to their coastal SD portfolio and FlipStream workflow.",
+        "branches": []
+      },
+      "graceful_exit": {
+        "label": "GRACEFUL EXIT",
+        "say": "Totally understand. If anything changes on your end, I'm easy to find — Sam Parks, RapidEye. Appreciate your time, Tanya.",
+        "note": "Don't burn the bridge. She talks to Ari every day — this conversation may come up later. Log the call and set a follow-up reminder for 45 to 60 days out.",
+        "branches": []
+      }
+    }
+  }
+}

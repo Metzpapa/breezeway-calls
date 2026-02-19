@@ -1,0 +1,628 @@
+{
+  "name": "Allen Kleckley",
+  "title": "General Manager (Edisto Beach, SC)",
+  "company": "Vacasa",
+  "location": "San Diego, CA",
+  "phone": "+1-503-345-9399",
+  "company_phone": "800-544-0300",
+  "alt_phones": [
+    "+1-800-544-0300",
+    "+1-800-863-8415",
+    "+1-850-299-9469",
+    "+1-208-203-3377"
+  ],
+  "flow": {
+    "context": "Allen Kleckley is a General Manager at Vacasa overseeing the Edisto Beach, SC market — a smaller coastal vacation rental destination where he's publicly flagged limited local contractor availability as a major operational constraint. He owns turnover execution, cleaning inspections, maintenance dispatch, and local team management. Vacasa was acquired by Casago in May 2025 and is migrating to a franchise model with new ops tools (Breezeway, Guesty) rolling network-wide, so Allen's workflows and systems are likely in flux. Vacasa's field app already includes post-cleaning photo submissions with real-time inspection approval gates — the exact workflow RapidEye attaches to. No direct personal connection to Sam — lean on industry proximity with other East Coast coastal GMs and the beach-market angle.",
+    "start": "gatekeeper",
+    "nodes": {
+      "gatekeeper": {
+        "label": "GATEKEEPER",
+        "say": "Hey, could you get me through to Allen? It's Sam.",
+        "note": "Don't explain anything. Dose info bit by bit. Sound like you belong.",
+        "branches": [
+          {
+            "label": "Puts you through / Allen answers directly",
+            "to": "opener"
+          },
+          {
+            "label": "Who's calling? / What's this about?",
+            "to": "gatekeeper_pushback"
+          },
+          {
+            "label": "He's not available right now",
+            "to": "gatekeeper_unavailable"
+          }
+        ]
+      },
+      "gatekeeper_pushback": {
+        "label": "GATEKEEPER — CONTEXT",
+        "say": "Yeah, I work with a few other vacation rental managers on the East Coast. Would you mind letting Allen know it's Sam Parks?",
+        "note": "Still no pitch. Just enough info to sound relevant, not enough to reject.",
+        "branches": [
+          {
+            "label": "Puts you through",
+            "to": "opener"
+          },
+          {
+            "label": "Still pushing — what's this regarding?",
+            "to": "gatekeeper_social_proof"
+          },
+          {
+            "label": "Take a message / send an email",
+            "to": "send_email"
+          }
+        ]
+      },
+      "gatekeeper_social_proof": {
+        "label": "GATEKEEPER — SOCIAL PROOF",
+        "say": "We help a couple other property management companies with their inspection and turnover workflows. I sent Allen a note — would you mind giving him a heads up?",
+        "note": "Last attempt. If this doesn't work, don't force it. Get a callback time or exit clean.",
+        "branches": [
+          {
+            "label": "Puts you through",
+            "to": "opener"
+          },
+          {
+            "label": "Still won't connect",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "gatekeeper_unavailable": {
+        "label": "GATEKEEPER — NOT AVAILABLE",
+        "say": "No worries. When's he usually back at his desk? I'll try him then.",
+        "note": "Get a specific callback window. Lock it down like you would a meeting.",
+        "branches": [
+          {
+            "label": "Gives a time / day",
+            "to": "reschedule"
+          },
+          {
+            "label": "Won't say / suggests email",
+            "to": "send_email"
+          }
+        ]
+      },
+      "opener": {
+        "label": "OPENER",
+        "say": "Hey Allen — I work with a few other GMs running beach markets on the East Coast. It's Sam Parks with RapidEye. Have you heard my name tossed around at all?",
+        "note": "Relaxed. Like calling someone you've been meaning to catch up with. Feet up on the desk energy. Don't rush.",
+        "branches": [
+          {
+            "label": "Yes / I think so",
+            "to": "heard_yes"
+          },
+          {
+            "label": "No / Who?",
+            "to": "heard_no"
+          },
+          {
+            "label": "I'm busy / bad time",
+            "to": "bad_timing"
+          },
+          {
+            "label": "Not interested / hostile",
+            "to": "permission_fallback"
+          }
+        ]
+      },
+      "heard_yes": {
+        "label": "HEARD YES",
+        "say": "Oh nice — well normally we'd be working with someone exactly like you. What'd you hear?",
+        "note": "Let them talk. Whatever they say shapes your next move. If it's vague, pivot to the pain trigger.",
+        "branches": [
+          {
+            "label": "Explains what they heard / curious",
+            "to": "discovery_questions"
+          },
+          {
+            "label": "Vague — not sure where I heard it",
+            "to": "pain_trigger"
+          }
+        ]
+      },
+      "heard_no": {
+        "label": "HEARD NO — PIVOT TO PAIN",
+        "say": "Oh, guess I'm not as popular as I thought. Well the reason for my call — I was just talking to another GM running a market a lot like Edisto, and something came up that made me think of you.",
+        "note": "Self-deprecating, light, then immediately bridge to relevance. Don't pause too long here — flow right into the pain trigger.",
+        "branches": [
+          {
+            "label": "OK, go ahead / listening",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "Still resistant / skeptical",
+            "to": "permission_fallback"
+          },
+          {
+            "label": "I'm really busy right now",
+            "to": "bad_timing"
+          }
+        ]
+      },
+      "bad_timing": {
+        "label": "BAD TIMING",
+        "say": "Totally hear you — would it be a terrible idea if I tried you again tomorrow, maybe mid-morning?",
+        "note": "Suggest a specific time. Don't leave it open-ended or you'll never reconnect.",
+        "branches": [
+          {
+            "label": "Gives a time or agrees",
+            "to": "reschedule"
+          },
+          {
+            "label": "Don't call back / hard no",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "reschedule": {
+        "label": "RESCHEDULE LOCKED",
+        "say": "Perfect — I'll try you then. Appreciate it, Allen. Talk soon.",
+        "note": "Set a reminder immediately. Call back at exactly the time you said.",
+        "branches": []
+      },
+      "permission_fallback": {
+        "label": "PERMISSION FALLBACK",
+        "say": "Yeah totally — I mean it is a cold call. Can I get 30 seconds to tell you why I reached out, and you can totally hang up on me if it's not a fit?",
+        "note": "Disarming honesty. Most people will give you the 30 seconds because you named the elephant.",
+        "branches": [
+          {
+            "label": "Fine, go ahead",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "No / not interested / hangs up",
+            "to": "permission_rejected"
+          }
+        ]
+      },
+      "permission_rejected": {
+        "label": "PERMISSION REJECTED — SPLIT",
+        "say": "Shoot, totally my bad. Just so nobody from my team bugs you again — is it that I caught you at a horrible time, or is it that you already know what we do and it's just not interesting?",
+        "note": "You're splitting the rejection into something you can work with. Curiosity, not pressure.",
+        "branches": [
+          {
+            "label": "Bad time",
+            "to": "bad_timing"
+          },
+          {
+            "label": "Not interesting / don't need it",
+            "to": "objection_not_interested"
+          },
+          {
+            "label": "Actually, tell me what you do",
+            "to": "pain_trigger"
+          }
+        ]
+      },
+      "pain_trigger": {
+        "label": "PAIN TRIGGER",
+        "say": "So this GM I was talking to — smaller beach town, not a ton of contractors to go around, sound familiar? His cleaners were taking photos after every turnover, submitting 'em through the app, but nobody had time to actually look through all of them. So stuff would slip — a cracked tile in the bathroom, a stain on the sofa, a missing set of towels — and they wouldn't catch it until the guest was already checked in. And in a market like his, where you can't just snap your fingers and get someone out same day, that's a nightmare. You're scrambling, the guest is frustrated, and it's hitting the review before you even have a chance to fix it.",
+        "note": "PAUSE after this. Do NOT jump to the solution. Let Allen react. The silence is where trust forms. If he starts talking — let him.",
+        "branches": [
+          {
+            "label": "Resonates — yeah that happens / tells his own version",
+            "to": "pain_resonates"
+          },
+          {
+            "label": "Lukewarm — we're pretty good at catching stuff",
+            "to": "pain_lukewarm"
+          },
+          {
+            "label": "We already handle that / have a process",
+            "to": "objection_have_process"
+          },
+          {
+            "label": "Not interested",
+            "to": "objection_not_interested"
+          },
+          {
+            "label": "That's a corporate decision / above my pay grade",
+            "to": "objection_corporate_decision"
+          }
+        ]
+      },
+      "pain_resonates": {
+        "label": "PAIN RESONATES — SHIFT TO DISCOVERY",
+        "say": "Yeah — that's exactly what I keep hearing. Can I ask — what does your turnover process look like right now at Edisto? Are your folks still using the Vacasa field app for photos, or has anything changed since the Casago transition?",
+        "note": "He's warm. STOP pitching. Ask questions. Let him talk. You're gathering intel: photo workflow, tools, team structure, pain points.",
+        "branches": [
+          {
+            "label": "Describes process / opens up",
+            "to": "discovery_questions"
+          },
+          {
+            "label": "Asks what RapidEye does",
+            "to": "one_sentence_solution"
+          },
+          {
+            "label": "Mentions Casago changes / transition pains",
+            "to": "casago_transition_probe"
+          }
+        ]
+      },
+      "pain_lukewarm": {
+        "label": "LUKEWARM — DIG DEEPER",
+        "say": "Totally — sounds like you've got a handle on it. Out of curiosity though, when something does slip through, how does that usually surface? Is it the guest calling in, or does your team catch it on a re-check before arrival?",
+        "note": "Don't push. Get curious. Everyone has something that slips through — find the crack.",
+        "branches": [
+          {
+            "label": "Opens up about gaps / issues",
+            "to": "discovery_questions"
+          },
+          {
+            "label": "Still guarded but listening",
+            "to": "one_sentence_solution"
+          },
+          {
+            "label": "Shuts it down",
+            "to": "objection_not_interested"
+          }
+        ]
+      },
+      "discovery_questions": {
+        "label": "DISCOVERY — ASK QUESTIONS",
+        "say": "Got it. And how many homes are you guys managing out of Edisto right now? Are turnovers mostly in-house or are you pulling from outside cleaning crews too?",
+        "note": "Gather: unit count, in-house vs vendor cleaning, photo volume, inspector headcount, biggest recurring headache, contractor availability. Let him go wherever he wants to go.",
+        "branches": [
+          {
+            "label": "Gives details / stays engaged",
+            "to": "one_sentence_solution"
+          },
+          {
+            "label": "Asks what you actually do",
+            "to": "one_sentence_solution"
+          },
+          {
+            "label": "Mentions contractor or staffing pains",
+            "to": "casago_transition_probe"
+          },
+          {
+            "label": "Getting impatient — get to the point",
+            "to": "one_sentence_solution"
+          }
+        ]
+      },
+      "casago_transition_probe": {
+        "label": "CASAGO TRANSITION PROBE",
+        "say": "That's interesting — with the Casago transition, are they rolling new tools out on your end? I know they just partnered with Breezeway and Guesty across the franchise network. Has any of that hit Edisto yet, or are you still on the old Vacasa stack?",
+        "note": "This shows deep homework and makes you sound like an insider. If mid-transition: there's a natural integration window. If not yet: there's uncertainty and potential budget conversations coming.",
+        "branches": [
+          {
+            "label": "Yes, tools changing / Breezeway coming",
+            "to": "one_sentence_solution"
+          },
+          {
+            "label": "No, still on old Vacasa systems",
+            "to": "one_sentence_solution"
+          },
+          {
+            "label": "Doesn't know yet / uncertain",
+            "to": "one_sentence_solution"
+          },
+          {
+            "label": "Gets guarded about internal stuff",
+            "to": "cta_offer"
+          }
+        ]
+      },
+      "one_sentence_solution": {
+        "label": "ONE-SENTENCE SOLUTION",
+        "say": "So what we built — RapidEye plugs into the photos your team's already taking during turnovers and automatically flags damage, missing items, staging issues. No workflow change, no extra steps — it just catches the stuff that's easy to miss when you're reviewing hundreds of photos across properties.",
+        "note": "ONE concept. Don't go deeper unless he asks. Immediately move to the CTA.",
+        "branches": [
+          {
+            "label": "Interested / how does that work?",
+            "to": "cta_offer"
+          },
+          {
+            "label": "We already have something for that",
+            "to": "objection_have_process"
+          },
+          {
+            "label": "I don't have budget for that",
+            "to": "objection_no_budget"
+          },
+          {
+            "label": "Not interested",
+            "to": "objection_not_interested"
+          },
+          {
+            "label": "That'd have to go through corporate",
+            "to": "objection_corporate_decision"
+          }
+        ]
+      },
+      "cta_offer": {
+        "label": "CTA — ASK FOR THE MEETING",
+        "say": "Would you be open to taking a look when I'm not cold calling you out of the blue? I can walk you through what a couple other coastal PMs are doing with their turnover photos — worst case you steal some ideas and we part as friends.",
+        "note": "Low pressure. Smile. The offer of value is real — even if he never buys, the meeting is worth his time.",
+        "branches": [
+          {
+            "label": "Yeah sure / I'd take a look",
+            "to": "meeting_accepted"
+          },
+          {
+            "label": "Send me an email first",
+            "to": "send_email"
+          },
+          {
+            "label": "No budget right now",
+            "to": "objection_no_budget"
+          },
+          {
+            "label": "Not interested",
+            "to": "objection_not_interested"
+          },
+          {
+            "label": "I'd need to check with someone above me",
+            "to": "objection_corporate_decision"
+          },
+          {
+            "label": "I'm not the right person for this",
+            "to": "referral_ask"
+          }
+        ]
+      },
+      "meeting_accepted": {
+        "label": "MEETING ACCEPTED — LOCK IT IN",
+        "say": "Awesome — I've got next week pulled up. How does Tuesday or Wednesday look for you? I only need about 20 minutes.",
+        "note": "Pick a day and time NOW. Don't say 'I'll send you a link' and hope. Lock it on this call.",
+        "branches": [
+          {
+            "label": "Picks a day/time",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Let me check my calendar and get back to you",
+            "to": "book_meeting_push"
+          },
+          {
+            "label": "Hesitates / maybe",
+            "to": "book_meeting_push"
+          }
+        ]
+      },
+      "book_meeting_push": {
+        "label": "PUSH TO LOCK — GENTLY",
+        "say": "Totally — how about I just throw a placeholder on for Wednesday afternoon, and if you need to move it we'll move it? That way neither of us has to chase it down.",
+        "note": "Give a specific option to reduce friction. A placeholder is easier to agree to than a commitment.",
+        "branches": [
+          {
+            "label": "OK, that works",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Just email me",
+            "to": "send_email"
+          }
+        ]
+      },
+      "book_meeting": {
+        "label": "MEETING BOOKED",
+        "say": "Perfect — I'll send over the invite right now so it's locked in. Really appreciate you taking my call, Allen. Talk soon.",
+        "note": "Send the calendar invite WHILE on the phone. Stop selling immediately. Be grateful and get off.",
+        "branches": []
+      },
+      "send_email": {
+        "label": "SEND ME AN EMAIL",
+        "say": "Totally fair. One question before I do — what would be most relevant to include so it's not just another generic pitch sitting in your inbox?",
+        "note": "Get him to tell you what matters. This makes your follow-up 10x more targeted and gives you an excuse to continue the conversation.",
+        "branches": [
+          {
+            "label": "Tells you what he cares about",
+            "to": "send_email_tailored"
+          },
+          {
+            "label": "Just send me whatever / doesn't specify",
+            "to": "send_email_tailored"
+          }
+        ]
+      },
+      "send_email_tailored": {
+        "label": "EMAIL — CONFIRM AND CLOSE",
+        "say": "Got it — I'll put something together around that and shoot it over today. I'll throw a couple times in there for next week in case you want to hop on for 15 minutes. Appreciate it, Allen.",
+        "note": "Send the email within 2 hours. Include a specific time suggestion. Reference this conversation so he remembers you.",
+        "branches": []
+      },
+      "objection_no_budget": {
+        "label": "OBJECTION — NO BUDGET",
+        "say": "Totally get it. Especially with everything changing post-acquisition — I'm sure budgets are getting looked at differently right now.",
+        "note": "Agree first. The Casago reference shows you understand his world. Don't push back.",
+        "branches": [
+          {
+            "label": "Yeah, budgets are frozen / tight",
+            "to": "budget_split"
+          },
+          {
+            "label": "Opens up about the situation",
+            "to": "discovery_questions"
+          },
+          {
+            "label": "Hard no",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "budget_split": {
+        "label": "BUDGET — SPLIT THE OBJECTION",
+        "say": "Just so nobody from my team cold calls you again — is it that budget for this cycle is completely locked, or is it more that anything new has to go through Casago corporate now?",
+        "note": "You're diagnosing: is this a money problem or an approval-chain problem? Different answers require different next steps.",
+        "branches": [
+          {
+            "label": "Budget locked / just not spending",
+            "to": "test_drive"
+          },
+          {
+            "label": "Has to go through corporate / Casago",
+            "to": "referral_ask"
+          },
+          {
+            "label": "Opens up about actual situation",
+            "to": "test_drive"
+          }
+        ]
+      },
+      "objection_not_interested": {
+        "label": "OBJECTION — NOT INTERESTED",
+        "say": "I totally get it. I should've assumed you'd be all set — otherwise you probably would've reached out yourself.",
+        "note": "Agree. Surprise them. Lower their guard by not pushing.",
+        "branches": [
+          {
+            "label": "Softens a bit",
+            "to": "interest_split"
+          },
+          {
+            "label": "Hard no / firm",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "interest_split": {
+        "label": "NOT INTERESTED — SPLIT",
+        "say": "Just so no one from my team bugs you again — is it that inspections just aren't a priority you're focused on right now, or is it more that you just hate getting cold calls? Because honestly, I get it either way.",
+        "note": "Light humor. Give him a graceful out. If it's the cold call thing, there's still a door open.",
+        "branches": [
+          {
+            "label": "Not a priority right now",
+            "to": "test_drive"
+          },
+          {
+            "label": "Hates cold calls / softens with a laugh",
+            "to": "test_drive"
+          },
+          {
+            "label": "Actually, it is a problem but...",
+            "to": "pain_resonates"
+          },
+          {
+            "label": "Firm no",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "objection_have_process": {
+        "label": "OBJECTION — HAVE A PROCESS",
+        "say": "That makes total sense — you'd have to with the volume at Edisto. I know the Vacasa field app already does photo submissions and approvals, so I'd be worried if you didn't have something in place.",
+        "note": "Validate their process. Referencing their actual tool (Vacasa field app) builds credibility. Don't compete — complement.",
+        "branches": [
+          {
+            "label": "Describes what they use / opens up",
+            "to": "process_split"
+          },
+          {
+            "label": "Yeah, we're covered",
+            "to": "process_split"
+          },
+          {
+            "label": "Firm — not looking to change",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "process_split": {
+        "label": "PROCESS — SPLIT THE OBJECTION",
+        "say": "Totally. Is it that you're fully covered and happy with how the photo review is working, or is it more that switching anything right now — especially mid-transition with Casago — would just be a headache?",
+        "note": "The mid-transition reference is intentional. If switching is the blocker, RapidEye layers on top of what they have — it doesn't replace anything.",
+        "branches": [
+          {
+            "label": "Happy with it but open to hearing more",
+            "to": "test_drive"
+          },
+          {
+            "label": "Switching is the headache",
+            "to": "test_drive"
+          },
+          {
+            "label": "Firm no",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "objection_corporate_decision": {
+        "label": "OBJECTION — CORPORATE DECIDES",
+        "say": "Makes total sense — especially with Casago running things now, I imagine a lot of decisions are getting made at a different level. Who on the ops side would typically own something like this? Would it be someone like Bob Milne, or more on the franchise ops side?",
+        "note": "Name-drop Bob Milne (SVP Ops) or Alex Johnson (VP Franchise Ops) to show you know the org. If Allen confirms or corrects, you have your next target.",
+        "branches": [
+          {
+            "label": "Gives a name / confirms Bob or someone else",
+            "to": "referral_got_name"
+          },
+          {
+            "label": "Not sure / won't share",
+            "to": "referral_ask"
+          },
+          {
+            "label": "Just email corporate",
+            "to": "send_email"
+          }
+        ]
+      },
+      "referral_ask": {
+        "label": "REFERRAL — ASK FOR A NAME",
+        "say": "Totally understand. If I could just get a name — even just who on the operations or franchise side owns tooling decisions — I can put something tailored together so it actually lands instead of going into a black hole. Who comes to mind?",
+        "note": "Target names: Bob Milne (SVP Ops), John Banczak (COO), Alex Johnson (VP Franchise Ops), Joe Riley (President, Casago). If Allen names someone, take it. If not, ask: 'Would it be someone at the SVP level, or more regional?'",
+        "branches": [
+          {
+            "label": "Gives a name",
+            "to": "referral_got_name"
+          },
+          {
+            "label": "Offers to forward something internally",
+            "to": "send_email"
+          },
+          {
+            "label": "Won't share / doesn't know",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "referral_got_name": {
+        "label": "REFERRAL — GOT A NAME",
+        "say": "That's super helpful. Would it be cool if I mentioned you pointed me their way? Just so it doesn't land totally cold on their end.",
+        "note": "Always ask permission to name-drop. Even if he says no, you have the name and the context.",
+        "branches": [
+          {
+            "label": "Sure, go ahead",
+            "to": "end_referral"
+          },
+          {
+            "label": "Rather you didn't / no",
+            "to": "end_referral"
+          }
+        ]
+      },
+      "end_referral": {
+        "label": "CLOSE — REFERRAL",
+        "say": "Perfect. Thanks again for your time, Allen. And hey, if anything changes on your end or you want to take a look yourself, I'm easy to find. Appreciate it.",
+        "note": "Don't burn the bridge with Allen — he may still be a pilot site. Note who he referred you to and follow up within 24 hours.",
+        "branches": []
+      },
+      "test_drive": {
+        "label": "TEST DRIVE — SELL THE FUTURE LOOK",
+        "say": "You're probably not buying anything right now, and I totally respect that. But when things do settle down — especially once the Casago transition shakes out — the people who move fastest are the ones who already know what's on their list. Would you be open to just a quick look? Not for today — just so it's on your radar when the time's right.",
+        "note": "Low pressure, future-oriented. You're offering optionality, not a commitment.",
+        "branches": [
+          {
+            "label": "Yeah, I could do that",
+            "to": "meeting_accepted"
+          },
+          {
+            "label": "Just send me something to review",
+            "to": "send_email"
+          },
+          {
+            "label": "No, not right now",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "end_graceful": {
+        "label": "GRACEFUL EXIT",
+        "say": "Totally understand, Allen. If anything changes, I'm easy to find. Appreciate your time — enjoy Edisto.",
+        "note": "Warm and genuine. Don't burn the bridge. You may call back in 3 months after the Casago dust settles.",
+        "branches": []
+      }
+    }
+  }
+}

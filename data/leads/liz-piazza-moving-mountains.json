@@ -1,0 +1,551 @@
+{
+  "name": "Liz Piazza",
+  "title": "Systems Administrator",
+  "company": "Moving Mountains",
+  "location": "Steamboat Springs, CO",
+  "phone": "+1-877-624-2538",
+  "company_phone": "(877) 624-2538",
+  "alt_phones": [
+    "+1-970-870-9359",
+    "+1-970-445-2300",
+    "+1-970-547-2122",
+    "+1-970-870-9487"
+  ],
+  "flow": {
+    "context": "Liz Piazza is the Systems Administrator at Moving Mountains — a luxury vacation rental manager running 250 properties across Steamboat Springs, Vail, Beaver Creek, and Breckenridge. She was quoted by name in Track's April 2025 Owner Portal press release, confirming she's the hands-on admin for their PMS. They also run Breezeway for field ops, have dedicated QA inspectors across every market, and just took investment from StayTerra (May 2025) on top of multiple recent acquisitions. Strongest opener: reference her Track press release quote — no telemarketer would know it, and it signals Sam is in the same ecosystem. Secondary: Sam skis (Jackson Hole, Jan 2026) and all their markets are Colorado ski resort towns.",
+    "start": "opener",
+    "nodes": {
+      "opener": {
+        "label": "OPENER",
+        "say": "Hey Liz — I actually saw your name in that Track owner portal piece from earlier this year. It's Sam Parks with RapidEye. Have you heard my name tossed around at all?",
+        "note": "She was quoted in Track's April 2025 press release about their new Owner Portal. This is extremely specific — no telemarketer would know it. Relaxed tone, like calling someone in the same tech community. Feet up on the desk.",
+        "branches": [
+          {
+            "label": "Yes / maybe",
+            "to": "heard_name_yes"
+          },
+          {
+            "label": "No / who?",
+            "to": "heard_name_no"
+          },
+          {
+            "label": "Bad timing / busy",
+            "to": "bad_timing"
+          },
+          {
+            "label": "Gatekeeper answers",
+            "to": "gatekeeper"
+          }
+        ]
+      },
+      "heard_name_yes": {
+        "label": "THEY'VE HEARD OF YOU",
+        "say": "Oh nice — well normally we'd be working with someone like you on the systems side. What'd you hear?",
+        "note": "Let her talk. Whatever she says, bridge into discovery. If vague, say 'Yeah that's the gist — the reason I'm reaching out is...' and transition to pain trigger.",
+        "branches": [
+          {
+            "label": "Describes what they heard",
+            "to": "warm_discovery"
+          },
+          {
+            "label": "Vague / not much",
+            "to": "pain_trigger"
+          }
+        ]
+      },
+      "heard_name_no": {
+        "label": "HAVEN'T HEARD OF YOU",
+        "say": "Ha — guess I'm not as popular as I thought. Well the reason for my call —",
+        "note": "Keep it light, don't dwell. If she's neutral and listening, go straight to pain trigger. If she sounds guarded or annoyed, pivot to permission fallback.",
+        "branches": [
+          {
+            "label": "Neutral / listening",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "Guarded / 'what is this about?'",
+            "to": "permission_fallback"
+          }
+        ]
+      },
+      "bad_timing": {
+        "label": "BAD TIMING",
+        "say": "Totally hear you — would it be a terrible idea if I tried you again tomorrow or later this week?",
+        "note": "Don't pitch. Just get a callback window. If she gives a time, take it and go.",
+        "branches": [
+          {
+            "label": "Gives a time",
+            "to": "reschedule_confirmed"
+          },
+          {
+            "label": "What's this about?",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "Don't call back",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "reschedule_confirmed": {
+        "label": "RESCHEDULE LOCKED",
+        "say": "Perfect — I'll try you then. Appreciate it, Liz.",
+        "note": "Note the exact day and time. Don't push further. End the call cleanly. Call back at exactly the time she said.",
+        "branches": []
+      },
+      "gatekeeper": {
+        "label": "GATEKEEPER — SLIDE BY",
+        "say": "Hey — could you get me through to Liz? It's Sam.",
+        "note": "First name only. Sound like you know her. Don't explain why you're calling. Dose info bit by bit.",
+        "branches": [
+          {
+            "label": "Puts you through",
+            "to": "opener"
+          },
+          {
+            "label": "Asks who you are / what it's about",
+            "to": "gatekeeper_context"
+          },
+          {
+            "label": "She's not available",
+            "to": "gatekeeper_voicemail"
+          }
+        ]
+      },
+      "gatekeeper_context": {
+        "label": "GATEKEEPER — ADD CONTEXT",
+        "say": "Yeah — I work with a few other property managers on Track in the Steamboat area. Would you mind letting her know it's Sam Parks?",
+        "note": "Mentioning Track signals insider, not salesperson. If they push again, go to social proof. Ask 'Who am I speaking with, by the way?' to get their name.",
+        "branches": [
+          {
+            "label": "Puts you through",
+            "to": "opener"
+          },
+          {
+            "label": "Pushes back more",
+            "to": "gatekeeper_social_proof"
+          },
+          {
+            "label": "She's not available",
+            "to": "gatekeeper_voicemail"
+          }
+        ]
+      },
+      "gatekeeper_social_proof": {
+        "label": "GATEKEEPER — SOCIAL PROOF",
+        "say": "Totally fair — we help a couple other property management companies with their inspection photo workflows. I sent Liz a note — would you mind just giving her a heads up that Sam Parks called?",
+        "note": "Plant the seed and move on. Don't pitch to the gatekeeper. Get their name if you can so you can reference them next time you call.",
+        "branches": [
+          {
+            "label": "Puts you through",
+            "to": "opener"
+          },
+          {
+            "label": "Will pass along message",
+            "to": "gatekeeper_voicemail"
+          }
+        ]
+      },
+      "gatekeeper_voicemail": {
+        "label": "LEAVE MESSAGE",
+        "say": "No worries at all. If you could just let her know Sam Parks called — she can reach me anytime. Appreciate your help.",
+        "note": "Leave your number. Don't pitch on voicemail. Call back tomorrow at a different time. Also try reaching Lisa Riniker or Chad Rowe directly.",
+        "branches": []
+      },
+      "permission_fallback": {
+        "label": "PERMISSION FALLBACK",
+        "say": "Yeah totally — I mean it is a cold call. Can I get 30 seconds to tell you why I reached out, and you can totally hang up on me if it's not a fit?",
+        "note": "Use this when the opener didn't land and she's guarded. The 'hang up on me' disarms. Smile when you say it.",
+        "branches": [
+          {
+            "label": "Sure / go ahead",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "No / not interested",
+            "to": "permission_rejected"
+          }
+        ]
+      },
+      "permission_rejected": {
+        "label": "PERMISSION REJECTED",
+        "say": "Shoot, totally my bad. Just so nobody from my team bugs you again — is it that I caught you at a horrible time, or is it that you already know what we do and this just isn't interesting?",
+        "note": "Split the rejection into timing vs. disinterest. If timing, you get a callback. If disinterest, pivot to referral — she may not be the right person anyway.",
+        "branches": [
+          {
+            "label": "Bad time",
+            "to": "bad_timing"
+          },
+          {
+            "label": "Not interested / not my area",
+            "to": "referral_pivot"
+          },
+          {
+            "label": "Hard no",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "pain_trigger": {
+        "label": "PAIN TRIGGER",
+        "say": "So I've been talking with a few other systems folks at luxury PM companies running Track — and the thing that keeps coming up is the photo bottleneck on the ops side. The cleaners and QA people are taking hundreds of turnover photos through Breezeway, they're all flowing into the system, but nobody actually has time to review them. Stuff gets missed — a stain on a sofa, a broken cabinet hinge, something a guest damaged that never got flagged. And then the next guest checks into a luxury home in Steamboat and it's a fire drill. We built something that plugs into Track and Breezeway and automatically catches that stuff in the photos your team's already taking — no workflow change at all. Would you be open to taking a look sometime when I'm not cold calling you out of the blue?",
+        "note": "PAUSE after 'fire drill' — let it land. She manages these exact systems, so naming Track and Breezeway by name is critical. If she jumps in before you finish, STOP TALKING and follow her lead. The '250 properties across four markets' scale is implied — she'll feel it.",
+        "branches": [
+          {
+            "label": "Engaged / curious / asks questions",
+            "to": "warm_discovery"
+          },
+          {
+            "label": "That's interesting but not really my area",
+            "to": "referral_pivot"
+          },
+          {
+            "label": "We already have something for that",
+            "to": "objection_have_vendor"
+          },
+          {
+            "label": "Not interested",
+            "to": "objection_not_interested"
+          }
+        ]
+      },
+      "warm_discovery": {
+        "label": "DISCOVERY — DIG INTO SYSTEMS",
+        "say": "That's actually why I wanted to talk to you specifically — you're the one running Track and the integrations over there. What does the photo side of your turnover workflow actually look like right now? Are the QA folks submitting through Breezeway, or is it a mix across markets?",
+        "note": "STOP PITCHING. Ask questions. She knows the systems better than anyone at that company — let her teach you. Listen for: what tools touch photos, where photos live, who reviews them, what falls through the cracks, and whether each market does it differently.",
+        "branches": [
+          {
+            "label": "Describes their workflow / tools in detail",
+            "to": "dig_deeper"
+          },
+          {
+            "label": "Yeah we use Breezeway for that",
+            "to": "breezeway_probe"
+          },
+          {
+            "label": "I set up the systems but ops runs the day-to-day",
+            "to": "referral_pivot"
+          }
+        ]
+      },
+      "dig_deeper": {
+        "label": "DIG DEEPER — WORKFLOW GAPS",
+        "say": "Got it. So when a QA person flags something — damage or a missing item — where does that go? Does it auto-create a ticket in Track, or is there a manual handoff to maintenance?",
+        "note": "You're mapping their workflow now. The gap usually lives between photo capture and action. If there's a manual step, that's your opening. Mirror back any pain she describes.",
+        "branches": [
+          {
+            "label": "Describes gaps / manual steps",
+            "to": "solution_bridge"
+          },
+          {
+            "label": "It's pretty automated already",
+            "to": "stayterra_growth_angle"
+          },
+          {
+            "label": "I'm not sure — ops would know better",
+            "to": "referral_pivot"
+          }
+        ]
+      },
+      "breezeway_probe": {
+        "label": "BREEZEWAY DEEP DIVE",
+        "say": "Yeah that's what I figured — you guys are on Breezeway for the task and checklist side. The thing I keep hearing from other Breezeway shops is that the photos get collected, but nobody's actually analyzing them at scale. A cleaner takes 40 photos per unit, someone's supposed to scroll through and spot issues, and when you're running properties across Steamboat, Vail, Beaver Creek, and Breck — stuff just slips. Is that something you see on your end, or is it pretty buttoned up?",
+        "note": "Name all four markets to show you know the footprint. Frame as a peer observation, not a criticism. If she confirms the gap, you're in. If she says it's handled, pivot to the growth angle.",
+        "branches": [
+          {
+            "label": "Yeah that's a real issue",
+            "to": "solution_bridge"
+          },
+          {
+            "label": "It's decent but not perfect",
+            "to": "solution_bridge"
+          },
+          {
+            "label": "That's more of an ops question honestly",
+            "to": "referral_pivot"
+          },
+          {
+            "label": "We're happy with how it works",
+            "to": "stayterra_growth_angle"
+          }
+        ]
+      },
+      "stayterra_growth_angle": {
+        "label": "GROWTH PRESSURE ANGLE",
+        "say": "That's great you guys have it dialed. I know you just took on the StayTerra investment and you've been adding properties through acquisitions — when you're onboarding new homes into the system, is the inspection setup pretty standardized across markets, or does each one kind of do their own thing?",
+        "note": "StayTerra invested May 2025. They also acquired Triumph Mountain Properties and Paragon Lodging previously. Growth through acquisition always strains standardization. If she acknowledges inconsistency across markets, that's your wedge. If she names someone who owns that, follow the referral.",
+        "branches": [
+          {
+            "label": "Acknowledges growing pains / inconsistency",
+            "to": "solution_bridge"
+          },
+          {
+            "label": "It's pretty standardized",
+            "to": "offer_value_anyway"
+          },
+          {
+            "label": "That's really more Lisa or Chad's area",
+            "to": "referral_pivot"
+          }
+        ]
+      },
+      "solution_bridge": {
+        "label": "BRIDGE TO SOLUTION",
+        "say": "Yeah that's exactly what we built for. RapidEye sits on top of Track and Breezeway — takes the photos your team's already submitting and runs them through AI to catch damage, missing items, staging issues, anything that looks different from how the property's supposed to look. No workflow change for your cleaners or QA people. It just flags what a human would miss when they're scrolling through hundreds of photos in a day.",
+        "note": "One breath. Don't oversell. 'No workflow change' is the key phrase — as a systems admin, she cares about implementation burden more than anything. Then immediately let her respond or move to CTA.",
+        "branches": [
+          {
+            "label": "That's cool — how does the integration work?",
+            "to": "integration_detail"
+          },
+          {
+            "label": "Who else should see this?",
+            "to": "referral_pivot"
+          },
+          {
+            "label": "I'd need to loop in the ops team",
+            "to": "referral_pivot"
+          },
+          {
+            "label": "Send me something",
+            "to": "send_email"
+          }
+        ]
+      },
+      "integration_detail": {
+        "label": "INTEGRATION DETAIL",
+        "say": "So on the Track side we connect through their API — pulls property data and ties inspection results back to the unit. On the Breezeway side we ingest the photos as they come through task completion. The setup's pretty light — most of the config is on our end. For you it'd basically be granting API access and maybe a quick sync call. Who on the ops side would you want to loop in to see what the output actually looks like? Someone like Lisa Riniker or one of the market ops managers?",
+        "note": "Speak her language — API, config, access grants. Then name-drop Lisa Riniker (Director of Operations) naturally. If she corrects the name or gives you someone else, that's even better. If she wants to see it herself first, book her directly.",
+        "branches": [
+          {
+            "label": "Yeah Lisa would be good / gives a name",
+            "to": "referral_got_name"
+          },
+          {
+            "label": "I'd want to see it myself first",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Let me check internally and get back to you",
+            "to": "send_email"
+          }
+        ]
+      },
+      "referral_pivot": {
+        "label": "REFERRAL PIVOT",
+        "say": "Totally makes sense — you're on the systems side, not the one dealing with the inspection headaches day to day. Who over there owns the QA and inspection workflow? Is that someone like Lisa Riniker on the ops side, or does it roll up differently?",
+        "note": "Name-drop Lisa Riniker (Director of Operations) to show you know the org. She might also mention Chad Rowe (COO), Anna Calhoon (Housekeeping & QA Manager, Steamboat), or a market GM. Any name is gold. If she corrects you, even better — now you have the right person.",
+        "branches": [
+          {
+            "label": "Gives a name",
+            "to": "referral_got_name"
+          },
+          {
+            "label": "Yeah Lisa or Chad would be the ones",
+            "to": "referral_got_name"
+          },
+          {
+            "label": "I'm not sure / won't say",
+            "to": "referral_resistance"
+          }
+        ]
+      },
+      "referral_got_name": {
+        "label": "GOT A REFERRAL",
+        "say": "Perfect — that's super helpful. Would it be cool if I mentioned your name when I reach out so it doesn't come totally out of the blue? And honestly, you're welcome to jump on too if you want to see the integration side — I've got next Tuesday pulled up, would afternoon work?",
+        "note": "Include Liz on the invite — she's the integration champion and the person who'll actually implement anything. Offering her a seat shows respect and builds an ally. Lock a specific day and time NOW.",
+        "branches": [
+          {
+            "label": "Sure / picks a time",
+            "to": "meeting_confirmed"
+          },
+          {
+            "label": "I'll pass your info along",
+            "to": "send_email"
+          },
+          {
+            "label": "Just reach out to them directly",
+            "to": "book_direct"
+          }
+        ]
+      },
+      "referral_resistance": {
+        "label": "WON'T GIVE A NAME",
+        "say": "No worries at all. If nothing else, I could send you a quick two-minute video showing how it plugs into Track and Breezeway — worst case you forward it to whoever runs the ops side and they tell me to get lost. Fair enough?",
+        "note": "Make it low-friction. A video or one-pager gives her something tangible to forward internally. If she agrees, you've got a foot in the door. Send to liz@movingmountains.com.",
+        "branches": [
+          {
+            "label": "Sure send it over",
+            "to": "send_email"
+          },
+          {
+            "label": "No thanks",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "objection_have_vendor": {
+        "label": "OBJECTION — ALREADY HAVE SOMETHING",
+        "say": "That makes total sense — with properties across four different mountain markets you'd have to have something in place. Is it that you're fully covered and happy with how the photo review side works, or is it more that adding anything new right now would be a headache from a systems perspective?",
+        "note": "She'll likely mention Breezeway. Breezeway handles task management and photo collection — RapidEye handles what happens AFTER the photo is taken. They're complementary, not competitive. Listen for which side of the split she lands on.",
+        "branches": [
+          {
+            "label": "We use Breezeway and it's covered",
+            "to": "breezeway_complement"
+          },
+          {
+            "label": "Adding anything new is a headache",
+            "to": "test_drive"
+          },
+          {
+            "label": "We're happy with everything",
+            "to": "offer_value_anyway"
+          }
+        ]
+      },
+      "breezeway_complement": {
+        "label": "BREEZEWAY IS COMPLEMENTARY",
+        "say": "Yeah — Breezeway's great for the task side, getting the checklist done, making sure photos actually get submitted. We sit on top of Breezeway. The gap is what happens after the photos are taken — right now someone's gotta manually look through them and catch issues. We automate that piece. A few of our customers actually came to us because they were on Breezeway and loved it but were still missing stuff in the photos nobody had time to review. Would it be worth a quick look just to see how the two work together?",
+        "note": "'Sit on top of' is the right framing — additive, not replacement. For a systems admin, the complementary integration story is the most compelling angle. Don't trash Breezeway.",
+        "branches": [
+          {
+            "label": "Sure / that could be useful",
+            "to": "book_meeting"
+          },
+          {
+            "label": "I'd need to involve the ops team",
+            "to": "referral_pivot"
+          },
+          {
+            "label": "Not right now",
+            "to": "test_drive"
+          }
+        ]
+      },
+      "objection_not_interested": {
+        "label": "OBJECTION — NOT INTERESTED",
+        "say": "Totally get it — I should have assumed you'd be all set, otherwise you probably would have reached out yourself. Just so nobody from my team cold calls you again — is it that this isn't a problem you're focused on from the systems side, or is it more that you just hate cold calls?",
+        "note": "Agree first, then split. 'Not my area' gives you a referral path. 'Hate cold calls' lets you acknowledge it and try the permission fallback one more time.",
+        "branches": [
+          {
+            "label": "Not my area / not focused on this",
+            "to": "referral_pivot"
+          },
+          {
+            "label": "Just hate cold calls",
+            "to": "permission_fallback"
+          },
+          {
+            "label": "Both / firm no",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "test_drive": {
+        "label": "SELL THE TEST DRIVE",
+        "say": "Totally fair — you're probably not looking to add anything to the stack right now, especially with everything going on post-investment. But when things do free up, the people who get it right are the ones who already know what's first on their list. Would you be open to a quick 15-minute look — not buying anything, just so you know it's out there? If nothing else I can show you what a few other PM companies on Track are doing with their inspection photos. Worst case you steal some ideas and we part as friends.",
+        "note": "'Post-investment' references StayTerra — shows you know their world. 'Other PM companies on Track' is the value hook for a systems admin who benchmarks against peers. Keep it zero-pressure.",
+        "branches": [
+          {
+            "label": "Sure why not",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Send me something first",
+            "to": "send_email"
+          },
+          {
+            "label": "No thanks",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "offer_value_anyway": {
+        "label": "OFFER VALUE ANYWAY",
+        "say": "Totally fair. Look — at minimum I could walk you through what a few other Track and Breezeway shops are doing with their turnover photos as they scale past 200 units. It's a 15-minute call, no pitch, and worst case you see how other companies at your scale are handling it. Would that be worth a quick look?",
+        "note": "Pure value offer. Frame as benchmarking, not buying. For a systems admin, seeing how peers configure similar stacks is genuinely interesting. If she says yes, book it now.",
+        "branches": [
+          {
+            "label": "Sure / could be useful",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Send info first",
+            "to": "send_email"
+          },
+          {
+            "label": "No thanks",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "book_meeting": {
+        "label": "BOOK THE MEETING",
+        "say": "Awesome. I've got next week pulled up — would Tuesday or Thursday afternoon work better for you? Just 15 minutes, super quick.",
+        "note": "Two options, not an open question. Lock the time NOW. Send the calendar invite while on the phone if possible. If she needs to loop someone in, ask for their name and include them on the invite.",
+        "branches": [
+          {
+            "label": "Picks a time",
+            "to": "meeting_confirmed"
+          },
+          {
+            "label": "Let me check my calendar and get back",
+            "to": "send_email"
+          },
+          {
+            "label": "I need to check with someone else first",
+            "to": "referral_pivot"
+          }
+        ]
+      },
+      "book_direct": {
+        "label": "REACH OUT DIRECTLY",
+        "say": "Will do. And hey — if I mention you pointed me their way, would that be alright? Just so it doesn't come completely out of the blue.",
+        "note": "Get permission to use her name. Even a 'sure' from Liz warms the next call significantly. Note the referral name and reach out the same day.",
+        "branches": [
+          {
+            "label": "Sure go ahead",
+            "to": "meeting_confirmed"
+          },
+          {
+            "label": "Rather you didn't use my name",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "meeting_confirmed": {
+        "label": "MEETING BOOKED",
+        "say": "Perfect — I'll shoot over a calendar invite right now. Really appreciate you taking my call, Liz. Talk soon.",
+        "note": "Stop selling immediately. Send the invite within 5 minutes. Include any referral names on the invite. If she gave you Lisa Riniker or Chad Rowe, add them. Put Liz on as optional so she feels included but not obligated.",
+        "branches": []
+      },
+      "send_email": {
+        "label": "SEND ME AN EMAIL",
+        "say": "Totally fair — I'll send something over today. One quick question so it's not just another generic email in your inbox — would it be more useful to see the Track and Breezeway integration side, or more of a before-and-after of what we actually catch in turnover photos?",
+        "note": "Tailor the email based on her answer. Integration docs for a systems admin, visual results for an ops person she might forward to. Send to liz@movingmountains.com. Include a specific time suggestion: 'Would Thursday at 2 work for a quick screen share?'",
+        "branches": [
+          {
+            "label": "Tells you what to include",
+            "to": "email_confirm"
+          },
+          {
+            "label": "Just send whatever",
+            "to": "email_confirm"
+          }
+        ]
+      },
+      "email_confirm": {
+        "label": "EMAIL FOLLOW-UP LOCKED",
+        "say": "Got it — I'll have that over to you by end of day. I'll throw a time suggestion in there in case you want to do a quick screen share. No pressure either way. Appreciate your time, Liz.",
+        "note": "Send the email within the hour. Personalize it: reference the Track press release, her role, and anything she told you on the call. Follow up in 2-3 business days if no reply. Also consider reaching out to Lisa Riniker or Chad Rowe in parallel.",
+        "branches": []
+      },
+      "graceful_exit": {
+        "label": "GRACEFUL EXIT",
+        "say": "Totally understand. If anything changes, I'm easy to find — Sam Parks, RapidEye. Appreciate your time, Liz.",
+        "note": "Don't burn the bridge. She's the Systems Administrator — even if she's not interested now, she'll be involved in any future integration. Note the outcome and try a different contact at Moving Mountains next: Lisa Riniker (Director of Operations), Chad Rowe (COO), or Anna Calhoon (Housekeeping & QA Manager, Steamboat).",
+        "branches": []
+      }
+    }
+  }
+}

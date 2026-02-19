@@ -1,0 +1,563 @@
+{
+  "name": "Tala",
+  "title": "Head of Guest Services",
+  "company": "Haustay Vacation Rentals",
+  "location": "San Diego, CA",
+  "phone": "+1-858-522-9127",
+  "company_phone": "(858) 522-9127",
+  "alt_phones": [],
+  "flow": {
+    "context": "Tala is Head of Guest Services at Haustay Vacation Rentals — a boutique PM managing roughly 50-60 coastal homes in North County San Diego (Carlsbad, Encinitas, Oceanside, Solana Beach). She spent 10 years at Shangri-La Mactan Resort & Spa, so she is wired for five-star hospitality standards and feels it personally when something slips through. She is the first person who hears about it when a turnover miss reaches a guest — stains, broken items, missing supplies. Haustay runs Streamline PMS, PriceLabs, in-house cleaners, and commits to inspecting after every stay. Economic buyers are co-founders Nick and Elisa Foster, but Tala is a high-influence stakeholder who lives the pain daily. Calling the main line (858) 522-9127 — expect to ask for her by name. No direct personal connection to Sam — lead with industry and geographic proximity in North County SD.",
+    "start": "initial_pickup",
+    "nodes": {
+      "initial_pickup": {
+        "label": "PHONE PICKS UP",
+        "say": "Hey, could you get me through to Tala? It's Sam.",
+        "note": "Keep it casual — like you've called before. If Tala herself answers, skip straight to the opener node. If someone transfers you without questions, same thing — go to opener.",
+        "branches": [
+          {
+            "label": "Tala answers directly",
+            "to": "opener"
+          },
+          {
+            "label": "Someone else asks who's calling or what it's about",
+            "to": "gatekeeper_context"
+          },
+          {
+            "label": "Transferred to Tala without questions",
+            "to": "opener"
+          },
+          {
+            "label": "Tala isn't available or not in today",
+            "to": "tala_unavailable"
+          }
+        ]
+      },
+      "gatekeeper_context": {
+        "label": "GATEKEEPER — CONTEXT",
+        "say": "Yeah — I work with a few vacation rental managers in North County San Diego. Would you mind letting Tala know it's Sam Parks?",
+        "note": "Don't pitch. Don't explain RapidEye. Dose just enough to sound relevant and local. End with a redirect — you ask the questions, you control the call.",
+        "branches": [
+          {
+            "label": "Puts you through to Tala",
+            "to": "opener"
+          },
+          {
+            "label": "Asks more — what's this regarding?",
+            "to": "gatekeeper_social_proof"
+          },
+          {
+            "label": "Tala isn't available",
+            "to": "tala_unavailable"
+          },
+          {
+            "label": "Offers someone else — Nick, Elisa, Agostina",
+            "to": "opener"
+          }
+        ]
+      },
+      "gatekeeper_social_proof": {
+        "label": "GATEKEEPER — SOCIAL PROOF",
+        "say": "Totally — we help a few property management companies out here with their inspection workflows. I sent Tala a note and just wanted to follow up on it. Would you mind giving her a heads up?",
+        "note": "This is your last bypass attempt. Stay calm, don't over-explain. If they offer voicemail, take it — leave a 15-second message with your name, that you work with PM companies locally, and your callback number.",
+        "branches": [
+          {
+            "label": "Puts you through",
+            "to": "opener"
+          },
+          {
+            "label": "Takes a message or offers voicemail",
+            "to": "tala_unavailable"
+          },
+          {
+            "label": "Hard no — won't connect you",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "tala_unavailable": {
+        "label": "TALA UNAVAILABLE",
+        "say": "No worries at all. When's usually a good time to catch her? ... Perfect. And just so I have it — is there a direct line or extension for her, or is this the best number?",
+        "note": "Get a specific callback window AND try for a direct number or extension. If sent to voicemail, leave this: Hey Tala, it's Sam Parks — I work with a few vacation rental managers in North County on their turnover workflows. Give me a ring when you get a sec. Then leave your number. Under 15 seconds.",
+        "branches": [
+          {
+            "label": "They give a callback time or direct number",
+            "to": "graceful_exit"
+          },
+          {
+            "label": "Sent to voicemail",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "opener": {
+        "label": "OPENER — TALA ON THE LINE",
+        "say": "Hey Tala — I work with a few vacation rental managers out in North County San Diego on their turnover workflows. It's Sam Parks with RapidEye. Have you heard my name tossed around?",
+        "note": "Relaxed tone — feet up on the desk. Don't rush. Pause after the question and let her respond. If she sounds confused or guarded, that's normal. Just wait.",
+        "branches": [
+          {
+            "label": "No, I haven't heard of you",
+            "to": "heard_no"
+          },
+          {
+            "label": "Maybe / sounds familiar / yes",
+            "to": "heard_yes"
+          },
+          {
+            "label": "Now's not a good time / I'm busy",
+            "to": "bad_timing"
+          },
+          {
+            "label": "Who? What is this? / Sounds like a sales call",
+            "to": "permission_fallback"
+          }
+        ]
+      },
+      "heard_no": {
+        "label": "HEARD NO — BRIDGE TO PAIN",
+        "say": "Ha — I guess I'm not as popular as I thought. Well the reason for my call is —",
+        "note": "This is just a one-second bridge. Keep the energy light, smile, then flow right into the pain trigger without a long pause.",
+        "branches": [
+          {
+            "label": "Continue to pain trigger",
+            "to": "pain_trigger"
+          }
+        ]
+      },
+      "heard_yes": {
+        "label": "HEARD YES — EXPLORE",
+        "say": "Oh nice — well normally we'd be working with someone in your kind of role. What did you hear?",
+        "note": "Let her talk. Whatever she says, use it to steer into discovery. If she says something vague or noncommittal, say: Yeah so the short version is — then go to pain trigger.",
+        "branches": [
+          {
+            "label": "She shares something or gives a vague answer",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "She's already engaged and curious",
+            "to": "warm_response"
+          }
+        ]
+      },
+      "bad_timing": {
+        "label": "BAD TIMING",
+        "say": "Totally hear you — would it be a terrible idea if I tried you again tomorrow around the same time? Or is there a better window for you?",
+        "note": "Respect it completely. Get a specific callback time. Don't try to squeeze in a pitch.",
+        "branches": [
+          {
+            "label": "She gives a callback time",
+            "to": "graceful_exit"
+          },
+          {
+            "label": "Says to just email her",
+            "to": "send_email_request"
+          },
+          {
+            "label": "Not interested at all",
+            "to": "objection_not_interested"
+          }
+        ]
+      },
+      "permission_fallback": {
+        "label": "PERMISSION FALLBACK",
+        "say": "Yeah totally — I mean it is a cold call, I'll be honest. Can I get 30 seconds to tell you why I reached out, and you can totally hang up on me if it's not a fit?",
+        "note": "Say it with a smile. The honesty disarms. If she gives you permission, go straight to pain trigger — don't waste a single word of those 30 seconds.",
+        "branches": [
+          {
+            "label": "Fine, go ahead",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "No, I'm not interested / rejects",
+            "to": "permission_rejected"
+          }
+        ]
+      },
+      "permission_rejected": {
+        "label": "PERMISSION REJECTED",
+        "say": "Shoot, totally my bad. Just so nobody from my team bugs you again — is it that I caught you at a horrible time, or is it that you already know what we do and this just isn't interesting?",
+        "note": "This is not begging — it's diagnosing. The multiple choice makes it easy to answer. If it's timing, you get a callback. If it's disinterest, you might still get a referral to Nick or Elisa.",
+        "branches": [
+          {
+            "label": "It's just bad timing",
+            "to": "bad_timing"
+          },
+          {
+            "label": "Not interested / don't need it",
+            "to": "last_ditch_split"
+          },
+          {
+            "label": "I'm not the right person for this",
+            "to": "not_decision_maker"
+          }
+        ]
+      },
+      "last_ditch_split": {
+        "label": "LAST CHANCE — VALUE OFFER",
+        "say": "Totally fair. Honestly even if it's not a fit — I've been talking to a bunch of PM companies in the San Diego market and learning a lot about what's working for folks on their turnover QC. If nothing else, happy to share some of that. But if it's truly not on your radar, no hard feelings at all.",
+        "note": "Light touch. If she shows any curiosity, transition to warm response. If not, exit gracefully. Do not push past this point.",
+        "branches": [
+          {
+            "label": "She's slightly curious — what do you mean?",
+            "to": "warm_response"
+          },
+          {
+            "label": "No thanks, I'm good",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "pain_trigger": {
+        "label": "PAIN TRIGGER",
+        "say": "So I was talking to a guest services manager at another PM company running about 60 homes along the coast — pretty similar setup to Haustay. She was telling me that no matter how tight their turnover process was — in-house cleaners, inspect after every stay, the whole nine — she'd still get those guest calls about stuff that slipped through. A stain on the sofa nobody caught, a broken cabinet handle, a missing set of towels. And she's the one on the phone apologizing and scrambling to fix it before it turns into a bad review.",
+        "note": "PAUSE here. Let the silence sit for 2-3 full seconds. She lives this every day. Let her feel it. Then and only then deliver the solution sentence and CTA.",
+        "branches": [
+          {
+            "label": "She reacts — that resonates, or she shares her own version of this",
+            "to": "pain_trigger_solution"
+          },
+          {
+            "label": "Silence — waiting for more",
+            "to": "pain_trigger_solution"
+          },
+          {
+            "label": "We already inspect after every stay / we have a good process",
+            "to": "objection_have_process"
+          },
+          {
+            "label": "I'm not really the person who decides on tools",
+            "to": "not_decision_maker"
+          }
+        ]
+      },
+      "pain_trigger_solution": {
+        "label": "SOLUTION + CTA",
+        "say": "We built something that takes the photos your cleaners are already capturing during turnovers and uses AI to flag damage, missing items, staging issues — automatically — before the guest ever walks in. Would you be open to taking a look at it, maybe with Nick or Elisa, when I'm not cold calling you out of the blue?",
+        "note": "One breath. Don't over-explain. Name-drop Nick and Elisa naturally in the CTA — Tala likely can't greenlight tools alone, and including them signals you understand how their company works.",
+        "branches": [
+          {
+            "label": "That sounds interesting / yeah I'd look at it",
+            "to": "warm_response"
+          },
+          {
+            "label": "Not interested / we're good",
+            "to": "objection_not_interested"
+          },
+          {
+            "label": "I'd need to talk to Nick or Elisa",
+            "to": "not_decision_maker"
+          },
+          {
+            "label": "Send me something first",
+            "to": "send_email_request"
+          }
+        ]
+      },
+      "warm_response": {
+        "label": "SHE'S WARM — STOP PITCHING",
+        "say": "Yeah, that's exactly what I keep hearing. So I'm curious — what does your turnover process actually look like right now? Like when a cleaner finishes a unit, what happens between that and the guest walking in?",
+        "note": "She's engaged. STOP selling. Ask questions. Listen carefully and take notes — you'll reference her answers in the meeting invite. Your only job now is to understand their workflow well enough to make the demo relevant.",
+        "branches": [
+          {
+            "label": "She describes their process — opens up",
+            "to": "discovery_questions"
+          },
+          {
+            "label": "She mentions they already take photos and inspect",
+            "to": "she_mentions_inspection_process"
+          },
+          {
+            "label": "She deflects — I'm not sure I'm the right person for this",
+            "to": "not_decision_maker"
+          }
+        ]
+      },
+      "discovery_questions": {
+        "label": "DISCOVERY — DIG DEEPER",
+        "say": "Got it. And when something does get missed — like a guest calls in about damage or a missing item — what does that look like on your end? How often is that happening?",
+        "note": "You're mapping her pain in her own words. Let her vent. Follow up naturally: Is that mostly cleaning stuff or more like wear-and-tear? or How long does it usually take to resolve? Then transition to booking when you have enough.",
+        "branches": [
+          {
+            "label": "She shares specific pain or frustration",
+            "to": "book_meeting"
+          },
+          {
+            "label": "She asks what exactly RapidEye does or what it costs",
+            "to": "ask_about_cost"
+          },
+          {
+            "label": "She says it doesn't happen much — we're pretty good",
+            "to": "she_mentions_inspection_process"
+          },
+          {
+            "label": "She wants to loop in someone else",
+            "to": "not_decision_maker"
+          }
+        ]
+      },
+      "she_mentions_inspection_process": {
+        "label": "THEY ALREADY INSPECT — REFRAME",
+        "say": "Oh yeah — no, that's actually exactly why I'm calling you and not someone who doesn't inspect at all. The companies we work with are already doing the inspection, already taking photos. The problem isn't the process — it's that nobody has time to actually review 40 or 50 photos per unit and catch everything. That's the part we automate. The AI goes through every photo and flags what a human eye would miss at speed — or what someone catches on unit one but totally misses by unit fifteen when they're burned out. Does that make sense?",
+        "note": "Critical reframe. Haustay already inspects — that's a STRENGTH for RapidEye, not an objection. You're layering onto their existing workflow, not replacing it. Acknowledge their process, then show the gap.",
+        "branches": [
+          {
+            "label": "That makes sense — she's interested",
+            "to": "book_meeting"
+          },
+          {
+            "label": "How does it actually work? / What does it cost?",
+            "to": "ask_about_cost"
+          },
+          {
+            "label": "I'd need to talk to Nick or Elisa about something like that",
+            "to": "not_decision_maker"
+          },
+          {
+            "label": "We're really fine with what we have",
+            "to": "objection_have_process"
+          }
+        ]
+      },
+      "not_decision_maker": {
+        "label": "NOT THE DECISION MAKER — REFERRAL PATH",
+        "say": "Totally get that — and honestly I figured you might not be the one pulling the trigger on new tools. But you're the one who feels it when something gets missed, right? Who on your team typically makes the call on ops tooling — is that Nick, or is there someone else who runs that side?",
+        "note": "Don't let her off the hook too fast. She's valuable as an internal champion. Validate that her perspective matters, THEN ask for the referral. If she names Nick, Elisa, or Agostina, ask if she'd be willing to make an intro or if you should reach out directly.",
+        "branches": [
+          {
+            "label": "She names Nick or Elisa",
+            "to": "referral_ask"
+          },
+          {
+            "label": "She names Agostina or someone else",
+            "to": "referral_ask"
+          },
+          {
+            "label": "She's not sure or doesn't want to say",
+            "to": "referral_get_name"
+          }
+        ]
+      },
+      "referral_ask": {
+        "label": "REFERRAL — WARM INTRO OR DIRECT",
+        "say": "Perfect. Would you be open to looping them in on a quick call — even 15 minutes — so I can show what it looks like? Or if it's easier, I can reach out to them directly and mention you and I chatted. Whatever's less weird for you.",
+        "note": "Give her options. A warm intro from Tala is gold — but don't force it. If she offers to forward an email or mention it internally, that still works. If she says reach out directly, confirm the best contact info.",
+        "branches": [
+          {
+            "label": "She'll intro you or set up a call together",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Reach out to them directly — I'll mention you called",
+            "to": "referral_get_name"
+          },
+          {
+            "label": "Just send me an email and I'll forward it",
+            "to": "send_email_request"
+          }
+        ]
+      },
+      "referral_get_name": {
+        "label": "GET SPECIFIC CONTACT INFO",
+        "say": "Appreciate that. Do you have a direct email or number for them? That way I can put something tailored together so it actually lands — and I'll mention you pointed me their way.",
+        "note": "You likely already know nick@haustay.com and elisa@haustay.com. But confirming from Tala validates the contact and gives you permission to name-drop her. If she gives a different name like Agostina, that's great intel — note it.",
+        "branches": [
+          {
+            "label": "She gives you contact info",
+            "to": "book_meeting"
+          },
+          {
+            "label": "She says just use the main line or info@haustay.com",
+            "to": "graceful_exit_with_referral"
+          }
+        ]
+      },
+      "objection_not_interested": {
+        "label": "OBJECTION — NOT INTERESTED",
+        "say": "Totally get it. I should've assumed you'd be all set — otherwise you probably would've reached out to us. Just so nobody from my team cold calls you again — is it that this just isn't a problem you're focused on right now, or is it more that you just hate cold calls? Because honestly I'd understand either one.",
+        "note": "Agree first. Don't push back. The multiple choice gives her an easy out but also opens a door. If it's the cold call itself, you can still save it. If it's truly not a priority, respect it or pivot to a referral.",
+        "branches": [
+          {
+            "label": "It's the cold call / just caught me off guard",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "We really don't need this",
+            "to": "miyagi_not_interested"
+          },
+          {
+            "label": "I'm not the right person for this",
+            "to": "not_decision_maker"
+          }
+        ]
+      },
+      "miyagi_not_interested": {
+        "label": "MIYAGI — DIG UNDER NOT INTERESTED",
+        "say": "That's fair. Out of curiosity — when a guest does report something that got missed during turnover, what does that process look like for you? Is that pretty rare, or is it one of those things that just kind of comes with the territory?",
+        "note": "You're testing whether not interested means no pain or I don't want to deal with a salesperson. If she admits it happens, you have an opening. If she truly says it never happens, tip your cap and exit.",
+        "branches": [
+          {
+            "label": "She admits it happens or shares frustration",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "It really doesn't happen / firm no",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "objection_have_process": {
+        "label": "OBJECTION — WE HAVE A PROCESS",
+        "say": "That totally makes sense — with 50-plus homes you'd have to have something locked in. Just out of curiosity — is it that you're fully covered and nothing's slipping through, or is it more that switching anything up right now would just be a headache?",
+        "note": "Validate their process — don't attack it. Haustay DOES inspect, and that's good. The split question separates we're perfect (rare) from change is hard (common and workable).",
+        "branches": [
+          {
+            "label": "Things still slip through sometimes",
+            "to": "miyagi_have_process"
+          },
+          {
+            "label": "Switching would be a pain right now",
+            "to": "miyagi_have_process"
+          },
+          {
+            "label": "We're fully covered — truly fine",
+            "to": "sell_test_drive"
+          }
+        ]
+      },
+      "miyagi_have_process": {
+        "label": "MIYAGI — PROCESS FOLLOW-UP",
+        "say": "Yeah, that's what I hear from pretty much everyone — the process works most of the time, it's just those edge cases that kill you. A guest finds something before you do and suddenly you're comping a night or eating a bad review. The thing is, we don't replace your process at all — we just plug into the photos your team's already taking and catch the stuff that's easy to miss at volume. Zero workflow change. Would it make sense to at least see what it looks like — even if it's just to know what's out there?",
+        "note": "You're not asking her to rip out anything. Zero workflow change is the key message. Haustay's in-house cleaners already take photos — RapidEye layers on top of what they're doing.",
+        "branches": [
+          {
+            "label": "Yeah, I'd look at it",
+            "to": "book_meeting"
+          },
+          {
+            "label": "I'd need to check with Nick or Elisa",
+            "to": "not_decision_maker"
+          },
+          {
+            "label": "Send me something first",
+            "to": "send_email_request"
+          },
+          {
+            "label": "Not right now",
+            "to": "sell_test_drive"
+          }
+        ]
+      },
+      "sell_test_drive": {
+        "label": "SELL THE TEST DRIVE",
+        "say": "Totally fair — and look, you're probably not buying anything off a cold call, nor should you. But when this does come up — and with 60 homes it usually does — the people who move fast are the ones who already know what's on their list. If nothing else, I could walk you through what other PM companies in San Diego are doing with their turnover photos right now. Worst case you steal some ideas and we part as friends. Would you be open to that?",
+        "note": "Future-frame it. You're not selling today — you're planting a seed. The steal some ideas line lowers the stakes completely. If she says yes, book it NOW. Don't let it float.",
+        "branches": [
+          {
+            "label": "Sure, I'd take a look",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Send me an email first",
+            "to": "send_email_request"
+          },
+          {
+            "label": "No, I'm really good",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "ask_about_cost": {
+        "label": "SHE ASKS ABOUT COST OR HOW IT WORKS",
+        "say": "Yeah good question — so the short version is it plugs into whatever your cleaners are already using to upload turnover photos. The AI scans every image and flags anything off — damage, missing items, staging issues — and spits out a report before the guest checks in. Pricing depends on your volume, but honestly the easiest thing would be for me to show you a quick demo with real examples. That way you can see whether it'd actually catch stuff your current process is missing. Would that be worth 15 minutes?",
+        "note": "Don't get into a detailed pricing conversation on a cold call — you'll lose. Give just enough to be credible, then pivot back to the demo. The demo is where you win.",
+        "branches": [
+          {
+            "label": "Yeah, let's set something up",
+            "to": "book_meeting"
+          },
+          {
+            "label": "I'd need to loop in Nick or Elisa",
+            "to": "not_decision_maker"
+          },
+          {
+            "label": "Send me info first",
+            "to": "send_email_request"
+          }
+        ]
+      },
+      "book_meeting": {
+        "label": "BOOK THE MEETING",
+        "say": "Awesome. I've got next week pulled up — would Tuesday or Thursday work better for a quick 15 minutes? And should we loop in anyone else on your side — maybe Nick or Elisa — so everyone sees it at once?",
+        "note": "Lock a day first, then narrow to a time. ALWAYS suggest including the decision maker — Tala alone is great but Nick or Elisa on the call is how this converts. Send the calendar invite WHILE on the phone.",
+        "branches": [
+          {
+            "label": "She picks a day and time",
+            "to": "lock_time"
+          },
+          {
+            "label": "She needs to check with someone and get back to you",
+            "to": "send_email_request"
+          },
+          {
+            "label": "Just send me an email for now",
+            "to": "send_email_request"
+          }
+        ]
+      },
+      "lock_time": {
+        "label": "LOCK THE TIME",
+        "say": "Perfect — how's two o'clock work? I'll shoot you a calendar invite right now. What's the best email for you — is it tala at haustay dot com?",
+        "note": "Confirm the exact time, get her email, and send the invite while you're still on the phone. If she's unsure of her email, try tala@haustay.com — matches the firstname@ pattern the founders use. Include a one-line agenda in the invite referencing what she told you on this call.",
+        "branches": [
+          {
+            "label": "She confirms email and time",
+            "to": "meeting_booked"
+          },
+          {
+            "label": "She gives a different email",
+            "to": "meeting_booked"
+          }
+        ]
+      },
+      "meeting_booked": {
+        "label": "MEETING BOOKED — STOP SELLING",
+        "say": "Done — just sent it over. Really appreciate you taking my call, Tala. Looking forward to showing you what we've got. Talk soon.",
+        "note": "STOP. Do not add anything. Do not re-pitch. Do not say you won't regret it. Confirm and end warmly. You won.",
+        "branches": []
+      },
+      "send_email_request": {
+        "label": "SEND ME AN EMAIL",
+        "say": "Totally fair — I'll shoot you something today. One quick question so it's not just another generic pitch — what would be most useful for you to see? Like would it help more to see what the AI actually catches in a real turnover, or more of a high-level view of how it fits into a Streamline workflow?",
+        "note": "Accept the email ask — don't fight it. But ask ONE tailoring question. Mentioning Streamline shows you've done your homework and gets her attention. Whatever she says, build the email around it and include a specific time suggestion for a follow-up call.",
+        "branches": [
+          {
+            "label": "She tells you what she wants to see",
+            "to": "email_tailoring"
+          },
+          {
+            "label": "Just send whatever — general info is fine",
+            "to": "email_tailoring"
+          }
+        ]
+      },
+      "email_tailoring": {
+        "label": "EMAIL — CONFIRM AND CLOSE",
+        "say": "Got it — I'll put that together and get it over to you today. What's the best email — tala at haustay dot com? ... Perfect. I'll throw a couple times in there in case you want to hop on a quick call after you've looked it over. Appreciate your time, Tala.",
+        "note": "Get the email address, confirm you'll send today, and mention you'll include follow-up times. This keeps the door open. Follow up in 2 business days if no response. If she gives you info@haustay.com instead, still send but also try tala@haustay.com separately.",
+        "branches": []
+      },
+      "graceful_exit_with_referral": {
+        "label": "GRACEFUL EXIT — REFERRAL NOTED",
+        "say": "Perfect — I'll reach out to them and mention you and I connected. Really appreciate the help, Tala. If anything comes up on the guest services side where this would be useful, I'm easy to find. Talk soon.",
+        "note": "You got a name or direction from Tala. That's a win. Follow up with the referral contact within 24 hours and name-drop Tala in the opening line. Send Tala a quick thank-you email too — she might become your internal champion.",
+        "branches": []
+      },
+      "graceful_exit": {
+        "label": "GRACEFUL EXIT",
+        "say": "Totally understand. If anything changes on your end, I'm easy to find — Sam Parks, RapidEye. Appreciate your time, Tala.",
+        "note": "Don't burn the bridge. No guilt trips. No 'are you sure?' She might google you after. She might mention it to Nick or Elisa over coffee. Leave a good impression and move on.",
+        "branches": []
+      }
+    }
+  }
+}

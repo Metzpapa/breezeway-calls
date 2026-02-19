@@ -1,0 +1,633 @@
+{
+  "name": "Dan Douglas",
+  "title": "Director of Association Management",
+  "company": "Retreatia",
+  "location": "Steamboat Springs, CO",
+  "phone": "+1-970-871-6253",
+  "company_phone": "(970) 871-6253",
+  "alt_phones": [
+    "+1-970-871-6253",
+    "+1-970-691-0251"
+  ],
+  "flow": {
+    "context": "Dan Douglas is Director of Association Management at Retreatia — a ~250-unit, 77%-condo vacation rental and HOA management company in Steamboat Springs, CO. He oversees multiple condo associations, meaning he deals with HOA boards demanding accountability on unit condition, coordinates between rental ops and association rules, and influences how inspections and maintenance standards are enforced across complexes. Retreatia runs TRACK as their PMS, explicitly promises a separate inspection team after every clean, and is actively hiring a Housekeeping Supervisor and Owner Liaison — signals of operational strain. No personal overlap with Sam, but Sam skied Jackson Hole last month and works with PM companies in similar ski markets. Dan can either champion better condition documentation across his associations or connect Sam to whoever runs ops and housekeeping — likely GM Viktorija Hristovska.",
+    "start": "call_connects",
+    "nodes": {
+      "call_connects": {
+        "label": "CALL CONNECTS",
+        "say": "",
+        "note": "Figure out who picked up. If it sounds like Dan or he identifies himself, go to opener. If it's a front desk or receptionist voice, go to gatekeeper. If voicemail, hang up on first attempt and retry at a different time of day.",
+        "branches": [
+          {
+            "label": "Dan answers",
+            "to": "opener"
+          },
+          {
+            "label": "Someone else answers",
+            "to": "gatekeeper_slide"
+          },
+          {
+            "label": "Voicemail",
+            "to": "voicemail"
+          }
+        ]
+      },
+      "opener": {
+        "label": "OPENER",
+        "say": "Hey Dan — I've been working with a few property managers in Colorado ski towns on their turnover and inspection workflows. It's Sam Parks with RapidEye. Have you heard my name tossed around at all?",
+        "note": "Relaxed, peer-level tone. Feet up on the desk. You're calling someone who manages condo associations in a ski town — speak like a peer, not a vendor. Pause after the question and genuinely wait for his answer.",
+        "branches": [
+          {
+            "label": "No / who?",
+            "to": "heard_no"
+          },
+          {
+            "label": "Yeah / maybe",
+            "to": "heard_yes"
+          },
+          {
+            "label": "Bad timing / busy",
+            "to": "bad_timing"
+          },
+          {
+            "label": "Skeptical / what is this about?",
+            "to": "permission_fallback"
+          }
+        ]
+      },
+      "heard_no": {
+        "label": "HEARD NO",
+        "say": "Ha — guess I'm not as popular as I thought. Well the reason for my call is actually pretty specific to what you're doing on the association side at Retreatia —",
+        "note": "Smile through the self-deprecation. It disarms. Then bridge directly into the pain trigger. Don't linger here.",
+        "branches": [
+          {
+            "label": "Go ahead / listening",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "Not interested / we're all set",
+            "to": "not_interested_early"
+          }
+        ]
+      },
+      "heard_yes": {
+        "label": "HEARD YES",
+        "say": "Oh nice — well normally we'd be working with someone in your position. What'd you hear?",
+        "note": "Genuinely curious. Let Dan talk. If he actually knows something, ride that wave into discovery. If he's just being polite and goes vague, bridge to the pain trigger.",
+        "branches": [
+          {
+            "label": "Describes something / shows familiarity",
+            "to": "warm_response"
+          },
+          {
+            "label": "Vague / just being polite",
+            "to": "pain_trigger"
+          }
+        ]
+      },
+      "bad_timing": {
+        "label": "BAD TIMING",
+        "say": "Totally hear you — would it be a terrible idea if I tried you again later this week? Maybe Thursday or Friday afternoon?",
+        "note": "Respect the timing. Offer specific days. If he gives you a window, lock it and end the call. Don't try to sneak in a pitch.",
+        "branches": [
+          {
+            "label": "Sure / suggests a time",
+            "to": "bad_timing_lock"
+          },
+          {
+            "label": "Don't call back",
+            "to": "graceful_end"
+          }
+        ]
+      },
+      "bad_timing_lock": {
+        "label": "CALLBACK LOCKED",
+        "say": "Perfect — I'll try you then. Appreciate it, Dan.",
+        "note": "Write down the exact day and time immediately. Keep it short and clean. No pitch. You'll open the next call with 'Hey Dan, Sam Parks — you told me to try you back today.'",
+        "branches": []
+      },
+      "permission_fallback": {
+        "label": "PERMISSION FALLBACK",
+        "say": "Yeah totally — I mean it is a cold call. Can I get 30 seconds to tell you why I reached out? And you can totally hang up on me if it's not a fit.",
+        "note": "Acknowledge reality. Most people give you the 30 seconds out of sheer curiosity. If he says yes, go immediately to pain trigger — do not waste a single second on pleasantries.",
+        "branches": [
+          {
+            "label": "Sure / fine go ahead",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "No / not interested",
+            "to": "permission_rejected"
+          }
+        ]
+      },
+      "permission_rejected": {
+        "label": "PERMISSION REJECTED",
+        "say": "Shoot, totally my bad. Just so nobody from my team bugs you again — is it that I caught you at a horrible time, or is this just genuinely not something you'd ever look at?",
+        "note": "Split the rejection. If it's timing, you get a callback. If it's genuine disinterest, exit gracefully. Either way you learn something useful for next steps.",
+        "branches": [
+          {
+            "label": "It's just bad timing",
+            "to": "bad_timing"
+          },
+          {
+            "label": "Not interested at all",
+            "to": "graceful_end"
+          }
+        ]
+      },
+      "pain_trigger": {
+        "label": "PAIN TRIGGER",
+        "say": "So here's why I called you specifically — I was talking to another director who runs a handful of condo associations for a property management company, pretty similar setup to you guys. He was telling me about the headache of keeping tabs on unit condition across all his complexes. Every HOA board meeting, owners are asking 'where's the proof this damage was pre-existing?' or 'why wasn't that caught before the next guest checked in?' His inspection team was solid — separate from cleaning, doing their thing — but with a couple hundred condos turning over, especially during ski season, stuff was slipping through the cracks. A guest dings a wall, it doesn't get flagged, three turnovers later an owner sees it and suddenly it's a board conversation about whether management dropped the ball.",
+        "note": "PAUSE here. Let it land. Do not rush to the solution. Dan lives this world — condo boards, owner accountability questions, seasonal volume spikes. Watch for which specific part he reacts to. That tells you what to anchor the rest of the call on.",
+        "branches": [
+          {
+            "label": "That resonates / yeah we deal with that",
+            "to": "warm_response"
+          },
+          {
+            "label": "We have a process for that already",
+            "to": "have_a_process"
+          },
+          {
+            "label": "That's more of an ops thing / not really my area",
+            "to": "pivot_rental_ops"
+          },
+          {
+            "label": "Not really a problem for us",
+            "to": "not_interested_mid"
+          }
+        ]
+      },
+      "warm_response": {
+        "label": "THEY'RE WARM — ASK QUESTIONS",
+        "say": "Yeah — that's exactly what I keep hearing. So I'm curious, with all the associations you're overseeing at Retreatia — how are you guys handling the documentation side right now? Like when there's a condition change in a unit, how does that get traced back to which stay caused it?",
+        "note": "STOP PITCHING. You are in discovery mode. Let Dan talk. Listen for: what tools they use, who actually does inspections, where the breakdown happens, what the boards care most about, whether Track handles any of this. Every detail is ammo for your close.",
+        "branches": [
+          {
+            "label": "Explains their process / shares details",
+            "to": "discovery_associations"
+          },
+          {
+            "label": "Asks what we do first",
+            "to": "solution_bridge"
+          }
+        ]
+      },
+      "discovery_associations": {
+        "label": "DIG DEEPER — ASSOCIATIONS",
+        "say": "That makes sense. And with most of your portfolio being condos — are the different HOA boards asking for different levels of documentation? Or have you been able to standardize it across complexes?",
+        "note": "This question shows you know their portfolio mix. It also surfaces whether Dan's pain is inconsistency across associations — which is exactly what RapidEye solves. If he mentions Track, their inspection team structure, or specific people, note everything.",
+        "branches": [
+          {
+            "label": "Each board is different / it varies",
+            "to": "discovery_inspection"
+          },
+          {
+            "label": "We've standardized it pretty well",
+            "to": "discovery_inspection"
+          },
+          {
+            "label": "You should really talk to our ops team",
+            "to": "referral_ask"
+          }
+        ]
+      },
+      "discovery_inspection": {
+        "label": "DIG DEEPER — INSPECTION WORKFLOW",
+        "say": "Got it. And on the inspection side — I know you guys run a separate inspection team from cleaning, which is smart. Are those inspectors capturing photos on every turn right now, or is it more of a checklist-based thing?",
+        "note": "This is the money question. If they take photos, RapidEye plugs right in with zero workflow change. If it's checklist-only, RapidEye adds the visual documentation layer they're missing. Either answer leads to solution bridge. Referencing their separate inspection team shows you did your homework.",
+        "branches": [
+          {
+            "label": "Yeah they take photos",
+            "to": "solution_bridge"
+          },
+          {
+            "label": "It's more checklist-based",
+            "to": "solution_bridge"
+          },
+          {
+            "label": "I'm not sure / that's housekeeping's domain",
+            "to": "referral_ask"
+          }
+        ]
+      },
+      "solution_bridge": {
+        "label": "SOLUTION — ONE SENTENCE",
+        "say": "That's exactly why we built this — RapidEye plugs into Track and automatically analyzes the photos your team's already capturing during turnovers. It flags damage, missing items, staging issues — gives you a documented record for every unit, every turn, without changing how anyone works.",
+        "note": "ONE sentence about the product, then immediately move to CTA. Don't list features. Don't explain AI. The Track name-drop shows you know their stack. If they said they don't take photos, adjust: 'even from a quick video walkthrough your inspectors could do on their phone.'",
+        "branches": [
+          {
+            "label": "Keeps listening / that's interesting",
+            "to": "cta"
+          },
+          {
+            "label": "We already have something for that",
+            "to": "have_a_process"
+          },
+          {
+            "label": "What does that cost?",
+            "to": "cta"
+          }
+        ]
+      },
+      "cta": {
+        "label": "CALL TO ACTION",
+        "say": "Would you be open to taking a look? Not a big commitment — just a quick walkthrough so you can see what it'd actually look like with your units. I'd rather show you when I'm not cold calling you out of the blue.",
+        "note": "Low friction. You're selling 20 minutes on a calendar, not a contract. If he asks about cost, say 'honestly that depends on unit volume — it's one of the first things I'd walk you through.' Then rebook the CTA.",
+        "branches": [
+          {
+            "label": "Sure / let's set something up",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Send me an email first",
+            "to": "send_email"
+          },
+          {
+            "label": "No budget for this right now",
+            "to": "no_budget"
+          },
+          {
+            "label": "Not interested / not now",
+            "to": "not_interested_late"
+          }
+        ]
+      },
+      "not_interested_early": {
+        "label": "NOT INTERESTED — EARLY",
+        "say": "Totally get it — I should have assumed you'd be all set. Otherwise you probably would have reached out yourself. Can I just get 30 seconds? If it's not relevant I'll get out of your hair.",
+        "note": "Agree first to disarm, then ask for the 30 seconds. Most people soften once you validate them. If he still says no, go to permission rejected. Don't push more than once.",
+        "branches": [
+          {
+            "label": "Fine, 30 seconds",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "Still no",
+            "to": "permission_rejected"
+          }
+        ]
+      },
+      "not_interested_mid": {
+        "label": "NOT INTERESTED — AFTER PAIN",
+        "say": "Totally fair. Just so no one from my team cold calls you about this again — is it that unit condition documentation genuinely isn't a pain point for you, or is it more that you just hate getting cold called about it?",
+        "note": "Split the objection. If it's the cold call format he hates, the underlying problem might still be real — pivot to a softer ask. If it genuinely isn't his pain point, ask whose pain point it is and get a referral.",
+        "branches": [
+          {
+            "label": "Not really my pain point",
+            "to": "pivot_rental_ops"
+          },
+          {
+            "label": "I just hate cold calls",
+            "to": "test_drive"
+          },
+          {
+            "label": "Both / firm no",
+            "to": "graceful_end"
+          }
+        ]
+      },
+      "not_interested_late": {
+        "label": "NOT INTERESTED — LATE",
+        "say": "Totally respect that. And I get it — you weren't sitting around hoping for this call today. Just so nobody from my team bugs you again — is it that you're fully covered and this is solved, is it not really your lane, or is it just not the right time?",
+        "note": "Miyagi method. Split into three options. 'Fully covered' goes back to have-a-process handling. 'Not my lane' opens a referral. 'Not the right time' opens test drive. Each answer gives you a next move.",
+        "branches": [
+          {
+            "label": "We're covered / have a solution",
+            "to": "have_a_process"
+          },
+          {
+            "label": "Not really my lane / wrong person",
+            "to": "referral_ask"
+          },
+          {
+            "label": "Just not the right time",
+            "to": "test_drive"
+          },
+          {
+            "label": "Firm no",
+            "to": "graceful_end"
+          }
+        ]
+      },
+      "have_a_process": {
+        "label": "THEY HAVE A PROCESS",
+        "say": "That makes total sense — with 250 units and all those associations, you'd have to have something dialed in. Out of curiosity, is it something built into Track, or is it more of a standalone system your inspection team runs?",
+        "note": "Validate their competence. The question isn't confrontational — it's genuinely curious and shows you know their PMS. If they mention a specific tool, write it down. If it's manual or Track-only, that's your opening because Track doesn't do AI photo analysis.",
+        "branches": [
+          {
+            "label": "We use Track for it",
+            "to": "have_process_split"
+          },
+          {
+            "label": "It's manual / checklists",
+            "to": "have_process_split"
+          },
+          {
+            "label": "We use a different tool",
+            "to": "have_process_split"
+          }
+        ]
+      },
+      "have_process_split": {
+        "label": "SPLIT — CURRENT PROCESS",
+        "say": "Got it. And is it that you're fully happy with how it's working — like the boards are getting the documentation they need and nothing's slipping through — or is it more that switching anything right now would just be a headache?",
+        "note": "This is the key split. If they're happy, offer a comparison look via test drive. If switching is the headache, RapidEye doesn't replace anything — it layers on top. That's your unlock. Listen carefully to which side he leans.",
+        "branches": [
+          {
+            "label": "Honestly it's not perfect",
+            "to": "warm_response"
+          },
+          {
+            "label": "Switching would be a headache",
+            "to": "test_drive_no_switch"
+          },
+          {
+            "label": "We're genuinely happy with it",
+            "to": "test_drive"
+          }
+        ]
+      },
+      "test_drive_no_switch": {
+        "label": "NO SWITCHING REQUIRED",
+        "say": "That's actually the thing — we don't replace anything. RapidEye layers on top of Track and whatever your inspection team's already doing. No workflow change for your people, no retraining. It just reads the photos that are already being captured and flags what a human eye misses at volume. Would it be worth 20 minutes to see what that looks like with your actual units?",
+        "note": "This is your strongest angle when switching cost is the blocker. Emphasize: no rip-and-replace, no new process, plugs into what exists. Then go straight for the meeting.",
+        "branches": [
+          {
+            "label": "Okay that's interesting / sure",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Send me some info first",
+            "to": "send_email"
+          },
+          {
+            "label": "Still not right now",
+            "to": "value_offer"
+          }
+        ]
+      },
+      "test_drive": {
+        "label": "SELL THE TEST DRIVE",
+        "say": "You're probably not buying anything from a cold call today, and I totally respect that. But when this does become a priority — especially heading into summer season when turnover volume picks back up — the people who move fastest are the ones who already know what's on their list. Would you be open to just taking a look? Worst case you see what other property managers in ski markets are doing with their turnover photos and steal some ideas.",
+        "note": "Low pressure. Future-oriented. The summer season reference is intentional — Steamboat has a second busy season and inspection volume ramps again. Make it about preparation, not urgency.",
+        "branches": [
+          {
+            "label": "Sure let's set something up",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Send me something first",
+            "to": "send_email"
+          },
+          {
+            "label": "No thanks",
+            "to": "value_offer"
+          }
+        ]
+      },
+      "value_offer": {
+        "label": "VALUE OFFER — LAST CHANCE",
+        "say": "Totally fair. If nothing else — I could send you a quick breakdown of what a couple other PM companies in ski markets are doing with their turnover inspection documentation. No pitch, just what's actually working for them. Worst case you steal some ideas and we part as friends.",
+        "note": "Last ask before graceful exit. You're offering genuine value with no strings. If he says yes, you have a door open for follow-up. If no, exit cleanly and log the outcome.",
+        "branches": [
+          {
+            "label": "Sure send it over",
+            "to": "send_email"
+          },
+          {
+            "label": "No thanks",
+            "to": "graceful_end"
+          }
+        ]
+      },
+      "no_budget": {
+        "label": "NO BUDGET OBJECTION",
+        "say": "Totally get it — nowadays it's harder to keep a tool than to buy something new. Especially mid-season when every dollar's already spoken for.",
+        "note": "Agree fully. Don't challenge the budget objection. Pause briefly, then split it. If he mentions needing approval from the GM or owners, note that — Viktorija Hristovska is the GM and Michael Stoyanov and Anelia Plocheva are the owners.",
+        "branches": [
+          {
+            "label": "Continues listening",
+            "to": "no_budget_split"
+          }
+        ]
+      },
+      "no_budget_split": {
+        "label": "SPLIT — BUDGET",
+        "say": "Just so I know — is it that budget for this cycle is completely locked, or is it more that anything new has to go through a whole approval process before it gets greenlit?",
+        "note": "If budget is locked, pivot to test drive for the future. If it's an approval chain, find out who approves and whether Dan can bring something to them. This also reveals whether he has authority or needs to go through Viktorija or the owners.",
+        "branches": [
+          {
+            "label": "Budget is locked for now",
+            "to": "test_drive"
+          },
+          {
+            "label": "It needs approval from above",
+            "to": "test_drive"
+          },
+          {
+            "label": "It's both",
+            "to": "test_drive"
+          }
+        ]
+      },
+      "pivot_rental_ops": {
+        "label": "PIVOT — RENTAL OPS SIDE",
+        "say": "Totally makes sense — your world is more the association governance side of things. The inspection workflow itself probably lives more with whoever runs housekeeping or overall ops, right? Do you know who's heading that up these days?",
+        "note": "Dan may not own the inspection workflow directly. That's fine — he's a connector. The GM is Viktorija Hristovska. They're actively hiring a Housekeeping Supervisor. Sheila Kurzweil is Guest Services Manager. If Dan drops any name, write it down and ask for an intro.",
+        "branches": [
+          {
+            "label": "Yeah let me point you to someone",
+            "to": "referral_dig"
+          },
+          {
+            "label": "Actually I do touch that / work closely with them on it",
+            "to": "warm_response"
+          },
+          {
+            "label": "I don't know / can't help",
+            "to": "graceful_end"
+          }
+        ]
+      },
+      "referral_ask": {
+        "label": "ASK FOR REFERRAL",
+        "say": "Totally get it — this might not land squarely in your lane. Who on your team would typically own the inspection workflow or the turnover quality piece? I'd rather reach the right person than keep taking up your time.",
+        "note": "Back into the referral. You're looking for whoever owns housekeeping, inspection, or overall operations. Could be Viktorija Hristovska the GM, a Housekeeping Supervisor, or someone in ops. Get a name and ask Dan to give them a heads up.",
+        "branches": [
+          {
+            "label": "Gives a name or title",
+            "to": "referral_dig"
+          },
+          {
+            "label": "Try the main office / not sure who",
+            "to": "referral_dig"
+          },
+          {
+            "label": "Can't help / won't share",
+            "to": "graceful_end"
+          }
+        ]
+      },
+      "referral_dig": {
+        "label": "LOCK THE REFERRAL",
+        "say": "That's super helpful. And would you mind giving them a quick heads up that I'll be reaching out? That way it doesn't come totally out of the blue for them. I'll put something together that's actually relevant to what they're dealing with — not just a generic pitch.",
+        "note": "Get the full name, title, and ideally a direct number or email. If Dan offers to forward something instead, accept it but still ask for direct contact. If he names Viktorija, Sheila, Kat, or anyone from your research, you already have background on them.",
+        "branches": [
+          {
+            "label": "Sure I'll let them know",
+            "to": "referral_close"
+          },
+          {
+            "label": "Just call the main line and ask for them",
+            "to": "referral_close"
+          }
+        ]
+      },
+      "referral_close": {
+        "label": "REFERRAL — CLOSE",
+        "say": "Really appreciate that, Dan. I'll reach out to them this week. And honestly, if anything ever comes up on the association side where better unit documentation would make your life easier with the boards — I'm easy to find. Thanks for your time.",
+        "note": "Leave the door open for Dan. His role touches unit condition even if he doesn't own inspections. Write down the referral name, title, and any context Dan gave you immediately after hanging up.",
+        "branches": []
+      },
+      "book_meeting": {
+        "label": "BOOK THE MEETING",
+        "say": "Awesome — let me lock something in while I've got you. I'm looking at next week — does Tuesday or Wednesday work better?",
+        "note": "Two options, not an open field. Morning tends to work better for ops people before their day gets chaotic. If he picks a day, immediately suggest a time. Get it on the calendar right now.",
+        "branches": [
+          {
+            "label": "Picks a day",
+            "to": "meeting_locked"
+          },
+          {
+            "label": "Need to check my calendar",
+            "to": "meeting_follow"
+          },
+          {
+            "label": "Actually just send me an email",
+            "to": "send_email"
+          }
+        ]
+      },
+      "meeting_follow": {
+        "label": "PIN DOWN THE MEETING",
+        "say": "No worries — how about I shoot you a calendar invite for Wednesday at 10 AM Mountain? If it doesn't work you can just slide it to whenever's better. That way it's on the calendar and doesn't disappear into email.",
+        "note": "Don't let the meeting dissolve into 'I'll get back to you.' Suggest a specific day and time, send the invite while still on the phone. Confirm his email — try d-dan@retreatia.com based on the company pattern.",
+        "branches": [
+          {
+            "label": "Sure send it over",
+            "to": "meeting_locked"
+          },
+          {
+            "label": "I'd rather just do email first",
+            "to": "send_email"
+          }
+        ]
+      },
+      "meeting_locked": {
+        "label": "MEETING CONFIRMED",
+        "say": "Perfect — you'll have that invite in the next couple minutes. Really appreciate you taking my call, Dan. Talk to you then.",
+        "note": "STOP SELLING. Meeting is booked. Send the calendar invite immediately after hanging up. One-line agenda: 'Quick look at how RapidEye works with Track for turnover inspection documentation.' Send to d-dan@retreatia.com — confirm if he gave a different address.",
+        "branches": []
+      },
+      "send_email": {
+        "label": "SEND ME AN EMAIL",
+        "say": "Totally fair — I'll get something over to you today. One quick question so it's actually useful and not just another generic pitch — what would be most helpful for you to see? Is it more about how it works with Track on the tech side, or more about the documentation piece for your HOA boards?",
+        "note": "Accept the email ask gracefully but use the one question to personalize the follow-up. This also keeps Dan engaged for another 15 seconds and reveals what he actually cares about. You'll include a specific meeting time suggestion in the email.",
+        "branches": [
+          {
+            "label": "Tells you what they want to see",
+            "to": "send_email_close"
+          },
+          {
+            "label": "Just send me whatever / anything is fine",
+            "to": "send_email_close"
+          }
+        ]
+      },
+      "send_email_close": {
+        "label": "EMAIL — CLOSE",
+        "say": "Got it — I'll have that in your inbox today. And I'll throw a couple time options in there in case you want to hop on a quick call after you've had a chance to look. Best email for you — is it d-dan at retreatia dot com?",
+        "note": "Confirm the email. The inferred company pattern is lastInitial-firstName@retreatia.com, so d-dan@retreatia.com. If he corrects it, write down the real one. Send the email within 30 minutes while this call is still fresh in his head.",
+        "branches": []
+      },
+      "gatekeeper_slide": {
+        "label": "GATEKEEPER — SLIDE BY",
+        "say": "Hey — could you get me through to Dan? It's Sam.",
+        "note": "Say it like you know him. First name only for Dan, first name only for yourself. Don't explain why you're calling. Don't mention your company. Pause and let them respond.",
+        "branches": [
+          {
+            "label": "Puts you through",
+            "to": "opener"
+          },
+          {
+            "label": "Who's calling? / What's this about?",
+            "to": "gatekeeper_context"
+          },
+          {
+            "label": "He's not available",
+            "to": "gatekeeper_unavailable"
+          }
+        ]
+      },
+      "gatekeeper_context": {
+        "label": "GATEKEEPER — ADD CONTEXT",
+        "say": "Yeah — I work with a few property managers in the Steamboat area on their inspection workflows. Would you mind letting him know it's Sam Parks?",
+        "note": "Just enough context to sound legitimate without pitching. End with a redirect question. Don't explain RapidEye. Don't say 'sales call.' The Steamboat reference makes it sound local and relevant.",
+        "branches": [
+          {
+            "label": "Puts you through",
+            "to": "opener"
+          },
+          {
+            "label": "Still blocking / what company?",
+            "to": "gatekeeper_social_proof"
+          }
+        ]
+      },
+      "gatekeeper_social_proof": {
+        "label": "GATEKEEPER — SOCIAL PROOF",
+        "say": "It's RapidEye — we help a couple other property management companies with their turnover inspection documentation. I sent Dan a note and was just following up. Would you mind giving him a heads up?",
+        "note": "Social proof plus implied prior contact. If they still won't connect you, don't argue — ask for Dan's voicemail or best time to reach him directly. Be friendly. Gatekeepers remember you next time you call.",
+        "branches": [
+          {
+            "label": "Puts you through",
+            "to": "opener"
+          },
+          {
+            "label": "Still won't connect you",
+            "to": "gatekeeper_unavailable"
+          }
+        ]
+      },
+      "gatekeeper_unavailable": {
+        "label": "GATEKEEPER — HE'S UNAVAILABLE",
+        "say": "No worries at all — when's usually the best time to catch him? And is his direct line different from this one?",
+        "note": "Get timing intel and a direct number if possible. Also try: 'Would it be better to try his email?' to confirm d-dan@retreatia.com. If the gatekeeper knows Dan's schedule, you can time your callback perfectly. Be warm — they control access.",
+        "branches": [
+          {
+            "label": "Gives you a time or direct number",
+            "to": "bad_timing_lock"
+          },
+          {
+            "label": "Won't share anything useful",
+            "to": "graceful_end"
+          }
+        ]
+      },
+      "voicemail": {
+        "label": "VOICEMAIL",
+        "say": "",
+        "note": "Do NOT leave a voicemail on the first attempt. Hang up and retry at a different time of day — try early morning before 8 AM or right around lunch. If this is your second or third attempt, leave a short message: 'Hey Dan, it's Sam Parks — I work with a few PM companies in ski markets on their turnover inspection workflows. Thought it'd be relevant to what you're doing at Retreatia. Give me a ring if you're curious — [your number]. Or I'll try you again later this week.' Keep it under 15 seconds.",
+        "branches": []
+      },
+      "graceful_end": {
+        "label": "GRACEFUL END",
+        "say": "Totally understand, Dan. If anything changes on this front or it ever becomes relevant — I'm easy to find. Appreciate your time.",
+        "note": "Do not burn the bridge. Stay warm. You may circle back in 3-6 months, reach him through Viktorija or another contact, or get a referral from someone else at Retreatia. Log the outcome, any names he mentioned, and any intel about their process.",
+        "branches": []
+      }
+    }
+  }
+}

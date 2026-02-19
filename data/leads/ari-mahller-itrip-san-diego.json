@@ -1,0 +1,619 @@
+{
+  "name": "Ari Mahller",
+  "title": "Owner / Operator, iTrip San Diego",
+  "company": "iTrip San Diego",
+  "location": "San Diego, CA",
+  "phone": "+1-858-800-2534",
+  "company_phone": "(858) 800-2534",
+  "alt_phones": [],
+  "flow": {
+    "context": "Ari Mahller is the owner/operator of iTrip San Diego, a franchise vacation rental PM covering Del Mar, Mission Bay, Coronado, Rancho Santa Fe, and greater San Diego. He runs turnovers through iTrip's proprietary FlipStream app with local contractor crews — cleaners upload photos, he reviews via a Mission Control dashboard. The operation is relatively new on Airbnb (~1 year, Superhost, ~34 reviews) and still scaling, with promises of no maintenance markups, free light maintenance, and iTrip's Worry Free Guarantee — all of which increase the cost of missed damage. His wife Tanya co-manages day-to-day ops. Sam connection: Sam grew up in LA, surfs Del Mar and Mission Bay regularly, and works with other franchise PM operators in the San Diego market.",
+    "start": "opener",
+    "nodes": {
+      "opener": {
+        "label": "OPENER",
+        "say": "Hey Ari — I actually spend a good amount of time down in San Diego, I surf Del Mar and Mission Bay a bunch. Saw you guys manage properties right in those areas. It's Sam Parks with RapidEye — have you heard my name tossed around at all?",
+        "note": "Feet up energy. Sound like you know the area personally. Don't rush — let the surf comment land before moving to the question. Smile.",
+        "branches": [
+          {
+            "label": "Yes / Maybe / Sounds familiar",
+            "to": "heard_yes"
+          },
+          {
+            "label": "No, I haven't",
+            "to": "heard_no"
+          },
+          {
+            "label": "Bad timing / busy / can't talk",
+            "to": "bad_timing"
+          },
+          {
+            "label": "Who is this? / What's this about? / Cold resistance",
+            "to": "permission_fallback"
+          }
+        ]
+      },
+      "heard_yes": {
+        "label": "THEY'VE HEARD OF YOU",
+        "say": "Oh nice — well normally we'd be working with someone like you. What did you hear?",
+        "note": "Let them talk. Whatever they say, bridge to discovery. Don't correct or over-explain.",
+        "branches": [
+          {
+            "label": "Describes something / vague positive",
+            "to": "warm_discovery"
+          },
+          {
+            "label": "Confused / mixing you up with someone",
+            "to": "pain_trigger"
+          }
+        ]
+      },
+      "heard_no": {
+        "label": "HAVEN'T HEARD — TRANSITION",
+        "say": "Ha — I guess I'm not as popular as I thought. Well, the reason for my call is...",
+        "note": "Self-deprecating laugh, then flow right into the pain trigger. No pause between this and the next line.",
+        "branches": [
+          {
+            "label": "Continue to pain trigger",
+            "to": "pain_trigger"
+          }
+        ]
+      },
+      "bad_timing": {
+        "label": "BAD TIMING",
+        "say": "Totally hear you — would it be a terrible idea if I tried you again tomorrow or later this week? When's less hectic?",
+        "note": "Don't push. Get a specific day and time. If they give one, lock it in and get off the phone quickly.",
+        "branches": [
+          {
+            "label": "Gives a time / day",
+            "to": "reschedule_locked"
+          },
+          {
+            "label": "Just email me",
+            "to": "send_email"
+          },
+          {
+            "label": "Don't call back / not interested",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "reschedule_locked": {
+        "label": "CALLBACK LOCKED",
+        "say": "Perfect, I'll try you then. Appreciate it, Ari — talk soon.",
+        "note": "Write down the exact time immediately. Set a reminder. Keep it short — you earned the callback, don't blow it by talking more.",
+        "branches": []
+      },
+      "permission_fallback": {
+        "label": "PERMISSION FALLBACK",
+        "say": "Yeah totally — I mean, it is a cold call. Can I get 30 seconds to tell you why I reached out? And you can totally hang up on me if it's not a fit.",
+        "note": "Disarming honesty. Most people will give you 30 seconds out of curiosity. If they say yes, go straight to pain trigger.",
+        "branches": [
+          {
+            "label": "Sure / go ahead / fine",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "No / not interested / don't call",
+            "to": "permission_rejected"
+          }
+        ]
+      },
+      "permission_rejected": {
+        "label": "PERMISSION REJECTED — SPLIT",
+        "say": "Shoot, totally my bad. Just so nobody from my team bugs you again — is it that I caught you at a horrible time, or is it that you already know what we do and this just isn't interesting?",
+        "note": "You're not begging — you're splitting the objection. Either answer gives you a path forward.",
+        "branches": [
+          {
+            "label": "Bad timing / just busy",
+            "to": "bad_timing"
+          },
+          {
+            "label": "Not interested / don't need it",
+            "to": "last_ditch_value"
+          },
+          {
+            "label": "Hangs up",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "last_ditch_value": {
+        "label": "LAST CHANCE — OFFER VALUE",
+        "say": "Totally fair. If nothing else — I've been talking to a bunch of vacation rental managers in the San Diego market lately, a few other franchise operators too. If you ever get curious what other folks are doing with their turnover and inspection workflows, I'm an open book. Let me shoot you a quick email so you have my info. Fair enough?",
+        "note": "Plant the seed. Get permission to email. You're building a long-term relationship, not closing today.",
+        "branches": [
+          {
+            "label": "Sure / fine / whatever",
+            "to": "send_email"
+          },
+          {
+            "label": "No thanks",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "pain_trigger": {
+        "label": "PAIN TRIGGER",
+        "say": "So I work with another franchise PM operator — pretty similar setup to yours. Running turnovers through their ops app, contractors snapping photos after every flip, uploading everything to the dashboard. The problem was, nobody was actually reviewing those photos in any real way. Their cleaners would take 30 pictures, upload them, and they'd just... sit there. Then a guest checks in, finds a stain on the couch or a cracked tile in the bathroom — something that was literally in the photos but nobody caught it. And on the other side, when real damage happened during a stay, they couldn't pin it to a specific guest because the photo trail was a mess. With promises like no markups on maintenance and free light maintenance, every one of those missed calls was just margin walking out the door.",
+        "note": "PAUSE after delivering this. Let the silence sit for 2-3 full seconds. This is supposed to sting — he's living this. Do NOT rush to the solution. Let him react first.",
+        "branches": [
+          {
+            "label": "Yeah / that resonates / tells their own version",
+            "to": "warm_discovery"
+          },
+          {
+            "label": "Asks what you do / how do you solve that",
+            "to": "solution_drop"
+          },
+          {
+            "label": "We already have a system for that / FlipStream handles it",
+            "to": "objection_have_vendor"
+          },
+          {
+            "label": "Corporate handles our tools / that's an iTrip thing",
+            "to": "objection_corporate"
+          },
+          {
+            "label": "Not really a problem for us / not interested",
+            "to": "objection_not_interested"
+          },
+          {
+            "label": "We don't have budget for that",
+            "to": "objection_no_budget"
+          }
+        ]
+      },
+      "warm_discovery": {
+        "label": "THEY'RE WARM — DISCOVERY",
+        "say": "Yeah — so I'm curious, what does your process look like right now after a turnover? Are your contractors uploading everything through FlipStream, or do you have a separate inspection step?",
+        "note": "STOP PITCHING. You're in discovery mode now. Let him talk. Listen for: how many units, who reviews photos, what falls through cracks, what tools they use, what keeps him up at night.",
+        "branches": [
+          {
+            "label": "Describes their process / shares details",
+            "to": "discovery_deeper"
+          },
+          {
+            "label": "How do you know about FlipStream?",
+            "to": "flipstream_bridge"
+          },
+          {
+            "label": "My wife handles that / Tanya runs ops",
+            "to": "referral_tanya"
+          }
+        ]
+      },
+      "flipstream_bridge": {
+        "label": "FLIPSTREAM BRIDGE",
+        "say": "We've been looking at how iTrip operators run things — FlipStream's solid for coordinating the flip and getting photos in. The gap we keep seeing is what happens after the photos land. Like, who's actually reviewing 30 images per turnover across all your units and catching the stuff that matters? That's the piece we plug into.",
+        "note": "Position RapidEye as complementary to FlipStream, never a replacement. You're filling a gap in their existing workflow, not asking them to rip anything out.",
+        "branches": [
+          {
+            "label": "That makes sense / tell me more",
+            "to": "solution_drop"
+          },
+          {
+            "label": "We review them ourselves / we have a process",
+            "to": "discovery_deeper"
+          },
+          {
+            "label": "Not sure we need that",
+            "to": "objection_not_interested"
+          }
+        ]
+      },
+      "discovery_deeper": {
+        "label": "DEEPER DISCOVERY",
+        "say": "That's helpful. And how many properties are you guys managing right now? I know you cover Del Mar, Mission Bay, Coronado — is it growing, or are you more focused on tightening up operations on what you've got before adding more?",
+        "note": "You're learning scale and priorities. If growing: RapidEye helps scale without adding headcount. If tightening: RapidEye catches what's slipping through. Either answer is a win.",
+        "branches": [
+          {
+            "label": "Shares unit count / growth plans",
+            "to": "solution_drop"
+          },
+          {
+            "label": "Why do you need to know that?",
+            "to": "solution_drop"
+          },
+          {
+            "label": "We're pretty small right now",
+            "to": "small_portfolio_pivot"
+          }
+        ]
+      },
+      "small_portfolio_pivot": {
+        "label": "SMALL PORTFOLIO — REFRAME",
+        "say": "Honestly, that's when it matters most. When you're running 15 or 20 units, you can't afford to eat a repair cost because a photo got missed, and every bad review hits your average way harder. The managers I work with who started early actually say it's easier to build the right process now than try to retrofit it at 50 or 60 units.",
+        "note": "Don't let small portfolio be a disqualifier. Reframe as an advantage — they can build the right process now while they're still nimble.",
+        "branches": [
+          {
+            "label": "That's fair / makes sense",
+            "to": "solution_drop"
+          },
+          {
+            "label": "We're just not there yet",
+            "to": "sell_test_drive"
+          }
+        ]
+      },
+      "solution_drop": {
+        "label": "ONE-SENTENCE SOLUTION",
+        "say": "So what we built — RapidEye is an AI layer that plugs into the turnover photos your team's already taking. It automatically flags damage, missing items, staging issues — without your team changing anything about how they work. Your cleaners keep uploading to FlipStream the same way they do now, we just surface the stuff that actually needs attention.",
+        "note": "ONE pass. Don't oversell. Don't list features. Let him react. If he asks a technical question, answer it briefly — but pivot back to the CTA.",
+        "branches": [
+          {
+            "label": "That's interesting / how does it work exactly?",
+            "to": "cta"
+          },
+          {
+            "label": "What does it cost?",
+            "to": "cta_deflect_price"
+          },
+          {
+            "label": "We'd need to talk to corporate about new tools",
+            "to": "objection_corporate"
+          },
+          {
+            "label": "I'd need to see it / sounds cool",
+            "to": "book_meeting"
+          }
+        ]
+      },
+      "cta": {
+        "label": "LOW-FRICTION CTA",
+        "say": "Would you be open to taking a look sometime when I'm not cold calling you out of the blue? I can walk you through what it actually catches on real turnover photos — takes about 20 minutes. Worst case, you steal some ideas for what to train your cleaners on and we part as friends.",
+        "note": "Low pressure. Make the meeting sound valuable even if they never buy. If they say yes, go straight to booking a specific time.",
+        "branches": [
+          {
+            "label": "Sure / yeah let's do it",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Send me something first",
+            "to": "send_email"
+          },
+          {
+            "label": "I don't have time right now",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "Let me talk to my wife / partner first",
+            "to": "referral_tanya"
+          }
+        ]
+      },
+      "cta_deflect_price": {
+        "label": "PRICE QUESTION — DEFLECT TO MEETING",
+        "say": "Honestly, it depends on the portfolio — number of units, turnover volume, that kind of thing. That's part of why it's worth a quick look. I can show you exactly what it does on real photos, and then pricing is a pretty straightforward conversation from there. Would you be open to 20 minutes sometime this week or next?",
+        "note": "Never give pricing on a cold call. Deflect to the meeting where you can anchor value first. If they insist, give a wide range and re-ask for the meeting.",
+        "branches": [
+          {
+            "label": "OK sure",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Just give me a ballpark",
+            "to": "cta"
+          },
+          {
+            "label": "Send me info with pricing",
+            "to": "send_email"
+          }
+        ]
+      },
+      "objection_not_interested": {
+        "label": "NOT INTERESTED — AGREE + SPLIT",
+        "say": "I totally get it. I should've assumed you'd be all set — otherwise you probably would've reached out to us. Just so nobody from my team cold calls you again — is it that turnover quality isn't really a problem you're focused on right now, or is it more that you just hate cold calls? Because honestly, I get it either way.",
+        "note": "Agree first. Don't push back. The split gives you information — if it's timing or channel preference, you still have an opening.",
+        "branches": [
+          {
+            "label": "It's a problem, just bad timing / hate cold calls",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "We're genuinely covered / not a priority",
+            "to": "graceful_exit"
+          },
+          {
+            "label": "Opens up about a real pain point",
+            "to": "warm_discovery"
+          }
+        ]
+      },
+      "objection_no_budget": {
+        "label": "NO BUDGET — AGREE + SPLIT",
+        "say": "Totally get it. Nowadays it's harder to keep a tool you already have, let alone buy something new. Just so I'm not wasting your time — is it that budget for this cycle is completely locked, or is it more that anything new you try to buy has to go through a whole approval process?",
+        "note": "As a franchise owner, Ari likely controls his local budget but may have seasonal cash flow constraints. If he says approval process, it might involve iTrip corporate.",
+        "branches": [
+          {
+            "label": "Budget is locked / seasonal thing",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "Need corporate approval for new tools",
+            "to": "objection_corporate"
+          },
+          {
+            "label": "Just can't spend right now, period",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "objection_have_vendor": {
+        "label": "ALREADY HAVE A SYSTEM — AGREE + SPLIT",
+        "say": "That makes total sense — with properties across Del Mar and Mission Bay, you'd have to have something dialed in. Is it that your FlipStream workflow is catching everything and you're fully happy with what surfaces, or is it more that switching anything right now would just be a headache?",
+        "note": "You're NOT asking them to replace FlipStream — RapidEye sits on top of it. If they say FlipStream catches everything, probe gently. If switching is the headache, reframe as additive.",
+        "branches": [
+          {
+            "label": "FlipStream works but stuff still slips through",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "Switching is the headache / don't want to change anything",
+            "to": "no_change_reframe"
+          },
+          {
+            "label": "We're happy with everything / fully covered",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "no_change_reframe": {
+        "label": "NO CHANGE — REFRAME AS ADDITIVE",
+        "say": "Totally hear that — and the nice thing is, this doesn't replace anything you're doing. Your cleaners keep using FlipStream the exact same way. We just read the photos that are already being uploaded and flag what needs attention. Zero workflow change on your team's end. Would it be worth 20 minutes to just see what it catches?",
+        "note": "This is the key reframe for any iTrip operator. RapidEye is additive to their existing stack, not a rip-and-replace.",
+        "branches": [
+          {
+            "label": "OK that's different / sure let's look",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Still not interested",
+            "to": "graceful_exit"
+          },
+          {
+            "label": "Send me some info on that",
+            "to": "send_email"
+          }
+        ]
+      },
+      "objection_corporate": {
+        "label": "CORPORATE DECIDES TOOLS — AGREE + SPLIT",
+        "say": "Makes sense — with the franchise model, I'm sure there's a lot that flows down from iTrip corporate. Is it that all your ops tooling has to go through corporate approval, or do you have flexibility on the local level as long as it plays nice with what you're already running?",
+        "note": "iTrip franchisees typically have local flexibility for add-on tools. iTrip's API already has Breezeway endpoints — integration isn't foreign to their ecosystem. If he says corporate controls everything, pivot to getting a referral to the right person there.",
+        "branches": [
+          {
+            "label": "I have some local flexibility",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "Corporate would have to approve it",
+            "to": "referral_corporate"
+          },
+          {
+            "label": "I don't really know how that works",
+            "to": "sell_test_drive"
+          }
+        ]
+      },
+      "referral_corporate": {
+        "label": "REFERRAL TO CORPORATE",
+        "say": "Got it — who on the corporate side would typically evaluate something like this? I know iTrip has their ops and tech teams — is there someone specific that owns tooling decisions for franchisees?",
+        "note": "You already know Daniel Hadaway (VP Marketing) and Vickie Storm (SVP Franchise Development) at iTrip corporate. If Ari gives a name, great. If not, you can ask about those names. Goal is either a warm intro or a name to drop.",
+        "branches": [
+          {
+            "label": "Gives a name or contact",
+            "to": "referral_ask"
+          },
+          {
+            "label": "I don't know / just email corporate",
+            "to": "referral_ask"
+          },
+          {
+            "label": "I can bring it up internally myself",
+            "to": "book_meeting"
+          }
+        ]
+      },
+      "sell_test_drive": {
+        "label": "SELL THE TEST DRIVE",
+        "say": "Look, you're probably not buying anything off a cold call today, and I totally respect that. But when budget does free up or you're looking at your ops stack for next season — the people who move fastest are the ones who already know what's on their list. Would you be open to just seeing what it does? Twenty minutes, I'll show you real examples from other PM companies. Worst case you walk away with some ideas for your own turnover audits.",
+        "note": "You're not asking them to buy. You're asking them to be informed. Low commitment, high value framing. If they still say no, respect it.",
+        "branches": [
+          {
+            "label": "OK fine / sure why not",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Just send me something",
+            "to": "send_email"
+          },
+          {
+            "label": "No / not right now",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "referral_tanya": {
+        "label": "REFERRAL TO TANYA",
+        "say": "Totally — if Tanya's the one closer to the turnover workflow day-to-day, she might actually be the better person for this. Would it make sense for me to reach out to her directly, or would you rather loop her in together? I could set something up for all three of us — keeps it quick.",
+        "note": "Tanya co-manages ops. If Ari defers to her, that's actually a buying signal — he's routing you to the person who lives the pain daily. Try to get a joint meeting or at least her direct contact info.",
+        "branches": [
+          {
+            "label": "Yeah reach out to her / gives her info",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Let me talk to her and get back to you",
+            "to": "send_email"
+          },
+          {
+            "label": "She handles it but I make the decisions",
+            "to": "cta"
+          }
+        ]
+      },
+      "referral_ask": {
+        "label": "GET THE REFERRAL",
+        "say": "If I can get a name, I'll put something tailored together so it actually lands and doesn't look like a generic vendor pitch. Who would that be?",
+        "note": "Get a specific name. If they give you one, repeat it back and confirm. Then ask if you can mention Ari's name when you reach out.",
+        "branches": [
+          {
+            "label": "Gives a name",
+            "to": "referral_confirm"
+          },
+          {
+            "label": "Won't give a name / just look online",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "referral_confirm": {
+        "label": "CONFIRM REFERRAL",
+        "say": "Perfect — and would you mind if I mention your name when I reach out? Just so it doesn't land as another random cold call. Really appreciate you pointing me in the right direction, Ari.",
+        "note": "Always ask permission to use their name. Even if they say no, you have the contact. Send a tailored email to that person within 24 hours.",
+        "branches": [
+          {
+            "label": "Sure go ahead",
+            "to": "graceful_exit"
+          },
+          {
+            "label": "Rather you didn't / keep me out of it",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "book_meeting": {
+        "label": "BOOK THE MEETING",
+        "say": "Awesome — I've got next week pulled up. How does Tuesday or Wednesday look? I'm thinking morning your time — does 10 AM Pacific work?",
+        "note": "Pick a SPECIFIC day and time. Don't say 'when works for you.' Give two options. Send the calendar invite while still on the phone. Once booked, STOP SELLING.",
+        "branches": [
+          {
+            "label": "That works / picks a time",
+            "to": "meeting_booked"
+          },
+          {
+            "label": "Different time / let me check my calendar",
+            "to": "meeting_negotiate"
+          }
+        ]
+      },
+      "meeting_negotiate": {
+        "label": "NEGOTIATE TIME",
+        "say": "Totally flexible — what does your week look like? I can make pretty much anything work.",
+        "note": "Let them pick. Whatever they say, confirm immediately and send the invite before hanging up.",
+        "branches": [
+          {
+            "label": "Gives a specific time",
+            "to": "meeting_booked"
+          },
+          {
+            "label": "Not sure yet / I'll get back to you",
+            "to": "send_email"
+          }
+        ]
+      },
+      "meeting_booked": {
+        "label": "MEETING CONFIRMED",
+        "say": "Locked in. I'll send over a calendar invite right now so it's on both our radars. Really appreciate you taking my call, Ari — looking forward to it.",
+        "note": "STOP SELLING. Send the invite immediately after hanging up. Keep the goodbye short and warm. Do not add 'one more thing.' Do not re-pitch.",
+        "branches": []
+      },
+      "send_email": {
+        "label": "SEND ME AN EMAIL",
+        "say": "Totally fair. One question before I do — what would be most relevant to include so it doesn't just look like another generic vendor pitch? Like, are you more curious about how it works with your existing ops stack, or more the ROI side — what it actually catches and saves?",
+        "note": "Always ask this. It gives you intel for the email AND keeps the conversation going. Whatever they say, tailor the email to it. Include 2-3 specific meeting time suggestions in the email.",
+        "branches": [
+          {
+            "label": "Tells you what they want to see",
+            "to": "email_confirm"
+          },
+          {
+            "label": "Just send whatever / general info",
+            "to": "email_confirm"
+          }
+        ]
+      },
+      "email_confirm": {
+        "label": "EMAIL CONFIRMED",
+        "say": "Done — I'll get that over to you today. And I'll throw a couple time options in there in case you want to take a closer look after. Appreciate your time, Ari.",
+        "note": "Send the email within 1 hour. Include: (1) what they asked for, (2) one specific callback to the conversation, (3) 2-3 meeting time options. Follow up in 3 business days if no response.",
+        "branches": []
+      },
+      "gatekeeper": {
+        "label": "GATEKEEPER — SLIDE BY",
+        "say": "Hey — could you get me through to Ari? It's Sam.",
+        "note": "Say it like you know him. First name only for both of you. Don't explain why. Don't give your company name unless directly asked.",
+        "branches": [
+          {
+            "label": "Puts you through",
+            "to": "opener"
+          },
+          {
+            "label": "Who's calling? / What's this about?",
+            "to": "gatekeeper_context"
+          },
+          {
+            "label": "He's not available",
+            "to": "gatekeeper_unavailable"
+          }
+        ]
+      },
+      "gatekeeper_context": {
+        "label": "GATEKEEPER — ADD CONTEXT",
+        "say": "Yeah — I work with a few other vacation rental managers down in San Diego. Would you mind letting him know it's Sam Parks?",
+        "note": "Still no pitch. You're just someone who works with people like Ari. If they press again, move to social proof.",
+        "branches": [
+          {
+            "label": "Puts you through",
+            "to": "opener"
+          },
+          {
+            "label": "What company? / What's this regarding?",
+            "to": "gatekeeper_social"
+          },
+          {
+            "label": "He's not available / take a message",
+            "to": "gatekeeper_unavailable"
+          }
+        ]
+      },
+      "gatekeeper_social": {
+        "label": "GATEKEEPER — SOCIAL PROOF",
+        "say": "Sure — it's Sam Parks with RapidEye. We help a few property management companies with their inspection workflows. I sent Ari a note — would you mind just giving him a heads up?",
+        "note": "Last level before you pivot to availability. If they still won't connect, get a callback window and try again at a different time.",
+        "branches": [
+          {
+            "label": "Puts you through",
+            "to": "opener"
+          },
+          {
+            "label": "Still won't connect / take a message",
+            "to": "gatekeeper_unavailable"
+          }
+        ]
+      },
+      "gatekeeper_unavailable": {
+        "label": "GATEKEEPER — GET AVAILABILITY",
+        "say": "No worries at all — when's the best time to catch him? I want to make sure I'm not calling when he's slammed.",
+        "note": "Get a specific time window. If they say mornings or afternoons, pin it down further. If Tanya might answer, that works too — she co-manages.",
+        "branches": [
+          {
+            "label": "Gives a time or suggestion",
+            "to": "reschedule_locked"
+          },
+          {
+            "label": "Won't help / just email him",
+            "to": "send_email"
+          }
+        ]
+      },
+      "graceful_exit": {
+        "label": "GRACEFUL EXIT",
+        "say": "Totally understand. If anything changes on your end, I'm easy to find — Sam Parks, RapidEye. Appreciate your time, Ari.",
+        "note": "Don't burn the bridge. Log the call with the specific objection that killed it. Set a follow-up reminder for 60-90 days. He's still a good lead — just not today.",
+        "branches": []
+      }
+    }
+  }
+}

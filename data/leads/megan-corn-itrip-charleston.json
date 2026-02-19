@@ -1,0 +1,641 @@
+{
+  "name": "Megan Corn",
+  "title": "Office Manager",
+  "company": "iTrip Charleston",
+  "location": "Charleston, SC",
+  "phone": "+1-843-303-9225",
+  "company_phone": "(843) 630-6060",
+  "alt_phones": [
+    "+1-843-630-6060"
+  ],
+  "flow": {
+    "context": "Megan Corn is the Office Manager at iTrip Charleston Beaches & Hilton Head — she's the central hub for all incoming calls, emails, bookings, and maintenance scheduling, so she directly absorbs the pain when turnover issues slip through and guests call in with complaints. iTrip Charleston is a franchise owned by Sarah and Steven Goodwin since 2016, managing roughly 108 properties across Folly Beach, Isle of Palms, Kiawah, and downtown Charleston. They outsource cleaning to vendors but run internal staff inspections through FlipStream, iTrip's proprietary turnover app that captures photos and damage reports — the exact photo-heavy workflow RapidEye is built for. Hunter L Ray is the Operations Manager who likely owns turnover execution day-to-day. No strong personal connection to Sam — lead with the Charleston vacation rental market angle and peer-based industry proximity.",
+    "start": "initial_contact",
+    "nodes": {
+      "initial_contact": {
+        "label": "INITIAL CONTACT",
+        "say": "Hey, is Megan around? It's Sam.",
+        "note": "Keep it casual. Sound like someone she'd expect to hear from. Don't volunteer a last name or company unless asked. Megan is the Office Manager and likely picks up the main line herself.",
+        "branches": [
+          {
+            "label": "\"This is Megan\" / \"Speaking\"",
+            "to": "opener"
+          },
+          {
+            "label": "\"Who's calling?\" / \"What's this regarding?\"",
+            "to": "gatekeeper_context"
+          },
+          {
+            "label": "\"She's not available right now\"",
+            "to": "megan_unavailable"
+          }
+        ]
+      },
+      "gatekeeper_context": {
+        "label": "GATEKEEPER — CONTEXT",
+        "say": "Yeah — I work with a few other vacation rental managers in the Charleston area. Would you mind letting her know it's Sam Parks?",
+        "note": "Don't pitch. Don't explain RapidEye. Give just enough to sound like a peer, not a vendor. If they push further, go to social proof.",
+        "branches": [
+          {
+            "label": "Transfers to Megan",
+            "to": "opener"
+          },
+          {
+            "label": "More pushback / \"What company?\"",
+            "to": "gatekeeper_social_proof"
+          },
+          {
+            "label": "\"She's not available\"",
+            "to": "megan_unavailable"
+          }
+        ]
+      },
+      "gatekeeper_social_proof": {
+        "label": "GATEKEEPER — SOCIAL PROOF",
+        "say": "Totally fair — we help a couple property management companies with their turnover inspection workflows. I sent Megan a note and just wanted to give her a heads up. Would you mind passing that along?",
+        "note": "This is your last attempt. If they still won't transfer, ask for a good callback time or confirm Megan's email. Don't burn the bridge — whoever this is probably sits three feet from Megan.",
+        "branches": [
+          {
+            "label": "Transfers to Megan",
+            "to": "opener"
+          },
+          {
+            "label": "Won't transfer / offers voicemail",
+            "to": "megan_unavailable"
+          }
+        ]
+      },
+      "megan_unavailable": {
+        "label": "MEGAN NOT AVAILABLE",
+        "say": "No worries at all. When's she usually around? I'll try her back. And just so I'm not wasting anyone's time — is Megan still the best person for anything related to operations and turnover workflows, or would that be someone like Hunter?",
+        "note": "Two goals here: lock in a specific callback window AND test whether Megan or Hunter Ray (Ops Manager) is the better target. If they mention Sarah or Steven Goodwin, that's even better — that's the owner level.",
+        "branches": [
+          {
+            "label": "Gives a callback time for Megan",
+            "to": "callback_schedule"
+          },
+          {
+            "label": "\"You should talk to Hunter\" / mentions Ops",
+            "to": "referral_to_hunter"
+          },
+          {
+            "label": "\"You should talk to Sarah or Steven\"",
+            "to": "referral_to_owners"
+          },
+          {
+            "label": "Won't help / dead end",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "opener": {
+        "label": "OPENER",
+        "say": "Hey Megan — I work with a few other vacation rental managers down in the Charleston market on their turnover workflows. It's Sam Parks with RapidEye. Have you heard my name tossed around?",
+        "note": "Feet up on the desk energy. Don't rush it. Pause after 'tossed around' and let her respond. She fields vendor calls all day as Office Manager — stand out by NOT sounding like one.",
+        "branches": [
+          {
+            "label": "\"Yeah\" / \"I think so\"",
+            "to": "heard_name_yes"
+          },
+          {
+            "label": "\"No\" / \"I haven't\"",
+            "to": "heard_name_no"
+          },
+          {
+            "label": "\"Not a great time\" / sounds rushed",
+            "to": "bad_timing"
+          },
+          {
+            "label": "Guarded / confused / \"What's this about?\"",
+            "to": "permission_fallback"
+          }
+        ]
+      },
+      "heard_name_yes": {
+        "label": "HEARD THE NAME — YES",
+        "say": "Oh nice — well usually we'd be working with someone in your shoes. What did you hear?",
+        "note": "Rare but great. Let her talk. Whatever she shares, use it to transition into discovery about their turnover process. If she's vague, gently steer toward pain.",
+        "branches": [
+          {
+            "label": "Shares what she heard / asks questions",
+            "to": "warm_response"
+          },
+          {
+            "label": "Vague / \"not much really\"",
+            "to": "pain_trigger"
+          }
+        ]
+      },
+      "heard_name_no": {
+        "label": "HEARD THE NAME — NO",
+        "say": "Oh — guess I'm not as popular as I thought. Well the reason for my call is —",
+        "note": "Say it with a smile. The self-deprecating beat breaks tension and makes you human. Transition directly into the pain trigger. Don't pause too long between this and the next line.",
+        "branches": [
+          {
+            "label": "She's listening / neutral",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "\"I'm really busy\" / tries to cut you off",
+            "to": "permission_fallback"
+          }
+        ]
+      },
+      "bad_timing": {
+        "label": "BAD TIMING",
+        "say": "Totally hear you — would it be a terrible idea if I tried you again tomorrow or later this week? When's usually a better window?",
+        "note": "Don't push. Get a specific day and time. If she won't commit, suggest one yourself: 'How about Thursday around ten?' Something concrete.",
+        "branches": [
+          {
+            "label": "Gives a time / \"try me tomorrow\"",
+            "to": "callback_schedule"
+          },
+          {
+            "label": "\"Just send me an email\"",
+            "to": "send_email_request"
+          },
+          {
+            "label": "\"Not interested\" / brush off",
+            "to": "not_interested"
+          }
+        ]
+      },
+      "callback_schedule": {
+        "label": "CALLBACK SCHEDULED",
+        "say": "Perfect — I've got that down. I'll try you [repeat day and time]. Appreciate it, Megan.",
+        "note": "Repeat the exact day and time back to her. Calendar it immediately. When you call back, open with: 'Hey Megan, it's Sam Parks — we spoke briefly on [day], you said to try you back around now.'",
+        "branches": []
+      },
+      "permission_fallback": {
+        "label": "PERMISSION FALLBACK",
+        "say": "Yeah totally — I mean it is a cold call, I'll be straight with you. Can I get 30 seconds to tell you why I reached out? And you can absolutely hang up on me if it's not a fit.",
+        "note": "Saying 'it is a cold call' out loud disarms because nobody else admits it. The 30-second ask lowers the bar. If she grants permission, go straight to pain — don't waste the window.",
+        "branches": [
+          {
+            "label": "\"Sure\" / \"Go ahead\"",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "\"No thanks\" / won't engage",
+            "to": "permission_rejected"
+          }
+        ]
+      },
+      "permission_rejected": {
+        "label": "PERMISSION REJECTED",
+        "say": "Shoot — totally my bad. Just so nobody from my team bugs you again — is it that I caught you at a horrible time, or is it that you already know what we do and it's just not interesting?",
+        "note": "Last chance. The split forces a real answer instead of a reflexive no. If it's timing, you get a callback. If it's disinterest, you learn why and can pivot to a referral or exit clean.",
+        "branches": [
+          {
+            "label": "\"It's just bad timing\"",
+            "to": "bad_timing"
+          },
+          {
+            "label": "\"We're not interested\" / \"We're all set\"",
+            "to": "rejection_diagnosis"
+          },
+          {
+            "label": "\"I'm not the right person for this\"",
+            "to": "referral_ask"
+          },
+          {
+            "label": "Hangs up / refuses to engage",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "rejection_diagnosis": {
+        "label": "REJECTION — DIAGNOSE",
+        "say": "Totally fair — and I respect that. Out of curiosity, is it that you guys are totally happy with how your turnover inspections work right now, or is it more that you just hate cold calls? Honestly I get it either way.",
+        "note": "Keep tone light and genuine. If she says they're happy, pivot to the FlipStream angle — acknowledge they have a good system and explore the review gap. If she hates cold calls, offer the email path or a quick laugh and exit.",
+        "branches": [
+          {
+            "label": "\"We're happy with our process\" / mentions FlipStream",
+            "to": "already_have_flipstream"
+          },
+          {
+            "label": "\"I just hate cold calls\" / laughs",
+            "to": "test_drive_offer"
+          },
+          {
+            "label": "\"I'm really not the right person\"",
+            "to": "referral_ask"
+          },
+          {
+            "label": "Still firm / no engagement",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "pain_trigger": {
+        "label": "PAIN TRIGGER",
+        "say": "So I was talking to an office manager at another PM company in a pretty similar setup to you guys — about a hundred properties, they outsource cleaning to vendors, their team runs inspections after. She told me the thing that was killing her was getting two or three calls a week from guests who just checked in — something's wrong. Broken faucet handle, a missing set of towels, a stain on the couch that should've been caught during the flip. And she's the one scrambling to get somebody out there, dealing with the guest while they're already frustrated. Meanwhile, the turnover photos were all there — someone just didn't catch it scrolling through 80 pictures. That ring a bell at all?",
+        "note": "PAUSE after 'ring a bell at all.' This is the most important silence on the call. Let her react. If she says yes or shares her own version, you're in. If she deflects, she might not own this — pivot to figuring out who does.",
+        "branches": [
+          {
+            "label": "\"Yeah\" / \"Oh totally\" / shares her own pain",
+            "to": "warm_response"
+          },
+          {
+            "label": "\"We actually have a system for that\" / mentions FlipStream",
+            "to": "already_have_flipstream"
+          },
+          {
+            "label": "\"Eh, not really\" / doesn't resonate",
+            "to": "not_interested"
+          },
+          {
+            "label": "\"You'd need to talk to Hunter about that\" / redirects",
+            "to": "referral_redirect"
+          }
+        ]
+      },
+      "warm_response": {
+        "label": "SHE'S WARM — STOP PITCHING",
+        "say": "Yeah — that's exactly what we keep hearing. So what does that actually look like on your end? Like when a guest calls in with something that should've been caught — what happens from there?",
+        "note": "She's engaged. DO NOT PITCH. Ask questions. Let her talk. The more she describes the problem, the more she'll want the solution. Listen for: how often this happens, who's responsible, what tools they use, and where the frustration sits.",
+        "branches": [
+          {
+            "label": "Describes her process / vents about the pain",
+            "to": "discovery_process"
+          },
+          {
+            "label": "\"What exactly does RapidEye do?\"",
+            "to": "solution_and_cta"
+          },
+          {
+            "label": "\"You should really talk to Hunter or Sarah\"",
+            "to": "referral_redirect"
+          }
+        ]
+      },
+      "discovery_process": {
+        "label": "DISCOVERY — THEIR PROCESS",
+        "say": "Got it — and for the turnover photos themselves, are your vendors uploading those through FlipStream? And who's actually reviewing them before the guest checks in?",
+        "note": "You KNOW they use FlipStream from research. Naming it by name shows you've done your homework and instantly builds credibility. Listen for: are photos actually reviewed? Who reviews? Is it thorough or a quick scroll? Is anyone comparing to a baseline?",
+        "branches": [
+          {
+            "label": "Confirms FlipStream / describes photo review",
+            "to": "flipstream_deep_dive"
+          },
+          {
+            "label": "\"How do you know about FlipStream?\" / surprised",
+            "to": "flipstream_deep_dive"
+          },
+          {
+            "label": "\"I'm not sure about the details honestly\"",
+            "to": "referral_ask"
+          }
+        ]
+      },
+      "flipstream_deep_dive": {
+        "label": "FLIPSTREAM DISCUSSION",
+        "say": "Yeah — so that's actually exactly why I called. What we keep seeing with companies running FlipStream is — it's great at getting the photos captured and into the system. The gap is nobody has time to actually look at every single photo carefully enough to catch what matters. A stain shows up in photo 47 of 90 and it just gets scrolled past. That's the piece we solve. We plug into the photos already being taken and flag the issues automatically — damage, missing items, staging problems. No new app for your vendors, no workflow change. Would you be open to seeing what that looks like when I'm not cold calling you out of the blue?",
+        "note": "This is the solution bridge. One concept (AI analyzes existing photos), one differentiator (no workflow change), one CTA. Keep it tight. Pause after the CTA and let her respond.",
+        "branches": [
+          {
+            "label": "\"Yeah, that could be interesting\"",
+            "to": "book_meeting"
+          },
+          {
+            "label": "\"Send me something first\"",
+            "to": "send_email_request"
+          },
+          {
+            "label": "\"That's really more of a Hunter question\"",
+            "to": "referral_to_hunter"
+          },
+          {
+            "label": "\"I'd need to check with Sarah or Steven\"",
+            "to": "referral_to_owners"
+          },
+          {
+            "label": "\"We're fine with how we do it\"",
+            "to": "already_have_flipstream"
+          }
+        ]
+      },
+      "solution_and_cta": {
+        "label": "SOLUTION + CTA",
+        "say": "Yeah — so in a nutshell, we built an AI that analyzes the turnover photos your team's already taking in FlipStream. It catches damage, missing items, staging issues — the stuff that's easy to miss when you're flipping through 80 photos on a busy turnover day. Plugs right into your existing workflow, nothing changes for your cleaners or inspectors. Would you be open to taking a quick look when I'm not ambushing you on the phone?",
+        "note": "She asked, so give a clean answer. But keep it to one breath. The CTA is the important part — pause and let her respond.",
+        "branches": [
+          {
+            "label": "\"Yeah, let's set something up\"",
+            "to": "book_meeting"
+          },
+          {
+            "label": "\"Send me an email\"",
+            "to": "send_email_request"
+          },
+          {
+            "label": "\"Sounds cool but I'm not the decision maker\"",
+            "to": "referral_ask"
+          },
+          {
+            "label": "\"We're good\" / not interested",
+            "to": "not_interested"
+          }
+        ]
+      },
+      "not_interested": {
+        "label": "NOT INTERESTED — AGREE",
+        "say": "Totally get it. I honestly should've assumed you'd be all set — otherwise you probably would've reached out to us, right?",
+        "note": "Agree first. This surprises her because every other cold caller pushes back. The agreement lowers her guard and opens the door for the split.",
+        "branches": [
+          {
+            "label": "\"Right\" / agrees / relaxes a bit",
+            "to": "not_interested_split"
+          },
+          {
+            "label": "\"Yeah exactly\" / firm but listening",
+            "to": "not_interested_split"
+          }
+        ]
+      },
+      "not_interested_split": {
+        "label": "NOT INTERESTED — SPLIT",
+        "say": "Just so nobody from my team cold calls you guys again — is it that the inspection process is totally dialed in and working great, or is it more that even if it wasn't perfect, this just isn't the right time to look at something new?",
+        "note": "'Totally dialed in' is hard to commit to — most people won't claim perfection. 'Not the right time' opens the door for a future conversation or a low-commitment look. Either answer gives you somewhere to go.",
+        "branches": [
+          {
+            "label": "\"It's not the right time\" / budget / bandwidth",
+            "to": "test_drive_offer"
+          },
+          {
+            "label": "\"Our process works fine\"",
+            "to": "already_have_flipstream"
+          },
+          {
+            "label": "\"I really don't handle this side of things\"",
+            "to": "referral_ask"
+          },
+          {
+            "label": "Hard no / wants off the phone",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "already_have_flipstream": {
+        "label": "\"WE ALREADY HAVE A SYSTEM\"",
+        "say": "Makes total sense — with a hundred-plus properties you'd have to have something solid in place. And I know iTrip's FlipStream setup is pretty thorough on the capture side.",
+        "note": "Validate. Don't trash FlipStream — it's iTrip's proprietary tool and she'll get defensive. Acknowledge it's good at what it does, then split into whether the review step is the real bottleneck.",
+        "branches": [
+          {
+            "label": "Agrees / seems satisfied with FlipStream",
+            "to": "flipstream_objection_split"
+          },
+          {
+            "label": "\"How do you know about FlipStream?\" / surprised",
+            "to": "flipstream_objection_split"
+          }
+        ]
+      },
+      "flipstream_objection_split": {
+        "label": "FLIPSTREAM — SPLIT THE OBJECTION",
+        "say": "Totally — and I'm not here to replace any of that. Just out of curiosity — when your team reviews those turnover photos in FlipStream, do you feel like everything actually gets caught? Or is it more that the photos are there, but there's just not enough hours in the day to look at each one closely?",
+        "note": "This is a surgical question. Almost nobody will say 'we catch everything.' The honest answer is always 'stuff slips.' That's your opening. If she deflects to Hunter, she's telling you who the real buyer is.",
+        "branches": [
+          {
+            "label": "\"Stuff definitely slips\" / admits the gap",
+            "to": "test_drive_offer"
+          },
+          {
+            "label": "\"It works well enough\" / won't budge",
+            "to": "value_offer"
+          },
+          {
+            "label": "\"Honestly that's more Hunter's area\"",
+            "to": "referral_to_hunter"
+          }
+        ]
+      },
+      "test_drive_offer": {
+        "label": "SELL THE TEST DRIVE",
+        "say": "Look — you're probably not buying anything from a cold call today, and I totally respect that. But when you guys do have the bandwidth, the people who move fastest are the ones who already know what their options are. Would you be open to a quick look — even fifteen minutes — just so you know what's out there? Worst case you see what other PM companies in Charleston are doing with their turnover photos and you steal some ideas. We part as friends.",
+        "note": "You're not selling the product. You're selling the meeting. Low commitment, high value. 'Steal some ideas' makes it feel safe. Pause after 'part as friends.'",
+        "branches": [
+          {
+            "label": "\"Yeah sure\" / agrees to look",
+            "to": "book_meeting"
+          },
+          {
+            "label": "\"Send me something first\"",
+            "to": "send_email_request"
+          },
+          {
+            "label": "\"I'd need to loop in Hunter or Sarah\"",
+            "to": "referral_ask"
+          },
+          {
+            "label": "\"No thanks\" / firm",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "value_offer": {
+        "label": "VALUE OFFER — MARKET INSIGHTS",
+        "say": "Totally fair. One thing I could do — we work with a bunch of PM companies in the Charleston area and up and down the coast, and I could send you a quick breakdown of what they're doing differently on the inspection side. No pitch, just what's actually working in similar setups. If it's useful, great. If not, no harm done. Worth sending over?",
+        "note": "This is the softest possible CTA. Zero commitment. If she says yes, you get her email confirmed and a reason to follow up. If she says no, exit gracefully and try Hunter or the Goodwins directly.",
+        "branches": [
+          {
+            "label": "\"Sure, send it over\"",
+            "to": "send_email_request"
+          },
+          {
+            "label": "\"No thanks\"",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "referral_redirect": {
+        "label": "SHE REDIRECTS TO SOMEONE ELSE",
+        "say": "Oh totally — who on your team would be the right person for this? Is that Hunter on the operations side, or more Sarah or Steven?",
+        "note": "You already know these names from research. Dropping them casually shows you've done homework and makes it easier for her to just confirm. Don't make her think of names — give her the multiple choice.",
+        "branches": [
+          {
+            "label": "\"Yeah, talk to Hunter\"",
+            "to": "referral_to_hunter"
+          },
+          {
+            "label": "\"You'd want Sarah\" / \"Talk to Steven\"",
+            "to": "referral_to_owners"
+          },
+          {
+            "label": "Gives a different name entirely",
+            "to": "referral_to_hunter"
+          }
+        ]
+      },
+      "referral_ask": {
+        "label": "ASK FOR REFERRAL",
+        "say": "Totally makes sense — I appreciate you being straight with me. Who on your team would own the inspection and turnover side? Is that Hunter, or more of a Sarah-and-Steven call?",
+        "note": "Use names you know. Frame it as multiple choice, not open-ended. If she says Hunter Ray (Ops Manager), ask for his direct line or best time. If the Goodwins, same approach. The goal is a name, a contact path, and permission to mention Megan.",
+        "branches": [
+          {
+            "label": "\"Talk to Hunter\"",
+            "to": "referral_to_hunter"
+          },
+          {
+            "label": "\"That would be Sarah or Steven\"",
+            "to": "referral_to_owners"
+          },
+          {
+            "label": "Won't share / \"just call the main line\"",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "referral_to_hunter": {
+        "label": "REFERRAL — HUNTER (OPS MANAGER)",
+        "say": "Perfect — Hunter Ray, right? What's the best way to get ahold of him — is he on a direct line or should I just call back on this number and ask for him? And when's he usually around?",
+        "note": "Confirm full name, get a direct line or email if possible, lock in the best time to call. Then ask if you can mention Megan pointed you his way — that turns a cold call into a warm one.",
+        "branches": [
+          {
+            "label": "Gives contact info or best time",
+            "to": "referral_hunter_close"
+          },
+          {
+            "label": "\"Just try this number\"",
+            "to": "referral_hunter_close"
+          }
+        ]
+      },
+      "referral_hunter_close": {
+        "label": "CLOSE HUNTER REFERRAL",
+        "say": "Really appreciate that, Megan. Would you mind if I mentioned you pointed me his way? Just so it doesn't come totally out of nowhere for him. I'll put something together that's actually relevant to what you guys are running — not just a generic pitch.",
+        "note": "Getting permission to use her name is the whole game here. It transforms your next call. Lock this in and then wrap up — don't overstay your welcome. Log everything immediately.",
+        "branches": [
+          {
+            "label": "\"Sure, that's fine\"",
+            "to": "graceful_exit_positive"
+          },
+          {
+            "label": "\"I'd rather you didn't\" / hesitant",
+            "to": "graceful_exit_positive"
+          }
+        ]
+      },
+      "referral_to_owners": {
+        "label": "REFERRAL — SARAH OR STEVEN",
+        "say": "Got it — would that be Sarah or Steven? And what's the best way to reach them — are they in the office most days or is email better?",
+        "note": "Sarah is the franchise owner (property condition / owner satisfaction angle). Steven leads guest services and revenue management (review/guest experience angle) and is President of the iTrip Franchise Association (scalability angle). Either is a great target. Get any contact info you can.",
+        "branches": [
+          {
+            "label": "Points to Sarah / gives info",
+            "to": "referral_owner_close"
+          },
+          {
+            "label": "Points to Steven / gives info",
+            "to": "referral_owner_close"
+          },
+          {
+            "label": "\"Just email the main address\"",
+            "to": "referral_owner_close"
+          }
+        ]
+      },
+      "referral_owner_close": {
+        "label": "CLOSE OWNER REFERRAL",
+        "say": "That's super helpful. Would you mind if I mentioned you pointed me their way? I'll keep it really tailored to what iTrip Charleston is actually doing — not some generic deck.",
+        "note": "Same play as Hunter referral — get permission to name-drop Megan. Even if she says no, you still have the name and path. Exit clean and grateful.",
+        "branches": [
+          {
+            "label": "\"Sure\" / agrees",
+            "to": "graceful_exit_positive"
+          },
+          {
+            "label": "\"Just reach out directly\"",
+            "to": "graceful_exit_positive"
+          }
+        ]
+      },
+      "book_meeting": {
+        "label": "BOOK THE MEETING",
+        "say": "Awesome — let me pull up my calendar real quick. How does this week look? I've got Thursday afternoon or Friday morning open — what works better on your end?",
+        "note": "Give two specific options. Don't say 'when works for you' — too open, she'll punt. If she wants to loop someone in, offer to include them on the invite. Send the calendar invite WHILE you're on the phone.",
+        "branches": [
+          {
+            "label": "Picks a time",
+            "to": "meeting_confirmed"
+          },
+          {
+            "label": "\"I need to check with Hunter / Sarah first\"",
+            "to": "book_meeting_with_team"
+          },
+          {
+            "label": "\"Just send me an email with some times\"",
+            "to": "send_email_request"
+          }
+        ]
+      },
+      "book_meeting_with_team": {
+        "label": "LOOP IN THE TEAM",
+        "say": "Totally — would it make sense to just get Hunter on the call too? That way you don't have to relay everything. I can send one invite to both of you. What's his email — is it hray at itripchs?",
+        "note": "You know Hunter's likely email from research (hray@itripchs.com). Offering it shows you've done homework and makes it frictionless. If she corrects it, even better — you've confirmed real contact info.",
+        "branches": [
+          {
+            "label": "Confirms email / gives time",
+            "to": "meeting_confirmed"
+          },
+          {
+            "label": "\"Let me check with them and get back to you\"",
+            "to": "send_email_request"
+          }
+        ]
+      },
+      "meeting_confirmed": {
+        "label": "MEETING BOOKED",
+        "say": "Perfect — sending that over right now. I'll keep it short and actually useful, I promise. Really appreciate you taking my call, Megan. Talk soon.",
+        "note": "Send the calendar invite IMMEDIATELY. Stop selling. Don't add anything. Confirm and hang up. You won. Log the meeting details, who's attending, and anything she mentioned about their process.",
+        "branches": []
+      },
+      "send_email_request": {
+        "label": "\"SEND ME AN EMAIL\"",
+        "say": "Totally fair — I'll send you something today. One quick question so it's not just another generic email sitting in your inbox — what would be most useful to see? Is it more about how it actually works with FlipStream, or more about what other PM companies your size are seeing on the cost-of-missed-damage side?",
+        "note": "Don't just say okay. The question tailors the email AND keeps the conversation going one more beat. Her answer tells you what she actually cares about. Then confirm her email address.",
+        "branches": [
+          {
+            "label": "Tells you what she wants to see",
+            "to": "email_confirm"
+          },
+          {
+            "label": "\"Just send whatever\" / generic",
+            "to": "email_confirm"
+          }
+        ]
+      },
+      "email_confirm": {
+        "label": "CONFIRM EMAIL",
+        "say": "Got it — I'll tailor it to that. Is mcorn at itripchs dot com the best address for you? I'll drop a couple times to connect in there too so we're not playing phone tag.",
+        "note": "Use the email format from research (mcorn@itripchs.com). If she corrects it, you've just gained real intel. Including time options in the email gives you a natural follow-up reason. Follow up within 2 hours of hanging up.",
+        "branches": [
+          {
+            "label": "Confirms email",
+            "to": "graceful_exit_positive"
+          },
+          {
+            "label": "Corrects to a different email",
+            "to": "graceful_exit_positive"
+          },
+          {
+            "label": "\"Just use charlestonbeaches at itrip dot net\"",
+            "to": "graceful_exit_positive"
+          }
+        ]
+      },
+      "graceful_exit_positive": {
+        "label": "EXIT — POSITIVE",
+        "say": "Really appreciate your time, Megan. I'll follow up on that today. Have a good rest of your day.",
+        "note": "Short, warm, done. Don't linger or re-pitch. You got a referral, an email path, or a callback — that's a win. Log everything immediately: what she said about their process, names she mentioned, email she confirmed, tone of the conversation.",
+        "branches": []
+      },
+      "graceful_exit": {
+        "label": "EXIT — NEUTRAL",
+        "say": "Totally understand. If anything ever comes up on the inspection side, I'm easy to find. Appreciate your time, Megan.",
+        "note": "Don't burn it. She might mention this call to Hunter or Sarah later. Leave a good impression. Log the outcome — if she was firm, try Hunter Ray or Sarah Goodwin directly as your next call into this company.",
+        "branches": []
+      }
+    }
+  }
+}

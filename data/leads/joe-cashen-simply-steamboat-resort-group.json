@@ -1,0 +1,628 @@
+{
+  "name": "Joe Cashen",
+  "title": "VP of Business Development",
+  "company": "Simply Steamboat (Resort Group)",
+  "location": "Steamboat Springs, CO",
+  "phone": "+1-970-879-8700",
+  "company_phone": "(970) 870-3397",
+  "alt_phones": [
+    "+1-888-870-3397",
+    "+1-970-879-8700"
+  ],
+  "flow": {
+    "context": "Joe Cashen is VP of Business Development at Resort Group — he owns the pitch to new property owners and has been publicly quoted saying owners 'trust us with the keys to their dream.' Resort Group is the parent of Simply Steamboat and Mountain Resorts in Steamboat Springs, CO, managing 600+ nightly rentals, 5,000+ total units, ~240 peak-season staff, running TrackHS as their PMS. They're mid-transition: new CEO Steve Frasier promoted 2024, consolidated operations to Steamboat-only, merged Pioneer Ridge and Mountain Resorts brands. Their direct competitor Moving Mountains already uses Breezeway for turnover ops and just received a StayTerra investment. Sam's entry point: he was skiing Jackson Hole last month — Steamboat is a ski town and the resort PM community talks.",
+    "start": "gatekeeper",
+    "nodes": {
+      "gatekeeper": {
+        "label": "GATEKEEPER",
+        "say": "Hey — could you get me through to Joe? It's Sam.",
+        "note": "Say it like you know him. Don't volunteer your company name or reason for calling. Pause and let them respond.",
+        "branches": [
+          {
+            "label": "Put through / transferred",
+            "to": "opener"
+          },
+          {
+            "label": "Who's calling? / What's this about?",
+            "to": "gatekeeper_pushback"
+          },
+          {
+            "label": "He's not available",
+            "to": "gatekeeper_not_available"
+          },
+          {
+            "label": "No gatekeeper — Joe answers directly",
+            "to": "opener"
+          }
+        ]
+      },
+      "gatekeeper_pushback": {
+        "label": "GATEKEEPER — CONTEXT",
+        "say": "Yeah — I work with a few other property managers up in Steamboat. Would you mind letting Joe know it's Sam Parks?",
+        "note": "Stay casual. Don't pitch RapidEye. Don't explain anything. Just dose a bit more context and redirect.",
+        "branches": [
+          {
+            "label": "Put through",
+            "to": "opener"
+          },
+          {
+            "label": "Still pushing back / wants more detail",
+            "to": "gatekeeper_social_proof"
+          },
+          {
+            "label": "He's not available",
+            "to": "gatekeeper_not_available"
+          }
+        ]
+      },
+      "gatekeeper_social_proof": {
+        "label": "GATEKEEPER — SOCIAL PROOF",
+        "say": "Totally fair — we help a couple property management companies with their turnover inspection workflows. I sent Joe a note, was just following up. Would you mind giving him a heads up?",
+        "note": "This is your last card. If they still block, ask for best time to call back or a direct number. If they mention Genevieve Murphy, take the intro — she routes BD inquiries internally.",
+        "branches": [
+          {
+            "label": "Put through",
+            "to": "opener"
+          },
+          {
+            "label": "Still won't connect",
+            "to": "gatekeeper_not_available"
+          }
+        ]
+      },
+      "gatekeeper_not_available": {
+        "label": "GATEKEEPER — NOT AVAILABLE",
+        "say": "No worries at all. When's the best time to catch him? And is this the best number to reach him directly?",
+        "note": "Get a callback window and direct number or extension. If they offer Genevieve Murphy or someone else, take the intro warmly.",
+        "branches": [
+          {
+            "label": "Gives a time or number",
+            "to": "end_graceful"
+          },
+          {
+            "label": "Offers someone else like Genevieve",
+            "to": "opener"
+          }
+        ]
+      },
+      "opener": {
+        "label": "OPENER",
+        "say": "Hey Joe — so I was actually up at Jackson Hole skiing last month and got talking with a few folks in the resort property management world out in Colorado. Your name came up a couple times. It's Sam Parks with RapidEye — have you heard my name tossed around at all?",
+        "note": "Feet-up-on-the-desk energy. You're a skier calling a ski-town guy. Smile. Don't rush. Let him process before you say anything else.",
+        "branches": [
+          {
+            "label": "No, haven't heard of you",
+            "to": "heard_no"
+          },
+          {
+            "label": "Yeah / maybe / sounds familiar",
+            "to": "heard_yes"
+          },
+          {
+            "label": "Now's not a great time",
+            "to": "bad_timing"
+          },
+          {
+            "label": "Hostile / who is this / what do you want",
+            "to": "permission_fallback"
+          }
+        ]
+      },
+      "heard_no": {
+        "label": "HEARD NO",
+        "say": "Ha — I guess I'm not as popular as I thought. Well, the reason for my call is —",
+        "note": "Smile through this line. It's self-deprecating and disarming. Go straight into the pain trigger without pausing too long.",
+        "branches": [
+          {
+            "label": "Continue →",
+            "to": "pain_trigger"
+          }
+        ]
+      },
+      "heard_yes": {
+        "label": "HEARD YES",
+        "say": "Oh no kidding — well normally we'd be working with someone in your kind of role. What'd you hear?",
+        "note": "Let him talk. Whatever he says, validate it and bridge to discovery. If he's vague, say 'Yeah that's the gist' and transition to your pain trigger.",
+        "branches": [
+          {
+            "label": "Describes something positive or neutral",
+            "to": "discovery_questions"
+          },
+          {
+            "label": "Vague / not much really",
+            "to": "pain_trigger"
+          }
+        ]
+      },
+      "bad_timing": {
+        "label": "BAD TIMING",
+        "say": "Totally hear you — would it be a terrible idea if I tried you again tomorrow, maybe around the same time?",
+        "note": "Don't pitch. Don't try to squeeze anything in. Just lock the callback time. If he pushes back on tomorrow, offer a specific alternative day.",
+        "branches": [
+          {
+            "label": "Sure / gives a time",
+            "to": "reschedule_confirm"
+          },
+          {
+            "label": "What's this about? (curiosity piqued)",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "No, don't call back",
+            "to": "permission_rejected"
+          }
+        ]
+      },
+      "reschedule_confirm": {
+        "label": "RESCHEDULE CONFIRMED",
+        "say": "Perfect — I'll give you a ring then. Appreciate it, Joe.",
+        "note": "Log the callback time immediately. Don't add anything. Short and clean exit.",
+        "branches": []
+      },
+      "permission_fallback": {
+        "label": "PERMISSION FALLBACK",
+        "say": "Yeah totally — I mean it is a cold call. Can I get 30 seconds to tell you why I reached out? And you can totally hang up on me if it's not a fit.",
+        "note": "This is your reset button. You're acknowledging reality instead of pretending. Most people respect the honesty and give you the 30 seconds.",
+        "branches": [
+          {
+            "label": "Fine, go ahead / 30 seconds",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "No / not interested",
+            "to": "permission_rejected"
+          }
+        ]
+      },
+      "permission_rejected": {
+        "label": "PERMISSION REJECTED",
+        "say": "Shoot, totally my bad. Just so nobody from my team bugs you again — is it that I caught you at a horrible time, or is it that you already know what we do and this just isn't interesting?",
+        "note": "You're splitting the objection. 'Horrible time' reopens the door for a callback. 'Already know' reopens the conversation. Either answer gives you something.",
+        "branches": [
+          {
+            "label": "Bad time",
+            "to": "bad_timing"
+          },
+          {
+            "label": "Not interested / don't need it",
+            "to": "objection_not_interested"
+          },
+          {
+            "label": "Hangs up",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "pain_trigger": {
+        "label": "PAIN TRIGGER",
+        "say": "So I work with a few other property management companies that run a lot like Resort Group — big portfolios, resort condos, in-house housekeeping teams doing hundreds of turns a week. And what I keep hearing from the BD side is — you go out, you win these owner contracts by promising top-tier property care. But then operationally, stuff slips through during turnovers. A damaged headboard, a missing set of towels, a stain on the couch — and nobody catches it until the next guest walks in and calls the front desk. Now you've got a guest complaint, maybe a relocation, and an owner who's wondering whether their property is actually being taken care of. We built a tool that plugs into Track — which I know you guys run — and automatically analyzes the photos your housekeeping team is already taking during turnovers. Catches damage, missing items, staging issues before the next guest checks in. Would you be open to taking a look when I'm not cold calling you out of the blue?",
+        "note": "PAUSE after 'taken care of' — let the pain land before the solution. Joe has publicly said owners 'trust us with the keys to their dream.' This hits exactly that nerve. The Track mention shows homework. Don't rush the CTA.",
+        "branches": [
+          {
+            "label": "That resonates / tell me more",
+            "to": "pain_positive"
+          },
+          {
+            "label": "We already have a process for that",
+            "to": "objection_have_process"
+          },
+          {
+            "label": "That's more on the ops side / not really my area",
+            "to": "not_my_department"
+          },
+          {
+            "label": "Not interested / no budget / we're good",
+            "to": "objection_not_interested"
+          }
+        ]
+      },
+      "pain_positive": {
+        "label": "WARM — THEY'RE INTERESTED",
+        "say": "Glad that resonates. So I don't want to take up your whole afternoon — can I ask, what does the current inspection process look like after a turn? Are your housekeeping supervisors doing spot checks, or is there a separate QA step before the front desk releases the unit?",
+        "note": "STOP PITCHING. You got interest — now discover. Joe may or may not know the ops details. If he does, you learn the workflow. If he doesn't, it opens a natural referral to Alan Koermer or Joseph Pierce.",
+        "branches": [
+          {
+            "label": "Describes their current process",
+            "to": "discovery_questions"
+          },
+          {
+            "label": "How does it actually work? (wants details first)",
+            "to": "pain_curious"
+          },
+          {
+            "label": "Not sure — that's more the ops team",
+            "to": "not_my_department"
+          },
+          {
+            "label": "We do something but it's not perfect",
+            "to": "owner_trust_angle"
+          }
+        ]
+      },
+      "pain_curious": {
+        "label": "CURIOUS — WANTS DETAILS",
+        "say": "Yeah so basically — your cleaners are already taking photos during turnovers, right? We sit on top of that. Our AI compares those photos against your property's baseline and flags anything that's off — damage, missing items, staging that doesn't match. No new workflow for your team, no new hardware. It just makes the photos they're already taking actually do something useful.",
+        "note": "Keep it simple and concrete. Don't get technical. Key message: no workflow change, uses what you already have, catches stuff humans miss at scale. If he asks about Track specifically, go to the integration node.",
+        "branches": [
+          {
+            "label": "That makes sense / sounds useful",
+            "to": "discovery_questions"
+          },
+          {
+            "label": "How does it work with Track?",
+            "to": "track_integration"
+          },
+          {
+            "label": "We don't really have that problem",
+            "to": "objection_not_interested"
+          },
+          {
+            "label": "What does it cost?",
+            "to": "sell_test_drive"
+          }
+        ]
+      },
+      "discovery_questions": {
+        "label": "DISCOVERY — ASK QUESTIONS",
+        "say": "So help me understand your world a little — with Resort Group managing 600-plus nightly rental units across Simply Steamboat and Mountain Resorts, what's your biggest concern heading into next season when it comes to keeping unit quality consistent? Especially with the seasonal staff cycling in and out?",
+        "note": "You're showing deep knowledge of their operation. The seasonal staffing mention signals you understand H-2B dynamics. Let Joe talk. Take notes. If he pivots to owner retention or BD challenges, follow that thread — it's his world.",
+        "branches": [
+          {
+            "label": "Quality / consistency challenges",
+            "to": "owner_trust_angle"
+          },
+          {
+            "label": "Staffing / training issues",
+            "to": "staffing_angle"
+          },
+          {
+            "label": "Growth / competing for owners",
+            "to": "competitor_pressure"
+          },
+          {
+            "label": "Wants to hear more about RapidEye",
+            "to": "sell_test_drive"
+          }
+        ]
+      },
+      "owner_trust_angle": {
+        "label": "OWNER TRUST DEEP DIVE",
+        "say": "That's exactly what I keep hearing. And I read something you said that really stuck with me — you talked about owners trusting you guys with the keys to their dream. That's a massive promise to deliver on across hundreds of units. The question is — when you're pitching a new owner on signing with Resort Group, how do you prove that quality is consistent on every single turn? Because right now most PM companies are asking owners to just trust them on faith. What if you could show a prospective owner an automated inspection report from their unit after every turnover?",
+        "note": "This is your power move. You're quoting Joe back to himself and tying it directly to his BD pipeline. This makes RapidEye a sales tool for HIM, not just an ops tool. Pause and let him sit with this.",
+        "branches": [
+          {
+            "label": "That would be huge / I love that",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Interesting — how would that work?",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "Our owners are pretty happy already",
+            "to": "competitor_pressure"
+          },
+          {
+            "label": "I'd need to loop in ops on this",
+            "to": "referral_ask"
+          }
+        ]
+      },
+      "staffing_angle": {
+        "label": "STAFFING AND TRAINING ANGLE",
+        "say": "Yeah, and that's the thing — with seasonal staff and the H-2B crews, you spend weeks training people who leave in four months. And every new team has a different eye for detail. What if instead of relying on each individual cleaner to catch everything, you had an AI checking their work automatically? Not replacing the person — just making sure nothing slips through regardless of who's on shift that day.",
+        "note": "This reframes RapidEye as a consistency and training tool, not a surveillance tool. Important distinction for someone who cares about team culture.",
+        "branches": [
+          {
+            "label": "That makes a lot of sense",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "How does that work day to day?",
+            "to": "pain_curious"
+          },
+          {
+            "label": "I'd need to talk to our housekeeping leadership",
+            "to": "referral_ask"
+          }
+        ]
+      },
+      "track_integration": {
+        "label": "TRACK INTEGRATION DETAIL",
+        "say": "Yeah so we integrate directly with Track — your housekeeping team already uploads photos through their workflow, and we analyze those automatically. No extra steps, no new app to download. It just rides on top of what your team's already doing in TrackHS. The reports feed right back in so your supervisors and front desk can see flags before they release the unit to the next guest.",
+        "note": "Knowing they use TrackHS is a major credibility signal. Don't oversell the integration — keep it simple. If he asks deep technical questions, that's a great reason to book a demo with the ops team.",
+        "branches": [
+          {
+            "label": "That's pretty slick",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "We'd need to check with ops or IT",
+            "to": "referral_ask"
+          },
+          {
+            "label": "What does it cost?",
+            "to": "sell_test_drive"
+          }
+        ]
+      },
+      "not_my_department": {
+        "label": "NOT MY DEPARTMENT",
+        "say": "Totally fair — and honestly I figured the day-to-day inspection workflow probably sits with your ops team. But the reason I called you specifically is this is really a business development tool as much as an ops tool. When you're pitching a new owner, being able to say we run AI-powered inspections on every turn and here's the proof — that's a differentiator nobody else in Steamboat can claim. But who on your side would own the operational piece? Would that be Alan Koermer or someone else?",
+        "note": "You're reframing why you called Joe specifically and name-dropping Alan Koermer shows you know the org chart. If he gives you a different name, even better — that's an internal referral with context.",
+        "branches": [
+          {
+            "label": "Yeah, talk to Alan / gives a name",
+            "to": "referral_got_name"
+          },
+          {
+            "label": "Actually, let me hear more about the BD angle",
+            "to": "owner_trust_angle"
+          },
+          {
+            "label": "Try Joseph Pierce in housekeeping",
+            "to": "referral_got_name"
+          },
+          {
+            "label": "I'll pass it along internally",
+            "to": "send_me_email"
+          }
+        ]
+      },
+      "competitor_pressure": {
+        "label": "COMPETITOR ANGLE",
+        "say": "Glad to hear that. The only thing I'd flag — and this isn't a scare tactic, just something I noticed in the market — Moving Mountains is already using Breezeway for their turnover ops, and they just took a StayTerra investment to scale. They're going to be competing for the same Steamboat owners you are, and they're positioning automated quality assurance pretty heavily in their owner pitch. Having an inspection layer that generates owner-facing reports could be a real edge for Resort Group. Not saying you need to move on anything today, but it might be worth a 20-minute look just to see what's out there.",
+        "note": "This is competitive intelligence Joe probably doesn't have. Moving Mountains plus Breezeway plus StayTerra is all public info but he may not have connected the dots. You're adding value just by sharing it. Don't oversell — let the competitive pressure do the work.",
+        "branches": [
+          {
+            "label": "Didn't know that / that's interesting",
+            "to": "book_meeting"
+          },
+          {
+            "label": "We're not worried about them",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "Good to know — send me something",
+            "to": "send_me_email"
+          }
+        ]
+      },
+      "referral_ask": {
+        "label": "REFERRAL ASK",
+        "say": "That makes total sense. Who on your side would typically own anything related to the inspection or turnover quality workflow? I know you've got Alan Koermer on the ops side and Joseph Pierce running housekeeping — would one of them be the right person?",
+        "note": "Name-dropping shows homework and makes it easy for Joe to confirm or redirect. If he gives you a name, ask for a direct number or email and whether you can mention his name when you call.",
+        "branches": [
+          {
+            "label": "Yeah, reach out to Alan or Joseph or gives another name",
+            "to": "referral_got_name"
+          },
+          {
+            "label": "Let me check internally and get back to you",
+            "to": "send_me_email"
+          },
+          {
+            "label": "Actually I can evaluate this myself",
+            "to": "sell_test_drive"
+          }
+        ]
+      },
+      "referral_got_name": {
+        "label": "GOT A REFERRAL",
+        "say": "Perfect — and would you mind if I mentioned your name when I reach out? Just so it doesn't land as another random cold call. And what's the best way to get ahold of them — direct line, email?",
+        "note": "Lock in three things: the name, permission to use Joe's name, and contact info. This turns your next call from cold to warm. If Joe offers to make an intro email, even better — ask if he'd be willing to send a quick note.",
+        "branches": [
+          {
+            "label": "Sure, use my name / gives contact info",
+            "to": "referral_close"
+          },
+          {
+            "label": "Just call the main line at 970-879-8700",
+            "to": "referral_close"
+          }
+        ]
+      },
+      "referral_close": {
+        "label": "CLOSE THE REFERRAL",
+        "say": "Really appreciate that, Joe. I'll put something tailored together so it actually lands with them. And honestly — if you're ever curious about what we're seeing other PM companies do in the Steamboat market, I'm happy to share. Enjoy the rest of ski season up there.",
+        "note": "Leave the door open with Joe too. He's VP of BD — even if ops evaluates the tool, Joe influences the buying decision. Send him a follow-up email within the hour summarizing what you discussed and who you're reaching out to.",
+        "branches": []
+      },
+      "objection_have_process": {
+        "label": "OBJECTION — HAVE A PROCESS",
+        "say": "That makes total sense — with 600-plus rental units across multiple brands you'd have to have something in place. I'd be shocked if you didn't.",
+        "note": "Agree completely. Don't fight it. Validate that of course they have something. Then split the objection to understand what's really going on.",
+        "branches": [
+          {
+            "label": "Continue →",
+            "to": "split_have_process"
+          }
+        ]
+      },
+      "split_have_process": {
+        "label": "SPLIT — PROCESS OBJECTION",
+        "say": "Just so I'm not wasting your time — is it that your current process is catching everything and you're fully happy with it, or is it more that switching anything right now with the leadership transition and everything would just be a headache?",
+        "note": "The leadership transition reference — Steve Frasier becoming CEO, Sara Koop to CFO in 2024 — shows you know their world. 'Happy' means you can probe for gaps. 'Headache' means you sell zero-commitment.",
+        "branches": [
+          {
+            "label": "We're happy with what we have",
+            "to": "competitor_pressure"
+          },
+          {
+            "label": "Yeah, bad time to change things",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "Honestly there are gaps but we're managing",
+            "to": "discovery_questions"
+          }
+        ]
+      },
+      "objection_not_interested": {
+        "label": "OBJECTION — NOT INTERESTED",
+        "say": "I totally get it. I probably should've assumed you'd be all set — otherwise you would've reached out to us, right?",
+        "note": "Agree and lower their guard. This usually gets a slight laugh or nod. Then split the objection to understand the real reason.",
+        "branches": [
+          {
+            "label": "Continue →",
+            "to": "split_not_interested"
+          }
+        ]
+      },
+      "split_not_interested": {
+        "label": "SPLIT — NOT INTERESTED",
+        "say": "Just so nobody from my team bugs you again — is it that turnover quality just isn't a problem you're focused on right now, or is it more that you get these calls all day and you're just over it?",
+        "note": "If 'not a problem' — probe gently, because with 600+ units and seasonal staff it's always a problem somewhere. If 'over the calls' — acknowledge it and offer the lightweight email path.",
+        "branches": [
+          {
+            "label": "Not a priority right now",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "I just get too many sales calls",
+            "to": "sell_test_drive_light"
+          },
+          {
+            "label": "It actually is a concern but timing is off",
+            "to": "discovery_questions"
+          }
+        ]
+      },
+      "objection_no_budget": {
+        "label": "OBJECTION — NO BUDGET",
+        "say": "Totally get it. Nowadays it's harder to keep a tool you already have, let alone buy something new — especially after consolidating everything to Steamboat and all the changes Resort Group's been through the last couple years.",
+        "note": "The Steamboat-only consolidation — exiting Casa Del Mar in Texas — and the leadership succession show you understand their strategic context. Agree fully, then split.",
+        "branches": [
+          {
+            "label": "Continue →",
+            "to": "split_no_budget"
+          }
+        ]
+      },
+      "split_no_budget": {
+        "label": "SPLIT — BUDGET OBJECTION",
+        "say": "Is it that budget for something like this is completely off the table this cycle, or is it more that anything new has to go through a pretty serious approval process with the new leadership team?",
+        "note": "New leadership means Steve Frasier as CEO and Sara Koop as CFO, both promoted 2024. If there's an approval gauntlet, position the demo as prep work so he's ready when budget opens. If truly frozen, plant the seed and get follow-up permission.",
+        "branches": [
+          {
+            "label": "Budget is totally frozen",
+            "to": "budget_frozen_close"
+          },
+          {
+            "label": "Approval process is tough right now",
+            "to": "book_meeting"
+          },
+          {
+            "label": "It's not that bad actually, just tight",
+            "to": "discovery_questions"
+          }
+        ]
+      },
+      "budget_frozen_close": {
+        "label": "BUDGET FROZEN — PLANT SEED",
+        "say": "Totally get it — I won't push on that. Would it be cool if I reached back out next quarter when budgets might reopen? In the meantime I can shoot you a quick email showing what a few other resort PM companies in Steamboat are doing with their turnover photos — just so you've got it when the timing's right.",
+        "note": "Get permission to follow up and confirm the email address. Log the follow-up date. This person isn't dead — they're on a timeline. Mark them for next quarter outreach.",
+        "branches": [
+          {
+            "label": "Sure, follow up then / gives email",
+            "to": "email_confirm"
+          },
+          {
+            "label": "No we're fine",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "sell_test_drive": {
+        "label": "SELL THE TEST DRIVE",
+        "say": "Look, you're probably not buying anything from me today, and I totally respect that. But when budget does free up or you're looking at tools for next season, the people who move fastest are the ones who already know what's on their list. Would you be open to a quick 20-minute look? Not a hard sell — I'll walk you through what a few other resort PM companies are doing with their turnover photos, and worst case you steal some ideas and we part as friends.",
+        "note": "This is the test drive close. You're not asking him to buy — you're asking him to be informed. The 'steal some ideas' line usually gets a laugh and a yes. If he pushes back on budget specifically, route to the budget handler.",
+        "branches": [
+          {
+            "label": "Sure, let's find a time",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Send me something first",
+            "to": "send_me_email"
+          },
+          {
+            "label": "No budget for this right now",
+            "to": "objection_no_budget"
+          },
+          {
+            "label": "Not right now",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "sell_test_drive_light": {
+        "label": "LIGHTER ASK",
+        "say": "Ha — I get it, and I respect that honestly. Tell you what — I'll shoot you a two-minute email showing what a couple other Steamboat-area PM companies are doing with their inspection workflows. No follow-up call unless you want one. If it's interesting you've got my info. Fair enough?",
+        "note": "This is your lowest-friction CTA for people who are fed up with cold calls. Get the email path and make the email count. Include one specific insight about their market and a suggested time to connect.",
+        "branches": [
+          {
+            "label": "Sure, send it over",
+            "to": "send_me_email"
+          },
+          {
+            "label": "No thanks",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "book_meeting": {
+        "label": "BOOK THE MEETING",
+        "say": "Awesome. I've got my calendar pulled up — how's next Tuesday or Wednesday look for you? Thinking 20 minutes, sometime in the morning your time?",
+        "note": "Offer specific days. Lock a time NOW on the phone. Don't say 'I'll send you a link to book.' Pick the day and time slot together. Send the invite while you're still talking.",
+        "branches": [
+          {
+            "label": "Gives a day and time",
+            "to": "meeting_confirmed"
+          },
+          {
+            "label": "Let me check my calendar and get back to you",
+            "to": "send_me_email"
+          },
+          {
+            "label": "Send me an invite — gives email",
+            "to": "meeting_confirmed"
+          }
+        ]
+      },
+      "meeting_confirmed": {
+        "label": "MEETING LOCKED",
+        "say": "Perfect — I'm sending the invite right now so it's on your calendar. It'll come from sam@rapideye.ai. Really appreciate you taking my call, Joe. Talk to you then.",
+        "note": "STOP SELLING. The meeting is booked. Confirm the email address, send the calendar invite immediately, and get off the phone. Do not add 'one more thing.' Do not re-pitch.",
+        "branches": []
+      },
+      "send_me_email": {
+        "label": "SEND ME AN EMAIL",
+        "say": "Totally fair — I'll get something over to you today. One quick question so it's not just another generic pitch sitting in your inbox — what would be most useful for you to see? Like, are you more interested in how it plugs into Track, or more the owner-facing reporting side that could help with BD?",
+        "note": "This question does two things: tailors the email so it actually gets read, and gets him mentally engaging with the content before he even opens it. Whatever he says, build the email around that angle.",
+        "branches": [
+          {
+            "label": "Tells you what to focus on",
+            "to": "email_confirm"
+          },
+          {
+            "label": "Just send whatever / general overview",
+            "to": "email_confirm"
+          }
+        ]
+      },
+      "email_confirm": {
+        "label": "EMAIL CONFIRMED",
+        "say": "Got it — I'll tailor it to that. What's the best email for you? I'll drop in a couple times to connect in case anything jumps out. Appreciate the time, Joe.",
+        "note": "Confirm the email address — don't assume jcashen@resortgroup.com, verify it. Include a specific day and time suggestion in the email. Follow up within two hours of hanging up. Set a reminder to call back in 3-5 days if no reply.",
+        "branches": []
+      },
+      "end_graceful": {
+        "label": "END GRACEFULLY",
+        "say": "Totally understand. If anything changes on your end, I'm easy to find — Sam Parks, RapidEye. Appreciate your time, Joe. Enjoy the rest of ski season up there.",
+        "note": "Don't burn the bridge. The ski season comment keeps it personal and warm. Log the call, note the specific objection, and set a reminder to try again in 6-8 weeks. Also consider approaching Alan Koermer or Joseph Pierce directly as a separate entry point into Resort Group.",
+        "branches": []
+      }
+    }
+  }
+}

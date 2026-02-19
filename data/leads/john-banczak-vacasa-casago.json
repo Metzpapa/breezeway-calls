@@ -1,0 +1,473 @@
+{
+  "name": "John Banczak",
+  "title": "Chief Operating Officer",
+  "company": "Vacasa (Casago)",
+  "location": "Steamboat Springs, CO",
+  "phone": "+1-512-696-1553",
+  "company_phone": "(970) 879-8000",
+  "alt_phones": [
+    "+1-800-544-0300",
+    "+1-800-863-8415"
+  ],
+  "flow": {
+    "context": "John Banczak is COO of Vacasa, now a Casago subsidiary after the May 2025 acquisition. He co-founded TurnKey Vacation Rentals — a tech-forward VR operator — so he thinks in systems and scale, not just hospitality. He was publicly quoted on Vacasa's Matterport rollout emphasizing guest expectations vs. reality, which maps directly to inspection quality. Vacasa already runs photo-based inspection approval at massive scale (43K+ homes, historically 15K daily turns) via their proprietary Field App and HomeCare Hub, but they cut 1,100+ roles in 2024 and are converting centralized markets to local franchise operators — meaning consistent quality is harder to maintain with less central oversight and more local variance. John lives in Steamboat Springs; Sam skied Jackson Hole last month. Lead with the mountain-market connection, then anchor the pain in the Casago franchise transition and the photo-review bandwidth gap.",
+    "start": "gatekeeper_initial",
+    "nodes": {
+      "gatekeeper_initial": {
+        "label": "GATEKEEPER / FIRST CONTACT",
+        "say": "Hey, could you get me through to John? It's Sam.",
+        "note": "Minimal info. Don't pitch. Don't say company name yet. Sound like you belong. If John answers directly, skip straight to the opener.",
+        "branches": [
+          {
+            "label": "John picks up or is connected",
+            "to": "opener"
+          },
+          {
+            "label": "Asks who's calling / what's this about",
+            "to": "gatekeeper_context"
+          },
+          {
+            "label": "Goes to voicemail",
+            "to": "end_voicemail"
+          }
+        ]
+      },
+      "gatekeeper_context": {
+        "label": "GATEKEEPER ASKS WHY",
+        "say": "Yeah — I work with a few other vacation rental operators in mountain markets. Would you mind letting John know it's Sam Parks?",
+        "note": "Dose info slowly. Don't pitch the product. Stay casual. If they ask the company name, say 'RapidEye' and nothing else. Then redirect: 'Would you mind putting me through?'",
+        "branches": [
+          {
+            "label": "Puts you through",
+            "to": "opener"
+          },
+          {
+            "label": "Pushes back or screens harder",
+            "to": "gatekeeper_social_proof"
+          },
+          {
+            "label": "Offers to take a message",
+            "to": "end_voicemail"
+          }
+        ]
+      },
+      "gatekeeper_social_proof": {
+        "label": "GATEKEEPER WON'T BUDGE",
+        "say": "Totally fair — we help a couple other property management companies with their inspection workflows at scale. I sent John a note, would you mind just giving him a heads up that Sam Parks called?",
+        "note": "You've given three doses. If this doesn't work, leave a message and try his direct cell (512-696-1553) or email john.banczak@vacasa.com. Don't beg.",
+        "branches": [
+          {
+            "label": "Puts you through",
+            "to": "opener"
+          },
+          {
+            "label": "Won't connect you",
+            "to": "end_gatekeeper_blocked"
+          }
+        ]
+      },
+      "end_voicemail": {
+        "label": "VOICEMAIL",
+        "say": "Hey John — it's Sam Parks with RapidEye. I work with a few vacation rental operators on their turnover inspection workflows, and with the Casago transition and the franchise rollout happening I figured it'd be worth connecting. My number's [your number]. I'll try you again in a couple days — talk soon.",
+        "note": "Keep it under 20 seconds. Sound like a peer, not a salesperson. Don't pitch. Mentioning the Casago transition shows you know their world — creates enough curiosity for recognition on the next dial. Try his direct cell next time: 512-696-1553.",
+        "branches": []
+      },
+      "end_gatekeeper_blocked": {
+        "label": "GATEKEEPER BLOCKED — END",
+        "say": "No worries at all — appreciate your help. Have a good one.",
+        "note": "Don't burn the bridge. Try John's direct cell (512-696-1553) at a different time of day. Also consider emailing john.banczak@vacasa.com directly referencing the call attempt. Early morning or late afternoon calls often bypass gatekeepers.",
+        "branches": []
+      },
+      "opener": {
+        "label": "OPENER",
+        "say": "Hey John — I actually just got back from skiing Jackson Hole last month, and I work with a few vacation rental operators in mountain markets. It's Sam Parks with RapidEye. Have you heard my name tossed around at all?",
+        "note": "Steamboat Springs is a ski town — John lives there. The Jackson Hole mention is real and creates instant lifestyle common ground. Feet-up-on-the-desk energy. Don't rush. Let the question hang after you ask it.",
+        "branches": [
+          {
+            "label": "No, haven't heard of you",
+            "to": "opener_heard_no"
+          },
+          {
+            "label": "Yeah / maybe / sounds familiar",
+            "to": "opener_heard_yes"
+          },
+          {
+            "label": "Bad timing / in a meeting / busy",
+            "to": "opener_bad_timing"
+          },
+          {
+            "label": "Suspicious / hostile / what is this",
+            "to": "permission_fallback"
+          }
+        ]
+      },
+      "opener_heard_no": {
+        "label": "HAVEN'T HEARD — TRANSITION TO PAIN",
+        "say": "Oh, guess I'm not as popular as I thought. Well the reason for my call —",
+        "note": "This is just a bridge line. Smile through it, keep it light, then go straight into the pain trigger. Don't pause long here — the humor is the transition, not the destination.",
+        "branches": [
+          {
+            "label": "They're listening / go ahead",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "Pushback / not interested / who are you",
+            "to": "permission_fallback"
+          }
+        ]
+      },
+      "opener_heard_yes": {
+        "label": "HEARD THE NAME — EXPLORE",
+        "say": "Oh nice — well normally we'd be working with someone in your seat. What'd you hear?",
+        "note": "Don't oversell the moment. Let him talk. If he actually knows RapidEye, find out context. If he's being polite, you'll know in 3 seconds — transition naturally to discovery or pain.",
+        "branches": [
+          {
+            "label": "Shares what they heard / asks a question",
+            "to": "discovery_current_process"
+          },
+          {
+            "label": "Brushes it off / doesn't really know",
+            "to": "pain_trigger"
+          }
+        ]
+      },
+      "opener_bad_timing": {
+        "label": "BAD TIMING",
+        "say": "Totally hear you — would it be a terrible idea if I tried you again later this week? Maybe Thursday or Friday?",
+        "note": "Respect the timing. Lock in a specific day. Don't pitch. Get off the phone fast so he associates you with someone who respects his time. A COO running a 43K-home integration is genuinely busy.",
+        "branches": [
+          {
+            "label": "Agrees to a callback time",
+            "to": "end_callback_set"
+          },
+          {
+            "label": "Not interested / don't call back",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "permission_fallback": {
+        "label": "PERMISSION ASK",
+        "say": "Yeah totally — I mean it is a cold call, I'll own that. Can I get 30 seconds to tell you why I reached out, and you can totally hang up on me if it's not a fit?",
+        "note": "Disarming honesty. You admitted it's a cold call — that alone separates you from 95% of callers. The 'hang up on me' line gives him control, which paradoxically makes him more likely to listen. John built TurnKey from scratch — he respects directness.",
+        "branches": [
+          {
+            "label": "Fine, go ahead / grants 30 seconds",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "No, not interested / don't want to hear it",
+            "to": "permission_rejected"
+          }
+        ]
+      },
+      "permission_rejected": {
+        "label": "PERMISSION REJECTED — DIAGNOSE",
+        "say": "Shoot, totally my bad. Just so nobody from my team bugs you again — is it that I caught you at a horrible time, or is it that you already know what we do and this just isn't interesting?",
+        "note": "You're splitting the rejection into two buckets. If it's timing, you get a callback. If it's disinterest, you learn why and either pivot or exit gracefully. Don't grovel — stay peer-level.",
+        "branches": [
+          {
+            "label": "Bad timing / call me another time",
+            "to": "end_callback_set"
+          },
+          {
+            "label": "Not interested / we're all set",
+            "to": "split_rejection_reason"
+          }
+        ]
+      },
+      "split_rejection_reason": {
+        "label": "SPLIT THE NO",
+        "say": "Totally fair. Is it more that inspection quality just isn't something on your radar right now, or is it that you've already got something locked in and you're happy with it?",
+        "note": "You're probing gently. 'Not on radar' means you sell the test drive. 'Already have something' means they'll likely mention the Field App — opens the augmentation angle. If they shut it down, exit.",
+        "branches": [
+          {
+            "label": "Not a priority right now",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "We have something in place / we're covered",
+            "to": "objection_have_internal_tool"
+          },
+          {
+            "label": "Hard no / done talking",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "pain_trigger": {
+        "label": "PAIN TRIGGER",
+        "say": "I work with another large PM operator going through something pretty similar to your Casago transition. They had a photo-based inspection workflow built in — cleaners upload photos, someone reviews them remotely before check-in. But as they started decentralizing and handing markets to local operators, the consistency fell off. Different people reviewing photos differently, stuff slipping through, and then they'd get an owner calling about damage that got missed two turnovers ago. And the folks reviewing those photos were already buried — there just wasn't enough bandwidth to actually catch everything across thousands of turns a day.",
+        "note": "This is engineered for John: he KNOWS Vacasa has photo-based inspection via the Field App. He KNOWS they cut 1,100+ roles. He KNOWS franchise operators create variance. PAUSE after this. Let him react. Do NOT rush to the solution. The silence is where the sale happens.",
+        "branches": [
+          {
+            "label": "Engaged — yeah that resonates / we deal with that",
+            "to": "pain_warm_response"
+          },
+          {
+            "label": "We already handle that with our Field App / HomeCare Hub",
+            "to": "objection_have_internal_tool"
+          },
+          {
+            "label": "We're mid-integration, not looking at tools right now",
+            "to": "objection_mid_integration"
+          },
+          {
+            "label": "Neutral — okay, go on / what do you do about it",
+            "to": "solution_statement"
+          }
+        ]
+      },
+      "pain_warm_response": {
+        "label": "THEY'RE WARM — DISCOVER",
+        "say": "Yeah — I figured with 43,000 homes and the franchise rollout happening, that consistency piece gets harder, not easier. What does that review step actually look like for you guys right now?",
+        "note": "STOP PITCHING. He's warm. Ask questions. Let him talk about his world. You're learning about HomeCare Hub, the Field App, how inspection approval actually works post-Casago, and where the gaps are. Every detail he shares is ammo for the meeting pitch and demo.",
+        "branches": [
+          {
+            "label": "Describes their process / shares pain points",
+            "to": "discovery_current_process"
+          },
+          {
+            "label": "Asks what RapidEye actually does",
+            "to": "solution_statement"
+          },
+          {
+            "label": "Brings up franchise transition challenges",
+            "to": "discovery_franchise_impact"
+          }
+        ]
+      },
+      "discovery_current_process": {
+        "label": "DISCOVERY — CURRENT PROCESS",
+        "say": "That's really helpful. So when a franchisee or a local team does a turn and uploads photos through the Field App — who's actually looking at those? Is that still a centralized review, or has that shifted to local ops managers in each market?",
+        "note": "You're mapping the inspection approval chain. Vacasa's SEC filing says 'real-time inspection approval' via the Field App — find out if that's still centralized or if the franchise model changed it. Ask who's accountable when something slips. This intel shapes your entire demo.",
+        "branches": [
+          {
+            "label": "Explains the review structure / reveals gaps",
+            "to": "discovery_franchise_impact"
+          },
+          {
+            "label": "Asks what you do / wants the pitch",
+            "to": "solution_statement"
+          },
+          {
+            "label": "Says they're fully covered / no issues",
+            "to": "objection_have_internal_tool"
+          }
+        ]
+      },
+      "discovery_franchise_impact": {
+        "label": "DISCOVERY — FRANCHISE TRANSITION",
+        "say": "That makes sense. I'm curious — as you roll markets into the franchise model and those local operators take over, how are you thinking about keeping the inspection bar consistent across all of them? Is that something you're standardizing centrally, or is each franchisee kind of running their own playbook?",
+        "note": "This is the key strategic question. Casago is standardizing Guesty for PMS and Wheelhouse for pricing — if they're also thinking about standardizing quality tools, RapidEye fits as an enterprise layer in the franchise toolkit. Listen for signals about tech standardization, quality KPIs, or franchise onboarding requirements.",
+        "branches": [
+          {
+            "label": "Sees the gap / interested in standardization",
+            "to": "solution_statement"
+          },
+          {
+            "label": "Says it's too early / still figuring it out",
+            "to": "objection_mid_integration"
+          },
+          {
+            "label": "Says someone else owns this decision",
+            "to": "referral_ask"
+          }
+        ]
+      },
+      "solution_statement": {
+        "label": "ONE-SENTENCE SOLUTION + CTA",
+        "say": "So what we built — it's an AI layer that plugs into the turnover photos your teams are already taking. It flags damage, missing items, staging issues automatically, so every market gets the same quality bar without you needing to add reviewers. Would you be open to taking a look when I'm not cold calling you out of the blue?",
+        "note": "One sentence on what it does. One sentence on the ask. Then SHUT UP. Let him respond. Don't add features, don't name-drop clients, don't over-explain. The goal is the meeting, not the sale. If he asks about integration with Field App or HomeCare Hub, that's a great sign — answer briefly and redirect to the meeting.",
+        "branches": [
+          {
+            "label": "Yeah, I'd be open to seeing it",
+            "to": "cta_meeting"
+          },
+          {
+            "label": "Budget / timing isn't right",
+            "to": "objection_no_budget"
+          },
+          {
+            "label": "Not really interested / we're all set",
+            "to": "objection_not_interested"
+          },
+          {
+            "label": "Send me something / email me",
+            "to": "objection_send_email"
+          }
+        ]
+      },
+      "cta_meeting": {
+        "label": "BOOK THE MEETING",
+        "say": "Awesome. I've got next week pulled up — would Tuesday or Thursday work better for you? Even 20 minutes — I can walk you through what we're seeing with other large operators and how it'd map to your Field App workflow.",
+        "note": "Pick TWO specific days. Don't say 'whenever works.' Lock a time while you have momentum. Mentioning the Field App signals you'll make the demo relevant, not generic. If he defers, push gently for a window.",
+        "branches": [
+          {
+            "label": "Agrees to a day/time",
+            "to": "booking_lock"
+          },
+          {
+            "label": "Send me an email first",
+            "to": "objection_send_email"
+          },
+          {
+            "label": "Not right now / maybe later",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "I'm not the right person for this",
+            "to": "referral_ask"
+          }
+        ]
+      },
+      "booking_lock": {
+        "label": "MEETING LOCKED — CLOSE THE CALL",
+        "say": "Perfect — I'll shoot over a calendar invite right now so it's locked in. Really appreciate you taking my call, John. Talk to you on [day].",
+        "note": "Send the invite WHILE on the phone. In the invite body, add a one-line agenda referencing whatever he cared about most (franchise consistency, review bandwidth, owner complaints). Then get off the phone. Don't keep selling. Don't add 'one more thing.' You won.",
+        "branches": []
+      },
+      "objection_no_budget": {
+        "label": "NO BUDGET / TIMING",
+        "say": "Totally get it — especially with the Casago close still settling and the franchise rollouts eating up bandwidth, I'm sure every new vendor pitch feels like one more thing to deal with. Just so I know — is it that budget for anything new is completely locked right now, or is it more that anything you try to buy has to go through a gauntlet to get approved?",
+        "note": "You're splitting the objection. 'Budget locked' means you sell the test drive for later. 'Gauntlet to approve' means there's a process and you can work within it if the pain is real. Referencing the Casago transition shows empathy, not ignorance.",
+        "branches": [
+          {
+            "label": "Budget is locked / not spending right now",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "Approval process is complex but open to looking",
+            "to": "cta_meeting"
+          }
+        ]
+      },
+      "sell_test_drive": {
+        "label": "SELL THE TEST DRIVE",
+        "say": "Totally respect that. You're probably not buying anything this quarter, and that's fine. But in my experience, the operators who move fastest when budget does open up are the ones who already know what's first on their list. If nothing else, I could walk you through what a couple other large PM companies are doing with their turnover photos right now — worst case you steal some ideas and we part as friends. Would you be open to 20 minutes?",
+        "note": "You're reframing the meeting as intelligence gathering, not a sales pitch. The 'steal some ideas' line is disarming. John is a COO who built and sold TurnKey — he wants to know what peers are doing, especially during a messy integration. The meeting has value even if he never buys.",
+        "branches": [
+          {
+            "label": "Sure, I'd take that call",
+            "to": "booking_lock"
+          },
+          {
+            "label": "Not right now / still no",
+            "to": "end_graceful"
+          },
+          {
+            "label": "Just send me something",
+            "to": "objection_send_email"
+          }
+        ]
+      },
+      "objection_not_interested": {
+        "label": "NOT INTERESTED",
+        "say": "I totally get it — I should've assumed you'd be all set, otherwise you probably would've reached out. Just so nobody from my team cold calls you again — is it more that this isn't a problem you're focused on right now, or is it just that you hate cold calls? Because I'd get that too.",
+        "note": "The humor at the end disarms. You're splitting: if it's not a priority, you sell the test drive with the peer-intel angle. If it's just the cold call interruption, offer a callback or email instead. Don't push past two attempts.",
+        "branches": [
+          {
+            "label": "Not a priority / we're covered",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "Just hate cold calls / bad timing",
+            "to": "end_callback_set"
+          }
+        ]
+      },
+      "objection_have_internal_tool": {
+        "label": "WE BUILT THIS INTERNALLY",
+        "say": "That makes total sense — with 43,000 homes you'd have to have a photo workflow locked in. I actually know you guys run the Field App and HomeCare Hub for this. I'm not trying to replace any of that — more curious whether the human review step is keeping up as you scale into the franchise model. Is the bottleneck more on the photo capture side, or on the consistency of what actually gets flagged when someone reviews them?",
+        "note": "You just showed you did your homework — you know their internal tools by name. This reframes RapidEye as an augmentation layer on top of their existing stack, not a rip-and-replace. Now listen: if he confirms the review step is the bottleneck, you have your opening. If he says someone else owns this, pivot to referral.",
+        "branches": [
+          {
+            "label": "Admits gaps / review consistency is the issue",
+            "to": "cta_meeting"
+          },
+          {
+            "label": "Says it's working fine / no gaps",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "Says someone else owns this now",
+            "to": "referral_ask"
+          }
+        ]
+      },
+      "objection_mid_integration": {
+        "label": "MID-INTEGRATION / TOO EARLY",
+        "say": "A hundred percent — I figured with the Casago close in May and the franchise rollouts still going market by market, tooling decisions are probably frozen or at least complicated right now. Just out of curiosity — as you guys standardize the franchise tech stack, like you did with Guesty and Wheelhouse, is there a point where inspection and quality tooling comes into that conversation? Or is that more of a local-operator decision?",
+        "note": "You just name-dropped two tools they're actually rolling out (Guesty for PMS, Wheelhouse for pricing) — this signals you deeply understand their world and the franchise standardization strategy. You're probing whether quality tools will be centralized like pricing was or left to franchisees. His answer tells you the entire buying path.",
+        "branches": [
+          {
+            "label": "Yes, we're thinking about standardizing quality tools too",
+            "to": "cta_meeting"
+          },
+          {
+            "label": "That's a ways out / not on the roadmap yet",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "That'd be more Bob's world / someone else's call",
+            "to": "referral_ask"
+          }
+        ]
+      },
+      "objection_send_email": {
+        "label": "SEND ME AN EMAIL",
+        "say": "Totally fair — I'll send something over. One quick question so it's not just another generic pitch in your inbox: would it be more useful to see how this maps to your existing Field App workflow, or more about what other large operators are doing with their turnover photo data at scale?",
+        "note": "You're tailoring the email AND showing you know their stack. Either answer gives you intel on what he cares about. Include a specific meeting time suggestion in the email. Send within 30 minutes of hanging up. Subject line: 'John — following up from our call (turnover photo QC).'",
+        "branches": [
+          {
+            "label": "Tells you what to focus on",
+            "to": "end_email_sent"
+          },
+          {
+            "label": "Just send whatever / doesn't specify",
+            "to": "end_email_sent"
+          }
+        ]
+      },
+      "end_email_sent": {
+        "label": "EMAIL FOLLOW-UP — END",
+        "say": "Got it — I'll keep it tight and relevant. You'll have it today. Appreciate your time, John.",
+        "note": "Send the email within 30 minutes. Reference the call. Include one specific insight relevant to Vacasa's situation, a 2-sentence RapidEye description, and suggest a specific day/time for 20 minutes. Follow up in 3 business days if no reply. Second follow-up at day 7 with a new angle (e.g., a franchise-specific use case or peer data point).",
+        "branches": []
+      },
+      "referral_ask": {
+        "label": "REFERRAL — WHO OWNS THIS",
+        "say": "Totally hear you. When it comes to the actual inspection workflow — the photo review, quality standards for turnovers across franchise markets — what level of person typically owns that? Is that more Bob Milne's world on the ops side, or is it sitting with someone on the franchise ops side like Alex Johnson?",
+        "note": "You're name-dropping real people from your research (Bob Milne is SVP Ops, Alex Johnson is VP Franchise Ops) — this shows you've done serious homework and makes it easy for John to confirm or redirect. If he gives you a name, ask to use his as a reference. That turns your next call from cold to warm.",
+        "branches": [
+          {
+            "label": "Gives a name or confirms someone",
+            "to": "referral_get_name"
+          },
+          {
+            "label": "Won't share / doesn't want to refer",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "referral_get_name": {
+        "label": "GOT A REFERRAL — LOCK IT IN",
+        "say": "That's super helpful. Would you mind if I mentioned you pointed me their way? I'll put something tailored together so it actually lands with them. And if it ever loops back to your desk, you'll already know what it is.",
+        "note": "Get explicit permission to use John's name. If he says yes, your next call opens with 'John Banczak pointed me your way' — that changes everything. Send John a quick thank-you email too. If he referred you to Bob Milne, also consider reaching out to Jonas Verheyen (Head of Photography Ops) or Kristen Taylor (VP Ops) as parallel paths.",
+        "branches": []
+      },
+      "end_callback_set": {
+        "label": "CALLBACK SCHEDULED — END",
+        "say": "Perfect — I'll try you again on [day they mentioned]. Appreciate it, John.",
+        "note": "Log the callback day and time immediately. When you call back, open with: 'Hey John, it's Sam Parks — you told me to try you back today.' That reframes the second call as expected, not cold. Have a fresh angle ready for the callback in case he needs re-engaging.",
+        "branches": []
+      },
+      "end_graceful": {
+        "label": "GRACEFUL EXIT",
+        "say": "Totally understand. If anything changes — especially as the franchise rollout picks up steam — I'm easy to find. Appreciate your time, John.",
+        "note": "Don't burn the bridge. The Casago integration will create new pain points over the next 6-12 months as more markets convert to franchise operators. Add John to a 90-day re-engagement cadence. Consider reaching out again after a specific franchise market transition gets announced (e.g., a new market handoff to a Casago franchisee). Also pursue Bob Milne, Alex Johnson, and other contacts independently.",
+        "branches": []
+      }
+    }
+  }
+}

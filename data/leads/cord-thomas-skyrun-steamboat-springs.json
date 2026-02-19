@@ -1,0 +1,626 @@
+{
+  "name": "Cord Thomas",
+  "title": "President & COO, SkyRun",
+  "company": "SkyRun (Steamboat Springs)",
+  "location": "Steamboat Springs, CO",
+  "phone": "",
+  "company_phone": "(970) 315-0209",
+  "alt_phones": [
+    "+1 (970) 761-0573"
+  ],
+  "flow": {
+    "context": "Cord Thomas is President & COO of SkyRun — a franchise vacation rental network with 1,500+ properties across 30+ locations. He controls the operational standards and tech stack that every franchise location runs on. SkyRun is mid-overhaul: they just adopted Track PMS, PriceLabs for pricing, and RemoteLock for access, and they're pushing to add 350 new doors by end of 2025. The brand promises homeowners pre-arrival inspections and proactive maintenance, but local franchise teams are tiny — some locations have just 2 FTEs managing 30-80 units. Sam's skiing connection is a natural icebreaker if it comes up — SkyRun is heavy in ski resort markets and Sam just skied Jackson Hole in January.",
+    "start": "gatekeeper",
+    "nodes": {
+      "gatekeeper": {
+        "label": "GATEKEEPER",
+        "say": "Hey, could you get me through to Cord? It's Sam.",
+        "note": "Minimal info. Confident, like you've spoken before. Don't explain anything yet.",
+        "branches": [
+          {
+            "label": "Put through / ringing",
+            "to": "opener"
+          },
+          {
+            "label": "Who's calling? / What's this about?",
+            "to": "gatekeeper_context"
+          },
+          {
+            "label": "He's not available / voicemail",
+            "to": "gatekeeper_voicemail"
+          }
+        ]
+      },
+      "gatekeeper_context": {
+        "label": "GATEKEEPER — WHAT'S THIS ABOUT",
+        "say": "Yeah, I work with a few other vacation rental franchise companies on their ops side. Would you mind letting him know it's Sam Parks?",
+        "note": "Still don't pitch. Dose info one layer at a time. End with a redirect question so you stay in control.",
+        "branches": [
+          {
+            "label": "Put through",
+            "to": "opener"
+          },
+          {
+            "label": "Can you tell me more? / What company?",
+            "to": "gatekeeper_social_proof"
+          },
+          {
+            "label": "He's not available / voicemail",
+            "to": "gatekeeper_voicemail"
+          }
+        ]
+      },
+      "gatekeeper_social_proof": {
+        "label": "GATEKEEPER — STILL PUSHING",
+        "say": "For sure — it's Sam Parks from RapidEye. We help a couple other multi-location PM companies with their inspection workflows. I sent Cord a note — would you mind giving him a heads up?",
+        "note": "This is your last layer. If they still block, be gracious and try for a callback window or direct email.",
+        "branches": [
+          {
+            "label": "Put through",
+            "to": "opener"
+          },
+          {
+            "label": "Take a message / send an email",
+            "to": "gatekeeper_voicemail"
+          }
+        ]
+      },
+      "gatekeeper_voicemail": {
+        "label": "VOICEMAIL — NOT AVAILABLE",
+        "say": "Hey Cord, it's Sam Parks. I work with a few other franchise-model PM companies on their inspection workflows — thought it'd be worth a quick conversation given what you guys are building at SkyRun. My number's [your number]. Again, Sam Parks, RapidEye. I'll try you again later this week.",
+        "note": "Under 20 seconds. Casual, not salesy. Plan to call back in 2 days at a different time of day.",
+        "branches": []
+      },
+      "opener": {
+        "label": "OPENER",
+        "say": "Hey Cord — I work with a few other multi-location vacation rental companies on their inspection and turnover workflows. It's Sam Parks with RapidEye. Have you heard my name tossed around at all?",
+        "note": "Feet up on the desk energy. Slow down. Smile. Pause after 'tossed around' and wait for his answer. Don't fill the silence.",
+        "branches": [
+          {
+            "label": "No, I haven't",
+            "to": "heard_no"
+          },
+          {
+            "label": "Yeah / maybe / sounds familiar",
+            "to": "heard_yes"
+          },
+          {
+            "label": "I'm busy / bad time",
+            "to": "bad_timing"
+          },
+          {
+            "label": "Cold reaction / who is this / what do you want",
+            "to": "permission_fallback"
+          }
+        ]
+      },
+      "heard_no": {
+        "label": "HAVEN'T HEARD THE NAME",
+        "say": "Ha — I guess I'm not as popular as I thought. Well the reason for my call is —",
+        "note": "Light laugh, then go straight into pain trigger. No awkward pause — keep the momentum rolling right through.",
+        "branches": [
+          {
+            "label": "Continue →",
+            "to": "pain_trigger"
+          }
+        ]
+      },
+      "heard_yes": {
+        "label": "HEARD THE NAME",
+        "say": "Oh nice — well usually we'd be working with someone in your spot. What'd you hear?",
+        "note": "Let him talk. Whatever he says, use it to bridge into the pain trigger. If he's vague: 'Yeah that's the gist — the reason I wanted to reach you specifically is...' and go to pain.",
+        "branches": [
+          {
+            "label": "Vague / not sure / just the name",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "Knows about RapidEye / asks a question",
+            "to": "warm_discovery"
+          }
+        ]
+      },
+      "bad_timing": {
+        "label": "BAD TIMING",
+        "say": "Totally hear you — would it be a terrible idea if I tried you again tomorrow or Thursday? Which one works better?",
+        "note": "Give two specific day options, not open-ended. If he pushes back on both, pivot to email.",
+        "branches": [
+          {
+            "label": "Gives a day or time",
+            "to": "reschedule"
+          },
+          {
+            "label": "Just send me an email",
+            "to": "send_email"
+          },
+          {
+            "label": "Don't call back / not interested",
+            "to": "permission_rejected"
+          }
+        ]
+      },
+      "reschedule": {
+        "label": "RESCHEDULE LOCKED",
+        "say": "Perfect — I'll ring you [day and time]. Appreciate it, Cord. Talk soon.",
+        "note": "Put it in your calendar IMMEDIATELY. Call at exactly that time. This is now a warm callback.",
+        "branches": []
+      },
+      "permission_fallback": {
+        "label": "PERMISSION FALLBACK",
+        "say": "Yeah totally — I mean it is a cold call. Can I get 30 seconds to tell you why I reached out, and if it's not relevant you can totally hang up on me?",
+        "note": "Acknowledge the interruption honestly. Most people will give 30 seconds when you're transparent about it being cold.",
+        "branches": [
+          {
+            "label": "Fine, go ahead / 30 seconds",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "No / not interested / don't have time",
+            "to": "permission_rejected"
+          }
+        ]
+      },
+      "permission_rejected": {
+        "label": "PERMISSION REJECTED",
+        "say": "Totally my bad. Just so nobody from my team bugs you again — is it that I caught you at a horrible time, or is it that you already know what we do and it's just not interesting?",
+        "note": "Split the rejection. If it's timing, you get a callback. If it's disinterest, you learn why and can address or exit.",
+        "branches": [
+          {
+            "label": "Bad timing",
+            "to": "bad_timing"
+          },
+          {
+            "label": "Not interested / we're covered",
+            "to": "objection_not_interested"
+          },
+          {
+            "label": "Hard no / hangs up",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "pain_trigger": {
+        "label": "PAIN TRIGGER",
+        "say": "I work with another franchise-model PM company in a pretty similar spot to you guys — multiple locations, each one running their own housekeeping teams, local staff doing the inspections. The problem they kept running into was the inspection gap. They're promising homeowners pre-arrival inspections, damage detection, all the quality-of-care stuff — but when you've got over a thousand properties across different locations, nobody at HQ can actually tell if those inspections are happening the right way or if the local team's just flipping through photos and checking a box. A guest checks out, something's broken, and six weeks later the owner finds out because the next guest complained — not because anyone caught it in the turnover. And at the franchise level, that's how you lose owners.",
+        "note": "PAUSE after 'that's how you lose owners.' Let the silence sit. He'll either engage with the problem or push back. Do NOT rush into the solution.",
+        "branches": [
+          {
+            "label": "Yeah that's a real issue / tells his own version",
+            "to": "warm_discovery"
+          },
+          {
+            "label": "How does it work? / What do you do?",
+            "to": "solution_bridge"
+          },
+          {
+            "label": "Not really focused on that / not interested",
+            "to": "objection_not_interested"
+          },
+          {
+            "label": "We already have something for that",
+            "to": "objection_have_vendor"
+          }
+        ]
+      },
+      "warm_discovery": {
+        "label": "DISCOVERY — STOP PITCHING",
+        "say": "That's exactly what I keep hearing. So at the HQ level — how are you guys thinking about standardizing the inspection piece across locations right now? Is that something each franchise owner handles on their own, or is there a system that flows through from corporate?",
+        "note": "He's warm. STOP SELLING. Ask questions. Listen. Take notes. Your goal is to understand how inspection standards propagate through the franchise — that tells you where RapidEye fits.",
+        "branches": [
+          {
+            "label": "Each location handles it / decentralized",
+            "to": "franchise_delegation"
+          },
+          {
+            "label": "Working on standardizing / mentions tools",
+            "to": "tech_stack_thread"
+          },
+          {
+            "label": "Shares specific pain or details",
+            "to": "discovery_deeper"
+          },
+          {
+            "label": "Asks about RapidEye",
+            "to": "solution_bridge"
+          }
+        ]
+      },
+      "discovery_deeper": {
+        "label": "DIG DEEPER",
+        "say": "That makes a lot of sense. And with the growth you guys have going — adding a bunch of new doors — what's the biggest thing that breaks first when a new location comes online? Is it the cleaning consistency, the inspection quality, or the guest communication piece?",
+        "note": "Reference their 350-door growth target without sounding like you're reading a dossier. Let him tell you what breaks first. Whatever he names is your angle for the solution bridge.",
+        "branches": [
+          {
+            "label": "Cleaning or inspection quality",
+            "to": "solution_bridge"
+          },
+          {
+            "label": "Something else — guest comms, pricing, etc.",
+            "to": "acknowledge_pivot"
+          },
+          {
+            "label": "Mentions Track PMS / tech modernization",
+            "to": "tech_stack_thread"
+          },
+          {
+            "label": "How do you know about our growth?",
+            "to": "how_you_know"
+          }
+        ]
+      },
+      "tech_stack_thread": {
+        "label": "TECH STACK CONVERSATION",
+        "say": "Yeah — and I know you guys just moved onto Track. That's actually super relevant because we plug directly into Track's workflow. The idea is your locations are already collecting turnover photos through Track, and we analyze those automatically — no new app for the local teams to learn, no workflow change. It just layers on top of what they already have.",
+        "note": "Huge advantage — SkyRun just migrated to Track and RapidEye integrates with Track. Plant the seed that integration is seamless. Don't oversell.",
+        "branches": [
+          {
+            "label": "That's interesting / tell me more",
+            "to": "solution_bridge"
+          },
+          {
+            "label": "We're still rolling out Track / it's a process",
+            "to": "rollout_empathy"
+          },
+          {
+            "label": "Who else are you working with?",
+            "to": "social_proof"
+          }
+        ]
+      },
+      "franchise_delegation": {
+        "label": "FRANCHISE DELEGATION",
+        "say": "Got it — that makes sense for the franchise model. So if I were gonna talk to someone who's actually in the weeds with turnover quality at one of the locations — is there a particular market or location owner you'd point me to who'd probably care most about this?",
+        "note": "Don't fight the delegation. Use it to get a referral to a franchise owner like Megan in Steamboat OR to Lindsey Eller who supports locations. You can also float the idea of a pilot at one location.",
+        "branches": [
+          {
+            "label": "Gives a name or location",
+            "to": "referral_get_name"
+          },
+          {
+            "label": "Try Lindsey / location support team",
+            "to": "referral_get_name"
+          },
+          {
+            "label": "Actually wait — tell me more about what you do",
+            "to": "solution_bridge"
+          }
+        ]
+      },
+      "rollout_empathy": {
+        "label": "TRACK ROLLOUT EMPATHY",
+        "say": "Oh totally — migrating a whole franchise network onto a new PMS is no joke. That's actually why a few companies bring us in during that transition — once the new system's in place, layering on the inspection piece early means the locations never have to change their workflow later. But I hear you, timing matters. Would it make sense to take a look once the dust settles on Track, even just so it's on your radar for the next phase?",
+        "note": "Position RapidEye as a natural next step after Track migration. Don't push if they're overwhelmed — sell the value of evaluating now for later implementation.",
+        "branches": [
+          {
+            "label": "Yeah that could make sense",
+            "to": "cta_meeting"
+          },
+          {
+            "label": "Send me something / email me",
+            "to": "send_email"
+          },
+          {
+            "label": "Not right now",
+            "to": "sell_test_drive"
+          }
+        ]
+      },
+      "acknowledge_pivot": {
+        "label": "ACKNOWLEDGE DIFFERENT PRIORITY",
+        "say": "That makes sense — sounds like that's where the fire is right now. Out of curiosity though, when a turnover goes wrong and something gets missed — damage, staging issue, whatever — who ends up dealing with that on the HQ side? Is that something that comes up to you, or does the local owner just eat it?",
+        "note": "He named a different priority. Acknowledge it, then redirect to the inspection pain from a different angle. You're trying to find out if inspection failures create noise at his level.",
+        "branches": [
+          {
+            "label": "It does come up to us / we hear about it",
+            "to": "solution_bridge"
+          },
+          {
+            "label": "Local owner handles it",
+            "to": "franchise_delegation"
+          },
+          {
+            "label": "Not really a big issue for us",
+            "to": "objection_not_interested"
+          }
+        ]
+      },
+      "how_you_know": {
+        "label": "HOW DO YOU KNOW ABOUT US",
+        "say": "Ha — no stalking, I promise. You guys have been pretty public about the Track partnership and the growth plans. It's actually what made me think this was worth a conversation — most companies at your scale are trying to figure out how to keep inspection quality consistent while adding that many new doors.",
+        "note": "Be transparent. SkyRun published press releases about Track, PriceLabs, RemoteLock, and growth targets. Frame it as diligence, not surveillance.",
+        "branches": [
+          {
+            "label": "Fair enough / appreciates the research",
+            "to": "solution_bridge"
+          },
+          {
+            "label": "Continues with questions",
+            "to": "warm_discovery"
+          }
+        ]
+      },
+      "social_proof": {
+        "label": "SOCIAL PROOF — WHO ELSE",
+        "say": "Right now we're working with a luxury PM company in New York — about 200 homes — and another group on the East Coast with around 600 properties. We've also got a company out in Dubai using it. The common thread is they all had the same problem — tons of turnover photos being collected, nobody actually reviewing them carefully enough to catch things consistently.",
+        "note": "Name the scale and markets but don't drop client names without permission. Let the numbers do the work.",
+        "branches": [
+          {
+            "label": "Interesting / asks more",
+            "to": "cta_meeting"
+          },
+          {
+            "label": "What does it actually do?",
+            "to": "solution_bridge"
+          }
+        ]
+      },
+      "solution_bridge": {
+        "label": "ONE-SENTENCE SOLUTION",
+        "say": "So basically — your locations are already collecting photos during turnovers, right? We plug into Track and automatically analyze those photos. Catches damage, missing items, staging issues — generates an inspection report without anyone changing their workflow. The local team doesn't do anything different. They just get better output from the photos they're already taking.",
+        "note": "One breath. Don't go deeper unless he asks. The goal is to bridge to the CTA, not to demo on the phone.",
+        "branches": [
+          {
+            "label": "That's interesting / how does it work?",
+            "to": "cta_meeting"
+          },
+          {
+            "label": "What does it cost? / No budget right now",
+            "to": "objection_no_budget"
+          },
+          {
+            "label": "We already have something",
+            "to": "objection_have_vendor"
+          },
+          {
+            "label": "Hmm / noncommittal",
+            "to": "cta_meeting"
+          }
+        ]
+      },
+      "cta_meeting": {
+        "label": "ASK FOR THE MEETING",
+        "say": "Would you be open to taking a look sometime this week when I'm not cold calling you out of the blue? Even 20 minutes — I can show you exactly what the output looks like on real turnover photos.",
+        "note": "Low friction. 20 minutes, not a full demo. If he pushes back, go to sell_test_drive.",
+        "branches": [
+          {
+            "label": "Yeah let's do it",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Send me something first",
+            "to": "send_email"
+          },
+          {
+            "label": "Not right now / too busy",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "Talk to Lindsey / someone else on the team",
+            "to": "referral_redirect"
+          }
+        ]
+      },
+      "book_meeting": {
+        "label": "BOOK THE MEETING",
+        "say": "Awesome. I've got next Tuesday and Thursday pulled up — does morning or afternoon work better for you?",
+        "note": "Two day options plus time-of-day choice. Lock it in right now. Get his direct email to send the invite while on the phone.",
+        "branches": [
+          {
+            "label": "Picks a time",
+            "to": "meeting_booked"
+          },
+          {
+            "label": "Let me check my calendar / follow up later",
+            "to": "send_email"
+          }
+        ]
+      },
+      "meeting_booked": {
+        "label": "MEETING BOOKED — WRAP UP",
+        "say": "Perfect — I'll fire over a calendar invite right now. What's the best email for you? And honestly, really appreciate you taking my call, Cord. Talk soon.",
+        "note": "Get his email. Send the invite IMMEDIATELY. Stop selling. Don't add anything. End warm and short.",
+        "branches": []
+      },
+      "objection_not_interested": {
+        "label": "NOT INTERESTED",
+        "say": "I totally get it. I should've assumed you'd be all set — otherwise you probably would've reached out to us. Just so nobody from my team cold calls you again — is it that inspection quality isn't really a problem you're focused on right now, or is it more that you just hate getting cold calls?",
+        "note": "Agree first. Then split. You're finding out if it's a real no or just a reaction to the interruption.",
+        "branches": [
+          {
+            "label": "Not focused on inspections / other priorities",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "Just hate cold calls",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "We already have it covered",
+            "to": "objection_have_vendor"
+          },
+          {
+            "label": "Hard no",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "objection_no_budget": {
+        "label": "NO BUDGET",
+        "say": "Totally get it. Nowadays it's harder to keep a tool, let alone buy something new — especially when you're already investing in the Track migration and PriceLabs rollout. Just so I know — is it that budget for this cycle is completely locked, or is it more that anything new has to go through a gauntlet to get approved?",
+        "note": "Reference their known tech investments to show you understand the context. Split the objection to find out if it's timing or process.",
+        "branches": [
+          {
+            "label": "Budget is locked / end of cycle",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "Approval process is tough",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "It's just not a priority",
+            "to": "objection_not_interested"
+          }
+        ]
+      },
+      "objection_have_vendor": {
+        "label": "ALREADY HAVE SOMETHING",
+        "say": "That makes total sense — with fifteen hundred-plus properties you'd have to have something in place. Is it that you're fully covered and the locations are happy with it, or is it more that switching anything right now on top of the Track migration would just be a headache?",
+        "note": "Don't trash their current solution. Split: happy (real objection) or switching is painful (timing). If they name the tool — Breezeway, Resort Cleaning, TIDY — note it for later.",
+        "branches": [
+          {
+            "label": "Happy with current solution",
+            "to": "vendor_happy"
+          },
+          {
+            "label": "Switching would be painful / bad timing",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "It's not great but it works",
+            "to": "vendor_gap"
+          }
+        ]
+      },
+      "vendor_happy": {
+        "label": "HAPPY WITH VENDOR",
+        "say": "Love that — honestly that's rare. Out of curiosity, are they doing the photo analysis piece too? Or is that still a manual review on the local team's side?",
+        "note": "Most ops tools — Breezeway, Resort Cleaning, TIDY — handle scheduling and checklists but don't do AI photo analysis. If there's a gap, that's your opening.",
+        "branches": [
+          {
+            "label": "Photo review is still manual",
+            "to": "vendor_gap"
+          },
+          {
+            "label": "They handle everything",
+            "to": "graceful_exit"
+          },
+          {
+            "label": "Not sure / would have to check",
+            "to": "cta_meeting"
+          }
+        ]
+      },
+      "vendor_gap": {
+        "label": "VENDOR GAP IDENTIFIED",
+        "say": "That's actually the piece we focus on. We're not trying to replace your ops platform — we layer on top of it. Your teams keep doing everything the same way, we just analyze the photos they're already uploading. It's the difference between collecting photos and actually catching things in them. Would it be worth 20 minutes to see what that looks like?",
+        "note": "Position as complementary, not competitive. RapidEye doesn't replace Breezeway or TIDY — it adds intelligence to the photos already flowing through those systems.",
+        "branches": [
+          {
+            "label": "Yeah let's take a look",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Send me something",
+            "to": "send_email"
+          },
+          {
+            "label": "Not right now",
+            "to": "sell_test_drive"
+          }
+        ]
+      },
+      "sell_test_drive": {
+        "label": "SELL THE TEST DRIVE",
+        "say": "Totally fair — you're probably not buying anything right now and I respect that. But when budget does open up or the Track dust settles, the people who move fastest are the ones who already know what's on their list. Would you be open to a quick look — not to buy anything — just so it's on your radar? If nothing else, I can walk you through what other franchise PM companies are doing with their turnover photo workflows. Worst case you steal some ideas and we part as friends.",
+        "note": "You're not asking him to buy. You're asking him to be informed. The 'steal some ideas' line gives him a reason to say yes that doesn't feel like a sales meeting.",
+        "branches": [
+          {
+            "label": "Alright sure",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Send me an email first",
+            "to": "send_email"
+          },
+          {
+            "label": "No thanks / not now",
+            "to": "referral_redirect"
+          }
+        ]
+      },
+      "send_email": {
+        "label": "SEND ME AN EMAIL",
+        "say": "Totally fair. One question before I do — what would be most relevant to include so it's not just another generic pitch sitting in your inbox? Are you more interested in the Track integration side, or how this works across multiple franchise locations?",
+        "note": "Accept the email request, then ask ONE qualifying question. This tells you what he cares about AND gets him slightly invested. Get his direct email — not the generic business@ address.",
+        "branches": [
+          {
+            "label": "Gives direction on what to include",
+            "to": "send_email_close"
+          },
+          {
+            "label": "Just send whatever / general info",
+            "to": "send_email_close"
+          }
+        ]
+      },
+      "send_email_close": {
+        "label": "CLOSE EMAIL REQUEST",
+        "say": "Got it — I'll send something over today. What's the best email for you directly? And I'll drop a couple of times for next week in case you want to hop on a quick call after you read it. Appreciate it, Cord.",
+        "note": "Get his direct email. Include specific time options in the email. Follow up in 3 days if no response.",
+        "branches": []
+      },
+      "referral_redirect": {
+        "label": "REFERRAL REDIRECT",
+        "say": "Totally understand. At the franchise level, who typically owns the inspection and turnover quality piece — is that something Lindsey Eller's team handles from HQ, or does each location owner make those calls?",
+        "note": "You know Lindsey Eller is Sr. Director of Location Support. Dropping her name shows you've done homework and makes the referral specific, not generic.",
+        "branches": [
+          {
+            "label": "Yeah Lindsey's the one / confirms",
+            "to": "referral_get_name"
+          },
+          {
+            "label": "It's the location owners",
+            "to": "referral_location"
+          },
+          {
+            "label": "Names someone else",
+            "to": "referral_get_name"
+          }
+        ]
+      },
+      "referral_location": {
+        "label": "REFERRAL TO LOCATION OWNER",
+        "say": "Got it. Is there a particular location owner who'd be most open to looking at something like this? Someone who's maybe a little more hands-on with operations or tech-forward?",
+        "note": "You're looking for a franchise owner like Megan Gutschenritter in Steamboat. If he names someone, you have a warm intro. If he doesn't, ask if Steamboat would be a good pilot market.",
+        "branches": [
+          {
+            "label": "Gives a name",
+            "to": "referral_get_name"
+          },
+          {
+            "label": "Doesn't want to name anyone",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "referral_get_name": {
+        "label": "GET THE NAME",
+        "say": "That's super helpful. If I can get their direct contact, I'll put something tailored together so it actually lands and doesn't feel like a random cold call. Do you have their email or best number?",
+        "note": "Get as much as possible: name, email, phone, title. Then ask 'Would you mind if I mentioned you pointed me their way?' — turns this into a warm referral.",
+        "branches": [
+          {
+            "label": "Gives contact info",
+            "to": "referral_close"
+          },
+          {
+            "label": "I'll connect you / let me check",
+            "to": "referral_close"
+          }
+        ]
+      },
+      "referral_close": {
+        "label": "CLOSE WITH REFERRAL",
+        "say": "Really appreciate that, Cord. Would you mind if I mentioned you pointed me their way? It'd help it not feel like a totally random call on their end. And seriously — thanks for taking the time. I know this was out of the blue.",
+        "note": "Always ask permission to name-drop. Send the referral email same day. Follow up with Cord to close the loop — builds the relationship even if he's not the direct buyer.",
+        "branches": []
+      },
+      "graceful_exit": {
+        "label": "GRACEFUL EXIT",
+        "say": "Totally understand, Cord. If anything changes down the road — especially as you guys keep scaling — I'm easy to find. Appreciate your time.",
+        "note": "Don't burn the bridge. Add him to a 90-day follow-up cadence. He's the COO — if a franchise owner says yes and it works, it comes back to him eventually.",
+        "branches": []
+      }
+    }
+  }
+}
