@@ -1,0 +1,549 @@
+{
+  "name": "Kathy Blackman",
+  "title": "Owner/Primary Operator",
+  "company": "Paradise Vacations",
+  "location": "Scottsdale, AZ is already on the list. Let me provide the next best option:\\n\\nMaui, HI",
+  "phone": "+1-808-874-7672",
+  "company_phone": "+1-800-927-7672",
+  "alt_phones": [],
+  "flow": {
+    "context": "Calling Kathy Blackman, owner and primary operator of Paradise Vacations Inc. — a small, family-run vacation rental management company in Kihei, Maui operating since 1990. Their site explicitly mentions inspections of cleaning staff and performance reviews, and they serve physician property owners — both direct RapidEye hooks. No known PMS or ops platform; unit count unknown but likely small. Strongest connection: Sam's parents are both physicians in LA, and Kathy's company specifically manages properties for physician owners. Key market context: Maui's Bill 9 (passed Dec 2025) is phasing out ~6,200 vacation rentals by 2029-2031 — regulatory pressure is high and documentation matters more than ever.",
+    "start": "opener",
+    "nodes": {
+      "opener": {
+        "label": "OPENER",
+        "say": "Hey Kathy — I work with a few other vacation rental managers out in Maui on their inspection workflows, and your name came up because you guys work with a lot of physician owners — both my parents are actually doctors in LA, small world. It's Sam Parks with RapidEye — have you heard my name tossed around at all?",
+        "note": "Feet-up energy. Sound like you're calling a friend of a friend. Don't rush the physician line — let it land as a genuine connection. Smile while you say it.",
+        "branches": [
+          {
+            "label": "Yes / I think so",
+            "to": "heard_name_yes"
+          },
+          {
+            "label": "No / Who?",
+            "to": "heard_name_no"
+          },
+          {
+            "label": "I'm busy / bad time",
+            "to": "bad_timing"
+          },
+          {
+            "label": "Hostile / what are you selling",
+            "to": "permission_fallback"
+          }
+        ]
+      },
+      "heard_name_yes": {
+        "label": "THEY'VE HEARD OF YOU",
+        "say": "Oh nice — well normally we'd be working with someone like you. What did you hear?",
+        "note": "Rare but great. Let her talk. Whatever she says, bridge to discovery. Don't correct anything — just ride the momentum.",
+        "branches": [
+          {
+            "label": "Tells you something specific",
+            "to": "warm_response"
+          },
+          {
+            "label": "Vague / not sure where",
+            "to": "pain_trigger"
+          }
+        ]
+      },
+      "heard_name_no": {
+        "label": "HAVEN'T HEARD OF YOU",
+        "say": "Oh, I guess I'm not as popular as I thought. Well, the reason for my call —",
+        "note": "Say this with a smile. Self-deprecating, quick, then roll right into the pain trigger without pausing. This is a transition, not a stop.",
+        "branches": [
+          {
+            "label": "Continue to reason for call",
+            "to": "pain_trigger"
+          }
+        ]
+      },
+      "bad_timing": {
+        "label": "BAD TIMING",
+        "say": "Totally hear you — would it be a terrible idea if I tried you again tomorrow or later this week? I'll keep it short, promise.",
+        "note": "Don't push. Get a specific callback time if you can. If she gives you a day, write it down and call back exactly when you said.",
+        "branches": [
+          {
+            "label": "Gives a time / sure",
+            "to": "reschedule"
+          },
+          {
+            "label": "Just email me",
+            "to": "objection_send_email"
+          },
+          {
+            "label": "Not interested at all",
+            "to": "objection_not_interested"
+          }
+        ]
+      },
+      "reschedule": {
+        "label": "CALLBACK LOCKED",
+        "say": "Perfect — I'll try you then. Really appreciate it, Kathy. Talk soon.",
+        "note": "Write down the exact day and time. Set a reminder. Call back precisely when you said you would — reliability builds trust before the conversation even starts.",
+        "branches": []
+      },
+      "permission_fallback": {
+        "label": "PERMISSION ASK",
+        "say": "Yeah, totally fair — I mean it is a cold call. Can I get 30 seconds to tell you why I reached out, and you can totally hang up on me if it's not a fit?",
+        "note": "This is your reset button. Say it casually, not desperately. The 'hang up on me' line gives her control back and that's what disarms.",
+        "branches": [
+          {
+            "label": "Fine, go ahead",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "No / not interested",
+            "to": "permission_rejected"
+          }
+        ]
+      },
+      "permission_rejected": {
+        "label": "PERMISSION REJECTED",
+        "say": "Shoot, totally my bad. Just so nobody from my team bugs you again — is it that I caught you at a horrible time, or is it that you already know what we do and this just isn't interesting?",
+        "note": "You're splitting the objection into two options. If it's timing, you get a callback. If it's disinterest, you can address it or exit clean. Stay relaxed.",
+        "branches": [
+          {
+            "label": "Bad time",
+            "to": "bad_timing"
+          },
+          {
+            "label": "Not interested / don't need it",
+            "to": "diagnose_rejection"
+          },
+          {
+            "label": "Hangs up",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "diagnose_rejection": {
+        "label": "DIAGNOSE THE NO",
+        "say": "Totally get it. Is it that inspections and cleaning quality just aren't something you're worried about right now, or is it more that you've already got it dialed in and don't need help there?",
+        "note": "You're trying to understand the real reason. If she says she's got it dialed in, that opens the door to 'what are you using?' If she says it's not a priority, respect it and exit.",
+        "branches": [
+          {
+            "label": "We've got it handled",
+            "to": "objection_have_process"
+          },
+          {
+            "label": "Not a priority / not interested",
+            "to": "end_graceful"
+          },
+          {
+            "label": "Actually… tell me more",
+            "to": "warm_response"
+          }
+        ]
+      },
+      "pain_trigger": {
+        "label": "PAIN TRIGGER",
+        "say": "I was talking to another manager in a pretty similar spot to you — family-run, been doing this for years, really takes pride in the product. And she was telling me how she personally reviews cleaning photos after every turnover trying to catch anything before a guest walks in. And the frustrating part is, stuff still slips through — a stain under the coffee table, a cracked tile in the bathroom, a missing set of towels — and the guest is the one who finds it. Then you're dealing with a one-star review, a pissed-off owner calling you, maybe a refund… and the thing was literally right there in the photos, it just got missed. Is that something you guys run into at all?",
+        "note": "PAUSE after 'run into at all.' Let her respond. Do not fill the silence. The specificity — stain under the coffee table, cracked tile — is what makes this feel real, not like a pitch. Let the pain breathe.",
+        "branches": [
+          {
+            "label": "Yes / that's exactly what happens",
+            "to": "warm_response"
+          },
+          {
+            "label": "Not really / we're pretty good",
+            "to": "objection_have_process"
+          },
+          {
+            "label": "What do you do about it?",
+            "to": "solution_bridge"
+          },
+          {
+            "label": "I don't have time for this",
+            "to": "permission_fallback"
+          }
+        ]
+      },
+      "warm_response": {
+        "label": "THEY'RE WARM — STOP PITCHING",
+        "say": "Yeah, I hear that a lot. So tell me — what does your inspection process look like right now after a cleaner finishes a turnover? Are you reviewing photos yourself, or do you have someone doing that?",
+        "note": "She's interested. STOP selling. Ask questions. You want to understand her current workflow before you pitch anything. Let her talk — the more she describes her process, the better your pitch will be later.",
+        "branches": [
+          {
+            "label": "Describes their process",
+            "to": "discovery_process"
+          },
+          {
+            "label": "I do it all myself / it's manual",
+            "to": "discovery_manual"
+          },
+          {
+            "label": "What does RapidEye do?",
+            "to": "solution_bridge"
+          }
+        ]
+      },
+      "discovery_process": {
+        "label": "DISCOVERY — THEIR PROCESS",
+        "say": "Got it. And when something does get missed — like damage from a guest that wasn't caught at checkout — what happens? Are you eating that cost, or are you able to charge it back?",
+        "note": "You're mapping her pain. Damage cost recovery is a huge value driver. Listen for whether she has before/after photo documentation. If she's eating costs, that's money RapidEye saves her.",
+        "branches": [
+          {
+            "label": "We eat it / hard to prove",
+            "to": "discovery_deeper"
+          },
+          {
+            "label": "We charge it back / have a system",
+            "to": "discovery_deeper"
+          },
+          {
+            "label": "Mentions Bill 9 / regulations",
+            "to": "bill_9_pressure"
+          }
+        ]
+      },
+      "discovery_manual": {
+        "label": "DISCOVERY — MANUAL PROCESS",
+        "say": "That's what I hear from most family-run operations — the owner is the quality control. How many turnovers are you doing in a typical week? And how long does it take you to go through all those photos?",
+        "note": "She's probably stretched thin doing everything. Quantify the time cost. If she's reviewing photos herself, RapidEye gives her hours back. That's the pitch — but don't deliver it yet. Just listen and let her feel the weight of it.",
+        "branches": [
+          {
+            "label": "Gives numbers / describes workload",
+            "to": "discovery_deeper"
+          },
+          {
+            "label": "It's a lot / I don't have time for it all",
+            "to": "discovery_deeper"
+          },
+          {
+            "label": "We don't really take photos",
+            "to": "discovery_no_photos"
+          }
+        ]
+      },
+      "discovery_no_photos": {
+        "label": "NO PHOTO WORKFLOW",
+        "say": "Got it — so your cleaners aren't really documenting turnovers with photos right now. That's actually really common. The problem a lot of managers run into is, when a guest claims something was already broken when they checked in, there's no record to dispute it. Has that come up for you?",
+        "note": "If they don't take photos, RapidEye's core photo analysis doesn't plug in directly yet. But the video walkthrough workflow works, and you can pitch the value of starting documentation. Keep exploring — don't write off the lead.",
+        "branches": [
+          {
+            "label": "Yeah, that's happened",
+            "to": "solution_bridge"
+          },
+          {
+            "label": "Not really a problem for us",
+            "to": "objection_have_process"
+          }
+        ]
+      },
+      "discovery_deeper": {
+        "label": "DISCOVERY — GO DEEPER",
+        "say": "Makes sense. And with everything going on in Maui right now — Bill 9, the regulatory changes — are you thinking about how to protect your operation long-term? Like having airtight records, being able to show owners and the county you're running a really tight ship?",
+        "note": "Bill 9 is phasing out ~6,200 vacation rentals on Maui by 2029-2031. This is existential for operators like Kathy. Tread carefully — it's a real concern, not a scare tactic. If she responds emotionally, listen and empathize first before bridging to anything.",
+        "branches": [
+          {
+            "label": "Yes / that's top of mind",
+            "to": "bill_9_pressure"
+          },
+          {
+            "label": "We'll be fine / not worried",
+            "to": "solution_bridge"
+          },
+          {
+            "label": "That's a whole other conversation",
+            "to": "solution_bridge"
+          }
+        ]
+      },
+      "bill_9_pressure": {
+        "label": "BILL 9 — REGULATORY ANGLE",
+        "say": "Yeah, it's a big deal. The managers I'm talking to out there are all thinking about it. And the ones who are being smart about it are locking down their documentation now — making sure every turnover has a timestamped, AI-verified record so if there's ever a dispute with an owner, a guest, or the county, they've got it all buttoned up. That's honestly a big part of what we do.",
+        "note": "Don't fear-monger. She's been in this business since 1990 — she's survived industry shifts before. Position RapidEye as a tool that helps her protect what she's built, not as a panic response.",
+        "branches": [
+          {
+            "label": "That's interesting / tell me more",
+            "to": "solution_bridge"
+          },
+          {
+            "label": "We already keep good records",
+            "to": "objection_have_process"
+          },
+          {
+            "label": "How does that work?",
+            "to": "solution_bridge"
+          }
+        ]
+      },
+      "solution_bridge": {
+        "label": "ONE-SENTENCE SOLUTION",
+        "say": "So what we built — RapidEye plugs into whatever your cleaners are already doing. They take photos or do a quick video walkthrough after a turnover, and our AI automatically scans everything — flags damage, missing items, staging issues, anything that's off — and generates an inspection report before the guest checks in. No workflow change on your end.",
+        "note": "One breath. Keep it tight. Don't go deeper unless she asks. The goal is to bridge to the CTA, not to demo on the phone. If she asks 'how much,' that's a buying signal — redirect to a meeting.",
+        "branches": [
+          {
+            "label": "That sounds interesting",
+            "to": "cta_meeting"
+          },
+          {
+            "label": "How much / we don't have budget",
+            "to": "objection_no_budget"
+          },
+          {
+            "label": "We're too small for that",
+            "to": "objection_too_small"
+          },
+          {
+            "label": "We already have something for that",
+            "to": "objection_have_process"
+          }
+        ]
+      },
+      "cta_meeting": {
+        "label": "LOW-FRICTION CTA",
+        "say": "Would you be open to taking a look sometime this week? I can walk you through what some of the other Maui managers are doing with their turnover photos — worst case you steal some ideas and we part as friends. Not trying to sell you on the phone.",
+        "note": "Keep it light. 'Worst case you steal some ideas' lowers the stakes. You're selling the meeting, not the product. If she says yes, lock in a time immediately.",
+        "branches": [
+          {
+            "label": "Sure / let's do it",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Send me something first",
+            "to": "objection_send_email"
+          },
+          {
+            "label": "Not right now / maybe later",
+            "to": "objection_not_now"
+          },
+          {
+            "label": "I don't think we need it",
+            "to": "objection_not_interested"
+          }
+        ]
+      },
+      "objection_not_interested": {
+        "label": "NOT INTERESTED — MIYAGI",
+        "say": "Totally get it. I should have assumed you'd be all set — otherwise you probably would have reached out yourself. Just so nobody from my team cold calls you again — is it that this just isn't a problem you're focused on right now, or is it more that you hate cold calls and I caught you at the worst time?",
+        "note": "Agree first, then split. You're defusing the emotional reaction to the interruption, not fighting a product objection. Stay relaxed. If it's timing, you get a callback. If it's the problem, you can dig one more time or exit clean.",
+        "branches": [
+          {
+            "label": "It's the cold call / bad timing",
+            "to": "bad_timing"
+          },
+          {
+            "label": "We just don't need it",
+            "to": "test_drive_pitch"
+          },
+          {
+            "label": "Actually, tell me more",
+            "to": "warm_response"
+          }
+        ]
+      },
+      "objection_not_now": {
+        "label": "NOT RIGHT NOW — FUTURE FRAME",
+        "say": "Totally respect that. You're probably not buying anything right now, and I get it. But the people who end up moving on this are usually the ones who already know what's on their list when the time is right. Would you be open to a quick look — not to buy anything, just so you know what's out there?",
+        "note": "Reframe the meeting as low-commitment information gathering. 'Not to buy' takes the pressure off. She's a business owner — she'll appreciate not being pushed.",
+        "branches": [
+          {
+            "label": "Okay, sure",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Send me an email instead",
+            "to": "objection_send_email"
+          },
+          {
+            "label": "No thanks",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "objection_no_budget": {
+        "label": "NO BUDGET — MIYAGI",
+        "say": "Totally get it. Nowadays it's harder to keep a tool, let alone buy something new — especially with everything going on in the Maui market right now. Just so no one from my team bugs you again — is it that budget for this year is completely locked, or is it more that anything new right now just feels like one more thing on the pile?",
+        "note": "Agree, empathize with the Maui market reality, split. She's a small operator — every dollar matters. Don't dismiss the concern. If budget opens later, you want to be first in line.",
+        "branches": [
+          {
+            "label": "Budget is locked / can't spend",
+            "to": "test_drive_pitch"
+          },
+          {
+            "label": "It's not about budget, just don't need it",
+            "to": "objection_not_interested"
+          },
+          {
+            "label": "What does it actually cost?",
+            "to": "cta_meeting"
+          }
+        ]
+      },
+      "objection_have_process": {
+        "label": "ALREADY HAVE A PROCESS — MIYAGI",
+        "say": "That makes total sense — you've been doing this since 1990, you'd have to have something solid in place by now. I'd actually expect that. Is it that you're fully covered and happy with how it's working, or is it more that switching anything right now would just be a headache?",
+        "note": "Validate her experience. The '1990' reference shows you did your homework and respect her operation. If she's happy, don't push hard — offer a peek. If switching is the barrier, that's your opening because RapidEye doesn't replace anything.",
+        "branches": [
+          {
+            "label": "Happy with what we have",
+            "to": "test_drive_pitch"
+          },
+          {
+            "label": "Switching would be the headache",
+            "to": "switching_easy"
+          },
+          {
+            "label": "It works but it's not perfect",
+            "to": "warm_response"
+          }
+        ]
+      },
+      "switching_easy": {
+        "label": "NO SWITCHING REQUIRED",
+        "say": "Totally hear you. Good news is there's actually nothing to switch — we just sit on top of whatever you're already doing. Your cleaners keep taking photos the same way they always have, and RapidEye runs in the background. No new app for them, no new process. Would you be open to seeing how it works? Takes about fifteen minutes.",
+        "note": "This is a real differentiator. RapidEye doesn't replace existing workflows — it layers on top. Make that crystal clear. For a small operator who doesn't want disruption, this removes the biggest barrier.",
+        "branches": [
+          {
+            "label": "Okay, let's take a look",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Send me info first",
+            "to": "objection_send_email"
+          },
+          {
+            "label": "Not right now",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "objection_too_small": {
+        "label": "WE'RE TOO SMALL — REFRAME",
+        "say": "Honestly, that's kind of why it works. When you're running a smaller operation, you don't have the luxury of a dedicated inspector on every single turnover — you're probably the quality control yourself. And one bad review hits you way harder than it hits a company with 300 doors. The managers your size actually get the most out of it because every single unit matters. Would you be open to seeing what it looks like?",
+        "note": "Small operators always think tech isn't for them. Flip it — they need it MORE because they can't absorb mistakes. Kathy is the inspector, the owner, the ops manager, the customer service team, all in one. RapidEye gives her a second set of eyes.",
+        "branches": [
+          {
+            "label": "That's a good point / okay",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Still not sure",
+            "to": "test_drive_pitch"
+          },
+          {
+            "label": "No thanks",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "objection_send_email": {
+        "label": "SEND ME AN EMAIL",
+        "say": "Totally fair, I'll send something over. One quick question so it's not just another generic pitch — what would actually be useful to see? Is it more about what the AI catches in the photos, or is it more about how it'd work and what it costs for a smaller operation like yours?",
+        "note": "Accept the email request — never fight it. But the question keeps the conversation alive and tells you exactly what she cares about. Use her answer to tailor the email so it actually gets opened.",
+        "branches": [
+          {
+            "label": "Tells you what she wants",
+            "to": "email_tailoring"
+          },
+          {
+            "label": "Just send whatever you have",
+            "to": "email_tailoring"
+          }
+        ]
+      },
+      "email_tailoring": {
+        "label": "TAILOR THE EMAIL",
+        "say": "Got it — I'll put something together specifically for that. And I'll throw in a couple time options in case you want to hop on a quick call after you've looked it over. What's the best email — is info at maui paradise vacations the one that gets to you directly?",
+        "note": "Confirm the email address. info@mauiparadisevacations.com is the only published one — verify it actually reaches Kathy. If she gives a personal email, even better. Include a specific day/time suggestion in the follow-up email.",
+        "branches": [
+          {
+            "label": "Confirms email / gives personal email",
+            "to": "email_confirm_end"
+          },
+          {
+            "label": "Actually, let's just set up a time now",
+            "to": "book_meeting"
+          }
+        ]
+      },
+      "email_confirm_end": {
+        "label": "EMAIL CONFIRMED — CLOSE",
+        "say": "Perfect. I'll get that over to you today. Really appreciate you taking my call, Kathy. Talk soon.",
+        "note": "Send the email within one hour. Include a specific day and time suggestion for a follow-up call. If no reply in 48 hours, follow up with a call. Log everything.",
+        "branches": []
+      },
+      "test_drive_pitch": {
+        "label": "SELL THE TEST DRIVE",
+        "say": "Totally respect that. If nothing else, I could walk you through what other property managers in Maui are doing with their turnover photos right now — some really interesting stuff with everything changing on the island. Worst case you steal some ideas and we part as friends. Would you be open to fifteen minutes this week?",
+        "note": "This is your last real shot at getting a meeting. You're offering genuine value — peer insights from other Maui PMs — not a product demo. 'Steal some ideas and part as friends' is disarming. If she still says no, go to referral.",
+        "branches": [
+          {
+            "label": "Okay, sure",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Send me an email instead",
+            "to": "objection_send_email"
+          },
+          {
+            "label": "No, I'm good",
+            "to": "referral_path"
+          }
+        ]
+      },
+      "book_meeting": {
+        "label": "BOOK THE MEETING",
+        "say": "Awesome. I've got next Tuesday or Thursday pulled up — what works better for you? And with the time difference I'm guessing morning your time is best?",
+        "note": "Hawaii is 2-3 hours behind Pacific, 5-6 behind Eastern. Offer specific days. Get it on the calendar NOW — don't leave it open-ended. Send the invite while you're still on the phone if possible.",
+        "branches": [
+          {
+            "label": "Picks a day and time",
+            "to": "meeting_booked"
+          },
+          {
+            "label": "Let me check and get back to you",
+            "to": "meeting_followup"
+          }
+        ]
+      },
+      "meeting_booked": {
+        "label": "MEETING LOCKED — STOP SELLING",
+        "say": "Perfect — I'll send over a calendar invite right now so we're locked in. Really appreciate you taking my call, Kathy. Looking forward to showing you what we've got.",
+        "note": "Send the calendar invite IMMEDIATELY. Do NOT keep pitching — you got the meeting, now get off the phone gracefully. Add her to the prep sequence: confirmation email with brief agenda, reminder day before.",
+        "branches": []
+      },
+      "meeting_followup": {
+        "label": "THEY'LL CHECK AND GET BACK",
+        "say": "Totally — how about I shoot you a quick email with a couple time options and you can just pick one that works? What's the best email for you?",
+        "note": "Don't let this float. Get the email, send options within the hour with two specific time slots. If no response in 48 hours, follow up with a call. This is not a firm meeting yet — treat it as warm but unconfirmed.",
+        "branches": [
+          {
+            "label": "Gives email / confirms",
+            "to": "email_confirm_end"
+          }
+        ]
+      },
+      "referral_path": {
+        "label": "REFERRAL ASK",
+        "say": "Totally understand, no worries at all. Hey, one last thing — you've been in the Kihei market for a long time, you probably know everyone. Do you know any other property managers on the island who might be dealing with this kind of thing? I'd love an intro if anyone comes to mind.",
+        "note": "Kathy has operated in Maui since 1990 — she absolutely knows other PMs. Even if she doesn't buy, a referral to another operator is gold. Don't be pushy — plant the seed casually.",
+        "branches": [
+          {
+            "label": "Gives a name or referral",
+            "to": "referral_received"
+          },
+          {
+            "label": "Can't think of anyone",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "referral_received": {
+        "label": "GOT A REFERRAL",
+        "say": "That's super helpful — I really appreciate that. I'll reach out to them and mention you pointed me their way so it's not totally cold. Thanks again, Kathy. If anything ever changes on your end, I'm easy to find.",
+        "note": "Write down the name, company, and any context she gives immediately. When you call the referral, lead with 'Kathy Blackman over at Paradise Vacations pointed me your way' — that's a warm intro now. Log this as a win even if Kathy didn't convert.",
+        "branches": []
+      },
+      "end_graceful": {
+        "label": "GRACEFUL EXIT",
+        "say": "Totally understand. If anything ever changes, I'm easy to find. Really appreciate your time, Kathy — enjoy the rest of your day.",
+        "note": "Don't burn the bridge. She's been running this business for 35 years and she's not going anywhere. Log the call, note the specific objection, and put her on a 3-6 month revisit cycle. A lot can change with Bill 9 unfolding.",
+        "branches": []
+      }
+    }
+  }
+}

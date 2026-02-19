@@ -1,0 +1,703 @@
+{
+  "name": "Mark Ruda",
+  "title": "Vice President",
+  "company": "Thousand Hills Vacations",
+  "location": "Branson, MO",
+  "phone": "+1-417-336-8242",
+  "company_phone": "877-262-0430",
+  "alt_phones": [],
+  "flow": {
+    "context": "Mark Ruda is VP at Thousand Hills Vacations — a family-run Branson operation managing 300-500+ units across 12 buildings and complexes. He's a licensed P.E. who came from consulting engineering in Kansas City and moved to Branson in 2002 to work the development side. His father Daniel C. Ruda is the owner. They run Streamline as their PMS but have no detected inspection or photo-review platform like Breezeway. Their terms and conditions explicitly reference charging guests for damage and replacements — meaning missed issues cost them real money. Strongest angle: Sam works with other Streamline-based vacation rental operators in the Branson market, and Mark's engineering background will resonate with a systems-level pitch about standardizing quality across hundreds of units.",
+    "start": "opener",
+    "nodes": {
+      "opener": {
+        "label": "OPENER",
+        "say": "Hey Mark — I work with a few other vacation rental operators running Streamline out in the Branson market. It's Sam Parks with RapidEye. Have you heard my name tossed around at all?",
+        "note": "Feet up on the desk energy. You're referencing their actual PMS and their actual market — that's what makes this not sound cold. Don't rush the question at the end, let it land.",
+        "branches": [
+          {
+            "label": "No / Who? / Haven't heard of you",
+            "to": "heard_name_no"
+          },
+          {
+            "label": "Yeah actually / Maybe / Sounds familiar",
+            "to": "heard_name_yes"
+          },
+          {
+            "label": "Bad timing / I'm busy / In the middle of something",
+            "to": "bad_timing"
+          },
+          {
+            "label": "Who is this? / Is this a sales call?",
+            "to": "permission_fallback"
+          }
+        ]
+      },
+      "heard_name_no": {
+        "label": "THEY HAVEN'T HEARD OF YOU",
+        "say": "Ha — I guess I'm not as popular as I thought. Well the reason for my call — I was actually talking to another property manager in your market, pretty similar setup to you guys. They've got a few hundred units, full-service cleaning and maintenance, and the thing they kept running into was that their turnover photos were basically just getting dumped into a folder and nobody had time to actually review them. So stuff was slipping through — a stain on a couch here, a missing set of towels there — and they wouldn't catch it until a guest complained or an owner noticed. With three hundred plus units across twelve buildings, I imagine that's gotta be on your radar too?",
+        "note": "This is the pain trigger. You're describing THEIR world — 300+ units, 12 buildings, cleaning and maintenance. Pause after the question. Let Mark react. Do not jump to the solution yet.",
+        "branches": [
+          {
+            "label": "Yeah that's definitely a challenge / We deal with that",
+            "to": "warm_response"
+          },
+          {
+            "label": "We've got a pretty good process for that",
+            "to": "objection_have_process"
+          },
+          {
+            "label": "Not really our biggest issue right now",
+            "to": "objection_not_interested"
+          },
+          {
+            "label": "I don't really handle that / That's not my area",
+            "to": "referral_ask"
+          }
+        ]
+      },
+      "heard_name_yes": {
+        "label": "THEY'VE HEARD OF YOU",
+        "say": "Oh nice — well normally we'd be working with someone like you. What'd you hear?",
+        "note": "Genuine curiosity. Let them talk. Whatever they say, bridge to discovery questions.",
+        "branches": [
+          {
+            "label": "Tells you what they heard",
+            "to": "warm_response"
+          },
+          {
+            "label": "Vague / Can't remember where",
+            "to": "heard_name_no"
+          }
+        ]
+      },
+      "bad_timing": {
+        "label": "BAD TIMING",
+        "say": "Totally hear you — would it be a terrible idea if I tried you again later this week? Maybe Thursday or Friday?",
+        "note": "Don't over-apologize. Offer a specific window. If they give you a time, write it down and call exactly then.",
+        "branches": [
+          {
+            "label": "Yeah try me Thursday / Give me a time",
+            "to": "book_callback"
+          },
+          {
+            "label": "Just send me an email",
+            "to": "send_email"
+          },
+          {
+            "label": "Not interested / Don't call back",
+            "to": "permission_rejected"
+          }
+        ]
+      },
+      "book_callback": {
+        "label": "CALLBACK LOCKED",
+        "say": "Perfect — I'll try you Thursday. Morning or afternoon work better? Appreciate it, Mark. Talk soon.",
+        "note": "Get a specific time if you can. Mark it in your CRM immediately. When you call back, open with 'Hey Mark, it's Sam — you told me to try you back today.'",
+        "branches": []
+      },
+      "permission_fallback": {
+        "label": "PERMISSION ASK",
+        "say": "Yeah totally — I mean it is a cold call, I'll be honest. Can I get thirty seconds to tell you why I reached out? And you can totally hang up on me if it's not a fit.",
+        "note": "Disarming honesty. Most people will give you 30 seconds because you acknowledged reality. If they say yes, go straight to the pain trigger.",
+        "branches": [
+          {
+            "label": "Sure / Go ahead / Fine, 30 seconds",
+            "to": "heard_name_no"
+          },
+          {
+            "label": "No / Not interested / Take me off your list",
+            "to": "permission_rejected"
+          }
+        ]
+      },
+      "permission_rejected": {
+        "label": "PERMISSION REJECTED — SPLIT",
+        "say": "Shoot, totally my bad. Just so nobody from my team bugs you again — is it that I caught you at a horrible time, or is it more that you already know what we do and it's just not interesting?",
+        "note": "This is a real question, not a trick. If it's timing, you get a callback. If it's disinterest, you exit gracefully or offer one more path. Either way you learn something.",
+        "branches": [
+          {
+            "label": "It's just bad timing",
+            "to": "bad_timing"
+          },
+          {
+            "label": "We're not interested / Don't need it",
+            "to": "end_graceful"
+          },
+          {
+            "label": "I just don't take cold calls",
+            "to": "sell_test_drive_light"
+          }
+        ]
+      },
+      "warm_response": {
+        "label": "THEY'RE WARM — STOP PITCHING, ASK QUESTIONS",
+        "say": "Yeah, that's exactly what I keep hearing. So what does your process look like right now — like when a unit gets turned, how are your teams documenting that everything's good to go?",
+        "note": "They showed interest. DO NOT pitch more. Ask questions. You want to understand their current workflow before you say another word about RapidEye. Mark is an engineer — he'll appreciate a systematic conversation.",
+        "branches": [
+          {
+            "label": "Describes their current process",
+            "to": "discovery_photo_review"
+          },
+          {
+            "label": "We don't really have a formal process",
+            "to": "discovery_no_process"
+          },
+          {
+            "label": "Our cleaners take photos / We use checklists",
+            "to": "discovery_photo_review"
+          },
+          {
+            "label": "That's more of an ops question / Someone else handles that",
+            "to": "referral_ask"
+          }
+        ]
+      },
+      "discovery_photo_review": {
+        "label": "DIG INTO PHOTO REVIEW",
+        "say": "Got it. And when those photos come in — is someone actually reviewing every single one, or is it more of a spot-check kind of thing?",
+        "note": "This is where you expose the gap. Almost nobody reviews every photo across 300+ units. Mark's engineering brain will recognize the quality control hole.",
+        "branches": [
+          {
+            "label": "Spot-check / Nobody reviews them all",
+            "to": "discovery_consequences"
+          },
+          {
+            "label": "We try to review them all but it's hard",
+            "to": "discovery_consequences"
+          },
+          {
+            "label": "We have managers who check each unit",
+            "to": "discovery_scale_pain"
+          }
+        ]
+      },
+      "discovery_no_process": {
+        "label": "NO FORMAL PROCESS",
+        "say": "That's actually really common at your scale. With three hundred plus units you almost can't have a formal process for every turnover — it'd take an army. What's been happening when something gets missed? Like a guest checks in and something's off?",
+        "note": "Normalize it. Then ask about consequences — this is where the pain gets real.",
+        "branches": [
+          {
+            "label": "Describes guest complaints / damage issues",
+            "to": "discovery_consequences"
+          },
+          {
+            "label": "It doesn't happen that often / We're pretty good",
+            "to": "discovery_scale_pain"
+          }
+        ]
+      },
+      "discovery_consequences": {
+        "label": "CONSEQUENCES — LET THEM FEEL IT",
+        "say": "Yeah — and I noticed you guys even have the damage and replacement charges built right into your terms and conditions. So you're already dealing with the fallout of that stuff. How often does it actually come up — charging a guest versus just eating the cost?",
+        "note": "This is dangerously specific — you're referencing their actual T&Cs. It shows you did your homework and makes the pain tangible. Pause and let Mark answer.",
+        "branches": [
+          {
+            "label": "It comes up more than we'd like / We eat costs a lot",
+            "to": "bridge_to_solution"
+          },
+          {
+            "label": "We handle it case by case",
+            "to": "bridge_to_solution"
+          },
+          {
+            "label": "How do you know about our terms?",
+            "to": "explain_research"
+          }
+        ]
+      },
+      "discovery_scale_pain": {
+        "label": "SCALE PAIN",
+        "say": "That's impressive honestly. Out of curiosity — when you went from say a hundred units to three hundred plus across twelve buildings, was the inspection process something you had to basically rebuild? Or did it just kind of scale with you?",
+        "note": "Mark moved to the development side in 2002. He's been through the growth. This question acknowledges his experience while surfacing whether they've outgrown their current approach.",
+        "branches": [
+          {
+            "label": "We had to rebuild it / It's been a challenge scaling",
+            "to": "bridge_to_solution"
+          },
+          {
+            "label": "It scaled okay / We've got good people",
+            "to": "bridge_to_solution"
+          }
+        ]
+      },
+      "explain_research": {
+        "label": "EXPLAIN HOW YOU KNOW",
+        "say": "Ha — yeah, I did a bit of homework before calling. I always try to understand the operation before I reach out so I'm not wasting your time with something generic. But that's actually the core of what we do — we help property managers catch stuff in the photos they're already taking, before it becomes a guest complaint or a charge you can't recover.",
+        "note": "Turn transparency into credibility. Then bridge right to the solution.",
+        "branches": [
+          {
+            "label": "Okay, tell me more",
+            "to": "one_sentence_solution"
+          },
+          {
+            "label": "That's interesting / How does it work?",
+            "to": "one_sentence_solution"
+          }
+        ]
+      },
+      "bridge_to_solution": {
+        "label": "BRIDGE TO SOLUTION",
+        "say": "So here's the reason I called you specifically. We built an AI that plugs into Streamline — which I know you guys are running — and it automatically reviews the turnover photos your teams are already taking. It flags damage, missing items, staging issues — basically does what a perfect inspector would do on every single unit, every single turn. No workflow change on your end.",
+        "note": "One-sentence solution. You named their PMS. You said no workflow change. Now PAUSE. Let Mark process it. His engineering brain is going to want to understand how it works — that's your invitation to book the meeting.",
+        "branches": [
+          {
+            "label": "That's interesting / How does that work exactly?",
+            "to": "cta_meeting"
+          },
+          {
+            "label": "What does that cost?",
+            "to": "defer_price"
+          },
+          {
+            "label": "We're not really looking for new tools right now",
+            "to": "objection_not_interested"
+          },
+          {
+            "label": "We don't really have budget for that",
+            "to": "objection_no_budget"
+          }
+        ]
+      },
+      "one_sentence_solution": {
+        "label": "ONE-SENTENCE SOLUTION",
+        "say": "We built an AI that plugs into your existing Streamline setup and automatically reviews turnover photos. It catches damage, missing items, staging issues — gives you a perfect inspection on every unit, every turn, without adding any work for your team.",
+        "note": "Keep it tight. One breath. Then go to the CTA.",
+        "branches": [
+          {
+            "label": "That sounds useful / Tell me more",
+            "to": "cta_meeting"
+          },
+          {
+            "label": "How much does it cost?",
+            "to": "defer_price"
+          },
+          {
+            "label": "We're fine with what we have",
+            "to": "objection_have_process"
+          }
+        ]
+      },
+      "cta_meeting": {
+        "label": "LOW-FRICTION CTA",
+        "say": "Would you be open to taking a look at it when I'm not cold calling you out of the blue? I could show you what it actually catches — we've got some pretty wild before-and-after examples from other Streamline operators. Worst case you steal some ideas for your own QC process and we part as friends.",
+        "note": "You're selling the meeting, not the product. 'Worst case you steal some ideas' removes the pressure. If he says yes, lock it in NOW.",
+        "branches": [
+          {
+            "label": "Yeah sure / I'd be open to that",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Send me something first",
+            "to": "send_email"
+          },
+          {
+            "label": "I'd need to loop in someone else",
+            "to": "referral_ask"
+          },
+          {
+            "label": "Not right now / Maybe later",
+            "to": "sell_test_drive"
+          }
+        ]
+      },
+      "book_meeting": {
+        "label": "BOOK THE MEETING",
+        "say": "Perfect. I've got next Tuesday and Wednesday open — does one of those work better for you? I only need about twenty minutes.",
+        "note": "Pick a specific day. Don't say 'when works for you' — too open-ended. Lock the day, then the time. Send the invite WHILE ON THE PHONE.",
+        "branches": [
+          {
+            "label": "Gives a day/time",
+            "to": "meeting_booked"
+          },
+          {
+            "label": "Let me check my calendar / I'll get back to you",
+            "to": "pin_down_meeting"
+          }
+        ]
+      },
+      "pin_down_meeting": {
+        "label": "PIN DOWN THE MEETING",
+        "say": "Totally — how about I shoot you the invite for Tuesday at ten and you can adjust if that doesn't work? That way it's on the calendar and we don't have to play phone tag.",
+        "note": "Anchor to a specific time. It's easier to move a meeting than to schedule one from scratch.",
+        "branches": [
+          {
+            "label": "Yeah that works / Sure send it over",
+            "to": "meeting_booked"
+          },
+          {
+            "label": "Just email me and we'll figure it out",
+            "to": "send_email"
+          }
+        ]
+      },
+      "meeting_booked": {
+        "label": "MEETING LOCKED",
+        "say": "Awesome — sending that over right now. Really appreciate you taking my call, Mark. Talk to you then.",
+        "note": "STOP SELLING. The meeting is booked. Send the calendar invite immediately. Keep it short and warm. Do not add new information.",
+        "branches": []
+      },
+      "defer_price": {
+        "label": "DEFER PRICE",
+        "say": "Good question — it depends on unit count and volume, but honestly I don't want to throw a number at you without understanding your setup first. The operators I work with typically spend less on us than what one missed damage claim costs them. Would it make sense to hop on a quick call where I can walk you through the math based on your actual numbers?",
+        "note": "Don't give a price on a cold call. Bridge the price question into a meeting. The 'less than one missed damage claim' line resonates because they already charge for damage — it's literally in their T&Cs.",
+        "branches": [
+          {
+            "label": "Yeah that makes sense / Sure",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Just ballpark me",
+            "to": "defer_price_again"
+          },
+          {
+            "label": "We're not really in a buying position",
+            "to": "objection_no_budget"
+          }
+        ]
+      },
+      "defer_price_again": {
+        "label": "HOLD ON PRICE",
+        "say": "I hear you — I just don't want to give you a number that's wrong and have you write us off over it. Most operators at your scale are in the few-hundred-a-month range, but it really depends on how many units you'd want to run through it. Easiest thing would be twenty minutes where I show you what it does and we talk real numbers. Would that be worth a look?",
+        "note": "Give a vague range if pushed but keep steering to the meeting. The goal is to get face time, not close on the phone.",
+        "branches": [
+          {
+            "label": "Okay sure / Set it up",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Send me info first",
+            "to": "send_email"
+          },
+          {
+            "label": "Not right now",
+            "to": "sell_test_drive"
+          }
+        ]
+      },
+      "objection_no_budget": {
+        "label": "NO BUDGET OBJECTION",
+        "say": "Totally get it. Nowadays it's harder to keep a tool than it is to buy something new — especially running a seasonal market like Branson.",
+        "note": "Agree first. Reference their market being seasonal. Then pause — let the agreement land before you split the objection.",
+        "branches": [
+          {
+            "label": "Prospect pauses / Listens",
+            "to": "split_budget"
+          }
+        ]
+      },
+      "split_budget": {
+        "label": "SPLIT BUDGET OBJECTION",
+        "say": "Just so nobody from my team cold calls you again — is it that budget for this cycle is completely locked down, or is it more that anything new has to go through a gauntlet to get approved?",
+        "note": "You're splitting the objection into two paths. If it's timing, you can revisit. If it's process, you can help them build the case. Either way you learn something real.",
+        "branches": [
+          {
+            "label": "Budget is locked / End of cycle",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "Everything goes through approval / It's complicated",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "It's both honestly",
+            "to": "sell_test_drive"
+          }
+        ]
+      },
+      "objection_not_interested": {
+        "label": "NOT INTERESTED OBJECTION",
+        "say": "I totally get it. I should've assumed you'd be all set — otherwise you probably would've reached out to us.",
+        "note": "Agree and lower their defenses. Then split it. This is a reaction to the interruption, not a rejection of the product.",
+        "branches": [
+          {
+            "label": "Prospect pauses / Listens",
+            "to": "split_interest"
+          }
+        ]
+      },
+      "split_interest": {
+        "label": "SPLIT INTEREST OBJECTION",
+        "say": "Just so I know and nobody bugs you again — is it that inspection quality isn't really a problem you're focused on, or is it more that you just hate cold calls? I wouldn't blame you either way.",
+        "note": "If it's about the problem not being relevant, pivot to what IS on their mind. If it's about cold calls, offer a low-pressure alternative.",
+        "branches": [
+          {
+            "label": "Inspections aren't our biggest issue",
+            "to": "pivot_to_priority"
+          },
+          {
+            "label": "I just don't like cold calls / Not the right time",
+            "to": "sell_test_drive_light"
+          },
+          {
+            "label": "We've got it handled",
+            "to": "objection_have_process"
+          }
+        ]
+      },
+      "pivot_to_priority": {
+        "label": "PIVOT TO THEIR PRIORITY",
+        "say": "Totally fair. What is the biggest thing on your plate heading into the season? I'm curious because a lot of the operators I talk to in Branson are thinking about the same two or three things right now.",
+        "note": "If inspections aren't the priority, find out what is. You might discover a pain point that maps back to RapidEye, or you might learn something valuable for the next call.",
+        "branches": [
+          {
+            "label": "Shares a different priority or challenge",
+            "to": "listen_and_bridge"
+          },
+          {
+            "label": "I really don't have time for this",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "listen_and_bridge": {
+        "label": "LISTEN AND BRIDGE",
+        "say": "That makes sense. Honestly, a lot of what we do ties into that — the turnover data we generate actually helps with owner reporting, damage recovery, even insurance claims. But I don't want to stretch this call. Would you be open to a twenty-minute look at some point? Even if it's just to see what other operators your size are doing?",
+        "note": "Whatever they said, try to connect it back. If you can't connect it naturally, don't force it — go to CTA or end gracefully.",
+        "branches": [
+          {
+            "label": "Sure / Maybe",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Not right now",
+            "to": "send_email"
+          },
+          {
+            "label": "No thanks",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "objection_have_process": {
+        "label": "THEY HAVE A PROCESS",
+        "say": "That makes total sense — with three hundred plus units you'd have to have something in place. You'd be in trouble if you didn't.",
+        "note": "Validate. Then split. They don't have Breezeway or Matterport detected — so their process is probably manual or ad hoc. You want to find out what it actually is.",
+        "branches": [
+          {
+            "label": "Prospect pauses / Listens",
+            "to": "split_vendor"
+          }
+        ]
+      },
+      "split_vendor": {
+        "label": "SPLIT VENDOR/PROCESS OBJECTION",
+        "say": "Just out of curiosity — is it that you're fully covered and happy with how the inspection side works, or is it more that switching anything right now would just be a headache? Because we actually don't replace anything — we layer on top of whatever you're already doing.",
+        "note": "The 'layer on top' framing is key. RapidEye doesn't replace their process — it analyzes photos they're already taking. This removes the switching cost objection entirely.",
+        "branches": [
+          {
+            "label": "We're happy with what we have",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "It's more that we don't want to change anything",
+            "to": "no_workflow_change"
+          },
+          {
+            "label": "What do you mean layer on top?",
+            "to": "no_workflow_change"
+          }
+        ]
+      },
+      "no_workflow_change": {
+        "label": "NO WORKFLOW CHANGE ANGLE",
+        "say": "Yeah so that's the thing — your cleaners and inspectors are already taking photos during turnovers, right? We just analyze those photos automatically. Same workflow, same tools, same Streamline setup. We just catch the stuff that would normally slip through because nobody has time to review every photo on every unit on every turn. Zero change on your team's end.",
+        "note": "This is your strongest technical angle with an engineer. No disruption. Same data, better analysis. Mark will appreciate the systems elegance of it.",
+        "branches": [
+          {
+            "label": "That's interesting / How does it plug in?",
+            "to": "cta_meeting"
+          },
+          {
+            "label": "I'd need to think about it",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "Who else is using this?",
+            "to": "social_proof"
+          }
+        ]
+      },
+      "social_proof": {
+        "label": "SOCIAL PROOF",
+        "say": "We're working with a property manager in New York running about two hundred luxury homes, another group on the East Coast with about six hundred properties, and a company in Dubai. And we're talking to a couple other operators in the Branson market right now actually. The common thread is they've all got volume — hundreds of units, tons of turnover photos, not enough eyeballs to catch everything.",
+        "note": "Name the scale, not the companies. 'Couple other operators in Branson' creates urgency without naming competitors. Mark will wonder who.",
+        "branches": [
+          {
+            "label": "Interesting / Makes sense",
+            "to": "cta_meeting"
+          },
+          {
+            "label": "Who in Branson?",
+            "to": "deflect_names"
+          }
+        ]
+      },
+      "deflect_names": {
+        "label": "DEFLECT COMPETITOR NAMES",
+        "say": "Ha — I can't name names, but they're operators you'd definitely know. Similar scale, similar setup. The way I see it, the first operator in a market to plug this in has a real advantage over the ones still doing it manually. Would it be worth twenty minutes to see what it looks like?",
+        "note": "Create competitive urgency without being dishonest. You ARE researching operators in Branson — the market research covers them. Then pivot to CTA.",
+        "branches": [
+          {
+            "label": "Sure / I'd take a look",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Send me something",
+            "to": "send_email"
+          },
+          {
+            "label": "Not right now",
+            "to": "sell_test_drive"
+          }
+        ]
+      },
+      "sell_test_drive": {
+        "label": "SELL THE TEST DRIVE",
+        "say": "Look, you're probably not buying anything right now, and I totally respect that. But when budget does free up — or when peak season hits and your teams are slammed with turnovers — the people who move fastest are the ones who already know what's on their list. Would you be open to just taking a look? Not committing to anything — just so you know what's out there?",
+        "note": "Future-frame it. Remove all pressure. You're planting a seed. If he says yes, book it immediately. If no, offer the email path.",
+        "branches": [
+          {
+            "label": "Yeah I could do that",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Just send me info",
+            "to": "send_email"
+          },
+          {
+            "label": "No, not right now",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "sell_test_drive_light": {
+        "label": "LIGHTWEIGHT TEST DRIVE OFFER",
+        "say": "Totally fair. Look — if nothing else, I could send you a quick breakdown of what other property managers in Branson are doing with their turnover photos. No pitch, just what I'm seeing in the market. Worst case you get some intel and we leave it there. Would that be worth an email?",
+        "note": "This is your softest offer. You're giving value with no strings. If they say yes, you have an email thread open.",
+        "branches": [
+          {
+            "label": "Sure send it over",
+            "to": "send_email"
+          },
+          {
+            "label": "No thanks",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "send_email": {
+        "label": "SEND ME AN EMAIL",
+        "say": "Totally fair. One question before I do — what would be most relevant to include so it's not just another generic pitch? Like are you more focused on the damage and recovery side, or is it more about quality control and guest readiness across all your buildings?",
+        "note": "Don't just say okay. Ask what to include. This tells you what they care about AND makes them more likely to open the email. Send it within the hour.",
+        "branches": [
+          {
+            "label": "Gives a preference / Tells you what matters",
+            "to": "confirm_email_send"
+          },
+          {
+            "label": "Just send whatever",
+            "to": "confirm_email_send"
+          }
+        ]
+      },
+      "confirm_email_send": {
+        "label": "CONFIRM EMAIL DETAILS",
+        "say": "Got it — I'll send that over today. Is mruda at bransonusarealty the best email, or do you have a different one you'd prefer?",
+        "note": "Confirm the email. You have mruda@bransonusarealty.com from research. Suggesting it shows you did homework without being creepy. Include a specific follow-up time suggestion in the email.",
+        "branches": [
+          {
+            "label": "That works / Gives an email address",
+            "to": "email_confirmed"
+          }
+        ]
+      },
+      "email_confirmed": {
+        "label": "EMAIL CONFIRMED — WRAP",
+        "say": "Perfect. I'll get that to you today and follow up later this week. Appreciate your time, Mark.",
+        "note": "Send the email within 30 minutes. Include something specific from this conversation. Suggest a 20-minute call time in the email. Follow up in 3-4 days if no reply.",
+        "branches": []
+      },
+      "referral_ask": {
+        "label": "REFERRAL — WHO HANDLES THIS?",
+        "say": "Totally makes sense. Who on your team would be the best person to talk to about inspection and turnover workflows? Like who's in the weeds on that day-to-day?",
+        "note": "Mark is VP and may delegate ops. You want a name, not a department. If he says 'our GM' or 'operations,' push for the actual name. Dave Wertz is listed as General Manager — if Mark gives that name, you have a warm referral.",
+        "branches": [
+          {
+            "label": "Gives a specific name",
+            "to": "get_referral_details"
+          },
+          {
+            "label": "Dave / Our general manager handles that",
+            "to": "get_referral_details"
+          },
+          {
+            "label": "You'd probably want to talk to my dad / Daniel about it",
+            "to": "daniel_referral"
+          },
+          {
+            "label": "Just call our management office",
+            "to": "get_referral_details"
+          }
+        ]
+      },
+      "get_referral_details": {
+        "label": "GET REFERRAL NAME AND NUMBER",
+        "say": "Perfect. And what's the best way to reach them? If I can get a number or email I'll put something tailored together so it actually lands — and I'll mention you pointed me their way.",
+        "note": "Always ask permission to use Mark's name. It turns the next call from cold to warm. Get a direct number if possible.",
+        "branches": [
+          {
+            "label": "Gives contact info",
+            "to": "referral_confirmed"
+          },
+          {
+            "label": "Just call our main office number",
+            "to": "referral_confirmed"
+          }
+        ]
+      },
+      "daniel_referral": {
+        "label": "REFERRAL TO DANIEL — OWNER",
+        "say": "Oh perfect — would it make sense for me to reach out to Daniel directly? I'd love to put something together that's specific to your setup. Would he be open to a quick call if I mention you pointed me his way?",
+        "note": "Daniel C. Ruda is the owner and Mark's father. This is the golden referral. If Mark okays it, your next call to Daniel is essentially warm. You have Daniel's email: druda@thousandhills.com and phone: 877-262-0430.",
+        "branches": [
+          {
+            "label": "Yeah you can reach out to him / Here's his info",
+            "to": "referral_confirmed"
+          },
+          {
+            "label": "Let me talk to him first",
+            "to": "referral_pending"
+          }
+        ]
+      },
+      "referral_confirmed": {
+        "label": "REFERRAL LOCKED",
+        "say": "Really appreciate that, Mark. I'll reach out to them this week and mention you sent me. Thanks for your time — and if anything comes up on your end, I'm easy to find.",
+        "note": "You have a warm referral. Call the referred person within 24 hours. Open with 'Mark Ruda pointed me your way.' Send Mark a quick thank-you email too.",
+        "branches": []
+      },
+      "referral_pending": {
+        "label": "REFERRAL PENDING",
+        "say": "Totally fair. How about I send you a quick overview you can forward to him? That way he's got context before I call and it's not coming out of left field.",
+        "note": "If Mark wants to talk to Daniel first, give him ammunition. Send a clean one-pager he can forward. Follow up in 3-4 days.",
+        "branches": [
+          {
+            "label": "Sure send it to me",
+            "to": "confirm_email_send"
+          },
+          {
+            "label": "I'll let you know",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "end_graceful": {
+        "label": "END GRACEFULLY",
+        "say": "Totally understand. If anything changes — or when peak season gets crazy and you're looking for a better way to handle turnovers — I'm easy to find. Appreciate your time, Mark.",
+        "note": "Don't burn the bridge. Mark is VP of a 500-unit family operation in a market you're actively working. Even a no today is a relationship for later. Log the call, note everything you learned, and revisit in 60-90 days.",
+        "branches": []
+      }
+    }
+  }
+}

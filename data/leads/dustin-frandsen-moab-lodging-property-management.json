@@ -7,649 +7,468 @@
   "company_phone": "+1-800-505-5343",
   "alt_phones": [],
   "flow": {
-    "context": "Dustin Frandsen is GM and Partner at Moab Lodging & Property Management — he's run this 230+ unit vacation rental company in Moab, UT since 2012. He personally led their migration to LMPM software in January 2022 and wrote a glowing testimonial about the onboarding, meaning he's tech-forward, hands-on, and values partners who make setup easy. Recent guest reviews praise their maintenance team (a guy named Carlos) but flag inventory issues like worn cookware slipping through turnovers — exactly what RapidEye catches. No direct personal connection to Sam, so lead with industry proximity in the outdoor adventure vacation rental market.",
-    "start": "gatekeeper_or_direct",
+    "context": "Calling Dustin Frandsen — GM and Partner at Moab Lodging & Property Management, the oldest and largest PM company in Moab, UT, managing 230+ units. He merged his own company into MPM in 2012 and personally led their migration to LMPM software in January 2022 — tech-forward, values easy onboarding and responsive support. Runs lean with roughly 10 staff for 230-plus units, and a recent October 2024 guest review praises maintenance guy Carlos but flags inventory issues like worn cookware slipping past turnovers. He is an owner-partner with equity in the business, not just a hired manager. Strongest angle: Sam works with similar-sized PM companies in high-turnover vacation markets and both operate in the outdoor adventure economy.",
+    "start": "call_start",
     "nodes": {
-      "gatekeeper_or_direct": {
-        "label": "FIRST CONTACT",
-        "say": "Hey, could you get me through to Dustin? It's Sam.",
-        "note": "If Dustin answers directly, jump to opener. If front desk or another person answers, stay here. Keep it short — sound like you belong.",
+      "call_start": {
+        "label": "DIAL",
+        "say": "Calling Dustin Frandsen — 435-633-7033.",
+        "note": "This is his cell. If using the office line (435-259-5955) and someone else answers, use the gatekeeper branch. Read context above. Take a breath.",
         "branches": [
           {
-            "label": "Dustin answers directly",
+            "label": "Dustin answers",
             "to": "opener"
           },
           {
-            "label": "Someone else answers and puts you through",
-            "to": "opener"
-          },
-          {
-            "label": "They ask who's calling or what it's about",
-            "to": "gatekeeper_context"
-          },
-          {
-            "label": "Dustin not available or voicemail",
+            "label": "Voicemail",
             "to": "voicemail"
+          },
+          {
+            "label": "Someone else answers",
+            "to": "gatekeeper"
           }
         ]
-      },
-      "gatekeeper_context": {
-        "label": "GATEKEEPER — CONTEXT",
-        "say": "Yeah, I work with a few other vacation rental managers in the area. Would you mind letting Dustin know it's Sam Parks?",
-        "note": "Don't pitch. Don't explain RapidEye. Dose info bit by bit. End with a redirect question — you ask, you control.",
-        "branches": [
-          {
-            "label": "Puts you through",
-            "to": "opener"
-          },
-          {
-            "label": "Asks for more detail or what company",
-            "to": "gatekeeper_social_proof"
-          },
-          {
-            "label": "Says he's unavailable",
-            "to": "voicemail"
-          }
-        ]
-      },
-      "gatekeeper_social_proof": {
-        "label": "GATEKEEPER — SOCIAL PROOF",
-        "say": "Sure — it's Sam Parks with RapidEye. We help a couple property management companies with their inspection workflows. I sent Dustin a note — would you mind giving him a heads up?",
-        "note": "Last attempt. If blocked, don't fight it. Get a callback time or try Dustin's cell at 435-633-7033.",
-        "branches": [
-          {
-            "label": "Puts you through",
-            "to": "opener"
-          },
-          {
-            "label": "Still blocked or take a message",
-            "to": "voicemail"
-          }
-        ]
-      },
-      "voicemail": {
-        "label": "VOICEMAIL OR NOT AVAILABLE",
-        "say": "No worries — when's a good time to try him again? Great, I'll try back then. Thanks for your help.",
-        "note": "Do NOT leave a voicemail on first attempt. Try Dustin's cell directly at 435-633-7033. If that also misses, try again tomorrow. On second miss, leave a short VM: Hey Dustin, it's Sam Parks — I work with a few vacation rental managers in markets like Moab. Give me a ring when you get a sec. Then leave your number.",
-        "branches": []
       },
       "opener": {
         "label": "OPENER",
-        "say": "Hey Dustin — I work with a few other vacation rental companies in adventure markets similar to Moab. It's Sam Parks over at RapidEye. Have you heard my name tossed around at all?",
-        "note": "Sound like you're calling a referral. Relaxed. Feet up on the desk. Not chipper, not salesy. Pause and let him respond.",
+        "say": "Hey Dustin — I've been working with a few other vacation rental managers in high-turnover markets like Moab. This is Sam Parks with RapidEye. Have you heard my name tossed around at all?",
+        "note": "Feet up on the desk. Relaxed. You are a peer in his industry, not a telemarketer. Smile while you say it. Let the question hang.",
         "branches": [
           {
-            "label": "No, who? Doesn't ring a bell",
-            "to": "heard_no"
-          },
-          {
-            "label": "Yeah, maybe, sounds familiar",
+            "label": "\"Yeah\" / \"I think so\"",
             "to": "heard_yes"
           },
           {
-            "label": "Bad timing, I'm busy, in the middle of something",
+            "label": "\"No\" / \"Can't say I have\"",
+            "to": "heard_no"
+          },
+          {
+            "label": "\"I'm busy\" / bad timing",
             "to": "bad_timing"
           },
           {
-            "label": "What is this about? Are you selling something?",
-            "to": "immediate_pushback"
-          }
-        ]
-      },
-      "heard_no": {
-        "label": "HEARD NO — PAIN TRIGGER",
-        "say": "Ha — I guess I'm not as popular as I thought. Well the reason for my call — I was actually talking to another property manager running about two hundred units in an adventure market, pretty similar setup to you guys. Great maintenance crew, guests loved them. But they kept running into this thing where small stuff — worn-out cookware, a missing item here, a staging issue there — would slip through turnovers and end up in guest reviews. Their maintenance guy was basically doing laps swapping out frying pans instead of handling real repairs. And the owners would see a three-star review and call asking why nobody caught it before check-in.",
-        "note": "This is the PAIN TRIGGER. Go slow. Be vivid. Let the story breathe. After you finish, PAUSE. Let him react. Do NOT rush into the solution. Silence is your friend here.",
-        "branches": [
-          {
-            "label": "Yeah, that sounds familiar, we deal with that",
-            "to": "pain_positive"
-          },
-          {
-            "label": "Hmm okay, listening but noncommittal",
-            "to": "pain_neutral"
-          },
-          {
-            "label": "Not really our issue, we handle that fine",
-            "to": "objection_have_process"
-          },
-          {
-            "label": "I don't have time for this, not interested",
-            "to": "objection_not_interested"
+            "label": "\"What is this?\" / suspicious",
+            "to": "permission_fallback"
           }
         ]
       },
       "heard_yes": {
         "label": "HEARD YES",
-        "say": "Oh nice — well normally we'd be working with someone like you. What did you hear?",
-        "note": "Rare but great. Let him talk. Whatever he says, steer toward discovery. If he's vague, he might be being polite — transition to pain trigger.",
+        "say": "Oh nice — well typically we'd be working with someone in your shoes on the inspection side. What'd you hear?",
+        "note": "Rare on a cold call but great if it happens. Let him talk. Whatever he says, bridge naturally into the pain trigger.",
         "branches": [
           {
-            "label": "Shares what they heard or asks questions",
-            "to": "discovery"
+            "label": "Shares something / curious",
+            "to": "pain_trigger"
           },
           {
-            "label": "Vague, just the name, not sure",
-            "to": "heard_no"
+            "label": "Confused / thinking of someone else",
+            "to": "pain_trigger"
+          }
+        ]
+      },
+      "heard_no": {
+        "label": "HEARD NO",
+        "say": "Ha — guess I'm not as popular as I thought. Well the reason for my call —",
+        "note": "Keep the energy light. No pause here — transition straight into the pain trigger without waiting for permission.",
+        "branches": [
+          {
+            "label": "Listening / quiet",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "Pushback / \"is this a sales call?\"",
+            "to": "permission_fallback"
           }
         ]
       },
       "bad_timing": {
         "label": "BAD TIMING",
-        "say": "Totally hear you — would it be a terrible idea if I tried you again tomorrow afternoon? Or is later this week better?",
-        "note": "Give two options. Lock in a specific day and time. When you call back, open with Hey Dustin, Sam Parks — we talked briefly the other day, you said to try you back.",
+        "say": "Totally hear you — would it be a terrible idea if I tried you again tomorrow morning? Or is later this week better?",
+        "note": "Be respectful. Offer two specific windows. Do not pitch. Just lock a callback time.",
         "branches": [
           {
-            "label": "Gives a time, sure try me tomorrow",
-            "to": "reschedule"
+            "label": "Gives a time",
+            "to": "bad_timing_locked"
           },
           {
-            "label": "Just send me an email",
-            "to": "send_email"
+            "label": "\"Don't call back\"",
+            "to": "graceful_exit"
           },
           {
-            "label": "Not interested, don't call back",
-            "to": "permission_rejected"
+            "label": "\"What's this about first?\"",
+            "to": "permission_fallback"
           }
         ]
       },
-      "reschedule": {
-        "label": "RESCHEDULE LOCKED",
-        "say": "Perfect, I've got that down. I'll try you then. Appreciate it, Dustin.",
-        "note": "Write down the exact day and time. Set a reminder. When you call back you have earned permission — open warmer.",
+      "bad_timing_locked": {
+        "label": "CALLBACK LOCKED",
+        "say": "Perfect — I'll try you then. Appreciate it, Dustin.",
+        "note": "Log the callback time in your CRM immediately. Do not add anything else. Hang up clean.",
         "branches": []
       },
-      "immediate_pushback": {
-        "label": "IMMEDIATE PUSHBACK — PERMISSION ASK",
-        "say": "Yeah totally — I mean it is a cold call, I'll be honest. Can I get 30 seconds to tell you why I reached out, and you can totally hang up on me if it's not a fit?",
-        "note": "Disarm with honesty. Thirty seconds is a low ask. You can hang up on me gives them the power, which paradoxically makes them more likely to listen.",
+      "voicemail": {
+        "label": "VOICEMAIL",
+        "say": "Hey Dustin — it's Sam Parks. I work with a few vacation rental managers in markets like Moab on their inspection workflows. Was hoping to run something by you real quick. Gonna try you again in a day or two — but if you want to grab me first, it's [your number]. Again, Sam Parks with RapidEye.",
+        "note": "Under 20 seconds. Casual, not rehearsed. Do not explain the product. Just enough curiosity for a possible callback. Call again in 48 hours.",
+        "branches": []
+      },
+      "gatekeeper": {
+        "label": "GATEKEEPER",
+        "say": "Hey — could you get me through to Dustin? It's Sam.",
+        "note": "First name only. Do not volunteer anything. Sound like you are expected. If they probe, move to the next step.",
         "branches": [
           {
-            "label": "Okay, go ahead, 30 seconds",
-            "to": "heard_no"
+            "label": "Transfers you",
+            "to": "opener"
           },
           {
-            "label": "No, I'm not interested, take me off your list",
+            "label": "\"Who's calling?\" / \"What's this about?\"",
+            "to": "gatekeeper_context"
+          },
+          {
+            "label": "\"He's not available\"",
+            "to": "gatekeeper_social_proof"
+          }
+        ]
+      },
+      "gatekeeper_context": {
+        "label": "GATEKEEPER — CONTEXT",
+        "say": "Yeah — I work with a few other property managers in the area. Would you mind letting him know it's Sam Parks?",
+        "note": "Dose info slowly. Do not pitch. If they still block, escalate to social proof.",
+        "branches": [
+          {
+            "label": "Transfers you",
+            "to": "opener"
+          },
+          {
+            "label": "Still blocking",
+            "to": "gatekeeper_social_proof"
+          }
+        ]
+      },
+      "gatekeeper_social_proof": {
+        "label": "GATEKEEPER — SOCIAL PROOF",
+        "say": "We help a couple other vacation rental companies with their inspection workflows — I sent him a note and just wanted to follow up. Would you mind passing along that Sam Parks called?",
+        "note": "Last attempt. If they offer voicemail, take it. If hard no, exit and try the cell next time.",
+        "branches": [
+          {
+            "label": "Transfers you",
+            "to": "opener"
+          },
+          {
+            "label": "Offers voicemail",
+            "to": "voicemail"
+          },
+          {
+            "label": "Hard no",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "permission_fallback": {
+        "label": "PERMISSION ASK",
+        "say": "Yeah totally — I mean it is a cold call. Can I get 30 seconds to tell you why I reached out, and you can totally hang up on me if it's not a fit?",
+        "note": "Disarm with honesty. The 30-seconds-plus-permission-to-hang-up frame makes it feel low risk. If he grants it, go straight to pain.",
+        "branches": [
+          {
+            "label": "\"Sure\" / \"Go ahead\"",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "\"No\" / \"I'm good\"",
             "to": "permission_rejected"
           }
         ]
       },
       "permission_rejected": {
         "label": "PERMISSION REJECTED",
-        "say": "Shoot, totally my bad. Just so nobody from my team bugs you again — is it that I caught you at a horrible time, or is it that you already know what we do and this just isn't interesting?",
-        "note": "Split the objection. You're not pushing — you're asking WHY so you can either rescue the call or exit clean. Either answer gives you intel.",
+        "say": "Shoot, totally my bad. Just so nobody from my team bugs you again — is it that I caught you at a horrible time, or is it that you already know what we do and it's just not interesting?",
+        "note": "Split the objection into timing versus topic. If timing, you get a callback window. If topic, exit clean and do not push.",
         "branches": [
           {
-            "label": "Bad time, just busy right now",
+            "label": "\"It's the timing\"",
             "to": "bad_timing"
           },
           {
-            "label": "Not interested, don't know and don't care",
+            "label": "\"Not interested\" / topic",
             "to": "graceful_exit"
-          },
-          {
-            "label": "What do you do? Slight curiosity",
-            "to": "heard_no"
           }
         ]
       },
-      "pain_positive": {
-        "label": "PAIN RESONATES — GO TO DISCOVERY",
-        "say": "Yeah, it's one of those things that's really hard to solve with people alone, especially at your scale. Out of curiosity — what does your inspection process look like right now after a turnover? Are your cleaners taking photos, or is it more of a spot-check thing?",
-        "note": "HE'S WARM. Stop pitching immediately. Ask questions. Let him talk. You want to learn: how turnovers work, who reviews photos, what falls through the cracks. Listen for mentions of LMPM, AppFolio, or any inspection tool.",
+      "pain_trigger": {
+        "label": "PAIN TRIGGER",
+        "say": "I was talking to another vacation rental manager running a couple hundred units in a resort town — pretty similar setup to yours. He was saying that even after modernizing their PMS — bookings, trust accounting, all dialed in — the one thing they still couldn't crack was visual quality control on turnovers. Their cleaning team's doing their best, but when a big group checks out and the next guest's arriving that same afternoon — worn-out cookware stays in the kitchen, a scuff on the wall doesn't get flagged, and it ends up in a guest review instead of a maintenance ticket.",
+        "note": "STOP TALKING after maintenance ticket. Count to three in your head. The trust-accounting line mirrors his LMPM migration. The worn-out cookware mirrors the October 2024 guest review about his properties. Let the silence work. Wait for him to react.",
         "branches": [
           {
-            "label": "Describes their process, cleaners take photos",
-            "to": "discovery_process"
+            "label": "Engages / \"Yeah that sounds familiar\"",
+            "to": "discovery_warm"
           },
           {
-            "label": "Mentions LMPM or their tech stack",
-            "to": "discovery_tech"
-          },
-          {
-            "label": "Mentions specific pain — reviews, owner complaints, maintenance",
-            "to": "discovery_pain"
-          },
-          {
-            "label": "Asks what RapidEye does",
-            "to": "solution_position"
-          }
-        ]
-      },
-      "pain_neutral": {
-        "label": "LUKEWARM — SOLUTION BRIDGE",
-        "say": "Yeah, it's kind of one of those invisible problems — everything seems fine until an owner sees a review. So what we built is basically an AI layer that reviews the turnover photos your team's already taking and flags damage, missing items, staging issues — before the guest checks in. Plugs right into your existing workflow, no process change on your end. Would you be open to taking a look at it sometime when I'm not cold calling you out of the blue?",
-        "note": "He's not sold but not opposed. Give the one-sentence solution and the low-friction CTA. Don't oversell. Let the CTA do the work.",
-        "branches": [
-          {
-            "label": "Yeah I'd look at that, sure",
-            "to": "book_meeting"
-          },
-          {
-            "label": "What does that cost, how does it work",
-            "to": "discovery"
-          },
-          {
-            "label": "We're pretty set on that, have a process",
+            "label": "\"We already have a process for that\"",
             "to": "objection_have_process"
           },
           {
-            "label": "Not really a priority right now",
+            "label": "\"Not really interested\"",
             "to": "objection_not_interested"
           },
           {
-            "label": "Just send me something",
-            "to": "send_email"
-          },
-          {
-            "label": "I'm not the right person for that",
-            "to": "referral_ask"
-          }
-        ]
-      },
-      "discovery": {
-        "label": "DISCOVERY — OPEN",
-        "say": "Totally — so just to make sure I'm not wasting your time, what's your biggest operational headache heading into this next season? Is it more on the turnover side, the owner reporting side, or something else entirely?",
-        "note": "Dustin is a GM and Partner — he thinks about the whole business. Let him tell you what matters most. Don't assume. If he mentions growth, quality, tech, owners, or staffing — follow that thread.",
-        "branches": [
-          {
-            "label": "Talks about turnover or cleaning challenges",
-            "to": "discovery_process"
-          },
-          {
-            "label": "Talks about owner relations or reporting",
-            "to": "discovery_pain"
-          },
-          {
-            "label": "Talks about tech or systems",
-            "to": "discovery_tech"
-          },
-          {
-            "label": "Asks what you do or redirects",
-            "to": "solution_position"
-          }
-        ]
-      },
-      "discovery_process": {
-        "label": "DISCOVERY — PROCESS DETAILS",
-        "say": "That makes sense. And with two hundred thirty-plus units, who's actually reviewing those turnover photos? Is it one person, or does it kind of fall on whoever's around?",
-        "note": "You're digging for the bottleneck. With 230+ units and roughly 10 staff, someone is either drowning in photo reviews or nobody is doing it systematically. Either answer is gold for RapidEye.",
-        "branches": [
-          {
-            "label": "One person or small team reviews them",
-            "to": "solution_position"
-          },
-          {
-            "label": "Nobody really reviews them systematically",
-            "to": "solution_position"
-          },
-          {
-            "label": "Mentions LMPM or a tool",
-            "to": "discovery_tech"
-          },
-          {
-            "label": "Asks what we do about it",
-            "to": "solution_position"
-          }
-        ]
-      },
-      "discovery_tech": {
-        "label": "DISCOVERY — TECH STACK",
-        "say": "Oh nice — you guys are on LMPM, right? Yeah, their platform's solid. So you'd already have a lot of the infrastructure in place. How are you handling the inspection side within LMPM — are you using their native tools, or is that more manual?",
-        "note": "You KNOW they use LMPM. Drop it naturally like you've heard it from the market, not like you researched them. If he's surprised you know, say Yeah I've been talking to a few managers on LMPM, it keeps coming up. This builds massive credibility.",
-        "branches": [
-          {
-            "label": "Uses LMPM native tools, some manual",
-            "to": "solution_position"
-          },
-          {
-            "label": "It's mostly manual, spreadsheets, checklists",
-            "to": "solution_position"
-          },
-          {
-            "label": "Talks about wanting to improve it",
-            "to": "solution_position"
-          },
-          {
-            "label": "Asks how RapidEye connects",
-            "to": "solution_position"
-          }
-        ]
-      },
-      "discovery_pain": {
-        "label": "DISCOVERY — SPECIFIC PAIN",
-        "say": "Yeah, that's tough. And is that something that's been getting worse as you've scaled, or has it always been there and you've just been managing around it?",
-        "note": "Let him talk. The more he describes the pain in his own words, the more he sells himself on needing a solution. If he mentions owners seeing reviews, guest complaints, or maintenance running around — those are your hooks for the solution.",
-        "branches": [
-          {
-            "label": "Getting worse, harder to manage",
-            "to": "solution_position"
-          },
-          {
-            "label": "We've managed but it's not ideal",
-            "to": "solution_position"
-          },
-          {
-            "label": "Redirects or doesn't want to go deeper",
-            "to": "solution_position"
-          }
-        ]
-      },
-      "solution_position": {
-        "label": "POSITION RAPIDEYE",
-        "say": "That's exactly why we built this. So RapidEye is basically an AI layer that sits on top of the photos your team's already capturing during turnovers. It automatically flags damage, missing items, staging issues, wear and tear — all before the next guest checks in. No workflow change for your cleaners, no new app to learn. It just reviews what they're already doing and catches the stuff that's physically impossible to catch manually across two hundred thirty units. We're working with a few PM companies now — one managing about two hundred luxury homes — and the big thing they keep saying is it's like having an extra set of eyes on every single unit.",
-        "note": "Keep it brief but specific. Reference the 200 luxury homes for social proof. Don't go into deep technical details unless he asks. Transition to booking.",
-        "branches": [
-          {
-            "label": "That's interesting, tell me more",
-            "to": "book_meeting"
-          },
-          {
-            "label": "How does it actually work, technical questions",
-            "to": "technical_detail"
-          },
-          {
-            "label": "What does it cost",
-            "to": "cost_deflect"
-          },
-          {
-            "label": "We might have something similar, already covered",
-            "to": "objection_have_process"
-          },
-          {
-            "label": "Sounds cool but not right now",
-            "to": "objection_not_interested"
-          },
-          {
-            "label": "Send me info",
+            "label": "\"Just send me something\"",
             "to": "send_email"
           }
         ]
       },
-      "technical_detail": {
-        "label": "TECHNICAL QUESTIONS",
-        "say": "Yeah totally — the short version is your cleaners take photos like they already do, those come to us through your PMS or a simple upload, and our AI compares them against the baseline for that unit. It flags anything off — missing items, new damage, staging errors — and generates a report before check-in. We also have a video walkthrough option where you just walk through the unit with your phone and we do change detection on the whole space. All of that is way easier to show than tell though — would you be open to a quick fifteen-minute walkthrough? I can show you exactly how it'd plug into your LMPM setup.",
-        "note": "He's asking technical questions — great sign. Answer briefly then pivot to booking the demo. Don't get sucked into a 20-minute technical conversation on a cold call. The goal is still the meeting.",
+      "discovery_warm": {
+        "label": "DISCOVERY — PROCESS",
+        "say": "Yeah — so with 230-plus units turning over, how are you guys handling the quality control side right now? Is that mostly on your cleaning crew, or do you have a separate inspection step?",
+        "note": "STOP PITCHING. Ask and listen. If he mentions LMPM, say Oh you are on LMPM? That is solid. If he mentions a maintenance person or Carlos, lean in and ask how big that team is. Take notes on everything.",
         "branches": [
           {
-            "label": "Yeah let's set something up",
-            "to": "book_meeting"
+            "label": "Describes process / shares details",
+            "to": "discovery_deep"
           },
           {
-            "label": "More questions, still evaluating",
-            "to": "cost_deflect"
+            "label": "\"What exactly do you guys do?\"",
+            "to": "solution_and_cta"
           },
           {
-            "label": "Send me info first",
-            "to": "send_email"
+            "label": "Short answers / getting cold",
+            "to": "solution_and_cta"
           }
         ]
       },
-      "cost_deflect": {
-        "label": "COST QUESTION",
-        "say": "Yeah, good question. Honestly it depends a lot on your unit count and how you'd want to roll it out — some companies start with a chunk of their portfolio to test it. I don't want to throw out a number without understanding your setup better. Would it make sense to do a quick fifteen-minute call where I can walk you through it and give you a real quote? No pressure — worst case you see what's out there.",
-        "note": "Never give pricing on a cold call. Deflect to the meeting. If he pushes hard on price, say It's typically a fraction of what a missed damage claim costs you, but I really want to give you an accurate number.",
+      "discovery_deep": {
+        "label": "DISCOVERY — PAIN DIG",
+        "say": "Got it. And when something does slip through — like a guest flags an issue in a review that should've been caught before check-in — how does that usually play out? Does that land on your plate directly, or does your maintenance team just handle it?",
+        "note": "You know from research this happens — worn cookware in the Oct 2024 review, Carlos getting called for avoidable issues. If he shares frustration, mirror his exact language back. If he mentions guest reviews hurting their reputation, that connects to their local-authority brand positioning. Do not reveal you read the review.",
         "branches": [
           {
-            "label": "Okay let's set it up",
+            "label": "Shares real frustration",
+            "to": "solution_and_cta"
+          },
+          {
+            "label": "Downplays / \"it's manageable\"",
+            "to": "solution_and_cta"
+          },
+          {
+            "label": "Clearly ready to see more",
+            "to": "book_meeting"
+          }
+        ]
+      },
+      "solution_and_cta": {
+        "label": "SOLUTION + CTA",
+        "say": "That makes sense. So what we built — RapidEye plugs into the turnover photos your team's already taking and uses AI to automatically flag damage, missing items, cleaning misses — before the next guest checks in. No workflow change for your crew. Would you be open to taking a look sometime when I'm not cold calling you out of the blue?",
+        "note": "Two sentences on the product. One sentence CTA. That is it. Do not demo on the phone. If he asks how it integrates with LMPM, say we can walk through the technical side on a proper call — that is a buying signal, so book the meeting.",
+        "branches": [
+          {
+            "label": "\"Sure\" / open to meeting",
             "to": "book_meeting"
           },
           {
-            "label": "Just ballpark me",
-            "to": "book_meeting"
+            "label": "Asks questions / wants details",
+            "to": "discovery_warm"
           },
           {
-            "label": "Send me info",
+            "label": "Pushes back / \"not right now\"",
+            "to": "objection_reopened"
+          },
+          {
+            "label": "\"Send me an email\"",
             "to": "send_email"
-          },
-          {
-            "label": "Not in the budget",
-            "to": "objection_no_budget"
           }
         ]
       },
       "objection_not_interested": {
         "label": "OBJECTION — NOT INTERESTED",
-        "say": "I totally get it. I should've assumed you'd be all set — otherwise you probably would've reached out to us. Just so nobody from my team cold calls you again — is it that inspection quality just isn't a problem you're focused on right now, or is it more that you just hate cold calls? Because honestly I get it either way.",
-        "note": "Agree first — surprise him. Then split the objection into two easy options that both give you an opening. Don't argue. Don't pitch harder.",
+        "say": "Totally get it. I should've assumed you'd be all set — otherwise you probably would've reached out to us already. Just so no one from my team cold calls you again — is it that inspections just aren't a focus right now, or is it more that you hate getting cold calls?",
+        "note": "Agree first — it surprises them. The split question separates the interruption reaction from actual disinterest. Most people on a cold call are reacting to the interruption, not the topic.",
         "branches": [
           {
-            "label": "Not a priority, other things going on",
-            "to": "test_drive"
+            "label": "\"Hate cold calls\" / softens",
+            "to": "objection_reopened"
           },
           {
-            "label": "Hate cold calls, just not interested",
-            "to": "test_drive_alt"
+            "label": "\"Not a focus\" / gives a reason",
+            "to": "objection_reopened"
           },
           {
-            "label": "Actually what do you do exactly",
-            "to": "heard_no"
-          }
-        ]
-      },
-      "objection_no_budget": {
-        "label": "OBJECTION — NO BUDGET",
-        "say": "Totally get it. Nowadays it's harder to keep a tool, let alone buy something new. Just so I'm not bugging you for no reason — is it that budget for this cycle is completely spoken for, or is it more that anything you try to buy has to clearly pay for itself before you'd pull the trigger?",
-        "note": "Agree then split. Dustin is GM and Partner so he likely IS the approval authority. If budget is locked, pivot to test drive for future planning. If he needs to see ROI first, that's actually an opening — the demo shows ROI.",
-        "branches": [
-          {
-            "label": "Budget is locked, not spending right now",
-            "to": "test_drive"
-          },
-          {
-            "label": "It's more about proving ROI, need to see value first",
-            "to": "test_drive"
-          },
-          {
-            "label": "What does it cost",
-            "to": "cost_deflect"
+            "label": "Hard no / wants off phone",
+            "to": "graceful_exit"
           }
         ]
       },
       "objection_have_process": {
         "label": "OBJECTION — HAVE A PROCESS",
-        "say": "That makes total sense — with two hundred thirty-plus properties you'd have to have something in place. Just so I know — is it that you're fully covered and happy with how it's working, or is it more that switching anything right now would be a headache even if something better existed?",
-        "note": "Agree then split. Nobody managing 230 units is fully covered and happy with inspections. If he says happy, pivot to value offer. If switching is the issue, address onboarding ease — you know he values easy setup from his LMPM testimonial.",
+        "say": "That makes total sense — with 230-plus units you'd have to have something dialed in by now. Just curious — is it that you're fully covered and happy with how it's working, or is it more that changing anything up right now would be a headache?",
+        "note": "He has run this for 12-plus years and invested in LMPM — he has earned the right to feel covered. Respect that. If he says happy, go to value offer. If he says switching is hard, that is your opening — RapidEye layers on top with no rip-and-replace.",
         "branches": [
           {
-            "label": "We're happy with what we have",
+            "label": "\"We're happy\" / fully covered",
             "to": "value_offer"
           },
           {
-            "label": "Switching is a headache, don't want to change",
-            "to": "onboarding_ease"
+            "label": "\"Switching is a pain\" / process concern",
+            "to": "objection_reopened"
           },
           {
-            "label": "What would be different about yours",
-            "to": "solution_position"
+            "label": "Opens up about gaps",
+            "to": "discovery_warm"
           }
         ]
       },
-      "onboarding_ease": {
-        "label": "EASY ONBOARDING PITCH",
-        "say": "Totally hear you — and honestly that's the thing I hear most. Nobody wants another tool that takes three months to set up. The whole point of how we built this is there's zero workflow change for your team. Your cleaners keep taking photos the same way they already do. We just plug in and add the AI review layer on top. Most companies are up and running in a couple days, not months. Would it be worth fifteen minutes to at least see how it'd connect to what you've already got? Worst case you know it's out there if your current process ever starts breaking down.",
-        "note": "You know from Dustin's LMPM testimonial that he VALUES easy onboarding. He praised the LMPM team for staying up until midnight to get his first payment out. Mirror that energy — we handle the setup, no burden on your team. This directly aligns with what he's already proven he cares about.",
+      "objection_no_budget": {
+        "label": "OBJECTION — NO BUDGET",
+        "say": "Totally get it. Running 230 units in a seasonal market like Moab — nowadays it's harder to keep a tool, let alone bring on something new. Is it that budget this cycle is completely locked, or is it more that anything new has to justify itself right out of the gate?",
+        "note": "He is an owner-partner so he likely controls the budget. This might be real or a brush-off. The split tells you which. If budget is truly locked, pivot to value offer and plant the seed for next cycle — spring prep season or post-summer.",
         "branches": [
           {
-            "label": "Okay let's take a look",
-            "to": "book_meeting"
+            "label": "\"Budget is locked\" / firm",
+            "to": "value_offer"
           },
           {
-            "label": "Maybe later, not right now",
-            "to": "test_drive"
+            "label": "\"Has to justify itself\" / softens",
+            "to": "objection_reopened"
           },
           {
-            "label": "Send me info",
-            "to": "send_email"
+            "label": "Hard no",
+            "to": "graceful_exit"
           }
         ]
       },
-      "test_drive": {
+      "objection_reopened": {
         "label": "SELL THE TEST DRIVE",
-        "say": "Totally fair — you're probably not buying anything today and I respect that. But here's what I've seen — when budget does free up or the next season hits and things get crazy again, the managers who already know what's out there are the ones who move fast. Would you be open to just a quick look — not to buy anything, but so it's on your radar? If nothing else I can walk you through what other PM companies in adventure markets are doing with their turnover photos. Worst case you steal some ideas and we part as friends.",
-        "note": "Low pressure. Frame the meeting as intelligence gathering, not a sales pitch. The steal some ideas line works because it makes the meeting valuable even if they never buy.",
+        "say": "That's totally fair. Look — you're probably not buying anything off a cold call today, and I completely respect that. But the managers who move fastest on this stuff are the ones who already know what's on their list before budget opens up. Would you be open to a 15-minute look — no pitch, no pressure — just so it's on your radar?",
+        "note": "Low-commitment test-drive close. If he still says no, go to value offer for one more shot reframed as stealing ideas. After that, accept the no gracefully.",
         "branches": [
           {
-            "label": "Alright sure, that's fair",
+            "label": "\"Sure\" / agrees",
             "to": "book_meeting"
           },
           {
-            "label": "Send me something first",
+            "label": "\"Just send me something\"",
             "to": "send_email"
           },
           {
-            "label": "No not right now",
-            "to": "graceful_exit"
-          }
-        ]
-      },
-      "test_drive_alt": {
-        "label": "HATES COLD CALLS — PIVOT",
-        "say": "Ha — honestly me too. I'd way rather be outside than making these calls. Look I totally get it. Let me just shoot you a quick email with what we're doing — if it's interesting, awesome, if not, no hard feelings and I won't bug you again. What would be most useful to include so it doesn't just read like another generic pitch?",
-        "note": "He hates cold calls. Don't fight it. Pivot to email gracefully. Asking what to include gives you intel and keeps the conversation going for another 30 seconds. The outside comment is a subtle nod to the fact that he lives in Moab — outdoor adventure capital.",
-        "branches": [
-          {
-            "label": "Gives direction, tells you what to send",
-            "to": "send_email_close"
-          },
-          {
-            "label": "Just send whatever, general info",
-            "to": "send_email_close"
-          },
-          {
-            "label": "Don't bother, not interested",
-            "to": "graceful_exit"
+            "label": "Still no",
+            "to": "value_offer"
           }
         ]
       },
       "value_offer": {
-        "label": "VALUE OFFER — MARKET INSIGHTS",
-        "say": "I hear you. Look — if nothing else, I've been talking to a bunch of PM companies in markets like yours, and I've got a pretty good pulse on what's working and what's not when it comes to turnover quality control. Would it be worth a quick fifteen-minute conversation just to trade notes? Worst case you hear what your competitors are doing and we part as friends.",
-        "note": "He says he's happy. Don't argue. Offer value instead — market intelligence. Frame yourself as a peer, not a salesperson. Trade notes implies mutual value.",
+        "label": "VALUE OFFER",
+        "say": "Totally hear you. If nothing else — I could walk you through what a few other PM companies in markets like Moab are doing with their turnover photos and inspection workflows right now. Worst case you steal a few ideas and we part as friends. Would that be worth 15 minutes?",
+        "note": "This reframes the meeting as valuable to him whether he buys or not. Consultative, not salesy. This is your last real swing before send-email or graceful exit. Do not push again after this.",
         "branches": [
           {
-            "label": "Sure that could be useful",
+            "label": "\"Sure\" / \"That could be useful\"",
             "to": "book_meeting"
           },
           {
-            "label": "Nah I'm good",
-            "to": "graceful_exit"
+            "label": "\"Send me something first\"",
+            "to": "send_email"
           },
           {
-            "label": "Send me info",
+            "label": "No",
+            "to": "graceful_exit"
+          }
+        ]
+      },
+      "book_meeting": {
+        "label": "BOOK THE MEETING",
+        "say": "Awesome. I've got next Tuesday and Thursday pulled up — which one's better for you? Thinking 15 minutes, late morning your time?",
+        "note": "Two specific days. Specific duration. Specific time of day. Lock it NOW. Do not say sometime next week. Send the calendar invite while still on the phone if possible. He is Mountain Time.",
+        "branches": [
+          {
+            "label": "Picks a time",
+            "to": "meeting_booked"
+          },
+          {
+            "label": "\"Neither works\" / suggests different time",
+            "to": "book_meeting_alt"
+          },
+          {
+            "label": "\"Talk to someone on my team\"",
+            "to": "referral"
+          },
+          {
+            "label": "\"No budget right now\" / hesitates",
+            "to": "objection_no_budget"
+          }
+        ]
+      },
+      "book_meeting_alt": {
+        "label": "MEETING — ALT TIME",
+        "say": "No problem — what does your week after next look like? I'm flexible.",
+        "note": "Let him pick. Whatever he says, confirm immediately and move to meeting booked. Do not negotiate — just lock it in.",
+        "branches": [
+          {
+            "label": "Gives a time",
+            "to": "meeting_booked"
+          },
+          {
+            "label": "\"Just email me\" / noncommittal",
             "to": "send_email"
           }
         ]
       },
+      "meeting_booked": {
+        "label": "MEETING BOOKED",
+        "say": "Perfect — I'll send you a calendar invite right now. It'll come from sam@rapideye.ai. Really appreciate you taking my call, Dustin. Talk to you then.",
+        "note": "STOP SELLING. Send the invite immediately. Confirm his email — use dustin@moabpg.com unless he gives a different one. Keep it warm and brief. You are done.",
+        "branches": []
+      },
       "send_email": {
         "label": "SEND ME AN EMAIL",
-        "say": "Totally fair. One question before I do — what would be most relevant to include so it's not just another generic pitch sitting in your inbox? Is it more the technical side of how it works, or more the ROI and what other companies are seeing?",
-        "note": "Accept the email request then ask ONE question. His answer tells you what he cares about — technical versus business case. Include a specific time suggestion in the email for a follow-up call.",
+        "say": "Totally fair. Quick question before I do — what would be most useful to include so it doesn't just end up in the pile? Would it be more helpful to see what it looks like with actual turnover photos, or more the time-and-cost savings side?",
+        "note": "Accept the email request gracefully, then get intel so the email actually gets opened. Whatever he says, confirm and close. Use dustin@moabpg.com unless he gives another address.",
         "branches": [
           {
-            "label": "Gives direction — technical, ROI, etc",
+            "label": "Gives guidance",
             "to": "send_email_close"
           },
           {
-            "label": "Just send whatever, general overview",
+            "label": "\"Just send whatever\" / vague",
             "to": "send_email_close"
-          },
-          {
-            "label": "Actually just tell me now, opens up",
-            "to": "solution_position"
           }
         ]
       },
       "send_email_close": {
         "label": "EMAIL CONFIRMED",
-        "say": "Perfect — I'll put something together and shoot it to you today. Is dustin at moabpg dot com still the best one? Great. And I'll suggest a couple times to connect next week in case you want to dig deeper. Really appreciate your time, Dustin.",
-        "note": "Confirm the email address. His known email is dustin@moabpg.com. Include in the email: personalized note referencing their scale and LMPM setup, one-pager on RapidEye, two specific time slots for a follow-up call. Follow up by phone 2 days after sending.",
+        "say": "Got it — I'll get that over to you today and include a couple times to connect next week in case anything catches your eye. Appreciate your time, Dustin.",
+        "note": "Send within 30 minutes. Reference something specific from this conversation. Include two specific follow-up time options. Subject line should reference Moab or his unit count — not a generic pitch. Follow up by phone in 3 to 5 days if no reply.",
         "branches": []
       },
-      "book_meeting": {
-        "label": "BOOK THE MEETING",
-        "say": "Awesome — let me grab my calendar real quick. I've got next Tuesday and Thursday open in the afternoon. What works better for you?",
-        "note": "Lock it in NOW. Give two specific options. Don't say when works for you — too open. Send the calendar invite while you're still on the phone if possible.",
-        "branches": [
-          {
-            "label": "Picks a time",
-            "to": "confirm_meeting"
-          },
-          {
-            "label": "Suggests a different time",
-            "to": "confirm_meeting"
-          },
-          {
-            "label": "Let me check and get back to you",
-            "to": "confirm_meeting_soft"
-          }
-        ]
-      },
-      "confirm_meeting": {
-        "label": "MEETING CONFIRMED",
-        "say": "Perfect — I've got you down for that. I'll send you a calendar invite right now so it doesn't get lost. It'll be a quick fifteen minutes — I'll show you how it works, you can ask me anything, and if it's not a fit, no hard feelings. Really appreciate you taking my call, Dustin.",
-        "note": "STOP SELLING. The meeting is booked. Confirm the details, send the invite immediately, and get off the phone. Don't give him a reason to reconsider.",
-        "branches": []
-      },
-      "confirm_meeting_soft": {
-        "label": "SOFT MEETING COMMIT",
-        "say": "Totally — tell you what, I'll shoot you a calendar invite for Thursday at two, and if that doesn't work just suggest a different time right in the invite. That way we've got a placeholder and you don't have to think about it. Sound good?",
-        "note": "Don't let him off the hook. Check and get back to you almost never happens. Send the invite with a specific time. The calendar invite creates a commitment. Follow up the day before to confirm.",
-        "branches": [
-          {
-            "label": "Okay send it over",
-            "to": "confirm_meeting"
-          },
-          {
-            "label": "I really need to check first",
-            "to": "send_email_close"
-          }
-        ]
-      },
-      "referral_ask": {
-        "label": "REFERRAL — WHO OWNS INSPECTIONS",
-        "say": "Totally makes sense — who on your team typically handles the turnover and inspection side of things? Is there an ops manager or someone who runs that day to day?",
-        "note": "Dustin is the GM — if he's saying it's not his area, he's either deflecting or there's genuinely someone else who owns operations. With about 10 employees it might be a housekeeping lead or ops coordinator. Get a name.",
+      "referral": {
+        "label": "REFERRAL",
+        "say": "Totally makes sense. Who on your team is closest to the day-to-day turnover and inspection workflow? Just want to make sure I'm reaching the right person so it actually lands.",
+        "note": "Dustin may delegate to an ops manager or head of housekeeping. If he gives a name, get their contact info. If he says that is me, loop back to booking. Do not bring up Andrea Martin — she likely left the company years ago.",
         "branches": [
           {
             "label": "Gives a name",
-            "to": "referral_get_name"
-          },
-          {
-            "label": "That's really me, I handle everything",
-            "to": "pain_neutral"
-          },
-          {
-            "label": "We don't really have someone for that",
-            "to": "pain_neutral"
-          }
-        ]
-      },
-      "referral_get_name": {
-        "label": "REFERRAL — GET THE NAME",
-        "say": "Perfect — and what's the best way to reach them? I want to put something tailored together so it actually lands and doesn't look like spam. Would it help if I mentioned you pointed me their way?",
-        "note": "Get the name AND permission to name-drop Dustin. Can I mention you turns the next call from cold to warm. Ask for email and direct number. Write it all down.",
-        "branches": [
-          {
-            "label": "Gives contact info, says to mention his name",
             "to": "referral_close"
           },
           {
-            "label": "Just call the main office, figure it out",
-            "to": "referral_close"
+            "label": "\"That's me\" / \"I handle it\"",
+            "to": "book_meeting"
+          },
+          {
+            "label": "Doesn't know / vague",
+            "to": "graceful_exit"
           }
         ]
       },
       "referral_close": {
-        "label": "REFERRAL WRAP",
-        "say": "Really appreciate that, Dustin. I'll reach out to them this week. And if anything ever comes up on your end — or if you just want to see what other PM companies in Moab are doing with this stuff — I'm easy to find. Thanks for your time.",
-        "note": "Clean exit. You've got a referral. Follow up with the referred person within 24 hours and open with Dustin Frandsen pointed me your way. Log the referral name in CRM immediately.",
+        "label": "REFERRAL CLOSE",
+        "say": "Perfect — what's the best way to reach them? I'll put something tailored together so it's not just a random cold call for them. Really appreciate the help, Dustin.",
+        "note": "Get name, title, phone or email. Log immediately. When you call the referral, open with Dustin Frandsen suggested I reach out — that turns this into a warm intro.",
         "branches": []
       },
       "graceful_exit": {
         "label": "GRACEFUL EXIT",
-        "say": "Totally understand, Dustin. If anything changes or you ever want to see what other managers in your market are doing with this stuff, I'm easy to find. Appreciate your time.",
-        "note": "Don't burn the bridge. Be genuinely warm. Log as not now in CRM, not never. Set a follow-up task for 90 days. Dustin has been in Moab for 12-plus years — he's not going anywhere. You'll get another shot.",
+        "say": "Totally understand. If anything changes, I'm easy to find — Sam Parks at RapidEye. Appreciate your time, Dustin.",
+        "note": "Do not burn the bridge. Stay warm. Log the outcome and set a follow-up reminder for 60 to 90 days. Spring prep season in Moab starts around February — that may be a better window.",
         "branches": []
       }
     }

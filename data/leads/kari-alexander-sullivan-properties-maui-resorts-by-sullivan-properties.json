@@ -1,0 +1,631 @@
+{
+  "name": "Kari Alexander",
+  "title": "Accounting / Operations Manager",
+  "company": "Sullivan Properties / Maui Resorts by Sullivan Properties",
+  "location": "Scottsdale, AZ is already on the list. Let me provide the next best option:\\n\\nMaui, HI",
+  "phone": "+1-808-669-0423",
+  "company_phone": "+1-800-332-1137",
+  "alt_phones": [],
+  "flow": {
+    "context": "Calling Kari Alexander, Accounting & Operations Manager at Maui Resorts by Sullivan Properties — a family-owned company (est. 1979, 40+ years) managing 75+ vacation rental condos and homes in West Maui. Kari owns the financial and operational side: inspection labor costs, owner damage chargebacks, vendor coordination, and process compliance. They run Escapia PMS and have a dedicated QA Inspector (Evette Green) who physically visits every unit before each guest arrival — meaning high photo volume and high ops rigor. Owner is Patrick Sullivan; Kelly Sullivan Johnson handles marketing and owner relations. Maui's Bill 9 (passed Dec 2025) threatens to phase out roughly 6,200 vacation rentals in West Maui by 2029, intensifying cost control and compliance pressure across the market. Sam's surfing connection to Maui and work with similar coastal property managers is the warmest opener — no direct line was found for Kari, so we're calling the main office at (808) 669-0423 and asking for her.",
+    "start": "call_connects",
+    "nodes": {
+      "call_connects": {
+        "label": "CALL CONNECTS",
+        "say": "",
+        "note": "Phone is ringing. Listen for who picks up. If Kari answers directly, go to opener. If someone else answers (front desk, receptionist), go to gatekeeper. If voicemail, leave a message.",
+        "branches": [
+          {
+            "label": "Kari answers directly",
+            "to": "opener"
+          },
+          {
+            "label": "Someone else answers",
+            "to": "gatekeeper_slide"
+          },
+          {
+            "label": "Goes to voicemail",
+            "to": "voicemail"
+          }
+        ]
+      },
+      "gatekeeper_slide": {
+        "label": "GATEKEEPER — SLIDE BY",
+        "say": "Hey — could you get me through to Kari? It's Sam.",
+        "note": "Don't explain anything. Don't pitch. Casual, like you already know her. First name only. If they ask 'Kari who?' say 'Kari Alexander.'",
+        "branches": [
+          {
+            "label": "Puts you through to Kari",
+            "to": "opener"
+          },
+          {
+            "label": "'What's this regarding?'",
+            "to": "gatekeeper_context"
+          },
+          {
+            "label": "'She's not available right now'",
+            "to": "gatekeeper_unavailable"
+          }
+        ]
+      },
+      "gatekeeper_context": {
+        "label": "GATEKEEPER — ADD CONTEXT",
+        "say": "Yeah — I work with a few other property managers out in the islands on their inspection workflows. Would you mind letting her know it's Sam Parks?",
+        "note": "Still casual. Don't say RapidEye. Don't pitch. Just enough context to sound legitimate. End with a redirect question so you stay in control.",
+        "branches": [
+          {
+            "label": "Puts you through",
+            "to": "opener"
+          },
+          {
+            "label": "Still pushing back / wants more info",
+            "to": "gatekeeper_social_proof"
+          },
+          {
+            "label": "She's not available",
+            "to": "gatekeeper_unavailable"
+          }
+        ]
+      },
+      "gatekeeper_social_proof": {
+        "label": "GATEKEEPER — SOCIAL PROOF",
+        "say": "Totally understand. We help a couple other vacation rental companies with their turnover inspection process — I actually sent her a note about it. Would you mind just giving her a heads up that I called?",
+        "note": "Last push. If this doesn't work, don't force it. Get a callback time or take voicemail. Be warm to this person — you may call again.",
+        "branches": [
+          {
+            "label": "Puts you through",
+            "to": "opener"
+          },
+          {
+            "label": "Takes a message or offers voicemail",
+            "to": "gatekeeper_unavailable"
+          }
+        ]
+      },
+      "gatekeeper_unavailable": {
+        "label": "GATEKEEPER — SHE'S UNAVAILABLE",
+        "say": "No worries at all. When's usually a good time to catch her — mornings or afternoons? ... Perfect, I'll try back then. And who am I speaking with, by the way? ... Thanks so much, I appreciate it.",
+        "note": "Get a name and a callback time. Write both down. If they offer voicemail, take it. Don't burn this bridge — you'll call back.",
+        "branches": [
+          {
+            "label": "Gives you a time to call back",
+            "to": "end_callback"
+          },
+          {
+            "label": "Offers voicemail",
+            "to": "voicemail"
+          }
+        ]
+      },
+      "voicemail": {
+        "label": "VOICEMAIL",
+        "say": "Hey Kari — it's Sam Parks. I work with a few vacation rental managers out in the islands on their inspection process, and I had something specific I wanted to run by you about how you're handling turnovers at Sullivan Properties. I'll try you again — or feel free to reach me at [your number]. Thanks!",
+        "note": "Under 20 seconds. Sound like a peer, not a pitch. Don't say RapidEye — create curiosity. Speak slowly and repeat your number. Purpose is to warm up the next call, not to get a callback.",
+        "branches": []
+      },
+      "opener": {
+        "label": "OPENER",
+        "say": "Hey Kari — I work with a few other vacation rental managers doing turnovers out in Hawaii. I actually spend a decent amount of time on the islands — I'm a big surfer. It's Sam Parks with RapidEye. Have you heard my name tossed around?",
+        "note": "Casual. Feet on the desk. The surfing mention is natural for Maui — don't force it, just drop it. Pause after 'tossed around' and let her answer. Don't rush.",
+        "branches": [
+          {
+            "label": "'Yeah actually' / sounds familiar",
+            "to": "heard_yes"
+          },
+          {
+            "label": "'No, I haven't' / 'No, what's this about?'",
+            "to": "heard_no"
+          },
+          {
+            "label": "'I'm really busy right now'",
+            "to": "bad_timing"
+          },
+          {
+            "label": "Skeptical tone / 'Is this a sales call?'",
+            "to": "permission_fallback"
+          }
+        ]
+      },
+      "heard_yes": {
+        "label": "SHE'S HEARD OF YOU",
+        "say": "Oh nice — well normally we'd be working with someone like you on this. What'd you hear?",
+        "note": "Let her talk. She may have seen an email, heard from someone in the industry, or be confusing you with someone else. Either way she's engaged — follow her lead and listen before pitching anything.",
+        "branches": [
+          {
+            "label": "Shares what she heard / positive",
+            "to": "discovery_questions"
+          },
+          {
+            "label": "Vague or noncommittal",
+            "to": "pain_trigger"
+          }
+        ]
+      },
+      "heard_no": {
+        "label": "HASN'T HEARD OF YOU",
+        "say": "Ha — I guess I'm not as popular as I thought. Well the reason for my call is —",
+        "note": "Smile through this line. It disarms. Then flow right into the pain trigger. If she cuts in with 'I'm busy,' pivot to bad timing.",
+        "branches": [
+          {
+            "label": "She's listening / lets you continue",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "'I'm in the middle of something'",
+            "to": "bad_timing"
+          }
+        ]
+      },
+      "bad_timing": {
+        "label": "BAD TIMING",
+        "say": "Totally hear you — I caught you in the middle of something. Would it be a terrible idea if I tried you again tomorrow, maybe same time?",
+        "note": "Don't push. She's the ops and accounting manager at a 75-unit operation on Maui — she's legitimately busy. Get a specific day and time.",
+        "branches": [
+          {
+            "label": "Agrees to a callback time",
+            "to": "end_callback"
+          },
+          {
+            "label": "'Just tell me quick what this is about'",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "'No, don't call back'",
+            "to": "permission_rejected"
+          }
+        ]
+      },
+      "permission_fallback": {
+        "label": "PERMISSION — ASK FOR 30 SECONDS",
+        "say": "Yeah totally — I mean it is a cold call, I'll be straight with you. Can I get 30 seconds to tell you why I reached out? And if it's not relevant to what you guys are dealing with, you can totally hang up on me.",
+        "note": "Disarming honesty. Acknowledge the cold call. The 'hang up on me' line gives her control, which paradoxically makes her more likely to stay.",
+        "branches": [
+          {
+            "label": "'Okay, go ahead'",
+            "to": "pain_trigger"
+          },
+          {
+            "label": "'I'm really not interested'",
+            "to": "permission_rejected"
+          }
+        ]
+      },
+      "permission_rejected": {
+        "label": "PERMISSION REJECTED",
+        "say": "Shoot, totally my bad. Just so nobody from my team bugs you again — is it that I just caught you at a horrible time, or is it more that you already know what we do and it's just not interesting?",
+        "note": "Split the rejection. Most of the time it's timing, not substance. If it's timing, you get a callback. If it's substance, you learn why and might still pivot.",
+        "branches": [
+          {
+            "label": "'It's just bad timing'",
+            "to": "end_callback"
+          },
+          {
+            "label": "'We're just not interested'",
+            "to": "end_graceful"
+          },
+          {
+            "label": "'What do you actually do?'",
+            "to": "pain_trigger"
+          }
+        ]
+      },
+      "pain_trigger": {
+        "label": "PAIN TRIGGER",
+        "say": "So I was talking to another ops manager at a company really similar to yours — maybe 80 vacation rentals, resort market, they had someone physically going out to every single unit before check-in. Which is amazing. But the problem was she'd come back with 40, 50 photos per property, and nobody had bandwidth to actually go through all of them. Stuff was slipping — a gouge in a countertop, a cracked lanai railing, a missing set of towels — and they wouldn't find out until a guest left a three-star review or an owner called asking questions. And for the person running the books, it's a nightmare, right? Trying to figure out which reservation caused the damage, whether you're still in the deposit claim window, dealing with the owner who's upset. That whole cycle was just eating hours every single week.",
+        "note": "Go slow. 'Person running the books' is aimed directly at Kari's accounting role. 'Cracked lanai railing' is a Hawaii-specific detail. The 'dedicated inspector' scenario mirrors their QA inspector Evette Green. PAUSE at the end — let Kari react before saying anything else.",
+        "branches": [
+          {
+            "label": "Resonates — agrees, shares frustration, sighs",
+            "to": "solution_bridge"
+          },
+          {
+            "label": "Listening but quiet / neutral",
+            "to": "solution_bridge"
+          },
+          {
+            "label": "'We actually have a pretty good handle on that'",
+            "to": "objection_have_process"
+          },
+          {
+            "label": "'We're not really looking at anything new right now'",
+            "to": "objection_not_interested"
+          },
+          {
+            "label": "Mentions Bill 9 / regulatory pressure / market uncertainty",
+            "to": "bill_9_hook"
+          }
+        ]
+      },
+      "solution_bridge": {
+        "label": "ONE-SENTENCE SOLUTION + CTA",
+        "say": "So we built something that plugs right into the photos your team's already taking — actually connects into Escapia — and automatically flags anything that's off. Damage, missing items, staging problems. Your team doesn't change a single thing about what they're doing. Would you be open to taking a look at it sometime when I'm not cold calling you out of the blue?",
+        "note": "Mentioning Escapia by name shows homework and credibility. One sentence on the product, then immediately to CTA. Don't oversell. Pause and let her respond.",
+        "branches": [
+          {
+            "label": "'Yeah, I'd be open to that'",
+            "to": "booking_meeting"
+          },
+          {
+            "label": "'How does that actually work?'",
+            "to": "discovery_questions"
+          },
+          {
+            "label": "'I'd have to run that by Patrick' / needs approval",
+            "to": "referral_up"
+          },
+          {
+            "label": "'Send me something'",
+            "to": "send_email"
+          },
+          {
+            "label": "'We're not really in a position to add anything right now'",
+            "to": "objection_no_budget"
+          }
+        ]
+      },
+      "discovery_questions": {
+        "label": "DISCOVERY — ASK QUESTIONS",
+        "say": "Totally — so just so I'm not wasting your time, what does your turnover inspection process actually look like right now? Like is Evette going out to every single unit, or are your cleaners sending photos too?",
+        "note": "Stop pitching. Ask questions. Naming Evette Green (their QA Inspector) shows deep research and builds trust. Listen for: how many photos per turn, who reviews them, what falls through, how damage is documented for deposit claims.",
+        "branches": [
+          {
+            "label": "Shares their process in detail",
+            "to": "discovery_deeper"
+          },
+          {
+            "label": "'How do you know about Evette?' / surprised",
+            "to": "discovery_research_acknowledge"
+          },
+          {
+            "label": "Gives short answer / guarded",
+            "to": "discovery_probe"
+          }
+        ]
+      },
+      "discovery_deeper": {
+        "label": "DISCOVERY — GO DEEPER",
+        "say": "That makes sense. And when something does get missed — like damage that shows up after a guest checks out — what does that look like on your end? Are you usually able to trace it back to a specific reservation and actually recover from the deposit?",
+        "note": "This question targets Kari's accounting pain directly. Deposit recovery and damage attribution are her world. Listen for: how often they eat costs, how long the process takes, whether owners push back, whether they've given up on certain claim types.",
+        "branches": [
+          {
+            "label": "Opens up about pain / shares frustrations",
+            "to": "solution_tailored"
+          },
+          {
+            "label": "Says they handle it well",
+            "to": "solution_tailored"
+          },
+          {
+            "label": "'What are other companies doing?'",
+            "to": "social_proof_share"
+          }
+        ]
+      },
+      "discovery_research_acknowledge": {
+        "label": "ACKNOWLEDGE RESEARCH",
+        "say": "Ha — yeah, I spent some time on your site before calling. You guys are actually one of the only companies I've seen that has a dedicated QA inspector going to every single property. That's impressive — most companies I talk to just have cleaners doing everything, and that's where stuff falls through the cracks. How long has Evette been handling that?",
+        "note": "Genuinely compliment their process — it is rare and it shows operational pride. This builds trust with Kari. Transition back to discovery by asking about the workflow.",
+        "branches": [
+          {
+            "label": "Shares more about their QA process",
+            "to": "discovery_deeper"
+          },
+          {
+            "label": "Stays guarded / brief answer",
+            "to": "discovery_probe"
+          }
+        ]
+      },
+      "discovery_probe": {
+        "label": "DISCOVERY — PROBE",
+        "say": "Totally get it. Let me ask it this way — if there was one thing about the turnover or inspection process that eats more of your time than it should, what would it be?",
+        "note": "Open-ended question to get her talking. As accounting and ops manager, she might say: photo review, damage documentation, owner reporting, vendor coordination, or deposit claims. Whatever she says, that's your hook for the solution.",
+        "branches": [
+          {
+            "label": "Names a specific pain point",
+            "to": "solution_tailored"
+          },
+          {
+            "label": "'Honestly things run pretty smooth'",
+            "to": "offer_of_value"
+          },
+          {
+            "label": "'I really don't have time for this right now'",
+            "to": "bad_timing"
+          }
+        ]
+      },
+      "solution_tailored": {
+        "label": "TAILORED SOLUTION + CTA",
+        "say": "Yeah — that's exactly what we keep hearing. So what we do is basically sit on top of those turnover photos and automatically catch the stuff that's easy to miss when you're reviewing them manually. It's not replacing Evette or your process — it's more like giving her a second set of eyes that never gets tired. And it plugs right into Escapia, so there's nothing new to learn. Would it make sense to show you how it actually works? I could do 15 minutes sometime this week or next.",
+        "note": "Tie to whatever she just shared. The 'not replacing Evette' line is important — she may be protective of her team and processes. Go straight to CTA with a specific low time commitment.",
+        "branches": [
+          {
+            "label": "'Yeah, let's take a look'",
+            "to": "booking_meeting"
+          },
+          {
+            "label": "'I'd need to loop in Patrick'",
+            "to": "referral_up"
+          },
+          {
+            "label": "'Send me something first'",
+            "to": "send_email"
+          },
+          {
+            "label": "'We're not adding tools right now'",
+            "to": "objection_no_budget"
+          }
+        ]
+      },
+      "social_proof_share": {
+        "label": "SHARE WHAT OTHERS ARE DOING",
+        "say": "Yeah for sure — so one company we work with manages about 200 luxury units in New York. Similar setup, dedicated inspection team, tons of photos coming in every day. They were catching maybe 85 percent of issues manually, which sounds great until you realize that last 15 percent was costing them tens of thousands in missed damage claims and owner complaints. Once they ran those same photos through our system, they started catching stuff they literally didn't know they were missing. And the biggest thing for their ops person was the time — she cut her photo review by about 70 percent.",
+        "note": "Real traction reference. Don't name the company unless she asks. The 85-to-100 percent framing lands well with ops people. Transition back to their situation.",
+        "branches": [
+          {
+            "label": "Interested / asks more",
+            "to": "solution_tailored"
+          },
+          {
+            "label": "'That's interesting but we're a lot smaller'",
+            "to": "solution_tailored"
+          },
+          {
+            "label": "'We're fine with our current setup'",
+            "to": "objection_have_process"
+          }
+        ]
+      },
+      "bill_9_hook": {
+        "label": "BILL 9 — REGULATORY HOOK",
+        "say": "Yeah, Bill 9 is huge. And honestly that's part of why I called — with the phase-out timeline hitting West Maui by 2029, the operators who are going to come out on top are the ones who can prove to owners that their property is being protected every single turnover. Having timestamped, automated inspection records isn't just about catching damage — it's about showing the owner you caught it. That kind of documentation matters a lot when an owner is deciding whether to keep their unit in your program or pull it.",
+        "note": "Bill 9 is a major anxiety point for every Maui operator. If she brought it up, lean in hard. The angle: defensible records protect owner relationships, which protects the business as regulatory pressure mounts.",
+        "branches": [
+          {
+            "label": "Engages with the compliance angle",
+            "to": "solution_tailored"
+          },
+          {
+            "label": "'We're not sure how Bill 9 affects us yet'",
+            "to": "solution_tailored"
+          },
+          {
+            "label": "'That's above my pay grade' / defers to Patrick",
+            "to": "referral_up"
+          }
+        ]
+      },
+      "objection_have_process": {
+        "label": "OBJECTION — WE HAVE A PROCESS",
+        "say": "That makes total sense — with 75-plus properties and a dedicated QA inspector, you'd have to have a solid process in place. Otherwise things would fall apart. I wouldn't expect anything less from you guys.",
+        "note": "Agree first. Genuinely compliment the process. Don't argue that their process has gaps — let her reveal it herself in the next step.",
+        "branches": [
+          {
+            "label": "She relaxes / acknowledges the compliment",
+            "to": "objection_split_process"
+          }
+        ]
+      },
+      "objection_split_process": {
+        "label": "SPLIT — PROCESS OBJECTION",
+        "say": "Just so I'm not bugging you again — is it that you're completely covered and nothing's slipping through the cracks, or is it more that adding anything new right now would just be a headache on top of everything else?",
+        "note": "This split almost always gets an honest answer. 'Nothing falls through the cracks' is really hard to say out loud with a straight face. Most people admit gaps exist. If it's a 'headache to add' — that's an implementation objection you can solve.",
+        "branches": [
+          {
+            "label": "'I mean, things do slip through sometimes'",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "'It's more the headache of adding something new'",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "'No, we're genuinely covered'",
+            "to": "offer_of_value"
+          }
+        ]
+      },
+      "objection_not_interested": {
+        "label": "OBJECTION — NOT INTERESTED",
+        "say": "I totally get it. I should've assumed you'd be all set — otherwise you probably would've reached out to us. Just so nobody from my team cold calls you again — is it that this just isn't a problem you're focused on right now, or is it more that you just hate cold calls? Because I'd understand both.",
+        "note": "The humor disarms. The split separates 'wrong timing' from 'wrong product.' Most people will admit it's the cold call, not the concept.",
+        "branches": [
+          {
+            "label": "'It's more the cold call' / laughs",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "'We're just focused on other things right now'",
+            "to": "offer_of_value"
+          },
+          {
+            "label": "'Both honestly' / still firm",
+            "to": "offer_of_value"
+          }
+        ]
+      },
+      "objection_no_budget": {
+        "label": "OBJECTION — NO BUDGET",
+        "say": "Totally get it. Nowadays it's harder to keep a tool, let alone buy something new — especially with everything happening in the Maui market right now.",
+        "note": "Acknowledge the financial reality. Maui operators are under real pressure with Bill 9 uncertainty, rising costs, and a shifting regulatory landscape. Don't dismiss the concern. Validate it, then split.",
+        "branches": [
+          {
+            "label": "She agrees / softens",
+            "to": "objection_split_budget"
+          }
+        ]
+      },
+      "objection_split_budget": {
+        "label": "SPLIT — BUDGET OBJECTION",
+        "say": "Just so I know — is it that budget for this kind of thing is completely off the table for the foreseeable future, or is it more that anything you try to bring in would have to go through Patrick and that's a whole process?",
+        "note": "Naming Patrick Sullivan (the owner) shows you know their org structure. If it's an approval issue, you can help her build the case or go directly to Patrick. If it's truly zero budget, pivot to the test drive or value offer.",
+        "branches": [
+          {
+            "label": "'It would have to go through Patrick'",
+            "to": "referral_up"
+          },
+          {
+            "label": "'Budget is just tight right now'",
+            "to": "sell_test_drive"
+          },
+          {
+            "label": "'We're just not spending on anything new'",
+            "to": "offer_of_value"
+          }
+        ]
+      },
+      "sell_test_drive": {
+        "label": "SELL THE TEST DRIVE",
+        "say": "Totally respect that. And look — you're probably not buying anything right now, I get it. But here's what I've found: when budget does free up, or when something breaks and you need a fix fast, the people who move quickest are the ones who already know what's on their list. Would you be open to just taking a look — not buying anything, just seeing what it does — so if the time does come, you're not starting from zero?",
+        "note": "Reframe the meeting as research, not a purchase decision. Low pressure. If she still resists, pivot to the value offer or a graceful exit.",
+        "branches": [
+          {
+            "label": "'Yeah, I guess that makes sense'",
+            "to": "booking_meeting"
+          },
+          {
+            "label": "'Send me something first'",
+            "to": "send_email"
+          },
+          {
+            "label": "'Not right now'",
+            "to": "offer_of_value"
+          }
+        ]
+      },
+      "offer_of_value": {
+        "label": "OFFER OF VALUE",
+        "say": "Totally fair. If nothing else — I could send you a quick breakdown of what other property managers in Hawaii are doing with their turnover photos right now. No pitch, just what I'm seeing across the market. Worst case you steal some ideas and we part as friends. Worth sending over?",
+        "note": "This is the last-resort value offer. Market intel is genuinely useful — mention what you're seeing from operators like MPP Vacations, Maui Resort Rentals, etc. If she says yes, get her email. If no, exit gracefully.",
+        "branches": [
+          {
+            "label": "'Sure, send it over'",
+            "to": "send_email"
+          },
+          {
+            "label": "'No thanks'",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "referral_up": {
+        "label": "REFERRAL UP — PATRICK OR LEADERSHIP",
+        "say": "Totally makes sense. Would it help if I put something together specifically for Patrick so you're not having to pitch it yourself? I could do a quick one-pager showing what we do and how it'd plug into your Escapia setup. Then if he's interested, we could all jump on a quick call together. Would that be useful?",
+        "note": "Make it easy for Kari to forward up. She doesn't want to be the one pitching to her boss. Offer to do the work. If she gives you Patrick's direct contact — even better. Patrick's known email is pat@sullivanproperties.com, phone (808) 870-6428.",
+        "branches": [
+          {
+            "label": "'Yeah, send me something I can forward him'",
+            "to": "send_email"
+          },
+          {
+            "label": "'You should probably just reach out to Patrick directly'",
+            "to": "referral_bridge"
+          },
+          {
+            "label": "'Let me talk to him first and I'll get back to you'",
+            "to": "end_callback"
+          }
+        ]
+      },
+      "referral_ask": {
+        "label": "REFERRAL — WRONG PERSON",
+        "say": "No worries at all — who on your team would typically own something like the inspection or turnover process? Like if someone was looking at a tool to help with that, who would that decision go through?",
+        "note": "Don't make her feel bad for not being the right contact. She might point you to Patrick (owner), Kelly Sullivan Johnson (marketing and owner relations), Evette Green (QA), or Roland Nacino (maintenance). Any name is valuable.",
+        "branches": [
+          {
+            "label": "Names Patrick Sullivan",
+            "to": "referral_bridge"
+          },
+          {
+            "label": "Names Kelly Sullivan Johnson",
+            "to": "referral_bridge"
+          },
+          {
+            "label": "Names someone else",
+            "to": "referral_bridge"
+          },
+          {
+            "label": "'I'm not sure' / won't refer",
+            "to": "end_graceful"
+          }
+        ]
+      },
+      "referral_bridge": {
+        "label": "REFERRAL — GET CONTACT INFO",
+        "say": "Perfect — and do you happen to have a direct line or email for them? If I can reach out with something tailored it'll actually land instead of getting buried. I really appreciate you pointing me the right direction, Kari.",
+        "note": "Get name, title, email, and phone if possible. You already know Patrick's email is pat@sullivanproperties.com and Kelly's is kelly@mauiresorts.com, but if Kari gives you a different or better path, use hers. Thank her warmly — she just did you a huge favor.",
+        "branches": [
+          {
+            "label": "Gives you contact info",
+            "to": "end_referral_success"
+          },
+          {
+            "label": "'Just call the main office and ask for them'",
+            "to": "end_referral_success"
+          }
+        ]
+      },
+      "booking_meeting": {
+        "label": "BOOK THE MEETING",
+        "say": "Awesome. I've got next week pulled up — would Tuesday or Wednesday work better for you? I can do mornings or afternoons, and it'll be 15 minutes max. I know you guys are on Hawaii time so I'll work around whatever's best for you.",
+        "note": "Offer two days, let her pick. Hawaii Standard Time is UTC-10, 5-6 hours behind Eastern. Midday for her is late afternoon for you. Lock it in NOW. If she wants Patrick or others on the call, confirm who and get their emails for the invite.",
+        "branches": [
+          {
+            "label": "Picks a day and time",
+            "to": "meeting_booked"
+          },
+          {
+            "label": "'Let me check my calendar and get back to you'",
+            "to": "send_email"
+          }
+        ]
+      },
+      "meeting_booked": {
+        "label": "MEETING CONFIRMED",
+        "say": "Perfect. I'll send over a calendar invite right now so it's locked in. And I'll include a quick overview so you know what we'll cover — no homework required, I promise. Really appreciate you taking my call, Kari. Talk to you then.",
+        "note": "Send the invite WHILE on the phone. Confirm her email — try kari@mauiresorts.com based on their firstname@domain pattern. If she gives you a different one, use that. Stop selling. Get off the phone on a high note.",
+        "branches": []
+      },
+      "send_email": {
+        "label": "SEND ME AN EMAIL",
+        "say": "Totally fair. One quick question before I do — what would actually be useful to include so it's not just another generic sales email sitting in your inbox? Like is it more about how it works with Escapia, or more about what the numbers look like from a cost standpoint?",
+        "note": "Tailor the follow-up to what she cares about. Get her direct email — try kari@mauiresorts.com. If she won't give a personal email, info@mauiresorts.com works but flag that it might get lost. Always include a specific follow-up time suggestion in the email.",
+        "branches": [
+          {
+            "label": "Tells you what she wants to see",
+            "to": "send_email_confirm"
+          },
+          {
+            "label": "'Just send whatever you've got'",
+            "to": "send_email_confirm"
+          }
+        ]
+      },
+      "send_email_confirm": {
+        "label": "CONFIRM EMAIL + CLOSE",
+        "say": "Got it — I'll put that together today. What's the best email to send it to? ... Perfect. And I'll include a couple times for a quick follow-up call so you don't have to think about scheduling. Really appreciate your time, Kari.",
+        "note": "Get the email address confirmed. Send the email within 2 hours while the conversation is fresh. Subject line should reference something specific from the call — not 'RapidEye Demo Request.' Include a Calendly link or two specific time options.",
+        "branches": []
+      },
+      "end_referral_success": {
+        "label": "REFERRAL OBTAINED — CLOSE",
+        "say": "This is super helpful, Kari. I'll reach out to them and mention you pointed me their way — unless you'd rather I didn't? ... Either way, really appreciate you taking the time. And if anything ever comes up on the ops or accounting side where this might be useful, I'm easy to find. Have a great rest of your day.",
+        "note": "Always ask if it's okay to name-drop her when reaching out. Some people prefer not to be cited. Follow up with the referral within 24 hours while it's warm. Log everything Kari told you about the org.",
+        "branches": []
+      },
+      "end_callback": {
+        "label": "SCHEDULE CALLBACK",
+        "say": "Totally fair. When's usually a less crazy time for you — mornings or afternoons? ... Perfect, I'll try you [specific day and time]. Appreciate it, Kari.",
+        "note": "Get a specific day and time. Mornings in Hawaii are often better for ops managers before turnover chaos starts. Put it in your calendar immediately. Call exactly when you said you would — reliability builds trust.",
+        "branches": []
+      },
+      "end_graceful": {
+        "label": "GRACEFUL EXIT",
+        "say": "Totally understand. If anything ever changes, I'm easy to find — just Google RapidEye. Appreciate your time, Kari. Enjoy the rest of your day.",
+        "note": "Don't burn the bridge. She may come around in 3-6 months. Log the call with notes on what she said and why she passed. Set a reminder to try again in 60-90 days with a different angle — maybe reference Bill 9 developments, new Hawaii-based traction, or a relevant industry event.",
+        "branches": []
+      }
+    }
+  }
+}
